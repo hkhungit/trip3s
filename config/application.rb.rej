@@ -1,0 +1,9 @@
+diff a/config/application.rb b/config/application.rb	(rejected hunks)
+@@ -21,3 +21,7 @@
+     # config.i18n.default_locale = :de
+   end
+ end
++<<<<<<< HEAD
++=======
++ 
++>>>>>>> c93d1ec49346c25aee0413fc018dd943092d3aa9

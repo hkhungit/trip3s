@@ -18,9 +18,8 @@ div.javo_mhome_wrap div.javo_mhome_sidebar{
 	width:300px;
 }
 div.javo_mhome_wrap div.javo_mhome_sidebar div.body-detail-add-plan{
-	overflow-y:auto;
-	overflow-x: hidden;
-	max-height: 100%;
+	overflow-y: scroll;
+	max-height: 100%; 
 }
 div.javo_mhome_sidebar{
 	border-right:solid 1px #aaa;

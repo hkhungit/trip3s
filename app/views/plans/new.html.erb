@@ -33,6 +33,9 @@
 	html body header#header-one-line #javo-doc-top-level-menu a{ color:#fff; }
 	html body.single header#header-one-line.main{ position:absolute; }
 	html body.single header#header-one-line.main{ left:0; right:0; }
+	div.javo_mhome_wrap div.all_day div.body-detail-add-plan{
+		overflow-x: scroll;
+	}
 	.dropdown-menu>li>a{
 		cursor: pointer;
 	}
@@ -50,10 +53,14 @@
 	    right: auto;
 	    z-index: 10;
 	}
+	.full-detail{    float: left;width: 129%;}
+	.schedule-day-boby-detail{float: left;max-width: 300px; width: 297px;border: 2px rgba(68, 68, 68, 0.25) solid; margin-bottom: 30px}
 	.schedule-day-header-bar{    border-bottom: 2px rgba(68, 68, 68, 0.25) solid;
-    border-top: 2px rgba(68, 68, 68, 0.25) solid;padding: 5px 0px;    margin-top: 10px;}
-	.header-detail-add-plan{border: 0px;position: fixed;border-top-left-radius: 0px;border-top-right-radius: 0px;z-index: 10;width: 100%;max-width: 298px;padding-bottom: 0px}
-	.body-detail-add-plan{margin-top: 80px}
+    border-top: 2px rgba(68, 68, 68, 0.25) solid;padding: 5px 0px;    margin-top: -1px; float: left;width: 100%}
+
+	.schedule-day-header-bar .title-information{width: 100%;float: left;border-bottom: 2px rgba(68, 68, 68, 0.25) solid; text-align: center;}
+	.header-detail-add-plan{border: 0px;position: fixed;border-top-left-radius: 0px;border-top-right-radius: 0px;z-index: 10;width: 100%;max-width: 298px;padding-bottom: 0px;height: 50px}
+	.body-detail-add-plan{margin-top: 60px}
 	.attribute-schedule div{float:left;}
 	.day-in-plan{float: left;width: 100%; background-color: #fff;border: 1px solid #ddd;padding: 4px;cursor: pointer;}
 	.day-in-plan .thumbnail .number{position: absolute;left: -5px;top: -5px;width: 35px;height: 35px;background-color: #a88e4b;border-radius: 30px;padding: 6px 10px;font-weight: bold;color: #fff;border: 2px rgba(189, 180, 180, 0.85) solid;}
@@ -68,12 +75,11 @@
 	ul.schedule-day-boby{
 		padding: 0px 0px 0px 0px;
 		max-width: 300px;
-		margin-left:-15px;
 		float: left;
 		overflow-y: scroll;
 		list-style: none;
 		min-height: 1px;
-	    width: 300px;
+	    width: 100%;
 	    background: rgba(142, 142, 142, 0.35);
 	}
 	.notselect{
@@ -84,7 +90,8 @@
 		width: 100% !important;
 		overflow: scroll;
 	}
-	.all_day #body-detail-add-plan ul{display: block; margin: 0px 10px}
+	.all_day .schedule-day-boby-detail ul{display: block; margin: 0px 0px}
+	.all_day .schedule-day-boby-detail{margin-right: 20px; display: block;}
 	.place-router{background: #232; color: #fff}
 	.icon-item-place-number{
 	    z-index: 9;
@@ -436,7 +443,7 @@
 
 
 
-<script type="text/javascript" src="/assets/js/add_plan.js">
+<script type="text/javascript" src="/assets/js/add_plans.js">
 	
 </script>
 	<div class="footer-bottom hidden-xs hidden-sm">

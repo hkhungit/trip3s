@@ -1,4 +1,4 @@
-<!--# Templates -->
+ <!--# Templates -->
 	<script type="text/template" id="trip3s-item-day">
 		<li>
 			<a href="#" class="{{item_day_number}}" day="{{item_day}}"> Ngày {{item_day}}</a>
@@ -68,11 +68,6 @@
 					<button class="btn btn-xs btn-info create-trip"><i class="fa fa-pie-chart"></i> Sắp lịch</button>
 				</div>
 			</div>
-			<div class="row schedule-day-header-bar">
-				<div class="attribute-schedule col-md-12" id="attribute-schedule">
-					<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="50">
-				</div>
-			</div>
 		</div>
 		<div class=" well-default panel-body body-detail-add-plan" id="body-detail-add-plan">
 			<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="150">
@@ -111,11 +106,11 @@
 	</script>
 	<script type="text/template" id="trip3s-attribute-schedule-2">
 		<div><i class="fa  fa-map-marker icon"></i>
-			<b data-place="{{data-place}}" id="place-of-{{data-place}}" class="place-number">{{data-place}}</b> Địa điểm
+			<b data-place="{{data-place}}" id="place-of-{{data-place}}" class="place-number">{{data-place}}</b> Địa điểm  |
 		</div>
 		<div>
 			<i class="fa fa-clock-o icon"></i>
-			<b data-time="{{data-time}}" id="time-of-{{data-time}}" class="time-number">{{data-time}}</b> Ngày
+			<b data-time="{{data-time}}" id="time-of-{{data-time}}" class="time-number">{{data-time}}</b> Ngày  |
 		</div>
 		<div>
 			<i class="fa fa-user icon"></i>
@@ -123,7 +118,8 @@
 		</div>
 	</script>
 	<script type="text/template" id="trip3s-attribute-schedule-1">
-		<div><i class="fa  fa-map-marker icon"></i>
+		<div class="title-information" ><b>Thông tin ngày thứ {{data-index}}</b></div>
+		<div><i class="fa  fa-map-marker icon"></i
 			<b data-place="{{data-place}}" id="place-of-{{data-place}}" class="place-number">{{data-place}}</b>  | 
 		</div>
 		<div>
@@ -197,7 +193,6 @@
 				<span><i class="icon fa fa-arrows-h icon"></i><i class="value next_distance" next_distance data-value="{{next_distance}}">{{next_distance}}</i> Km</span>
 				<span><i class="icon fa fa-clock-o icon"></i><i class="value next_time" next_time data-value="{{next_time}}">{{next_time}}</i> Giờ</span>
 				<span><i class="icon"></i><i class="value">Chi tiết</i></span>
-				</div>
 			</div>
 		</li>
 	</script>

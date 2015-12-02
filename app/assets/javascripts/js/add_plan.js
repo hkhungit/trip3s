@@ -16,7 +16,7 @@ var tripPlan = {
 		};
 jQuery( function( $ ){
 		"use strict";
-
+ 
 		var items;
 		
 		//Restone tripPlan from session
@@ -121,6 +121,7 @@ jQuery( function( $ ){
 			$.post('/api/add_day',{add_day:true},function(data){
 				if (data.dayNumber != 0) {
 					tripPlan.dayNumber = data.dayNumber;
+					console.log(tripPlan);
 					console.log("Added a day to plan");
 				};
 				
@@ -128,25 +129,46 @@ jQuery( function( $ ){
 			update_list_day();
 		});
 		$(document).on('click','#all-to-plan',function(){
+			var obj = window.javo_map_box_func;
 			if ($('.javo_mhome_sidebar').hasClass('all_day')) {
 				$(this).text("Tất cả");
-			}else $(this).text("Thu lại");
+			}else{
+				$(this).text("Thu lại");
+				var _width = $('.schedule-day-boby-detail:first-child').outerWidth() + 5;
+				_width = _width*tripPlan.schedules.length;
+				$('.full-detail ').css('width',_width);
+				obj.resize();
+			} 
 
 			$('.javo_mhome_sidebar').toggleClass('all_day');
 			
-			 $(".schedule-day-boby").sortable({
-			 	connectWith: ".schedule-day-boby",
+			 $("ul.schedule-day-boby").sortable({
+			 	connectWith: "ul.schedule-day-boby",
+			 	start: function(event, ui){
+			 		if (ui.item == 0) {
+			 			alert("Bạn không thể di chuyển nơi xuất phát");
+			 		};
+			 	},
 			 	update: function(event, ui) {
-		        	$('ul.schedule-day-boby').each(function(e){
-		        		var index = parseInt($(this).data('index'));
-		        		$('ul#schedule-day-boby-'+index+' li').each(function(e){
-		        			if (typeof tripPlan.schedules[index] !== 'undefined') {
-				        		var place = $(this).data('place');
-				        		$(this).find('.number').text(e + 1);
-								tripPlan.schedules[index].placeLists[e] = place;
-							};
-			        	});
-		        	});
+			 		for (var i = 0; i < tripPlan.dayNumber; i++) {
+			 			if (typeof tripPlan.schedules[i] != 'undefined') {
+			 				tripPlan.schedules[i] = {
+			 					placeLists: [],
+			 					placeIds: [],
+								distance: 0,
+								moneyNumber: 0,
+								duration: 0
+			 				};
+					 		$('ul#schedule-day-boby-'+(i+1)+' li').each(function(e){
+					 			var place = $(this).data('place');
+					        	$(this).find('.number').text(e + 1);
+								tripPlan.schedules[i].placeLists.push(place);	
+				        	});
+			        	};
+				 	};
+				 	$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
+						console.log(data);
+					});
 		        }
 			 });
 			update_list_day();
@@ -173,7 +195,8 @@ jQuery( function( $ ){
 			var _Places = _SaveArray(tripPlan.placeLists);
 			_Places.unshift(tripPlan.placeBegin);
 			_Places  = removeDuplicate(_Places);
-			var _rs =  antCycle(_Places,tripPlan.placeEnd), _tempPlaceLists =[], tmpCluster =[], fullTime =36000, minTime = 18000, _success = false;
+			var _rs =  antCycle(_Places,tripPlan.placeEnd,true), _tempPlaceLists =[],
+			 tmpCluster =[], fullTime =36000, minTime = 0, _success = false;
 			var Clusters = [], count = 0, currCluster = {
 				distance: 0,duration:0,placeLists: []
 			},visited = [];
@@ -184,42 +207,40 @@ jQuery( function( $ ){
 				count = 0;tmpCluster =[];
 				tmpCluster.push(_rs.placeLists[0]);
 				for (var i = 1; i < _rs.placeLists.length; i++) {
-					if (!visited[i]) {
 						tmpCluster.push(_rs.placeLists[i]);
 
 						var _tmpRs = antCycle(tmpCluster);
-						if (_tmpRs.duration > fullTime) {
+						if (_tmpRs.duration >= fullTime) {
+
 							i--;count++;tmpCluster=[];
 							tmpCluster.push(_rs.placeLists[0]);
 							continue;
 						};
 						Clusters[count] = _tmpRs;
 						visited[i] =true;
-					};
 				};
 				_success =true;
 
 				if (Clusters.length < tripPlan.dayNumber) {
 					_success = false; fullTime -= 3600;
-					if (fullTime <= minTime) {
+					if (fullTime <= 0) {
 						_success = true;
-						Clusters = [];
+						fullTime =0;
+						//Clusters = [];
 					};
 				};
 
 			}
-
 			tripPlan.schedules = Clusters;
 			if (count > tripPlan.dayNumber-1) {
-					for (var i = parseInt(tripPlan.dayNumber) ; i <= count; i++) {
-						tripPlan.placeNotSchedule =
-							tripPlan.placeNotSchedule.concat(tripPlan.schedules[i].placeLists);
-					};
-					if (tripPlan.placeNotSchedule.indexOf(tripPlan.placeBegin) > -1) {
-						tripPlan.placeNotSchedule.splice(tripPlan.placeNotSchedule.indexOf(tripPlan.placeBegin),1);
-					};
-				}else{tripPlan.placeNotSchedule =[]};
-			console.log(tripPlan);
+				for (var i = parseInt(tripPlan.dayNumber) ; i <= count; i++) {
+					tripPlan.placeNotSchedule =
+						tripPlan.placeNotSchedule.concat(tripPlan.schedules[i].placeLists);
+				};
+				if (tripPlan.placeNotSchedule.indexOf(tripPlan.placeBegin) > -1) {
+					tripPlan.placeNotSchedule.splice(tripPlan.placeNotSchedule.indexOf(tripPlan.placeBegin),1);
+				};
+			}else{tripPlan.placeNotSchedule =[]};
 			$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
 				console.log(data);
 			});
@@ -249,7 +270,7 @@ jQuery( function( $ ){
  		function update_sidebar_plan(schedules){
 
  			update_sidebar_header_control({currDay:1, indexControl: 2,numDay:tripPlan.dayNumber});
- 			update_sidebar_header_bar();
+ 			//update_sidebar_header_bar();
  			update_sidebar_boby(schedules);
 
  		}
@@ -262,7 +283,6 @@ jQuery( function( $ ){
 
  			$('#schedule-day-header-control').html(strHtml);
  			update_list_day(tripPlan.dayNumber);
-
  			var currSchedule = tripPlan.schedules[data.currDay - 1];
  			update_bar_day({index:1, distance: ((currSchedule.distance).toFixed(2)),
 					placeNumber: currSchedule.placeLists.length,
@@ -270,32 +290,40 @@ jQuery( function( $ ){
 					moneyNumber: currSchedule.moneyNumber,
 					userNumber: tripPlan.userNumber});
  		}
- 		function update_sidebar_header_bar(){
- 			
+ 		function update_sidebar_header_bar(data,index){
+ 			var strAttr = $("#trip3s-attribute-schedule-1").html(),strNull='0';
+				strAttr 	= strAttr.replace(/{{data-index}}/g,    (index) || strNull);
+				strAttr 	= strAttr.replace(/{{data-distance}}/g, data.distance.toFixed(2) || strNull);
+				strAttr 	= strAttr.replace(/{{data-place}}/g,	data.placeLists.length || strNull);
+				strAttr 	= strAttr.replace(/{{data-time}}/g,		data.duration.toFixed(2) || strNull);
+				strAttr 	= strAttr.replace(/{{data-user}}/g,		data.userNumber || strNull);
+				strAttr 	= strAttr.replace(/{{data-money}}/g,	data.moneyNumber.toFixed(2) || strNull);
+			$('#attribute-schedule-'+index).html(strAttr);
  		}
  		function update_sidebar_boby(schedules,choice){
  			if (schedules.length < 1) {
- 				console.log("ff");
  				return false;
  			};
  			if (typeof choice == 'undefined' || !$.isNumeric(choice)) {
  				choice =0;
  			};
- 			console.log("length: " + schedules.length );
- 			var strFull='',nstr='';
+ 			var strFull="<div class=\"full-detail \">",nstr='',strNull='0',strCurr='';
 
 		 	$('#body-detail-add-plan').html('');
  			for(var ik=0; ik< schedules.length; ik++){
-	 			var places  = schedules[ik].placeLists,cls= "notselect";
+	 			var places  = schedules[ik].placeLists,cls= "notselect",data = schedules[ik];
 	 			if (choice == ik) {
-	 				cls= "_selected";
+	 				cls= "_selected"; 
 	 			};
-	 			strFull +="<ul class=\"schedule-day-boby "+cls+" \" data-index='"+(ik+1)+"' id=\"schedule-day-boby-"+(ik+1)+"\" >";
+	 			strFull +="<div class=\"row schedule-day-boby-detail "+cls+" \">";
+	 			strFull +="<div class=\"schedule-day-header-bar attribute-schedule\" id=\"attribute-schedule-"+(ik+1)+"\"  data-index=\""+(ik+1)+"\"></div> ";
+	 			strFull +="<ul class=\"schedule-day-boby scrollbar style-3 \" data-index=\""+(ik+1)+"\" id=\"schedule-day-boby-"+(ik+1)+"\" >";
 				for (var i = 0; i < places.length; i++) {
 			 		var str = '';
 			 		str = $("#trip3s-place-in-schedule").html();
 			 		str = str.replace( /{{post_thumbnail}}/g , places[i].post_thumbnail || nstr );
 							str = str.replace( /{{place_id}}/g , places[i].place_id || nstr );
+							str = str.replace( /{{current_place}}/g	 , JSON.stringify(places[i]) || nstr );
 							str = str.replace( /{{post_title}}/g	 , places[i].post_title || nstr );
 							str = str.replace( /{{post_excerpt}}/g	 , places[i].phone || nstr );
 							str = str.replace( /{{place_time}}/g ,  places[i].place_time  || nstr );
@@ -307,10 +335,18 @@ jQuery( function( $ ){
 							str = str.replace( /{{next_detail}}/g ,  places[i].next_detail  || nstr );
 			 		strFull +=str;
 			 	};
+			 	strFull +=strCurr;
 			 	strFull +="</ul>";
-			 	console.log("I: ");
+			 	strFull +="</div>";
+			 	
 		 	}
+		 	strFull +="</div>";
 		 	$('#body-detail-add-plan').html(strFull);
+
+
+		 	for(var ik=0; ik< schedules.length; ik++){
+		 		update_sidebar_header_bar(schedules[ik],(ik+1));
+		 	}
  		}
 
 		$(document).on('click','#list-day li',function(){
@@ -322,9 +358,7 @@ jQuery( function( $ ){
 
 			$('#dropdown-select-days').html('Ngày '+ schedule_day + ' <span class="caret"></span>');
 			$('#dropdown-select-days').attr("data-place_id",schedule_day);
-			update_sidebar_boby(tripPlan.schedules[parseInt(schedule_day) - 1]);
-
-
+			update_sidebar_boby(tripPlan.schedules,parseInt(schedule_day));
 		});
 
 		function update_bar_day(data){
@@ -778,12 +812,13 @@ jQuery( function( $ ){
 				winY += $('#wpadminbar').outerHeight(true);
 				header_sidebar = $('.panel-heading.header-detail-add-plan').outerHeight(true);
 				javo_mhome_sidebar = $('.javo_mhome_sidebar').outerHeight(true);
-				content_sidebar =parseFloat(javo_mhome_sidebar) -parseFloat(header_sidebar) -winY - 130;
+				content_sidebar =parseFloat(javo_mhome_sidebar) -parseFloat(header_sidebar) -winY - 200;
 				// Topbar is entered into Header Navigation.
 				// winY += $('div.javo-topbar').outerHeight(true);
 
 				//$('.body-detail-add-plan').css( 'height', content_sidebar);
 				$('.body-detail-add-plan').css( 'top', winY);
+				$('.body-detail-add-plan').css( 'height', (content_sidebar + 90));
 				$('ul.schedule-day-boby').css( 'height', content_sidebar);
 
 				$('.javo_mhome_map_output').css( 'marginTop', $('.main-map-search-wrap').outerHeight(true) );
@@ -1443,9 +1478,18 @@ jQuery( function( $ ){
 				var schedule_day = $('[javo-current-day]').val();
 				
 				var strFull='',nstr='',placeLength = 0;
+				placeLength = places.length;
+				var strAttr = $("#trip3s-attribute-schedule-2").html(),strCurr='';
+				strAttr 	= strAttr.replace(/{{data-place}}/g,	tripPlan.placeIds.length || '0');
+				strAttr 	= strAttr.replace(/{{data-time}}/g,		tripPlan.dayNumber || '0');
+				strAttr 	= strAttr.replace(/{{data-user}}/g,		tripPlan.userNumber || '0');
 
+	 			strFull +="<div class=\"row schedule-day-boby-detail \">";
+	 			strFull +="<div class=\"schedule-day-header-bar attribute-schedule\">"+strAttr+"</div> ";
+	 			strFull +='<ul class="schedule-day-boby scrollbar style-3">';
+				$('#body-detail-add-plan').html('');
 				if (typeof places != "undefined" && places.length > 0) {
-					placeLength = places.length;
+					
 					for (var i = 0; i < placeLength; i++) {
 						tripPlan
 						var str = '';
@@ -1465,9 +1509,10 @@ jQuery( function( $ ){
 						strFull +=str;
 					};
 				};
+				strFull +="</ul></div>";
 
 				var _index =1;
-				$('#schedule-day-boby').html(strFull);
+				$('#body-detail-add-plan').html(strFull);
 				if (typeof index !== 'undefined') {
 					_index = index;
 				};

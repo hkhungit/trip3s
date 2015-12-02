@@ -16,9 +16,9 @@ var antVector 	=[], //
 	antBestDuration,
 	antAlpha,antBetal,antDelta,antRho,placeLength,antCurrDistance;
 
-
+ 
 // Init varible
-function _intACO (_Places,endplace) {
+function _intACO (_Places,endplace,_parent) {
 	antVector 	=[], //
 	antPheromone=[],
 	antUpdatePhe=[],
@@ -28,7 +28,6 @@ function _intACO (_Places,endplace) {
 	antCurrLoop 	= 0;antNumber	 	= 25;
 	antConstant 	= 0.5;antRho 		 	= 0.8;antAlpha 	= 0.2;
 	antBestDuration = antBestDistance = 10000000;
-	console.log(_Places);
 	antBetal = 0.3; antDelta =1; placeLength = _Places.length;
 	antMaxLoop	 	= placeLength * placeLength + 25;
 	console.log("placeLength: " + placeLength);
@@ -43,6 +42,11 @@ function _intACO (_Places,endplace) {
 		};
 	};
 	antVector = getArrayDistances(_Places,antVector,endplace);
+	if (typeof _parent !== 'undefined' && _parent !==null) {
+		tripPlan.vectorDistances = antVector;
+		console.log("Vector");	
+		console.log(tripPlan.vectorDistances);	
+	};
 }
 function getArrayDistances(_places, arrDistances,endplace){
 			var obj = window.javo_map_box_func;	
@@ -109,8 +113,8 @@ function antPheromone_Update()
      }; 
 }
 
-function antCycle(_Places,endplace){
-	_intACO(_Places);
+function antCycle(_Places,endplace,_parent){
+	_intACO(_Places,endplace,_parent);
 	var antRs , antBestDuration1; antBestDuration =0,antBestMoney = 0;
 	while(antCurrLoop < antMaxLoop){
 		for (var m = 0; m < antNumber; m++) {
