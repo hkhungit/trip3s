@@ -21,3 +21,4 @@ module Trip3s
     # config.i18n.default_locale = :de
   end
 end
+ 
