@@ -1,0 +1,31 @@
+<h1>Listing query_expands</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Query</th>
+      <th>Expand name</th>
+      <th>Expand value</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @query_expands.each do |query_expand| %>
+      <tr>
+        <td><%= query_expand.query %></td>
+        <td><%= query_expand.expand_name %></td>
+        <td><%= query_expand.expand_value %></td>
+        <td><%= link_to 'Show', query_expand %></td>
+        <td><%= link_to 'Edit', edit_query_expand_path(query_expand) %></td>
+        <td><%= link_to 'Destroy', query_expand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Query expand', new_query_expand_path %>

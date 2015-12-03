@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  post_id: 
+  place_lat: MyString
+  place_lng: MyString
+  place_ticket: 
+  place_open: 2015-09-16 14:34:38
+  place_close: 2015-09-16 14:34:38
+  place_late: 2015-09-16 14:34:38
+  place_choice: MyString
+
+two:
+  post_id: 
+  place_lat: MyString
+  place_lng: MyString
+  place_ticket: 
+  place_open: 2015-09-16 14:34:38
+  place_close: 2015-09-16 14:34:38
+  place_late: 2015-09-16 14:34:38
+  place_choice: MyString

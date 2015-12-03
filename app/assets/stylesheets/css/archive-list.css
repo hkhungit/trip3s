@@ -1,0 +1,134 @@
+.javo-rotate{position:relative; margin-bottom:25px;}
+.javo-rotate>.javo-rotate-front{
+	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+	-ms-transform: rotateY(0deg);
+	-o-transform: rotateY(0deg);
+	transform: rotateY(0deg);
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transition: 800ms;
+	-moz-transition: 800ms;
+	-o-transition: 800ms;
+	-ms-transition: 800ms;
+	transition: 800ms;
+	z-index:9;
+	text-align:center;
+}
+.javo-rotate>.javo-rotate-front .javo-rotate-front-bottom{
+	border:1px solid #ccc;
+	border-top:none;
+	background:#eee;
+}
+.javo-rotate>.javo-rotate-front .javo-rotate-front-bottom h4{
+	margin:0px;
+	padding-top:20px;
+	padding-bottom:10px;
+}
+.javo-rotate>.javo-rotate-front .javo-rotate-front-bottom .javo_archive_list_rating{
+	padding-bottom:20px;
+}
+.javo-rotate:hover>.javo-rotate-front{
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}
+.javo-rotate .javo-rotate-back{
+	position:absolute;
+	top:0;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transition: 800ms;
+	-moz-transition: 800ms;
+	-o-transition: 800ms;
+	-ms-transition: 800ms;
+	transition: 800ms;
+	-webkit-transform: rotateY(-180deg);
+	-moz-transform: rotateY(-180deg);
+	-ms-transform: rotateY(-180deg);
+	-o-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);
+	padding:10px;
+	text-align: center;
+	height:100%;
+	color:#fff;
+	width:100%;
+}
+.javo-rotate .javo-rotate-back h5{margin-bottom:0px; margin-top:5px; color:#fff;}
+.javo-rotate .javo-rotate-back>.row>.col-md-12>a{color:#fff;}
+.javo-rotate .javo-rotate-back>.row>.col-md-12>a:hover{color:#eee;}
+.javo-rotate:hover .javo-rotate-back{
+	min-width:255px;
+	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+	-ms-transform: rotateY(0deg);
+	-o-transform: rotateY(0deg);
+	transform: rotateY(0deg);
+}
+.javo-rotate .javo-rotate-back .javo-rotate-back-image{
+	float:left;
+	margin-top:5px;
+	margin-right:10px;
+}
+.javo-rotate .javo-rotate-back .javo_archive_list_rating{line-height:15px; margin-top:5px; }
+.javo-rotate .javo-rotate-back .javo-rotate-inner-content>div.col-md-12{
+	float:none;
+	text-align:left;
+	line-height: 22px;
+	margin-bottom:15px;
+	min-height:100px;
+}
+.javo-rotate .javo-rotate-back .javo-rotate-event{float:left;}
+.javo-rotate .javo-rotate-back .javo-rotate-review{float:right;}
+.javo-rotate .javo-rotate-back .javo-rotate-review>ul{margin-right:0px;}
+.javo-rotate .javo-rotate-back .archive-line-cats{margin-bottom:5px;}
+.javo-rotate .javo-rotate-back .javo-sns-wrap .sns-facebook a{margin:0;}
+.javo-rotate .javo-rotate-back .javo-sns-wrap{ background:transparent; border-radius:5px; padding:3px;}
+
+
+
+/*list*/
+.javo-archive-list .javo-archive-list-event,
+.javo-archive-list .javo-archive-list-reviews{float:right;}
+.javo-archive-list .media-body>div.row>.col-md-12>a,
+.javo-archive-list .media-body>div.row .javo-archive-list-content-bottom a{padding-left:0px;}
+.javo-archive-list .media-body>div.row .javo-archive-list-content-bottom{position:relative; margin-top:0px; font-size:0.9em;}
+
+.javo-archive-list .archive-thumb>a{
+	display:block;
+	overflow:hidden;
+}
+.javo-archive-list .archive-thumb{
+	padding:4px;
+	border:1px solid #ddd;
+	border-radius:0px;
+}
+.javo-archive-list .archive-thumb>a>img{margin-bottom:0px; padding:0px; border:none; border-radius:0px;}
+.javo-archive-list .archive-thumb>a img{
+	-webkit-transition:all 0.5s;
+	-moz-transition:all 0.5s;
+	-ms-transition:all 0.5s;
+	-o-transition:all 0.5s;
+	transition:all 0.5s;
+}
+.javo-archive-list .archive-thumb>a:hover img{
+	-webkit-transition:all 0.5s;
+	-moz-transition:all 0.5s;
+	-ms-transition:all 0.5s;
+	-o-transition:all 0.5s;
+	transition:all 0.5s;
+	-webkit-transform:scale(1.2);
+	-moz-transform:scale(1.2);
+	-ms-transform:scale(1.2);
+	-o-transform:scale(1.2);
+	transform: scale(1.2);
+}
+/*list*/

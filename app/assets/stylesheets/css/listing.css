@@ -1,0 +1,68 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.navbar.affix {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 0;
+    margin-top: 0;
+    padding-top: 0px;
+    border-radius: 0;
+    animation: fadeIn 0.5s ease-in;
+    -webkit-animation: fadeIn 0.5s;
+}
+
+body.admin-bar .navbar.affix { top: 32px;} /* if admin bar is abled */
+
+.affix-placeholder {
+    display: none;
+}
+.navbar.affix + .affix-placeholder {
+    display: block;
+    visibility: hidden;
+}
+
+
+
+
+
+/****search **/
+
+.navbar-search {
+    position: relative;
+}
+
+.navbar-search .search-query {
+    padding-left: 29px;
+}
+
+.navbar-search .icon-search {
+    position: absolute;
+    top: 7px;
+    left: 11px;
+    background-image: url("http://getbootstrap.com/2.3.2/");
+}
+
+.navbar-search .search-query:focus, .navbar-search .search-query.focused {
+    padding-left: 30px;
+}
+
+.search-query:focus + .icon-search {
+    background-image: url("http://getbootstrap.com/2.3.2/");
+}

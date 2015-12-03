@@ -1,0 +1,360 @@
+<!--# Templates -->
+	<script type="text/template" id="trip3s-item-day">
+		<li>
+			<a href="#" class="{{item_day_number}}" day="{{item_day}}"> Ngày {{item_day}}</a>
+		</li>
+	</script>
+	<script type="text/template" id="javo-map-box-content-not-found">
+		<div class="text-center">
+			<h3>Not Found Items</h3>
+		</div><!-- /.text-center -->
+	</script>
+
+	<script type="text/template" id="javo_map_this_loading">
+		<h2 class="text-center">
+		</h2>
+	</script>
+	<script type="text/html" id="javo-map-loading-template">
+		<div class="text-center" id="javo-map-info-w-content" class="javo-map-info-w-content">
+			<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="50" height="50">
+		</div>
+	</script>
+
+	<script type="text/html" id="load-schedule-day-header-control-2">
+		<div class="col-md-3 dropdown pull-left dropleft">
+			<button class="btn btn-xs btn-warning dropdown-toggle" type="button" data-place_id="1" id="dropdown-select-days" data-toggle="dropdown">
+				Ngày {{current_day}} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu plan-day" id="list-day" role="menu" aria-labelledby="dropdown-select-days">
+
+			</ul>
+		</div>
+		<div class="col-md-9">
+		   	<button class="btn btn-xs btn-danger " id="showMap-plan"><i class="glyphicon glyphicon-globe"></i> Bản đồ</button>
+		    <button class="btn btn-xs btn-success" id="add-day-to-plan"><i class="glyphicon glyphicon-plus"></i> Ngày</button>
+		    <button class="btn btn-xs btn-info"    id="all-to-plan"><i class="glyphicon glyphicon-th-list"></i>Tât cả</button>
+		</div>
+	</script>
+	<script type="text/html" id="load-schedule-day-header-control-1">
+		<div class="col-md-12">
+			<strong ><i class="fa fa-list"></i> Danh sách địa điểm</strong>
+			<button class="btn btn-xs btn-danger  showMap-place"><i class="fa fa-map-o"></i> Bản đồ</button>
+			<button class="btn btn-xs btn-info create-trip"><i class="fa fa-pie-chart"></i> Sắp lịch</button>
+		</div>
+	</script>
+
+	<script type="text/html" id="load-schedule-day-header-bar-1">
+		<div class="attribute-schedule col-md-12" id="attribute-schedule">
+			<div><i class="fa  fa-map-marker icon"></i>
+				<i data-place="2" id="place-of-1" class="place-number">2</i> Địa điểm
+			</div>
+			<div>
+				<i class="fa fa-clock-o icon"></i>
+				<i data-time="2" id="time-of-1" class="time-number">2</i>Ngày
+			</div>
+			<div>
+				<i class="fa fa-user icon"></i>
+				<i data-user="2" id="user-of-1" class="user-number">2</i>Người
+			</div>
+		</div>
+	</script>
+ 
+	<script type="text/html" id="loading-list-place-plan">
+		<div class="well-default panel-heading header-detail-add-plan">
+			<div class="row schedule-day-header-control" id="schedule-day-header-control">
+				<div class="col-md-12">
+					<strong ><i class="fa fa-list"></i> Danh sách địa điểm</strong>
+					<button class="btn btn-xs btn-danger  showMap-place"><i class="fa fa-map-o"></i> Bản đồ</button>
+					<button class="btn btn-xs btn-info create-trip"><i class="fa fa-pie-chart"></i> Sắp lịch</button>
+				</div>
+			</div>
+			<div class="row schedule-day-header-bar">
+				<div class="attribute-schedule col-md-12" id="attribute-schedule">
+					<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="50">
+				</div>
+			</div>
+		</div>
+		<div class=" well-default panel-body body-detail-add-plan" id="body-detail-add-plan">
+			<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="150">
+		</div>
+	</script>
+	
+	<script type="text/html" id="loading-detail-plan">
+		<div class="well-default panel-heading header-detail-add-plan">
+			<div class="row schedule-day-header-control" id="schedule-day-header-control">
+				<div class="col-md-12">
+					<strong >Danh sách địa điểm</strong>
+				</div>
+				<div class="create-trip">
+					<strong >create-trip</strong>
+				</div>
+			</div>
+			<div class="row schedule-day-header">
+				<div class="attribute-schedule col-md-12" id="attribute-schedule">
+					<div><i data-place="2" id="place-of-1" class="place-number">2</i> <i class="fa  fa-map-marker icon"></i></div>
+					<div><i data-distance="2" id="distance-of-1" class="distance-number">3</i><i class="fa fa-arrows-h icon"></i></div>
+					<div><i data-time="2" id="time-of-1" class="time-number">2</i><i class="fa fa-clock-o icon"></i></div>
+					<div><i data-user="2" id="user-of-1" class="user-number">2</i><i class="fa fa-user icon"></i></div>
+					<div><i data-money="2" id="money-of-1" class="money-number">300</i><i class="fa fa-money icon"></i></div>
+				</div>
+			</div>
+		</div>
+
+		<div class=" well-default panel-body body-detail-add-plan" id="body-detail-add-plan">
+			
+		</div>
+	</script>
+	<script type="text/template" id="trip3s-list-day">
+		<li role="presentation">
+			<a class="btn-day btn-day-num  {{class_day}} " data="{{data_day}}">Ngày {{data_day}}</a>
+		</li>
+	</script>
+	<script type="text/template" id="trip3s-attribute-schedule-2">
+		<div><i class="fa  fa-map-marker icon"></i>
+			<b data-place="{{data-place}}" id="place-of-{{data-place}}" class="place-number">{{data-place}}</b> Địa điểm
+		</div>
+		<div>
+			<i class="fa fa-clock-o icon"></i>
+			<b data-time="{{data-time}}" id="time-of-{{data-time}}" class="time-number">{{data-time}}</b> Ngày
+		</div>
+		<div>
+			<i class="fa fa-user icon"></i>
+			<b data-user="{{data-user}}" id="user-of-{{data-user}}" class="user-number">{{data-user}}</b> Người 
+		</div>
+	</script>
+	<script type="text/template" id="trip3s-attribute-schedule-1">
+		<div><i class="fa  fa-map-marker icon"></i>
+			<b data-place="{{data-place}}" id="place-of-{{data-place}}" class="place-number">{{data-place}}</b>  | 
+		</div>
+		<div>
+			<i class="fa fa-arrows-h icon"></i>
+			<b data-distance="{{data-distance}}" id="distance-of-{{data-distance}}" class="distance-number">{{data-distance}}</b> | 
+		</div>
+		<div>
+			<i class="fa fa-clock-o icon"></i>
+			<b data-time="{{data-time}}" id="time-of-{{data-time}}" class="time-number">{{data-time}}</b>
+			 | 
+		</div>
+		<div>
+			<i class="fa fa-user icon"></i>
+			<b data-user="{{data-user}}" id="user-of-{{data-user}}" class="user-number">{{data-user}}</b>
+			 | 
+		</div>
+		<div>
+			<i class="fa fa-money icon"></i>
+			<b data-money="{{data-money}}" id="money-of-{{data-money}}" class="money-number">{{data-money}}</b> 
+		</div>
+	</script>
+	<script type="text/template" id="trip3s-attribute-schedule-info">
+		<div><i class="fa  fa-map-marker icon"></i>
+			<b data-place="{{data-place}}" id="place-of-{{data-place}}" class="place-number">{{data-place}}</b>  | 
+		</div>
+		<div>
+			<i class="fa fa-arrows-h icon"></i>
+			<b data-distance="{{data-distance}}" id="distance-of-{{data-distance}}" class="distance-number">{{data-distance}}</b> | 
+
+		</div>
+		<div>
+			<i class="fa fa-clock-o icon"></i>
+			<b data-time="{{data-time}}" id="time-of-{{data-time}}" class="time-number">{{data-time}}</b>
+			 | 
+		</div>
+		<div>
+			<i class="fa fa-user icon"></i>
+			<b data-user="{{data-user}}" id="user-of-{{data-user}}" class="user-number">{{data-user}}</b>
+			 | 
+		</div>
+		<div>
+			<i class="fa fa-money icon"></i>
+			<b data-money="{{data-money}}" id="money-of-{{data-money}}" class="money-number">{{data-money}}</b> 
+		</div>
+	</script>
+	<script type="text/template" id="trip3s-place-in-schedule">
+		<li class="day-in-plan col-md-12" remote ="true" data-place_id="{{place_id}}" data-place='{{current_place}}'>
+			<div class="thumbnail item-list-day"> 
+				<img src="{{post_thumbnail}}" /><i class="number">{{sort_thumbnail}}</i>
+				<i class="select-home fa fa-home"></i>	
+				<div class="excerpt-place">
+					{{post_excerpt}}
+				</div>
+
+				<div class="title-place">
+				<label class="label label-success">{{place_come}}</label>
+					<b>{{post_title}}</b>
+				</div>
+			</div>
+			
+			<div class="place-attribute">
+				<span><i class="fa fa-clock-o icon"></i><i class="value place_time" place_time data-value="{{place_time}}">{{place_time}}</i> giờ</span>
+				<span><i class="fa fa-money icon"></i><i class="value place_ticket" place_ticket data-value="{{place_ticket}}">{{place_ticket}}</i></span>
+				<span><i class="fa fa-sticky-note-o icon"></i><i class="value">Ghi chú</i></span>
+			</div>
+			<div class="place_note" style="display:none" place_note  data-value="{{place_note}}">{{place_note}}</div>
+			<div class="next_detail"  style="display:none" next_detail data-value="{{next_detail}}">{{next_detail}}</div>
+			<div class="place-router">
+				<span><i class="icon fa fa-car"></i>
+				</span>
+				<span><i class="icon fa fa-arrows-h icon"></i><i class="value next_distance" next_distance data-value="{{next_distance}}">{{next_distance}}</i> Km</span>
+				<span><i class="icon fa fa-clock-o icon"></i><i class="value next_time" next_time data-value="{{next_time}}">{{next_time}}</i> Giờ</span>
+				<span><i class="icon"></i><i class="value">Chi tiết</i></span>
+				</div>
+			</div>
+		</li>
+	</script>
+	<script type="text/template" id="javo-map-box-panel-content">
+		<div class="item col-md-6 col-xs-12">
+			<div class="thumbnail item-list-box-map" data-place='{place_full}'>
+				<div class="thumb-wrap">
+					<div class="javo-thb" style="background-image:url({thumbnail_large});"></div>
+					<div class="javo-left-overlay">
+						<div class="javo-txt-meta-area admin-color-setting">{category}</div> <!-- javo-txt-meta-area -->
+						<div class="corner-wrap">
+							<div class="corner"></div>
+							<div class="corner-background"></div>
+						</div> <!-- corner-wrap -->
+					</div>
+					<div class="javo-right-overlay">
+						<div class="javo-txt-meta-area admin-color-setting" data-id="{post_id}" btn-add-place-plan id="add-to-plan"><i class="fa fa-plus"></i>Thêm</div> <!-- javo-txt-meta-area -->
+					</div>
+					<div class="nav-drop javo-full-select-day" id="javo-full-select-day" javo-full-select-day>
+						<ul class="nav-drop-menu" list-day-in-plan  place_id="{place_id}" >
+	                       	<li>
+								<a href="#" class="fa fa-times" day="1"> Ngày 1</a>
+							</li>
+                        </ul><!-- nav-drop-menu -->
+					</div>
+
+					<div class="rate-icons">
+						<div class="col-md-2">
+							<div class="col-md-12 javo-rating-registed-score" data-score="{rating}"></div>
+						</div>
+					</div> <!-- rate-icons -->
+					<div class="intro">
+						<h2 class="group inner list-group-item-heading">{post_title}</h2>
+					</div> <!-- intro -->
+					<div class="location"><img src="{avatar}" />
+					<input type="hidden" id="place_lat-{place_id}" class="place_lat" value="{place_lat}" />
+					<input type="hidden" id="place_lng-{place_id}" class="place_lng" value="{place_lng}" />
+					</div> <!-- location -->
+					<div class="three-inner-button">
+						<a class="javo-hmap-marker-trigger three-inner-move" data-id="mid_{post_id}" data-post-id="{post_id}">Move</a>
+						<a href="{permalink}" class="three-inner-detail">Detail</a>
+						<a href="{permalink}" target="_brank" class="three-inner-popup">Popup</a>
+					</div><!-- three-inner-button -->
+				</div> <!-- thumb-wrap -->
+
+				<div class="caption">
+					<p class="group inner list-group-item-text">
+					</p> <!-- list-group-item-text -->
+					<div class="row">
+						<div class="item-title-list">
+							<a href="{permalink}">{post_title}</a>
+						</div>
+						<div class="group inner list-group-item-text item-excerpt-list">{excerpt}</div> <!-- list-group-item-text -->
+						<div class="col-xs-7 col-sm-7 col-md-7">
+							<div class="row">
+								<div class="col-md-12">{location}</div><!-- col md 8 -->
+							</div><!-- Row -->
+						</div>
+						<div class="col-xs-5 col-sm-5 col-md-5">
+							<div class="social-wrap pull-right">
+								<span class="javo-sns-wrap">
+									<i class="sns-facebook" data-title="{post_title}" data-url="{permalink}">
+										<a class="facebook"></a>
+									</i>
+									<i class="sns-twitter" data-title="{post_title}" data-url="{permalink}">
+										<a class="twitter"></a>
+									</i>
+									<i class="sns-heart">
+										<a class="favorite javo_favorite{favorite}" data-no-swap="yes" data-post-id="{post_id}"></a>
+									</i>
+								</span>
+							</div>
+						</div><!-- socail -->
+					</div><!-- row-->
+				</div><!-- Caption -->
+			</div><!-- Thumbnail -->
+		</div><!-- Col-md-4 -->
+	</script>
+	<script type="text/template" id="javo-map-box-infobx-content">
+
+		<div class="javo_somw_info panel" style="min-height:220px;">
+			<div class="des">
+				<ul class="list-unstyled">
+					<li><div class="prp-meta"><h4><strong>{post_title}</h4></strong></div></li>
+					<li><div class="prp-meta">{phone}</div></li>
+					<li><div class="prp-meta">{mobile}</div></li>
+					<li><div class="prp-meta">{website}</div></li>
+										<li>
+						<div class="prp-meta">{address}
+							<a href="{permalink}#item-location" class="btn btn-primary btn-get-direction btn-sm">Get directions</a>
+						</div>
+					</li>
+									</ul>
+			</div> <!-- des -->
+
+			<div class="pics">
+				<div class="thumb">
+					<a href="{permalink}" target="_blank">
+					
+					<img width="150" height="165" src="{thumbnail}" class="attachment-javo-map-thumbnail wp-post-image" alt="image10" />
+					</a>
+				</div> <!-- thumb -->
+				<div class="img-in-text">{category}</div>
+				<div class="javo-left-overlay">
+					<div class="javo-txt-meta-area custom-bg-color-setting">{location}</div> <!-- javo-txt-meta-area -->
+
+					<div class="corner-wrap">
+						<div class="corner admin-color-setting"></div>
+						<div class="corner-background admin-color-setting"></div>
+					</div> <!-- corner-wrap -->
+				</div> <!-- javo-left-overlay -->
+			</div> <!-- pic -->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="btn-group btn-group-justified pull-right">
+						<a class="btn btn-primary btn-sm" onclick="window.javo_map_box_func.brief_run(this);" data-id="{post_id}">
+							<i class="fa fa-user"></i> Brief						</a>
+						<a href="{permalink}" class="btn btn-primary btn-sm">
+							<i class="fa fa-group"></i> Detail						</a>
+						<a href="javascript:" class="btn btn-primary btn-sm" onclick="window.javo_map_box_func.contact_run(this)" data-to="{email}" data-username="{author_name}" data-itemname="{post_title}">
+							<i class="fa fa-envelope"></i> Contact						</a>
+					 </div><!-- btn-group -->
+				</div> <!-- col-md-12 -->
+			</div> <!-- row -->
+		</div> <!-- javo_somw_info -->
+	</script>
+	<script type="text/template" id="javo-map-box-content-loading">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="150">
+			</div><!-- /.text-center -->
+		</div><!-- /.row -->
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h3>Loading</h3>
+			</div><!-- /.text-center -->
+		</div><!-- /.row -->
+	</script>
+	<script type="text/template" id="javo-map-inner-control-template">
+		<div class="javo-map-inner-control-wrap">
+
+			<div class="btn-group">
+				<a class="btn btn-default active" data-map-move-allow><i class="fa fa-unlock"></i></a>
+				<div class="btn btn-default default-cursor">
+					<div class="inline-block javo-my-position">
+						<i class="fa fa-compass"></i>
+					</div>
+					<div class="javo-geoloc-slider inline-block" ></div>
+				</div>
+			</div><!-- /.btn-group -->
+			<div class="map-announcement">
+				<ul class="list-announcement">
+					
+				</ul>
+			</div><!-- /.map announcement -->
+		</div><!-- /.javo-map-inner-control-wrap -->
+	</script>
+
+<!--# /.Templates -->

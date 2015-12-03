@@ -1,0 +1,31 @@
+<h1>Listing user_expands</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Expand name</th>
+      <th>Expand value</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_expands.each do |user_expand| %>
+      <tr>
+        <td><%= user_expand.user %></td>
+        <td><%= user_expand.expand_name %></td>
+        <td><%= user_expand.expand_value %></td>
+        <td><%= link_to 'Show', user_expand %></td>
+        <td><%= link_to 'Edit', edit_user_expand_path(user_expand) %></td>
+        <td><%= link_to 'Destroy', user_expand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User expand', new_user_expand_path %>

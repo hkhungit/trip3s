@@ -1,0 +1,45 @@
+<h1>Listing comments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th>User</th>
+      <th>Comment author</th>
+      <th>Comment author email</th>
+      <th>Comment author url</th>
+      <th>Comment author ip</th>
+      <th>Comment content</th>
+      <th>Comment status</th>
+      <th>Comment parent</th>
+      <th>Comment review</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.post %></td>
+        <td><%= comment.user %></td>
+        <td><%= comment.comment_author %></td>
+        <td><%= comment.comment_author_email %></td>
+        <td><%= comment.comment_author_url %></td>
+        <td><%= comment.comment_author_ip %></td>
+        <td><%= comment.comment_content %></td>
+        <td><%= comment.comment_status %></td>
+        <td><%= comment.comment_parent %></td>
+        <td><%= comment.comment_review %></td>
+        <td><%= link_to 'Show', comment %></td>
+        <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+        <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Comment', new_comment_path %>

@@ -1,0 +1,35 @@
+<h1>Listing types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type name</th>
+      <th>Type description</th>
+      <th>Type parent</th>
+      <th>Type count</th>
+      <th>Category</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @types.each do |type| %>
+      <tr>
+        <td><%= type.type_name %></td>
+        <td><%= type.type_description %></td>
+        <td><%= type.type_parent %></td>
+        <td><%= type.type_count %></td>
+        <td><%= type.category %></td>
+        <td><%= link_to 'Show', type %></td>
+        <td><%= link_to 'Edit', edit_type_path(type) %></td>
+        <td><%= link_to 'Destroy', type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Type', new_type_path %>

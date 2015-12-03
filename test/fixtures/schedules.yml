@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  plan_id: 
+  schedule_day: 1
+  schedule_action: 1
+  schedule_spend: MyString
+  schedule_distance: 
+  schedule_start: 2015-09-16 14:37:23
+  schedule_end: 2015-09-16 14:37:23
+
+two:
+  plan_id: 
+  schedule_day: 1
+  schedule_action: 1
+  schedule_spend: MyString
+  schedule_distance: 
+  schedule_start: 2015-09-16 14:37:23
+  schedule_end: 2015-09-16 14:37:23

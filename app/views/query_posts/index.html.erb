@@ -1,0 +1,33 @@
+<h1>Listing query_posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Query</th>
+      <th>Post</th>
+      <th>Focus time</th>
+      <th>Focus late</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @query_posts.each do |query_post| %>
+      <tr>
+        <td><%= query_post.query %></td>
+        <td><%= query_post.post %></td>
+        <td><%= query_post.focus_time %></td>
+        <td><%= query_post.focus_late %></td>
+        <td><%= link_to 'Show', query_post %></td>
+        <td><%= link_to 'Edit', edit_query_post_path(query_post) %></td>
+        <td><%= link_to 'Destroy', query_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Query post', new_query_post_path %>

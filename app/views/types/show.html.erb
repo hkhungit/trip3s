@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type name:</strong>
+  <%= @type.type_name %>
+</p>
+
+<p>
+  <strong>Type description:</strong>
+  <%= @type.type_description %>
+</p>
+
+<p>
+  <strong>Type parent:</strong>
+  <%= @type.type_parent %>
+</p>
+
+<p>
+  <strong>Type count:</strong>
+  <%= @type.type_count %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @type.category %>
+</p>
+
+<%= link_to 'Edit', edit_type_path(@type) %> |
+<%= link_to 'Back', types_path %>

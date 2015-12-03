@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_expand.user %>
+</p>
+
+<p>
+  <strong>Expand name:</strong>
+  <%= @user_expand.expand_name %>
+</p>
+
+<p>
+  <strong>Expand value:</strong>
+  <%= @user_expand.expand_value %>
+</p>
+
+<%= link_to 'Edit', edit_user_expand_path(@user_expand) %> |
+<%= link_to 'Back', user_expands_path %>

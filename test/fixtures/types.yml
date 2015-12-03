@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  type_name: MyString
+  type_description: 
+  type_parent: MyString
+  type_count: 1
+  category_id: 
+
+two:
+  type_name: MyString
+  type_description: 
+  type_parent: MyString
+  type_count: 1
+  category_id: 

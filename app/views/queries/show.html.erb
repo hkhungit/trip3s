@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Crawler:</strong>
+  <%= @query.crawler %>
+</p>
+
+<p>
+  <strong>Crawler time:</strong>
+  <%= @query.crawler_time %>
+</p>
+
+<p>
+  <strong>Post title:</strong>
+  <%= @query.post_title %>
+</p>
+
+<p>
+  <strong>Post excerpt:</strong>
+  <%= @query.post_excerpt %>
+</p>
+
+<p>
+  <strong>Post content:</strong>
+  <%= @query.post_content %>
+</p>
+
+<p>
+  <strong>Post password:</strong>
+  <%= @query.post_password %>
+</p>
+
+<p>
+  <strong>Post parent:</strong>
+  <%= @query.post_parent %>
+</p>
+
+<p>
+  <strong>Post type:</strong>
+  <%= @query.post_type %>
+</p>
+
+<p>
+  <strong>Post view:</strong>
+  <%= @query.post_view %>
+</p>
+
+<p>
+  <strong>Post review:</strong>
+  <%= @query.post_review %>
+</p>
+
+<p>
+  <strong>Post point:</strong>
+  <%= @query.post_point %>
+</p>
+
+<p>
+  <strong>Post thumbnail:</strong>
+  <%= @query.post_thumbnail %>
+</p>
+
+<%= link_to 'Edit', edit_query_path(@query) %> |
+<%= link_to 'Back', queries_path %>

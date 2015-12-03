@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  crawler_id: 
+  crawler_time: 1
+  post_title: MyString
+  post_excerpt: MyString
+  post_content: MyString
+  post_password: MyString
+  post_parent: 1
+  post_type: MyString
+  post_view: 1
+  post_review: 1
+  post_point: 1
+  post_thumbnail: MyString
+
+two:
+  crawler_id: 
+  crawler_time: 1
+  post_title: MyString
+  post_excerpt: MyString
+  post_content: MyString
+  post_password: MyString
+  post_parent: 1
+  post_type: MyString
+  post_view: 1
+  post_review: 1
+  post_point: 1
+  post_thumbnail: MyString

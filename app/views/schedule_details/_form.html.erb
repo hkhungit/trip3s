@@ -1,0 +1,49 @@
+<%= form_for(@schedule_detail) do |f| %>
+  <% if @schedule_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@schedule_detail.errors.count, "error") %> prohibited this schedule_detail from being saved:</h2>
+
+      <ul>
+      <% @schedule_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :place %><br>
+    <%= f.text_field :place %>
+  </div>
+  <div class="field">
+    <%= f.label :schedule %><br>
+    <%= f.text_field :schedule %>
+  </div>
+  <div class="field">
+    <%= f.label :place_name %><br>
+    <%= f.text_field :place_name %>
+  </div>
+  <div class="field">
+    <%= f.label :place_spend %><br>
+    <%= f.text_field :place_spend %>
+  </div>
+  <div class="field">
+    <%= f.label :place_in %><br>
+    <%= f.datetime_select :place_in %>
+  </div>
+  <div class="field">
+    <%= f.label :place_out %><br>
+    <%= f.datetime_select :place_out %>
+  </div>
+  <div class="field">
+    <%= f.label :next_time %><br>
+    <%= f.text_field :next_time %>
+  </div>
+  <div class="field">
+    <%= f.label :next_distance %><br>
+    <%= f.text_field :next_distance %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

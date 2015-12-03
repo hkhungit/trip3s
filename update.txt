@@ -1,0 +1,6 @@
+/*SELECT id FROM `types` WHERE category_id =9;
+update places set place_close ='11:59 PM' where post_id in
+(select count(p.id) from posts p, post_categories pc, types ty, categories ct where p.id = pc.post_id and pc.type_id = ty.id and ty.category_id = ct.id and ct.cate_url in('beer-club'));
+
+update places set place_open ='7:00 AM', place_close ='5:00 PM' , place_late ='4:00 PM', place_time =2
+*/

@@ -1,0 +1,29 @@
+<h1>Listing image_categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Image</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @image_categories.each do |image_category| %>
+      <tr>
+        <td><%= image_category.type %></td>
+        <td><%= image_category.image %></td>
+        <td><%= link_to 'Show', image_category %></td>
+        <td><%= link_to 'Edit', edit_image_category_path(image_category) %></td>
+        <td><%= link_to 'Destroy', image_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Image category', new_image_category_path %>

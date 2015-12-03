@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  query_id: 
+  expand_name: MyString
+  expand_value: MyString
+
+two:
+  query_id: 
+  expand_name: MyString
+  expand_value: MyString

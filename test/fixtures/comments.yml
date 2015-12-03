@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  post_id: 
+  user_id: 
+  comment_author: MyString
+  comment_author_email: MyString
+  comment_author_url: MyString
+  comment_author_ip: MyString
+  comment_content: MyString
+  comment_status: MyString
+  comment_parent: 1
+  comment_review: 1
+
+two:
+  post_id: 
+  user_id: 
+  comment_author: MyString
+  comment_author_email: MyString
+  comment_author_url: MyString
+  comment_author_ip: MyString
+  comment_content: MyString
+  comment_status: MyString
+  comment_parent: 1
+  comment_review: 1

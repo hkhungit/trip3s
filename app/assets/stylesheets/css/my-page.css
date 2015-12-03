@@ -1,0 +1,187 @@
+
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+.jv-my-page {margin-top:0; padding-top:0;font: 13px/26px 'Raleway';}
+.main-content-right {padding-left:0px;}
+.main-content-left {padding-right:0px;}
+
+/** panel **/
+.jv-my-page .panel-wrap {margin-top: -56px;}
+.jv-my-page .author-img {padding:20px 0 0 25px;}
+
+/* .jv-my-page .panel {
+border-radius: 10px;
+-webkit-box-shadow: 0 1px 15px #ccc;
+box-shadow: 0 1px 15px  #ccc
+}
+ */
+.jv-my-page .panel-heading>.row>.my-page-title{text-transform: uppercase;}
+.jv-my-page .panel {
+border-radius: 0px;
+border: 1px solid #d7d7d7;
+-webkit-box-shadow: 0 0px 7px 0 rgba(0,0,0,0.15);
+box-shadow: 0 0px 7px 0 rgba(0,0,0,0.15);
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+}
+
+.jv-my-page .panel-heading {
+	border-top-left-radius:0px;
+	border-top-right-radius:0px;
+	border-top:0;
+	border-right:0;
+	border-left:0;
+}
+
+.panel-heading {
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+}
+
+.jv-my-page .sidebar-nav.mypage-left-menu{background:#fff; border:none;}
+.jv-my-page .content-panel-detail img{float:left;}
+.jv-my-page .content-panel-detail .text-in-content span{margin:0px 10px;}
+.jv-my-page .content-panel-detail{border-bottom:1px solid #eee;}
+.jv-my-page .content-panel-date h1{font-size:50px; font-weight:bold; margin-bottom:10px; margin-top:15px;}
+.jv-my-page .content-panel-date{text-align:center;}
+.jv-my-page .content-panel-date>span{padding-right:3px;}
+.jv-my-page .content-panel-wrap-row{margin-right:15px;}
+
+.jv-my-page .nav-sidebar {margin-right: -21px; margin-bottom: 0px; margin-left: -20px;}
+.jv-my-page .nav-sidebar .titles {background:#545454; color:#fff;}
+.jv-my-page .nav-sidebar .titles a {color:#fff;}
+.jv-my-page .nav-sidebar .active {background:#aaa;}
+
+.profile-and-image-container .author-img img {border-radius:50%; width:80px; height:80px; border:5px; border-style:solid; border-color:#f4f4f4 #fff;}
+.profile-and-image-container .author-img {width: 100%; height: 100px; text-align: center;}
+.jv-my-page .author-names {text-transform: uppercase;}
+
+.my-page-nav .mypage-left-menu .titles {padding:10px; text-transform:uppercase;}
+
+.my-page-nav .nav>li>a {font-size: 12px;}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 768px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -50%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 50%;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    margin-left: 12px;
+  }
+}
+.top-row{background:#A1C3FF;
+margin-right: 0px;}
+
+
+
+/** My Items page **/
+.jv-my-page .btn-circle, .jv-my-page .btn-circle:hover  {padding:6px 8px;width: 30px;
+height: 30px;
+text-align: center;
+font-size: 12px;
+line-height: 1.428571429;
+border-radius: 15px;
+margin-right:5px;
+}
+
+.jv-my-page h3 {margin-top: 0px; margin-bottom:10px; color:#454545; font-weight:bold; font-size:14px;}
+.jv-my-page .content-panel-wrap-row {
+	border-bottom:1px solid #eee; 
+	margin-bottom:20px; 
+	padding-bottom:20px;
+	padding-right:15px;
+	margin-right:-15px;
+}
+.jv-my-page .my-item-titles {margin-bottom:10px;}
+.jv-my-page .main-content-right .col-md-12 .panel-body{padding:20px;}
+.jv-my-page .main-content-right .col-md-12 .panel-heading{padding-left:20px;}
+.jv-my-page .content-panel-wrap-row .col-md-10 .pull-right .content-panel-button-list{margin-right:0px;}
+
+
+/** My Ratings **/
+.jv-my-page .javo-rating-deleted-item, 
+.jv-my-page .javo-rating-deleted-item h1, 
+.jv-my-page .javo-rating-deleted-item h3, 
+.jv-my-page .javo-rating-deleted-item a {color:#eee;}
+.jv-my-page-rating .panel-body .content-panel-wrap-row{padding-top:15px; padding-bottom:35px;}
+.jv-my-page-rating .panel-body .content-panel-wrap-row>.col-md-10>.row>.col-md-6:last-child{position:relative; bottom:10px;}
+/** My Profile Home **/
+.my-profile-home-pic {width:200px; border:10px #fff solid; margin-top:40px; overflow:hidden; }
+.jv-my-page .my-home-label {float:left; width:25%; font-weight:bold; color:#000;}
+.jv-my-page .my-home-content {float:left; width:75%;}
+.jv-my-page .secont-container-content .main-content-right .panel-body .my-profile-home-pic>img{width:200px; height:200px;}
+
+.my-profile-home-details h2 {text-transform:uppercase; padding-left:10px; font-size:14px; font-weight:bold;}
+
+/*Favorite Items*/
+.table-striped>tbody>tr:nth-child(odd)>td.btn-group-justified{border:none; display:table-cell;}
+.single-author .panel-body table tbody tr>td{vertical-align:middle; display:table-cell;}
+.jv-my-page-favorite .main-content-right .col-md-12 .panel-body{padding-top:10px;}
+.jv-my-page-favorite table>thead>tr>th{text-align:center;}
+
+/*My Review*/
+.jv-my-page-review .main-content-right .panel-body>.content-panel-wrap-row>.col-md-10{padding-right:0px; padding-left:5px;}
+
+/*add review*/
+#javo-add-review-form .form-group label{font-weight:bold;}
+
+
+
+/*Payment History*/
+.jv-my-page-payment .panel-body>.row{margin-bottom:15px;}
+.jv-my-page-payment .panel-body>.row>.col-md-12>h5{font-size:14px; font-weight:bold;} 
+.jv-my-page-payment .panel-body .row .col-md-12 h5 .row .col-md-11,
+.jv-my-page-payment .panel-body .row .col-md-12 .row .col-md-11{
+	margin-left:0; 
+	width:100%; 
+	text-align:center; 
+	font-size:13px; 
+	font-weight: normal;
+	margin-top:10px;
+}
+.jv-my-page-payment tbody tr th{text-align:center;}
+/*Change Password*/
+.jv-my-page-change-password .panel-body form .tab-inner-titles>i{margin-right:3px;}
+.jv-my-page-change-password .panel-body form .tab-inner-titles{
+	width:20%;
+	float:left;
+	line-height:20px;
+	margin-bottom:0px;
+	margin-top:7px;
+	min-width:155px;
+	font-size:14px;;
+}
+.jv-my-page-change-password .panel-body form .left-inner-addon{width:60%; float:left; min-width:275px;}
+.jv-my-page-change-password .panel-body form .login_fields{width:100%;}
+.jv-my-page-change-password .panel-body form>div{display:table; margin:0 auto; margin-bottom:40px;}
+.jv-my-page-change-password .main-content-right .panel-wrap .panel-body{padding:80px 20px 40px 20px;}
+
+/*add item*/
+.jv-my-page .secont-container-content .main-content-right .line-title-bigdots h2{font-size:14px; font-weight:bold;}
+.jv-my-page .javo-add-payment>.col-md-6:last-child>form>input:last-child{width:50%;}
+/*edit profile*/
+.jv-my-page .javo-form-div .row>.col-xs-3>.well-sm{font-size:14px; font-weight:bold;}
+/*add event*/
+#javo-add-event-form .form-group label{font-weight:bold;}

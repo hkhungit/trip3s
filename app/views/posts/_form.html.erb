@@ -1,0 +1,65 @@
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :post_title %><br>
+    <%= f.text_field :post_title %>
+  </div>
+  <div class="field">
+    <%= f.label :post_excerpt %><br>
+    <%= f.text_field :post_excerpt %>
+  </div>
+  <div class="field">
+    <%= f.label :post_content %><br>
+    <%= f.text_field :post_content %>
+  </div>
+  <div class="field">
+    <%= f.label :post_status %><br>
+    <%= f.text_field :post_status %>
+  </div>
+  <div class="field">
+    <%= f.label :post_password %><br>
+    <%= f.text_field :post_password %>
+  </div>
+  <div class="field">
+    <%= f.label :post_parent %><br>
+    <%= f.text_field :post_parent %>
+  </div>
+  <div class="field">
+    <%= f.label :post_type %><br>
+    <%= f.text_field :post_type %>
+  </div>
+  <div class="field">
+    <%= f.label :post_url %><br>
+    <%= f.text_field :post_url %>
+  </div>
+  <div class="field">
+    <%= f.label :post_view %><br>
+    <%= f.text_field :post_view %>
+  </div>
+  <div class="field">
+    <%= f.label :post_review %><br>
+    <%= f.text_field :post_review %>
+  </div>
+  <div class="field">
+    <%= f.label :post_point %><br>
+    <%= f.text_field :post_point %>
+  </div>
+  <div class="field">
+    <%= f.label :post_thumbnail %><br>
+    <%= f.text_field :post_thumbnail %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

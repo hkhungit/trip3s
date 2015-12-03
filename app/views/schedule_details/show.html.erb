@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @schedule_detail.place %>
+</p>
+
+<p>
+  <strong>Schedule:</strong>
+  <%= @schedule_detail.schedule %>
+</p>
+
+<p>
+  <strong>Place name:</strong>
+  <%= @schedule_detail.place_name %>
+</p>
+
+<p>
+  <strong>Place spend:</strong>
+  <%= @schedule_detail.place_spend %>
+</p>
+
+<p>
+  <strong>Place in:</strong>
+  <%= @schedule_detail.place_in %>
+</p>
+
+<p>
+  <strong>Place out:</strong>
+  <%= @schedule_detail.place_out %>
+</p>
+
+<p>
+  <strong>Next time:</strong>
+  <%= @schedule_detail.next_time %>
+</p>
+
+<p>
+  <strong>Next distance:</strong>
+  <%= @schedule_detail.next_distance %>
+</p>
+
+<%= link_to 'Edit', edit_schedule_detail_path(@schedule_detail) %> |
+<%= link_to 'Back', schedule_details_path %>

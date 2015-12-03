@@ -1,0 +1,1753 @@
+<style type="text/css"> 
+	body{ overflow-y:hidden !important; }
+	html header.main nav.navbar{ background-color:rgba( 35, 35, 35, 1); }
+	html header.main nav.navbar.affix{ background-color:rgba( 15, 15, 15, 0.3); }
+	html header#header-one-line nav.navbar{ box-shadow:none; }
+	html header#header-one-line:after{ content:none; }
+	html body header#header-one-line ul.nav > li.menu-item > a{ color:#fff; }
+	html body header#header-one-line ul.widget_top_menu_wrap > li.widget_top_menu > a{ color:#fff; }
+	html body header#header-one-line ul.widget_top_menu_wrap > li.widget_top_menu button.btn{ color:#fff; }
+	html body header#header-one-line #javo-navibar .navbar-right>li>a>span{ color:#fff; border-color:#fff;}
+	html body header#header-one-line #javo-navibar .navbar-right>li>a>img{border-color:#fff;}
+	html header#header-one-line .container{ width:100%; }
+	html header#header-one-line div#javo-navibar{ text-align:right; }
+	html header#header-one-line div#javo-navibar ul{ text-align:left; }
+	html header#header-one-line div#javo-navibar ul.navbar-left:not(.mobile){ float:none !important; display:inline-block; vertical-align:top; margin-top:6px; }
+	html header#header-one-line div#javo-navibar ul.navbar-right:not(.mobile){ float:none !important; display:inline-block; vertical-align:top; }
+	html header#header-one-line div#javo-navibar ul.navbar-left:not(.mobile){ margin-top:6px; }
+	html header#header-one-line.main{ position:relative; }
+	html body header#header-one-line .affix #javo-navibar ul.nav > li.menu-item > a{ color:#fff; }
+	html body header#header-one-line .affix ul.widget_top_menu_wrap > li.widget_top_menu > a{ color:#fff; }
+	html body header#header-one-line .affix ul.widget_top_menu_wrap > li.widget_top_menu button.btn{ color:#fff; }
+	html body header#header-one-line .affix #javo-navibar .navbar-right>li>a>span{ color:#777; border-color:#fff;}
+	html body header#header-one-line .affix #javo-navibar .navbar-right>li>a>img{border-color:#fff;}
+	html body.mobile header.main nav.navbar{ background-color:rgba( 255, 255, 255, 1); }
+	html body.mobile header#header-one-line #javo-navibar ul.nav > li.menu-item > a{ color:#000 !important; }
+	html body.mobile header#header-one-line .navbar-header>button>span{ background-color:#000 !important; }
+	html body.mobile header#header-one-line ul.widget_top_menu_wrap > li.widget_top_menu > a{ color:#000; }
+	html body.mobile header#header-one-line ul.widget_top_menu_wrap > li.widget_top_menu button.btn{ color:#000; }
+	html body.mobile header#header-one-line #javo-navibar .navbar-right>li>a>span{ color:#454545; border-color:#454545;}
+	html body.mobile header#header-one-line #javo-navibar .navbar-right>li>a>img{border-color:#454545;}
+	html body header#header-one-line #javo-doc-top-level-menu{ background-color:#454545; }
+	html body header#header-one-line #javo-doc-top-level-menu{ color:#fff; }
+	html body header#header-one-line #javo-doc-top-level-menu a{ color:#fff; }
+	html body.single header#header-one-line.main{ position:absolute; }
+	html body.single header#header-one-line.main{ left:0; right:0; }
+	.dropdown-menu>li>a{
+		cursor: pointer;
+	}
+	/*CSS ADD NEW PLAN*/
+	.dropdown-menu.plan-day{
+		min-width: auto;
+	}
+	.dropdown-menu.plan-day:before{
+	    border-bottom: 10px solid #fff;
+	    border-right: 10px solid transparent;
+	    border-left: 10px solid transparent;
+	    position: absolute;
+	    top: -10px;
+	    left: 20px;
+	    right: auto;
+	    z-index: 10;
+	}
+	.schedule-day-header-bar{    border-bottom: 2px rgba(68, 68, 68, 0.25) solid;
+    border-top: 2px rgba(68, 68, 68, 0.25) solid;padding: 5px 0px;    margin-top: 10px;}
+	.header-detail-add-plan{border: 0px;position: fixed;border-top-left-radius: 0px;border-top-right-radius: 0px;z-index: 10;width: 100%;max-width: 298px;padding-bottom: 0px}
+	.body-detail-add-plan{margin-top: 80px}
+	.attribute-schedule div{float:left;}
+	.day-in-plan{float: left;width: 100%; background-color: #fff;border: 1px solid #ddd;padding: 4px;cursor: pointer;}
+	.day-in-plan .thumbnail .number{position: absolute;left: -5px;top: -5px;width: 35px;height: 35px;background-color: #a88e4b;border-radius: 30px;padding: 6px 10px;font-weight: bold;color: #fff;border: 2px rgba(189, 180, 180, 0.85) solid;}
+	.day-in-plan .thumbnail{float: left;width: 100%; border: 0px;position: relative;margin-bottom: 5px;}
+	.day-in-plan .thumbnail img{float: left;width: 100%; max-height: 130px;    margin-right: 5px;}
+	.day-in-plan >div{border-bottom: 1px #444 solid;}
+	.day-in-plan >div:last-child{border-bottom: 0px}
+	.icon-item-place{
+		z-index: 10;
+		border: 3px #717171 solid;
+	}
+	ul.schedule-day-boby{
+		padding: 0px 0px 0px 0px;
+		max-width: 300px;
+		margin-left:-15px;
+		float: left;
+		overflow-y: scroll;
+		list-style: none;
+		min-height: 1px;
+	    width: 300px;
+	    background: rgba(142, 142, 142, 0.35);
+	}
+	.notselect{
+		display: none;
+	}
+	._selected{display: block;}
+	.all_day{
+		width: 100% !important;
+		overflow: scroll;
+	}
+	.all_day #body-detail-add-plan ul{display: block; margin: 0px 10px}
+	.place-router{background: #232; color: #fff}
+	.icon-item-place-number{
+	    z-index: 9;
+	    position: absolute;
+	    line-height: 15px;
+	    font-weight: bold;
+	    background: #444;
+	    padding: 0px 5px;
+	    left: -1px;
+	    top: -16px;
+	    border: 1px rgba(244, 244, 244, 0.86) solid;
+	    border-top-right-radius: 13px;
+	    border-bottom: 0px;
+	}
+	.icon-item-place-number:after{
+		content: "";
+		width: 20px;
+		height: 20px;
+		background: #444;
+	}
+	.select-home:hover{opacity: 0.8}
+	.select-home {
+	    position: absolute;
+	    right: -3px;
+	    top: -4px;
+	    background: #B90B0B;
+	    color: #fff;
+	    padding: 5px;
+	    cursor: pointer;
+	}
+</style>
+<div class="javo_mhome_wrap">
+	<div class="javo_mhome_sidebar_wrap panel">
+		<div class="javo-mhome-sidebar-onoff" style="margin-left: 0px;"></div>
+			<div class="javo_mhome_sidebar panel panel-success" style="margin-left: 0px; margin-top: 76px;">		
+			</div>
+		</div>
+	</div>
+	<!-- MAP Area -->
+	<div class="javo_mhome_map_area" style="height: 335px; position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
+		
+		<div style="position: absolute; z-index: 1000; visibility: visible; top: 0px; left: 0px;">
+		<div class="javo-map-inner-control-wrap">
+			
+			<div class="btn-group">
+				<a class="btn btn-default" data-map-move-allow=""><i class="fa fa-lock"></i></a>
+				<div class="btn btn-default default-cursor">
+					<div class="inline-block javo-my-position active">
+						<i class="fa fa-compass fa-spin"></i>
+					</div>
+					<div class="javo-geoloc-slider inline-block noUi-target noUi-ltr noUi-horizontal noUi-connect"><div class="noUi-base"><div class="noUi-origin noUi-background" style="left: 27%;"><div class="noUi-handle noUi-handle-lower"><div class="javo-slider-tooltip"><span>135&nbsp;km</span></div></div></div></div></div>
+				</div>
+			</div><!-- /.btn-group -->
+		</div><!--/.javo-map-inner-control-wrap-->
+		</div>
+
+		<div class="gm-style" style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0;">
+	    <div style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0;">
+	      <div style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; transform-origin: 0px 0px 0px; transform: matrix(1, 0, 0, 1, 0, 0);">
+	         <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;">
+	            <div style="position: absolute; left: 0px; top: 0px; z-index: 0;">
+	               <div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;">
+	                  <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 193px; top: 295px;"></div>
+	                  <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 193px; top: 39px;"></div>
+	                  <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -63px; top: 295px;"></div>
+	                  <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -63px; top: 39px;"></div>
+	                  <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 449px; top: 39px;"></div>
+	                  <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 449px; top: 295px;"></div>
+	                  <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 193px; top: -217px;"></div>
+	                  <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 449px; top: -217px;"></div>
+	                  <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -63px; top: -217px;"></div>
+	               </div>
+	            </div>
+	         </div>
+	         <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;">
+	            <div style="border: 0px none; position: absolute; left: 332.774px; top: 351.607px;">
+	               <div class="javo-map-cluster admin-color-setting">5</div>
+	            </div>
+	            <div style="border: 0px none; position: absolute; left: 224.075px; top: 421.416px;">
+	               <div class="javo-map-cluster admin-color-setting">2</div>
+	            </div>
+	         </div>
+	         <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div>
+	         <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;">
+	            <div style="position: absolute; left: 0px; top: 0px; z-index: -1;">
+	               <div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;">
+	                  <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 193px; top: 295px;">
+	                     <canvas draggable="false" height="256" width="256" style="-webkit-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;"></canvas>
+	                  </div>
+	                  <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 193px; top: 39px;">
+	                     <canvas draggable="false" height="256" width="256" style="-webkit-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;"></canvas>
+	                  </div>
+	                  <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -63px; top: 295px;"></div>
+	                  <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -63px; top: 39px;"></div>
+	                  <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 449px; top: 39px;"></div>
+	                  <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 449px; top: 295px;"></div>
+	                  <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 193px; top: -217px;"></div>
+	                  <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 449px; top: -217px;"></div>
+	                  <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -63px; top: -217px;"></div>
+	               </div>
+	            </div>
+	         </div>
+	         <div style="position: absolute; left: 0px; top: 0px; z-index: 0;">
+	            <div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;">
+	               <div style="transform: translateZ(0px); position: absolute; left: 193px; top: 295px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i13!2i7394!3i5027!2m3!1e0!2sm!3i323192821!3m14!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjJ8cy5lOmx8cC52Om9mZg!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	               <div style="transform: translateZ(0px); position: absolute; left: 193px; top: 39px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i13!2i7394!3i5026!2m3!1e0!2sm!3i323192821!3m14!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjJ8cy5lOmx8cC52Om9mZg!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	               <div style="transform: translateZ(0px); position: absolute; left: -63px; top: 295px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i13!2i7393!3i5027!2m3!1e0!2sm!3i323192821!3m14!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjJ8cy5lOmx8cC52Om9mZg!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	               <div style="transform: translateZ(0px); position: absolute; left: -63px; top: 39px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i13!2i7393!3i5026!2m3!1e0!2sm!3i323176260!3m14!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjJ8cy5lOmx8cC52Om9mZg!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	               <div style="transform: translateZ(0px); position: absolute; left: 449px; top: 39px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i13!2i7395!3i5026!2m3!1e0!2sm!3i323192821!3m14!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjJ8cy5lOmx8cC52Om9mZg!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	               <div style="transform: translateZ(0px); position: absolute; left: 449px; top: 295px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i13!2i7395!3i5027!2m3!1e0!2sm!3i323192821!3m14!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjJ8cy5lOmx8cC52Om9mZg!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	               <div style="transform: translateZ(0px); position: absolute; left: 193px; top: -217px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i13!2i7394!3i5025!2m3!1e0!2sm!3i323192821!3m14!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjJ8cy5lOmx8cC52Om9mZg!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	               <div style="transform: translateZ(0px); position: absolute; left: 449px; top: -217px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i13!2i7395!3i5025!2m3!1e0!2sm!3i323192821!3m14!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjJ8cy5lOmx8cC52Om9mZg!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	               <div style="transform: translateZ(0px); position: absolute; left: -63px; top: -217px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i13!2i7393!3i5025!2m3!1e0!2sm!3i323185625!3m14!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!12m4!1e26!2m2!1sstyles!2zcy50OjJ8cy5lOmx8cC52Om9mZg!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	            </div>
+	         </div>
+	      </div>
+	      <div style="position: absolute; left: 0px; top: 0px; z-index: 2; width: 100%; height: 100%;"></div>
+	      <div style="position: absolute; left: 0px; top: 0px; z-index: 3; width: 100%; transform-origin: 0px 0px 0px; transform: matrix(1, 0, 0, 1, 0, 0);">
+	         <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div>
+	         <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;">
+	            <div style="border: 0px none; position: absolute; left: 332.774px; top: 351.607px;">
+	               <div style="width: 52px; height: 52px; cursor: pointer;"></div>
+	            </div>
+	            <div style="border: 0px none; position: absolute; left: 224.075px; top: 421.416px;">
+	               <div style="width: 52px; height: 52px; cursor: pointer;"></div>
+	            </div>
+	         </div>
+	         <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;"></div>
+	         <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"></div>
+	      </div>
+	   </div>
+	   <div style="margin-left: 5px; margin-right: 5px; z-index: 1000000; position: absolute; left: 0px; bottom: 0px;">
+	      <a target="_blank" style="position: static; overflow: visible; float: none; display: inline;" href="https://maps.google.com/maps?ll=-37.805503,144.951221&amp;z=13&amp;hl=en-GB&amp;gl=US&amp;mapclient=apiv3" title="Click to see this area on Google Maps">
+	         <div style="width: 66px; height: 26px; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/google4.png" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 66px; height: 26px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	      </a>
+	   </div>
+	   <div style="padding: 15px 21px; border: 1px solid rgb(171, 171, 171); font-family: Roboto, Arial, sans-serif; color: rgb(34, 34, 34); box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 16px; z-index: 10000002; display: none; width: 256px; height: 148px; position: absolute; left: 158px; top: 78px; background-color: white;">
+	      <div style="padding: 0px 0px 10px; font-size: 16px;">Map Data</div>
+	      <div style="font-size: 13px;">Map data ©2015 Google</div>
+	      <div style="width: 13px; height: 13px; overflow: hidden; position: absolute; opacity: 0.7; right: 12px; top: 12px; z-index: 10000; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png" draggable="false" style="position: absolute; left: -2px; top: -336px; width: 59px; height: 492px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	   </div>
+	   <div class="gmnoprint" style="z-index: 1000001; position: absolute; right: 72px; bottom: 0px; width: 121px;">
+	      <div draggable="false" class="gm-style-cc" style="-webkit-user-select: none; height: 14px; line-height: 14px;">
+	         <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+	            <div style="width: 1px;"></div>
+	            <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div>
+	         </div>
+	         <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a style="color: rgb(68, 68, 68); text-decoration: none; cursor: pointer; display: none;">Map Data</a><span>Map data ©2015 Google</span></div>
+	      </div>
+	   </div>
+	   <div class="gmnoscreen" style="position: absolute; right: 0px; bottom: 0px;">
+	      <div style="font-family: Roboto, Arial, sans-serif; font-size: 11px; color: rgb(68, 68, 68); direction: ltr; text-align: right; background-color: rgb(245, 245, 245);">Map data ©2015 Google</div>
+	   </div>
+	   <div class="gmnoprint gm-style-cc" draggable="false" style="z-index: 1000001; -webkit-user-select: none; height: 14px; line-height: 14px; position: absolute; right: 0px; bottom: 0px;">
+	      <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+	         <div style="width: 1px;"></div>
+	         <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div>
+	      </div>
+	      <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a href="https://www.google.com/intl/en-GB_US/help/terms_maps.html" target="_blank" style="text-decoration: none; cursor: pointer; color: rgb(68, 68, 68);">Terms of Use</a></div>
+	   </div>
+	   <div draggable="false" class="gm-style-cc" style="-webkit-user-select: none; height: 14px; line-height: 14px; display: none; position: absolute; right: 0px; bottom: 0px;">
+	      <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+	         <div style="width: 1px;"></div>
+	         <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div>
+	      </div>
+	      <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a target="_new" title="Report errors in the road map or imagery to Google" href="https://www.google.com/maps/@-37.8055035,144.9512213,13z/data=!10m1!1e1!12b1?source=apiv3&amp;rapsrc=apiv3" style="font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); text-decoration: none; position: relative;">Report a map error</a></div>
+	   </div>
+	   <div class="gmnoprint" draggable="false" controlwidth="28" controlheight="93" style="margin: 10px; -webkit-user-select: none; position: absolute; bottom: 107px; right: 28px;">
+	      <div class="gmnoprint" controlwidth="28" controlheight="55" style="position: absolute; left: 0px; top: 38px;">
+	         <div draggable="false" style="-webkit-user-select: none; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; border-radius: 2px; cursor: pointer; width: 28px; height: 55px; background-color: rgb(255, 255, 255);">
+	            <div title="Zoom in" style="position: relative; width: 28px; height: 27px; left: 0px; top: 0px;">
+	               <div style="overflow: hidden; position: absolute; width: 15px; height: 15px; left: 7px; top: 6px;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl.png" draggable="false" style="position: absolute; left: 0px; top: 0px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 120px; height: 54px;"></div>
+	            </div>
+	            <div style="position: relative; overflow: hidden; width: 67%; height: 1px; left: 16%; top: 0px; background-color: rgb(230, 230, 230);"></div>
+	            <div title="Zoom out" style="position: relative; width: 28px; height: 27px; left: 0px; top: 0px;">
+	               <div style="overflow: hidden; position: absolute; width: 15px; height: 15px; left: 7px; top: 6px;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl.png" draggable="false" style="position: absolute; left: 0px; top: -15px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 120px; height: 54px;"></div>
+	            </div>
+	         </div>
+	      </div>
+	      <div controlwidth="28" controlheight="28" style="box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; border-radius: 2px; width: 28px; height: 28px; cursor: url(http://maps.gstatic.com/mapfiles/openhand_8_8.cur) 8 8, default; position: absolute; left: 0px; top: 0px; background-color: rgb(255, 255, 255);">
+	         <div style="position: absolute; left: 1px; top: 1px;"></div>
+	         <div style="position: absolute; left: 1px; top: 1px;">
+	            <div aria-label="Street View Pegman Control" style="width: 26px; height: 26px; overflow: hidden; position: absolute; left: 0px; top: 0px;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/cb_scout5.png" draggable="false" style="position: absolute; left: -147px; top: -26px; width: 215px; height: 835px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	            <div aria-label="Pegman is on top of the Map" style="width: 26px; height: 26px; overflow: hidden; position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/cb_scout5.png" draggable="false" style="position: absolute; left: -147px; top: -52px; width: 215px; height: 835px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	            <div aria-label="Street View Pegman Control" style="width: 26px; height: 26px; overflow: hidden; position: absolute; left: 0px; top: 0px; visibility: hidden;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/cb_scout5.png" draggable="false" style="position: absolute; left: -147px; top: -78px; width: 215px; height: 835px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	         </div>
+	      </div>
+	      <div class="gmnoprint" controlwidth="28" controlheight="0" style="display: none; position: absolute;">
+	         <div title="Rotate map 90 degrees" style="width: 28px; height: 28px; overflow: hidden; position: absolute; border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; cursor: pointer; display: none; background-color: rgb(255, 255, 255);"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl4.png" draggable="false" style="position: absolute; left: -141px; top: 6px; width: 170px; height: 54px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	         <div class="gm-tilt" style="width: 28px; height: 28px; overflow: hidden; position: absolute; border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; top: 0px; cursor: pointer; background-color: rgb(255, 255, 255);"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl4.png" draggable="false" style="position: absolute; left: -141px; top: -13px; width: 170px; height: 54px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;"></div>
+	      </div>
+	   </div>
+	   <div class="gmnoprint" style="margin: 10px; z-index: 0; position: absolute; cursor: pointer; left: 0px; top: 0px;">
+	      <div class="gm-style-mtc" style="float: left;">
+	         <div draggable="false" title="Show street map" style="direction: ltr; overflow: hidden; text-align: center; position: relative; color: rgb(86, 86, 86); font-family: Roboto, Arial, sans-serif; -webkit-user-select: none; font-size: 11px; padding: 8px; border-bottom-left-radius: 2px; border-top-left-radius: 2px; -webkit-background-clip: padding-box; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; min-width: 22px; background-color: rgb(255, 255, 255); background-clip: padding-box;">Map</div>
+	         <div style="z-index: -1; padding: 2px; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; position: absolute; left: 0px; top: 42px; text-align: left; display: none; background-color: white;">
+	            <div draggable="false" title="Show street map with terrain" style="color: rgb(0, 0, 0); font-family: Roboto, Arial, sans-serif; -webkit-user-select: none; font-size: 11px; padding: 6px 8px 6px 6px; direction: ltr; text-align: left; white-space: nowrap; background-color: rgb(255, 255, 255);">
+	               <span role="checkbox" style="box-sizing: border-box; position: relative; line-height: 0; font-size: 0px; margin: 0px 5px 0px 0px; display: inline-block; border: 1px solid rgb(198, 198, 198); border-radius: 1px; width: 13px; height: 13px; vertical-align: middle; background-color: rgb(255, 255, 255);">
+	                  <div style="position: absolute; left: 1px; top: -2px; width: 13px; height: 11px; overflow: hidden; display: none;"><img src="http://maps.gstatic.com/mapfiles/mv/imgs8.png" draggable="false" style="position: absolute; left: -52px; top: -44px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 68px; height: 67px;"></div>
+	               </span>
+	               <label style="vertical-align: middle; cursor: pointer;">Terrain</label>
+	            </div>
+	         </div>
+	      </div>
+	      <div class="gm-style-mtc" style="float: left;">
+	         <div draggable="false" title="Show satellite imagery" style="direction: ltr; overflow: hidden; text-align: center; position: relative; color: rgb(86, 86, 86); font-family: Roboto, Arial, sans-serif; -webkit-user-select: none; font-size: 11px; padding: 8px; border-bottom-right-radius: 2px; border-top-right-radius: 2px; -webkit-background-clip: padding-box; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; border-left-width: 0px; min-width: 40px; background-color: rgb(255, 255, 255); background-clip: padding-box;">Satellite</div>
+	         <div style="z-index: -1; padding: 2px; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; position: absolute; right: 0px; top: 42px; text-align: left; display: none; background-color: white;">
+	            <div draggable="false" title="Show imagery with street names" style="color: rgb(0, 0, 0); font-family: Roboto, Arial, sans-serif; -webkit-user-select: none; font-size: 11px; padding: 6px 8px 6px 6px; direction: ltr; text-align: left; white-space: nowrap; background-color: rgb(255, 255, 255);">
+	               <span role="checkbox" style="box-sizing: border-box; position: relative; line-height: 0; font-size: 0px; margin: 0px 5px 0px 0px; display: inline-block; border: 1px solid rgb(198, 198, 198); border-radius: 1px; width: 13px; height: 13px; vertical-align: middle; background-color: rgb(255, 255, 255);">
+	                  <div style="position: absolute; left: 1px; top: -2px; width: 13px; height: 11px; overflow: hidden;"><img src="http://maps.gstatic.com/mapfiles/mv/imgs8.png" draggable="false" style="position: absolute; left: -52px; top: -44px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 68px; height: 67px;"></div>
+	               </span>
+	               <label style="vertical-align: middle; cursor: pointer;">Labels</label>
+	            </div>
+	         </div>
+	      </div>
+	   </div>
+	</div>
+	</div>
+	<div class="category-menu-bar"></div>
+
+	<!-- Right Sidebar Content -->
+	<div class="javo_mhome_map_lists" style="top: 76px;">
+		<!-- Right Sidebar Inner -->
+		<!-- Control & Filter Area -->
+		<div class="main-map-search-wrap">
+			<div class="row">
+
+				<div class="col-md-12 text-left">
+					<div class="javo-filter-column">
+						<select multiple="multiple" data-placeholder="Danh Mục" name="filter[item_category]" style="display: none;" class="chzn-select">
+							<option value="0" disabled>Danh Mục</option>
+							<% @places_category.each do |cate|%>
+							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
+							<%end%>
+						</select>
+					</div>
+					<div class="javo-filter-column">
+						<select  multiple="multiple"  data-placeholder="Tỉnh/Thành"  name="filter[item_city]" style="display: none;">
+							<option value="0" disabled>Tỉnh Thành</option>
+							<%@places_city.each do |cate|%>
+							<option value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>		
+							<%end%>
+						</select>
+					</div>
+					<div class="javo-filter-column">
+						<select  multiple="multiple"  data-placeholder="Quận/Huyện"  name="filter[item_district]" style="display: none;">
+							<option value="0" disabled>Quận/Huyện</option>
+							<%@district_category.each do |cate|%>
+							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
+							<%end%>
+						</select>
+					</div>
+					<div class="javo-filter-column">
+						<select  multiple="multiple"  data-placeholder="Khu Vực"  name="filter[item_area]" style="display: none;">
+							<option value="0" disabled>Khu Vực</option>
+							<%@places_area.each do |cate|%>
+							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
+							<%end%>
+						</select>
+					</div>
+					<div class="javo-filter-column">
+						<select  multiple="multiple"  data-placeholder="Tiện Nghi"  name="filter[item_property]" style="display: none;">
+							<option value="0" disabled>Tiện Nghi</option>
+							<%@places_property.each do |cate|%>
+							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
+							<%end%>
+						</select>
+					</div>
+					<div class="javo-filter-column">
+						<select  multiple="multiple" data-placeholder="Ẩm Thực" name="filter[item_cuisine]" style="display: none;">
+							<option value="0" disabled>Ẩm Thực</option>
+							<%@places_cuisine.each do |cate|%>
+							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
+							<%end%>
+						</select>
+					</div>
+					<div class="javo-filter-column">
+						<select  multiple="multiple" data-placeholder="Mục Đích" name="filter[item_purpose]" style="display: none;">
+							<option value="0" disabled>Mục Đích</option>
+							<%@places_purpose.each do |cate|%>
+							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
+							<%end%>
+						</select>
+					</div>
+					<div class="javo-filter-column">
+						<select  multiple="multiple" data-placeholder="Thích Hợp" name="filter[item_diding]" style="display: none;">
+							<option value="0" disabled>Thích Hợp</option>
+							<%@places_diding.each do |cate|%>
+							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
+							<%end%>
+						</select>
+					</div>
+				</div>
+			</div><!-- row-->
+		</div> <!-- main-map-search-wrap -->
+		<!-- Control & Filter Area Close -->
+
+		<input type="hidden" name="javo_is_search" value="">
+
+		<!-- Ajax Results Output Element-->
+
+		<div class="javo_mhome_map_output item-list-page-wrap" style="margin-top: 82px;">
+			<div class="body-content">
+				<div class="col-md-12">
+					<div id="products" class="list-group">
+					</div><!-- /#prodicts -->
+				</div><!-- /.col-md-12 -->
+			</div><!-- /.body-content -->
+			<button type="button" class="btn btn-default btn-block javo-map-box-morebutton" data-javo-map-load-more="0">
+				<i class="fa fa-refresh"></i>
+				Load More</button>
+			
+		</div>
+
+		<div class="mobile-map">
+		<a class="go-under-map">Move to search form</a>
+	</div> <!-- mobile-map-->
+	</div><!-- Right Sidebar Content Close -->
+</div>
+
+
+<%=render :partial=> 'plans/template'%>
+
+<fieldset>
+	
+	<!--# Variables -->
+	<input type="hidden" javo-ajax-url="" value="http://localhost:3000/api">
+	<input type="hidden" javo-map-all-items="" value="/api/load_place_filter">
+	<input type="hidden" javo-map-all-tags="" value="Academy|Albert Park|Australia|Blackburn|cafe|Camping|Cheltenham|Fashion|Frankston|Furniture|Hotel|IT Machine|Japanese food|Leisure|Manningham|melbourne|Restaurant|South Melbourne|sunshine west|West Melbourne|Williams Town">
+	<input type="hidden" javo-is-geoloc="" value="">
+
+	<!--# Comments -->
+	<input type="hidden" javo-cluster-multiple="" value="This place contains multiple places. please select one.">
+	<input type="hidden" javo-server-error="" value="Server Error">
+	<input type="hidden" javo-map-item-not-found="" value="Not Found Items">
+	<input type="hidden" javo-location-access-fail="" value="Your position access failed.">
+
+	<!--# Settings -->
+	<input type="hidden" javo-cross-domain="" value="">
+	<input type="hidden" name="javo_google_map_poi" value="off">
+	<input type="hidden" javo-marker-trigger-zoom="" value="18">
+	<input type="hidden" javo-cluster-onoff="" value="">
+	<input type="hidden" javo-cluster-level="" value="25">
+	<input type="hidden" javo-distance-unit="" value="km">
+	<input type="hidden" javo-current-distance="" value="0">
+	<input type="hidden" javo-current-day="" value="2">
+	<input type="hidden" javo-current-people="" value="2">
+</fieldset>
+
+
+
+<script type="text/javascript" src="/assets/js/add_plan.js">
+	
+</script>
+	<div class="footer-bottom hidden-xs hidden-sm">
+		<div class="container">
+			<p></p>
+		</div> <!-- container -->
+	</div> <!-- footer-bottom -->
+		<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top javo-dark admin-color-setting" role="button" title="Go to top">
+		<span class="fa fa-arrow-up"></span>
+	</a>
+				<a class="btn btn-primary btn-lg javo-quick-contact-us javo-dark admin-color-setting">
+			<span class="fa fa-envelope-o"></span>
+		</a>
+		<div class="javo-quick-contact-us-content">
+			<div class="wpcf7" id="wpcf7-f53-o1" lang="en-US" dir="ltr">
+<div class="screen-reader-response"></div>
+<form name="" action="/directory/demo2/map-box/#wpcf7-f53-o1" method="post" class="wpcf7-form" novalidate="novalidate">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="53">
+<input type="hidden" name="_wpcf7_version" value="4.0.3">
+<input type="hidden" name="_wpcf7_locale" value="en_US">
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f53-o1">
+<input type="hidden" name="_wpnonce" value="ee08a95b88">
+</div>
+<div class="row">
+<div class="col-md-6 form-group"><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required form-control" aria-required="true" aria-invalid="false" placeholder="Full Name"></span></div>
+<div class="col-md-6 form-group"><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email form-control" aria-required="true" aria-invalid="false" placeholder="Email Address"></span></div>
+</div>
+<div class="form-group"><span class="wpcf7-form-control-wrap your-subject"><input type="text" name="your-subject" value="" size="40" class="wpcf7-form-control wpcf7-text form-control" aria-invalid="false" placeholder="Subject"></span></div>
+<div class="form-group"><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="5" class="wpcf7-form-control wpcf7-textarea form-control" aria-invalid="false" placeholder="message"></textarea></span></div>
+<div class="form-group"><input type="submit" value="Send Message" class="wpcf7-form-control wpcf7-submit btn btn-primary"><img class="ajax-loader" src="http://javothemes.com/directory/demo2/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden;"></div>
+<div class="wpcf7-response-output wpcf7-display-none"></div></form></div>		</div>
+	<div class="modal fade" id="author_contact" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title">Contact <span class="javo-contact-user-name"></span></h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="contact_name" class="col-sm-2 control-label">Name</label>
+						<div class="col-sm-10">
+							<input name="contact_name" id="contact_name" class="form-control" placeholder="Insert your name" type="text">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="contact_email" class="col-sm-2 control-label">Email</label>
+						<div class="col-sm-10">
+							<input name="contact_email" id="contact_email" class="form-control" placeholder="Insert your E-mail address." type="email">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">
+							<textarea name="contact_content" id="contact_content" class="form-control" rows="5"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<input id="contact_submit" class="btn btn-primary col-md-12" value="Send a message" type="button">
+						</div>
+					</div>
+					<input type="hidden" name="contact_this_from">
+					<input type="hidden" name="contact_item_name">
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div><!-- Modal -->
+<div class="modal fade" id="map_breif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<div class="row">
+					<div class="col-md-12 javo_map_breif_modal_content"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Post share link send to mail -->
+<div class="modal fade" id="emailme-reveal" tabindex="-1" role="dialog" aria-labelledby="emailme-revealLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form method="post" id="javo_frm_send_link_mail" class="custom">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="emailme-revealLabel">Email This post</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-6 col-lg-4"><div class="well well-sm">Sender Email Address</div></div>
+						<div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="to_emailme_email" placeholder="Please type email address" value=""></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 col-lg-4"><div class="well well-sm">Reception Email Address</div></div>
+						<div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="from_emailme_email" placeholder="Please type email address to send" value=""></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 col-lg-4"><div class="well well-sm"><i class="fa fa-link"></i>&nbsp;Link</div></div>
+						<div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="emailme_link" readonly="" value="http://javothemes.com/directory/demo2/map-box/"></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-lg-12"><textarea class="form-control" rows="10" cols="5" name="emailme_memo" placeholder="Please add some memo, if you need"></textarea></div>
+					</div>
+				</div><!-- Modal body -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="javo_send_link_mail(this);">Send</button>
+					<input name="action" value="emailme" type="hidden">
+					<input name="action_mode" value="emailme" type="hidden">
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+	function javo_send_link_mail(t){
+		(function($){
+			"use strict";
+			var f = t.form;
+			var param = $("#javo_frm_send_link_mail").serialize();
+			var option = {
+				url:'http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php',
+				type:'post', dataType:'json', data:param, success:function(data){
+					if( data['result'] == true ){
+						alert("");
+					}else{
+						alert("");
+					};
+					$(t).text("Send").attr("disabled", false);
+				}, error:function(e){
+					alert("" + e.state());}};
+			if( !f.to_emailme_email.value ){
+				alert("");
+				f.to_emailme_email.focus();
+				return false;
+			};
+			if( !f.from_emailme_email.value ){
+				alert("");
+				f.from_emailme_email.focus();
+				return false;
+			};
+			$(t).text("Processing..").attr("disabled", true);
+			$.ajax(option);
+
+		})(jQuery);
+	}
+</script>
+<!-- Close Post share link send to mail --><!-- Post share link send to mail -->
+<div class="modal fade" id="jv-claim-reveal" tabindex="-1" role="dialog" aria-labelledby="jv-claim-revealLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+
+
+			<form method="post" id="javo_frm_send_link_claim" class="custom">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="jv-claim-revealLabel">Claim This Business</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-6 col-lg-6">
+							<div class="form-group"><input type="text" class="form-control" name="jv-claim-name" required="" placeholder="Your Name" value=""></div>
+						</div>
+
+						<div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-email" placeholder="Your email" value=""></div></div>
+					</div><!-- row -->
+					<div class="row">
+						<div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-username" placeholder="Username" value=""></div></div>
+						<div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-phone" placeholder="Phone Number" value=""></div></div>
+					</div><!-- row -->
+					<div class="row">
+						<div class="col-xs-12 col-lg-12"><textarea class="form-control" rows="5" cols="3" name="jv-claim-memo" placeholder="Please add some memo, if you need"></textarea></div>
+					</div>
+					<input type="hidden" cla="form-control" name="jv-claim-item" value="695">
+				</div><!-- Modal body -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="javo_send_link_claim(this);">Send</button>
+					<input name="action" value="send_claim" type="hidden">
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+	function javo_send_link_claim(t){
+		(function($){
+			"use strict";
+			var f = t.form;
+			var param = $("#javo_frm_send_link_claim").serialize();
+			var option = {
+				url:'http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php',
+				type:'post'
+				, dataType:'json'
+				, data:param
+				, success:function(data){
+					if( data.result == true ){
+						$.javo_msg({content:"Your claim request has been successfully sent!<br/>We will review it and get you back soon."}, function(){
+							$("#jv-claim-reveal").modal('hide');
+						});
+					}else{
+						$.javo_msg({content:"Sorry, Email send failed. Please check your email address"});
+					};
+					$(t).button('reset');
+				}, error:function(e){
+					alert("" + e.state());
+					console.log( e.responseText );
+				}
+			};
+
+			var on_errors = 0;
+
+			$(f).find('input').each(function(){
+				$(this).removeClass('isNull');
+				if( $(this).val() == "" ){
+					$(this).addClass('isNull');
+					on_errors++;
+				}
+			});
+
+			if( on_errors > 0 ){
+
+				$.javo_msg({ content:'Please fill them out'});
+				return false;
+			}
+
+			$(t).button('loading');
+
+			$.ajax(option);
+		})(jQuery);
+	}
+</script>
+<!-- Close Post share link send to mail -->
+<!-- Modal -->
+<div class="modal fade login-type2" id="login_panel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-middle">
+		<div class="modal-content no-padding">
+
+			<!-- Modal Header -->
+			<div class="modal-header text-center">
+				<h4 class="modal-title" id="myModalLabel">
+					<img src="/assets/images/icon/icon-user.png">
+					SIGN INTO YOUR ACCOUNT				</h4><!-- /.modal-title -->
+			</div><!-- /.modal-header -->
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<form action="http://javothemes.com/directory/demo2/wp-login.php" id="login_form" name="login_form" method="post" role="form">
+
+											<!-- Facebook Login -->
+						<div class="form-group">
+							<button type="button" class="btn btn-block btn-navy facebook_connect">
+								<i class="fa fa-facebook"></i> &nbsp;
+								<strong>Login with Facebook</strong>
+							</button>
+						</div><!-- /.form-group -->
+						<div class="form-group">
+							<button type="button" class="btn btn-block btn-navy" id="googlelogin" data-social="google">
+								<i class="fa fa-google-plus"></i> &nbsp;
+								<strong>Login with Google +</strong>
+							</button>
+						</div><!-- /.form-group -->
+
+						<div class="form-group separator-text text-center">
+							<span>OR</span>
+						</div>
+					
+					<!-- User Name -->
+					<div class="form-group">
+						<input type="text" name="log" id="username" value="" class="form-control" placeholder="Username" required="">
+					</div>
+
+					<!-- User Password -->
+					<div class="form-group">
+						<input type="password" name="pwd" id="password" value="" class="form-control" placeholder="Password" required="">
+					</div>
+
+					<!-- Descriptions -->
+					<div class="form-group remember-and-forgot">
+						<div class="row">
+							<!-- Remember Me -->
+							<div class="pull-left">
+								<label class="control-label">
+									<input name="rememberme" value="forever" type="checkbox">
+									<small>Remember Me</small>
+								</label><!-- /.control-label -->
+							</div><!-- /.pull-left -->
+							<!-- Forgot Password -->
+							<div class="pull-right">
+								<a href="http://javothemes.com/directory/wp-login.php?action=lostpassword">
+									<small class="required">Forgot Your Password?</small>
+								</a>
+							</div><!-- /.pull-right -->
+
+						</div><!-- /.inline-block -->
+
+					</div><!-- /.form-group -->
+
+					<!-- Login Button -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-12">
+								<span class="description">Your privacy is important to us and we will never rent or sell your information.</span>
+							</div><!-- /.col-md-12 -->
+						</div><!-- /.row -->
+						<div class="row">
+							<div class="col-md-12">
+								<input type="hidden" name="redirect_to" value="/directory/demo2/map-box/">
+								<button type="submit" class="btn btn-block btn-danger">
+									<strong>Login</strong>
+								</button>
+							</div><!-- /.col-md-12 -->
+						</div><!-- /.row -->
+					</div>
+
+					<hr class="padding-5px">
+
+					<!-- Sign up Button -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-12">
+
+															<div class="well well-sm">
+									<small>This site is not allowed new members. please contact administrator.</small>
+								</div>
+														</div><!-- /.col-md-12 -->
+						</div><!-- /.row -->
+					</div>
+
+				</form>
+			</div><!-- /.modal-body -->
+
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="register_panel" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form data-javo-modal-register-form="">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<img src="/assets/images/icon/icon-user.png">
+						Create Account					</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="" for="reg-username">Username</label>
+								<input type="text" id="reg-username" name="user_login" class="form-control" required="" placeholder="Username">
+							</div>
+						</div><!-- /.col-md-6 -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="" for="reg-email">Email Address</label>
+								<input type="text" id="reg-email" name="user_email" class="form-control" required="" placeholder="Your email">
+							</div>
+						</div><!-- /.col-md-6 -->
+					</div><!-- /.row -->
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="" for="firstname">First Name</label>
+								<input type="text" id="firstname" name="first_name" class="form-control" required="" placeholder="Your first name">
+
+							</div>
+						</div><!-- /.col-md-6 -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="" for="lastname">Last Name</label>
+								<input type="text" id="lastname" name="last_name" class="form-control" required="" placeholder="Your last name">
+
+							</div>
+						</div><!-- /.col-md-6 -->
+					</div><!-- /.row -->
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="" for="reg-password">Password</label>
+								<input type="password" id="reg-password" name="user_pass" class="form-control" required="" placeholder="Desired Password">
+
+							</div>
+						</div><!-- /.col-md-6 -->
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="" for="reg-con-password">Confirm Password</label>
+								<input type="password" id="reg-con-password" name="user_con_pass" class="form-control" required="" placeholder="Confirm Password">
+
+							</div>
+						</div><!-- /.col-md-6 -->
+					</div><!-- /.row -->
+				</div>
+
+				<div class="modal-footer">
+
+					
+					<div class="row">
+						<div class="col-md-4 text-left">
+							<a href="#" data-toggle="modal" data-target="#login_panel" class="btn btn-default javo-tooltip" title="" data-original-title="Log-In">LOG IN</a>
+
+						</div><!-- /.col-md-4 -->
+						<div class="col-md-8 text-right">
+							<input type="hidden" name="action" value="register_login_add_user">
+							<button type="submit" id="signup" name="submit" class="btn btn-primary"><i class="icon-heart"></i> &nbsp;Create My Account</button> &nbsp;
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+						</div><!-- /.col-md-8 -->
+					</div><!-- /.row -->
+
+				</div>
+			</form>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<fieldset>
+	<input type="hidden" name="javo_str_disagree" value="You need to read and agree the terms and conditions to register.">
+</fieldset>
+
+<script type="text/javascript">
+(function($){
+	"use strict";
+	$('body')
+		.on('submit', '[data-javo-modal-register-form]', function(e){
+			e.preventDefault();
+			var $this = $(this);
+			$(this).find('input').each(function(){
+				if( $(this).val() == ""){
+					$(this).addClass('isNull');
+				}else{
+					$(this).removeClass('isNull');
+				}
+			});
+
+			if( $(this).find('[name="user_pass"]').val() != $(this).find('[name="user_con_pass"]').val() ){
+				$(this).find('[name="user_pass"], [name="user_con_pass"]').addClass('isNull');
+				return false;
+			}else{
+				$(this).find('[name="user_pass"], [name="user_con_pass"]').removeClass('isNull');
+			};
+			if( $(this).find('[name="user_login"]').get(0).value.match(/\s/g) ){
+				var str = "usernames with spaces should not be allowed.";
+				$.javo_msg({ content:str }, function(){ $(this).find('[name="user_login"]').focus(); });
+				$(this).find('[name="user_login"]').addClass('isNull');
+			}
+
+			if( $(this).find('.isNull').length > 0 ) return false;
+
+			if( $( ".javo-register-agree" ).length > 0 )
+				if( ! $( ".javo-register-agree" ).is( ":checked" ) ) {
+					$.javo_msg({ content: $( "[name='javo_str_disagree']" ).val() });
+					return false;
+				}
+
+			$(this).find('[type="submit"]').button('loading');
+
+			$.ajax({
+				url:"http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php"
+				, type:'post'
+				, data: $(this).serialize()
+				, dataType:'json'
+				, error: function(e){  }
+				, success: function(d){
+					if( d.state == 'success'){
+						$.javo_msg({content:"Register Complete", delay:3000}, function(){
+							document.location.reload();
+						});
+					}else{
+						$.javo_msg({ content: d.comment , delay:100000 });
+					}
+					$this.find('[type="submit"]').button('reset');
+				}
+			});
+		}).on('click', 'a[data-target="#register_panel"]', function(e){
+			$(this).closest('.modal').modal('hide');
+		}).on('click', 'a[data-target="#login_panel"]', function(e){
+			$(this).closest('.modal').modal('hide');
+		});
+})(jQuery);
+</script><script type="text/javascript"></script>		<script type="text/javascript">
+		jQuery( function($){
+
+			var javo_pre_image_ = $( "header#header-one-line" ).find( "[data-javo-sticky-src]" ).attr( "src" );
+			var javo_stk_image_ = $( "header#header-one-line" ).find( "[data-javo-sticky-src]" ).data( "javo-sticky-src" );
+			var javo_mob_image_ = $( "header#header-one-line" ).find( "[data-javo-mobile-src]" ).data( "javo-mobile-src" );
+
+			$( window )
+
+			.on( 'scroll resize', function(){
+					if( $( window ).outerWidth() <= 768 ) {
+						$( 'body, #javo-navibar ul.navbar-left' ).addClass( 'mobile' );
+					}else{
+						$( 'body, #javo-navibar ul.navbar-left' ).removeClass( 'mobile' );
+					}
+
+					$( '.javo-in-mobile.x-hide' ).show();
+
+					if( $( "body" ).hasClass( 'mobile' ) ) {
+
+						$( '.javo-in-mobile.x-hide' ).hide();
+						$( "header#header-one-line" ).find( "[data-javo-mobile-src]" ).prop( "src", javo_mob_image_ );
+
+					}else if( $( "header#header-one-line" ).find( "nav" ).hasClass( "affix" ) ) {
+
+						$( "header#header-one-line" ).find( "[data-javo-sticky-src]" ).prop( "src", javo_stk_image_ );
+
+					}else{
+
+						$( "header#header-one-line" ).find( "[data-javo-sticky-src]" ).prop( "src", javo_pre_image_ );
+					}
+
+				})
+				.trigger('scroll resize')
+		});
+		</script>
+		
+				<!-- Memberships powered by Paid Memberships Pro v1.7.15.2.
+ -->
+				<script type="text/javascript">
+			var ajaxurl = 'http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php';
+			jQuery('.facebook_connect').click(function(){
+
+
+				var context = jQuery(this).closest("form");
+				if (jQuery(".tos_register", context).length > 0)
+				{
+					if (! jQuery(".tos_register", context).is(":checked"))
+					{
+						$.javo_msg({ content: "You must agree with the terms and conditions.", delay:10000 });
+						return false;
+					}
+				}
+
+				FB.login(function(FB_response){
+					if( FB_response.status === 'connected' ){
+						fb_intialize(FB_response);
+					}
+				},
+				{scope: 'email'});
+
+			});
+
+			function fb_intialize(FB_response){
+				FB.api(
+					'/me'
+					, 'GET'
+					,  {'fields':'id,email,verified,name'}
+					, function(FB_userdata)
+					{
+						jQuery.ajax({
+							type: 'POST',
+							url: ajaxurl,
+							data: {"action": "fb_intialize", "FB_userdata": FB_userdata, "FB_response": FB_response},
+							error: function(e){
+								jQuery.javo_msg({ content: "Server Error", delay:10000 });
+								console.log( e.responseText );
+							},
+							success: function(user){
+								if( user.error ){
+									jQuery.javo_msg({ content: user.error, delay:10000 });
+								} else if( user.loggedin ){
+									if( user.type === 'login' )
+									{
+										window.location.reload();
+									}
+									else if( user.type === 'register' )
+									{
+										window.location = user.url;
+									}
+								}
+							}
+						});
+					}
+				)
+			}
+			jQuery('.facebook_deconnect').click(function(){
+				jQuery.javo_msg({ content: "You has been successfully Facebook Logout.", delay:10000 });
+				FB.logout(function(res){
+					window.location.href= "http://javothemes.com/directory/demo2";
+				});
+			});
+	</script>
+			<script type="text/javascript">
+		jQuery( function( $ ){
+
+			if( typeof window.javo_mailchimp_script == "undefined" )
+			{
+
+
+
+
+
+
+
+				window.javo_mailchimp_script = {
+
+					init: function(){
+
+						$( document ).on( 'submit', 'form#newsletter-form', function( e ){
+
+							e.preventDefault();
+
+							var wp_once	= $( this ).find( "input[name='javo_mailchimp_security']" ).val();
+							var cm_list	= $( this ).find( "input[name='cm_list']" ).val();
+							var ajaxurl	= $( this ).find( "input[name='ajaxurl']" ).val();
+							var ok_msg	= $( this ).find( "input[name='ok_msg']" ).val();
+							var no_msg	= $( this ).find( "input[name='no_msg']" ).val();
+
+
+							var param	= {
+								action		: 'javo_mailchimp'
+								, mc_email	: $('#javo_cmp_email').attr('value')
+								, yname		: $('#javo_cmp_name').attr('value')
+								, list		: cm_list
+								, nonce		: wp_once
+							};
+
+							$.ajax({
+								url			: ajaxurl
+								, type		: 'POST'
+								, data		: param
+								, dataType	: 'JSON'
+								, xhr: function(){
+
+									var xhr = new window.XMLHttpRequest();
+
+									xhr.addEventListener( 'progress', function( e ){
+
+										console.log( e );
+
+									}, false );
+
+									return xhr;
+
+								}
+
+								, success	: function( xhr )
+								{
+
+									jQuery.javo_msg({ content: xhr.message, delay:10000 });
+									console.log( xhr );
+
+								}
+
+								, error: function( xhr )
+								{
+
+									jQuery.javo_msg({ content: no_msg, delay:10000 });
+									console.log( xhr.responseText );
+
+								}
+							});
+						});
+					}
+				}
+			}
+			window.javo_mailchimp_script.init();
+		} );
+		</script>
+		
+	<script type="text/javascript">
+		window.__javo_str_empty_alert_close_button='OK';
+		window.__javo_str_is_empty='Please rate on %s.';
+		window.__javo_str_comment_pending='Your comment is awaiting moderation.';
+	</script>
+		<script type="text/javascript">
+		jQuery( function( $ ) {
+			var javo_write_review = function( element ){
+				this.el			= $( element );
+				this.selector	= element;
+				if( ! window.__JAVO_WRITE_REVIEW__ )
+				{
+					window.__JAVO_WRITE_REVIEW__ = true;
+					this.init();
+				}
+			};
+
+			javo_write_review.prototype = {
+
+				constructor : javo_write_review
+
+				, init : function()
+				{
+					var el				= this.el;
+					var form			= el.find( "form" );
+					this.list_offset	= 0;
+
+					form.removeClass( 'hidden' ).hide();
+
+					this
+						.setInputRatingFields();
+
+					$( document )
+
+						.on( 'click', this.selector, this.showWriteForm )
+						.on( 'click', '#javo-detail-item-review-loadmore', this.getReviewLists() )
+						.on( 'submit', form.selector, this.submit_rating() )
+						.on( 'keypress', ".javo-detail-item-reply", this.appendReply() )
+						.on( 'click', '.javo-detail-item-edit-comment', this.editComment() );
+
+					if( $( "#javo-detail-item-review-container" ).length > 0 )
+						$( "#javo-detail-item-review-loadmore" ).trigger( 'click' );
+
+				}
+
+				, showWriteForm : function( e )
+				{
+					var form = $( this ).find( "form" );
+					form.slideDown( 'fast' );
+
+					$( this )
+						.removeClass( 'cursor-pointer')
+						.off( 'click' )
+						.find( '.delete-ready')
+						.remove();
+				}
+
+				, setInputRatingFields : function( reset )
+				{
+					var element		= $('.javo_rat_star');
+
+					element.each(
+						function(k, v)
+						{
+							if( ! reset )
+							{
+								$( this ).raty({
+									starOff: '/assets/images/star-off.png'
+									, starOn: '/assets/images/star-on.png'
+									, starHalf: '/assets/images/star-half.png'
+									, half: true
+									, width:150
+									, scoreName: $(this).data('input-name')
+									, score: function() {
+										return $(this).attr('data-score');
+									}
+								});
+							}else{
+								$( this ).raty( 'reload' );
+							}
+						}
+					);
+					return this;
+				}
+
+				, setRatings : function()
+				{
+					var el	= $( "#javo-detail-item-review-container" );
+
+					el
+						.find( "[data-score]" )
+						.raty({
+							starOff		: '/assets/images/star-off-s.png'
+							, starOn	: '/assets/images/star-on-s.png'
+							, starHalf	: '/assets/images/star-half-s.png'
+							, half		: true
+							, readOnly	: true
+							, scoreName	: $(this).data('input-name')
+							, score		: function() {
+								return $(this).attr('data-score');
+							}
+						})
+						.css( 'width', 'auto' );
+				}
+
+				, empty_field : function( elements )
+				{
+					var
+						obj		= this
+						output	= '';
+
+
+					obj.el.find( "form [required]" ).each(
+						function( i, k )
+						{
+							var value;
+
+							if( typeof $( this ).data( 'input-name' ) != 'undefined'  ) {
+								value = $( "[name='" + $( this ).data( 'input-name' ) + "']" ).val();
+							}else{
+								value = $( this ).val();
+							}
+
+							if( ! value )
+								output += window.__javo_str_is_empty.replace( /%s/g, $( this ).data('label') ) + "<br>";
+						}
+					);
+
+					if( output ) {
+						$.javo_msg( {
+							content		: output
+							, button	: window.__javo_str_empty_alert_close_button
+						} );
+						return false;
+					}
+					return true;
+				}
+
+				, submit_rating : function()
+				{
+					var obj				= this;
+
+					return function( e ){
+						e.preventDefault();
+						var
+							form			= $( this )
+							, ajax_url		= $( "[javo-ajax-url]" ).val()
+							, el			= $( "#javo-detail-item-review-container" )
+							, param			= form.serialize()
+							, param_meta	= $( "#javo-detail-item-review-parameter" );
+
+						if( ! obj.empty_field() )
+							return false;
+
+						$.post(
+							ajax_url
+							, param
+							, function( response )
+							{
+								if( response.state )
+								{
+									if( response.approve )
+									{
+										$.javo_msg({ content: param_meta.find("[name='review_register_success']").val() });
+										response.data.prepend = true;
+										obj.list_offset = parseInt( obj.list_offset ) + 1;
+										obj.add_listing( response.data );
+										el.find( ".dismiss-ready" ).remove();
+										obj.setReviewImageSlider();
+									}else{
+										$.javo_msg({ content: window.__javo_str_comment_pending });
+									}
+									obj.reset_review_form();
+
+								}else{
+									$.javo_msg({ content: param_meta.find("[name='review_register_fail']").val() });
+								}
+							}
+							, 'json'
+						)
+						.fail( function( xhr ) {
+							console.log( xhr.responseText );
+						} );
+					}
+				}
+
+				, reset_review_form : function()
+				{
+					var
+						obj					= this
+						, image_container	= obj.el.find( ".comment_image_preview" );
+
+					obj.el.find( "[name='comment_content']" ).val( null );
+
+					obj.setInputRatingFields( true );
+					image_container.html( false );
+
+				}
+
+				, setReviewImageSlider : function()
+				{
+					var el = $( "#javo-detail-item-review-container .javo-detail-item-review-inner" );
+					el.each(
+						function(){
+							$(this).magnificPopup(
+								{
+									type		: 'image'
+									, delegate	: 'div.javo-thb[href]'
+									, gallery	: { enabled: true }
+								}
+							);
+						}
+					);
+				}
+
+				, add_listing : function( data )
+				{
+					var obj = this;
+					var str	= $( "#javo-detail-item-review-template" ).html();
+					var emp	= $( "#javo-detail-item-review-empty" ).html();
+					var el	= $( "#javo-detail-item-review-container" );
+					var edit_text;
+
+					el.find( ".dismiss-ready" ).remove();
+
+					if( data )
+					{
+						var
+							edit_link			= ''
+							, del_link			= ''
+							, detail_ratings	= "";
+
+
+						if( typeof data.is_author != "undefined" && data.is_author )
+						{
+							edit_link		+= "<a class=\"javo-detail-item-edit-comment\"" + " ";
+							edit_link		+= "data-comment-id=\"" + data.id + "\" href=\"javascript:\">";
+								edit_link		+= "<i class=\"fa fa-pencil\"></i>" + " ";
+								edit_link		+= edit_text || "Edit";
+							edit_link		+= "</a>";
+
+							del_link		+= "<a class=\"javo-detail-item-delete-comment\"" + " ";
+							del_link		+= "data-comment-id=\"" + data.id + "\" href=\"javascript:\">";
+								del_link		+= "<i class=\"fa fa-pencil\"></i>" + " ";
+								del_link		+= edit_text || "Delete";
+							del_link		+= "</a>";
+						}
+
+						str = str.replace( /{comment-id}/g		, data.id || '' );
+						str = str.replace( /{author}/g			, data.author || '' );
+						str = str.replace( /{avatar}/g			, data.avatar || '' );
+						str = str.replace( /{content}/g			, data.content || '' );
+						str = str.replace( /{date}/g			, data.date || '' );
+						str = str.replace( /{ratings}/g			, data.ratings || '' );
+						str = str.replace( /{rating_sum}/g		, data.rating_sum || 0 );
+						str = str.replace( /{rating_average}/g	, data.rating_average || 0 );
+						str = str.replace( /{thumbnails}/g		, data.thumbnails || '' );
+						str = str.replace( /{reviews}/g			, obj.add_listing_reply( data ) );
+						str = str.replace( /{edit}/g			, edit_link );
+						str = str.replace( /{del}/g				, del_link );
+
+						if( typeof data.ratings != "undefined" )
+						{
+							var dr_score = '';
+							$.each(
+								data.ratings
+								, function( title, score )
+								{
+									dr_score		+= "<div class=\"\" style=\"width:350px;\">";
+										dr_score		+= "<div class=\"inline-block\" style=\"width:150px; vertical-align:middle; word-break:break-all\">";
+										dr_score		+= title;
+										dr_score		+= "</div>";
+										dr_score		+= "<div class=\"inline-block\" style=\"width:200px; vertical-align:middle\">";
+										dr_score		+= "<div data-score=\"" + score + "\"></div>";
+										dr_score		+= "</div>";
+									dr_score		+= "</div>";
+								}
+							);
+							detail_ratings += dr_score;
+						}
+
+						if( data.prepend ) {
+							// el.prepend( str );
+							$( str )
+								.prependTo( el )
+								.find( '[data-score]' )
+								.css( 'cursor', 'pointer' )
+								.popover(
+									{
+										content		: detail_ratings
+										, html		: true
+										, trigger	: 'hover'
+										, placement	: 'top'
+									}
+								)
+								.on(
+									'shown.bs.popover'
+									, function ()
+									{
+										$( this )
+											.parent()
+											.find( '.popover [data-score]' )
+											.raty({
+												starOff: '/assets/images/star-off-s.png'
+												, starOn: '/assets/images/star-on-s.png'
+												, starHalf: '/assets/images/star-half-s.png'
+												, half: true
+												, width:150
+												, readOnly	: true
+												, score: function() {
+													return $(this).attr('data-score');
+												}
+											});
+									}
+								);
+
+						}else{
+
+							// el.append( str );
+							$( str )
+								.appendTo( el )
+								.find( '[data-score]' )
+								.css( 'cursor', 'pointer' )
+								.popover(
+									{
+										content		: detail_ratings
+										, html		: true
+										, trigger	: 'hover'
+										, placement	: 'top'
+									}
+								)
+								.on(
+									'shown.bs.popover'
+									, function ()
+									{
+										$( this )
+											.parent()
+											.find( '.popover [data-score]' )
+											.raty({
+												starOff: '/assets/images/star-off-s.png'
+												, starOn: '/assets/images/star-on-s.png'
+												, starHalf: '/assets/images/star-half-s.png'
+												, half: true
+												, width:150
+												, readOnly	: true
+												, score: function() {
+													return $(this).attr('data-score');
+												}
+											});
+									}
+								);
+
+						}
+					}else{
+						el.append( emp );
+					}
+
+					$('[data-toggle="popover"]').popover();
+				}
+
+				, add_listing_reply : function( data )
+				{
+					var result = '';
+
+					if( typeof data.reply == 'undefined' )
+						return '';
+
+					$.each(
+						data.reply
+						, function( i, k ){
+							var str = $("#javo-detail-item-reply-template").html();
+							str = str.replace( /{author}/g			, k.author || '' );
+							str = str.replace( /{content}/g			, k.content || '' );
+							str = str.replace( /{date}/g			, k.date || '' );
+							result += str;
+						}
+					);
+					return result;
+				}
+
+				, getReviewLists : function()
+				{
+					var obj			= this;
+					var param_el	= $( "#javo-detail-item-review-parameter" );
+					var ajaxurl		= param_el.find( "[name='ajaxurl']" ).val();
+					var param		= {
+						action		: 'get_item_review'
+						, nonce		: param_el.find( "[name='nonce']" ).val()
+						, post_id	: param_el.find( "[name='post_id']").val()
+					}
+
+					return function( e )
+					{
+						e.preventDefault();
+
+						var	el		= $( this );
+
+						param.offset	= obj.list_offset;
+
+						$.ajaxSetup({
+
+							beforeSend : function() {
+								el.button( 'loading' );
+							}
+							, complete : function() {
+								el.button( 'reset' );
+								obj.setRatings();
+							}
+						});
+						$.post(
+							ajaxurl
+							, param
+							, function( response )
+							{
+								if( response.state ) {
+									if( response.data.length > 0 ) {
+										$.each( response.data, function( i, data ){
+											obj.add_listing( data );
+										});
+										obj.list_offset += response.data.length;
+									}else{
+										obj.add_listing();
+									}
+									obj.setReviewImageSlider();
+								}else{
+									$.javo_msg({ content: 'Error' });
+								}
+							}
+							, 'json'
+						)
+
+						.fail( function( xhr ) {
+							console.log( xhr.responseText );
+						} );
+					}
+				}
+
+				, appendReply : function(){
+
+					var obj = this, opt;
+					return function( e ) {
+
+						if( e.keyCode == 13 )
+						{
+							opt = {
+								content		: $( this ).html()
+								, parent	: $( this ).data( 'parent-id' )
+							};
+							obj.regsiterReply( this, opt );
+						}
+					};
+				}
+
+				, regsiterReply : function( el, opt )
+				{
+					var obj				= this;
+					var param_el		= $( "#javo-detail-item-review-parameter" );
+					var ajaxurl			= param_el.find( "[name='ajaxurl']" ).val();
+					var param			= {
+						action			: 'add_comment_reply'
+						, nonce			: param_el.find( "[name='nonce']" ).val()
+						, comment_id	: opt.parent
+						, post_id		: param_el.find( "[name='post_id']").val()
+						, content		: opt.content
+					};
+
+					if( $( el ).hasClass( 'disabled' ) )
+						return false;
+
+					$( el )
+										.attr( 'contenteditable', false )
+										.addClass( 'disabled' );
+
+					$.post(
+						ajaxurl
+						, param
+						, function( xhr )
+						{
+							var str;
+							var data = xhr.data;
+
+							if( xhr.state == 'success' )
+							{
+								if( xhr.approve ){
+									str = $("#javo-detail-item-reply-template").html();
+									str = str.replace( /{author}/g		, data.author || '' );
+									str = str.replace( /{content}/g		, data.content || '' );
+									str = str.replace( /{date}/g		, data.date || '' );
+									$( ".javo-detail-item-reply-container[data-parent-id='" + opt.parent + "']" )
+										.prepend( str );
+
+									$.javo_msg({ content: param_el.find( "[name='reply_register_success']" ).val() });
+
+								}else{
+									$.javo_msg({ content: window.__javo_str_comment_pending });
+								}
+							}
+
+							$( el )
+										.empty()
+										.attr( 'contenteditable', true )
+										.removeClass( 'disabled' );
+						}
+						, 'json'
+					);
+				}
+
+				, editComment : function()
+				{
+					var obj = this;
+
+					return function( e )
+					{
+						e.preventDefault();
+
+						var
+							el				= $( this )
+							, comment_id	= $( this ).data( "comment-id" )
+							, parent		= $( this ).closest( ".javo-detail-item-review-inner" )
+							, text_el		= parent.find( ".javo-detail-item-comment-content" )
+							, param_el		= $( "#javo-detail-item-review-parameter" )
+							, ajaxurl		= param_el.find( "[name='ajaxurl']" ).val();
+
+						if( $( this ).hasClass( 'active' ) )
+						{
+
+							$.post(
+								ajaxurl
+
+								, {
+									action		: 'javo_update_review'
+									, comment	: comment_id
+									, content	: text_el.html()
+								}
+
+								, function( response )
+								{
+									if( typeof response.error === "undefined" )
+									{
+										if( response.state !== "OK" ) {
+											$.javo_msg({ content: param_el.find( "[name='reply_modify_fail']" ).val(), delay : 5000 });
+										}else{
+											el.removeClass( 'active' );
+											text_el
+												.attr( "contenteditable" , false )
+												.removeClass( "text-field" );
+										}
+
+									}else{
+										$.javo_msg({ content: response.error, delay : 5000 });
+									}
+								}
+								, 'json'
+							)
+							.fail( function( xhr ){
+								console.log( xhr.responseText );
+							} );
+
+
+
+						}else{
+							$( this ).addClass( 'active' );
+							text_el
+								.attr( "contenteditable" , true )
+								.addClass( "text-field")
+								.focus();
+						}
+					}
+				}
+			};
+
+			new javo_write_review( "#javo-review-form-container" );
+
+		} );
+		</script>
+					<script type="text/javascript">
+			jQuery( function($){
+				"use strict";
+				jQuery("#javo_rb_contact_submit").on("click", function(){
+					var options = {
+						subject: $("#javo_rb_contact_name")
+						, to:"javothemes@gmail.com"
+						, from: $("#javo_rb_contact_from")
+						, content: $("#javo_rb_contact_content")
+						, to_null_msg: "Please, type email address."
+						, from_null_msg: "Please, type your email adress."
+						, subject_null_msg: "Please, type your name."
+						, content_null_msg: "Please, type your message"
+						, successMsg: "Successfully sent!"
+						, failMsg: "Sorry, failed to send your message"
+						, confirmMsg: "Do you want to send this email ?"
+						, url:"http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php"
+					};
+					$.javo_mail(options);
+				});
+
+				$("a.javo_favorite").javo_favorite({
+					url				: "http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php"
+					, user			: "0"
+					, str_nologin	: "if you want favorite, please login."
+					, str_save		: "Saved"
+					, str_unsave	: "Unsave"
+					, str_error		: "Sorry, server error."
+					, str_fail		: "favorite register fail."
+					, before		: function(){
+						if( !( $('.javo-this-logged-in').length > 0 ) ){
+							$('#login_panel').modal();
+							return false;
+						};
+						return;
+					}
+				}, function(){
+					if( $(this.el).hasClass('remove') ){
+						$(this.el).closest('tr').remove();
+					}
+				});
+			});
+			</script>
+		<script type="text/javascript" src="/assets/js/jquery.javo.msg.js"></script>
+
+<script type="text/javascript" src="/assets/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/k_means.js"></script>
+<script type="text/javascript" src="/assets/js/aco.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.favorite.js"></script>
+<script type="text/javascript" src="/assets/js/pace.min.js"></script>
+<script type="text/javascript" src="/assets/js/common.js"></script>
+<script type="text/javascript" src="/assets/js/javo-footer.js"></script>
+<script type="text/javascript" src="/assets/js/jasny-bootstrap.min.js"></script>
+<script type="text/javascript" src="/assets/js/smoothscroll.js"></script>
+<script type="text/javascript" src="/assets/js/navigation.js"></script>
+<script type="text/javascript" src="/assets/js/google.map.infobubble.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.typehead.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.raty.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.nouislider.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.javo.mail.js"></script>
+<script type="text/javascript" src="/assets/js/jquery-ui.js"></script>
+</div>
+</body></html>

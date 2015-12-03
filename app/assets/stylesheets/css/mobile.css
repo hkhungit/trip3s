@@ -1,0 +1,29 @@
+
+
+/* Header */
+
+body.mobile .container-fluid{ padding:0px; margin:0px; }
+#javo-sitemap .javo-sitemap-form{ padding-top:60px; }
+/*div#javo-sitemap > div.container{ display:table; }*/
+#javo-sitemap .javo-sitemap-form{ display:block }
+
+/* Categories List in cavas Menu */
+@media( max-width:768px )
+{
+	#javo-sitemap .javo-sitemap-form .javo-terms{
+		width:100%;
+	}
+
+	#javo-sitemap .javo-sitemap-form .javo-terms .javo-terms-item {
+		width:auto;
+		margin:20px 10px;
+		text-align:center;
+	}
+	#javo-sitemap .javo-sitemap-form .javo-terms .javo-terms-item{
+		font-size: 1.2em;
+	}
+
+	#javo-sitemap .javo-sitemap-form .javo-terms .javo-terms-item .javo-terms-item-title{
+		font-size:1em;
+	}
+}

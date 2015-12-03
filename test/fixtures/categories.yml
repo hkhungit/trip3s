@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  cate_name: MyString
+  cate_url: MyString
+  cate_group: MyString
+  cate_thumbnail: MyString
+
+two:
+  cate_name: MyString
+  cate_url: MyString
+  cate_group: MyString
+  cate_thumbnail: MyString

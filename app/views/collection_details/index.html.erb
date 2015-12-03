@@ -1,0 +1,29 @@
+<h1>Listing collection_details</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th>Place</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collection_details.each do |collection_detail| %>
+      <tr>
+        <td><%= collection_detail.post %></td>
+        <td><%= collection_detail.place %></td>
+        <td><%= link_to 'Show', collection_detail %></td>
+        <td><%= link_to 'Edit', edit_collection_detail_path(collection_detail) %></td>
+        <td><%= link_to 'Destroy', collection_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Collection detail', new_collection_detail_path %>

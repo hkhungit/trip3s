@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @image_category.type %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @image_category.image %>
+</p>
+
+<%= link_to 'Edit', edit_image_category_path(@image_category) %> |
+<%= link_to 'Back', image_categories_path %>

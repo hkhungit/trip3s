@@ -1,0 +1,31 @@
+<h1>Listing user_posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th>User</th>
+      <th>Permission</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_posts.each do |user_post| %>
+      <tr>
+        <td><%= user_post.post %></td>
+        <td><%= user_post.user %></td>
+        <td><%= user_post.permission %></td>
+        <td><%= link_to 'Show', user_post %></td>
+        <td><%= link_to 'Edit', edit_user_post_path(user_post) %></td>
+        <td><%= link_to 'Destroy', user_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User post', new_user_post_path %>
