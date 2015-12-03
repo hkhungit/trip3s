@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Post title:</strong>
+  <%= @post.post_title %>
+</p>
+
+<p>
+  <strong>Post excerpt:</strong>
+  <%= @post.post_excerpt %>
+</p>
+
+<p>
+  <strong>Post content:</strong>
+  <%= @post.post_content %>
+</p>
+
+<p>
+  <strong>Post status:</strong>
+  <%= @post.post_status %>
+</p>
+
+<p>
+  <strong>Post password:</strong>
+  <%= @post.post_password %>
+</p>
+
+<p>
+  <strong>Post parent:</strong>
+  <%= @post.post_parent %>
+</p>
+
+<p>
+  <strong>Post type:</strong>
+  <%= @post.post_type %>
+</p>
+
+<p>
+  <strong>Post url:</strong>
+  <%= @post.post_url %>
+</p>
+
+<p>
+  <strong>Post view:</strong>
+  <%= @post.post_view %>
+</p>
+
+<p>
+  <strong>Post review:</strong>
+  <%= @post.post_review %>
+</p>
+
+<p>
+  <strong>Post point:</strong>
+  <%= @post.post_point %>
+</p>
+
+<p>
+  <strong>Post thumbnail:</strong>
+  <%= @post.post_thumbnail %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

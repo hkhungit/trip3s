@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Query:</strong>
+  <%= @query_expand.query %>
+</p>
+
+<p>
+  <strong>Expand name:</strong>
+  <%= @query_expand.expand_name %>
+</p>
+
+<p>
+  <strong>Expand value:</strong>
+  <%= @query_expand.expand_value %>
+</p>
+
+<%= link_to 'Edit', edit_query_expand_path(@query_expand) %> |
+<%= link_to 'Back', query_expands_path %>

@@ -1,0 +1,470 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-12">
+        <article id="post-4440" class="post-4440 page type-page status-publish hentry">
+  <div class="entry-content">
+    <div  class="vc_row wpb_row vc_row-fluid vc_custom_1421376759456">
+  <div class="vc_col-sm-12 wpb_column vc_column_container ">
+    <div class="wpb_wrapper">
+      <div id="ultimate-heading55acf20a3ec94" class="uvc-heading ultimate-heading55acf20a3ec94 uvc-5418 " data-hspacer="no_spacer"  data-halign="center" style="text-align:center"><div class="uvc-heading-spacer no_spacer" style=""></div><div class="uvc-main-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a3ec94 h2'  data-responsive-json-new='{"font-size":"desktop:50px;","line-height":"desktop:60px;"}' ><h2 style="font-weight:bold;color:#ffffff;margin-bottom:30px;">Welcome to Trip3s</h2></div><div class="uvc-sub-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a3ec94 .uvc-sub-heading '  data-responsive-json-new='{"font-size":"desktop:18px;","line-height":"desktop:30px;"}'  style="font-weight:normal;color:#818181;"></p>
+<p style="text-align: center;">Giúp bạn xây dựng và lên kế hoạch du lịch trong 3s<br/>.
+Bạn cũng có thể tìm kiếm và tham khảo những chia sẻ các chuyến đi từ trip3s
+</p>
+<p></div></div><div class="ult-spacer spacer-55acf20a3edbf" data-id="55acf20a3edbf" data-height="50" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
+    <div class="container javo-single-search-form" id="javo-single-search-form">
+      <form role="form" data-javo-search-form class="search-form-type">
+
+        <div class="search-type-a-inner">
+
+
+          <div class="search-box-inline search-box-inline-position">
+            <input type="text" class="search-type-inner-position-text" placeholder="Nhập từ khóa hoặc địa điểm cần tìm">
+            <div class="inner-marker"><i class="fa fa-map-marker javo-current-position cursor-pointer"></i></div>
+            <div class="search-box-inline search-box-inline-position-button">
+              <button type="submit" class="search-submit admin-color-setting"
+                >
+                <i class="fa fa-search search-box-inline-icon cursor-pointer"></i>
+                <span class="search-submit-text">Tìm kiếm</span>
+              </button>
+            </div><!-- /.col-md-2 -->
+
+          </div><!-- /.col-md-2 -->
+
+        </div> <!-- search-type-inner -->
+
+      </form><!--search-form-type-->
+
+      <fieldset>
+        <input type="hidden" value="http://javothemes.com/directory/demo1/map-wide/" data-javo-search-action-template-url>
+        <input type="hidden" value="data-javo-patch-form-for-template" data-javo-search-form-action-type>
+        <input type="hidden" javo-map-all-tags value="">
+        <input type="hidden" javo-input-field-type value="location">
+      </fieldset>
+
+      <!-- Search Result Page -->
+      <form action="http://javothemes.com/directory/demo1/" method="get" data-javo-patch-form-for-result>
+        <input type="hidden" name="post_type" value="item">
+        <input type="hidden" name="location" value="" data-javo-sf-location>
+        <input type="hidden" name="s" data-javo-sf-keyword>
+      </form><!-- /data-javo-patch-form-for-result : Go to Archive Page -->
+
+      <!-- Javo Map Template -->
+      <form action="http://javothemes.com/directory/demo1/map-wide/" method="post" data-javo-patch-form-for-template>
+        <input type="hidden" name="location" data-javo-sf-location-keyword>
+        <input type="hidden" name="radius_key" data-javo-sf-google-keyword>
+        <input type="hidden" name="keyword" data-javo-sf-keyword>
+        <input type="hidden" name="geolocation" data-javo-sf-geolocation>
+      </form><!-- /data-javo-patch-form-for-template : Go to Map -->
+    </div>
+
+    <script type="text/javascript">
+
+    jQuery( function($){
+      window.javo_single_search_func = {
+
+        init: function()
+        {
+
+          this.el_org   = $( "[data-javo-search-form]" );
+          this.el     = $( "[" + $("[data-javo-search-form-action-type]").val() + "]" );
+          this.type   = this.el.closest( "#javo-single-search-form" ).find( "[javo-input-field-type]" ).val();
+          this.tags   = $('[javo-map-all-tags]').val().toLowerCase().split( '|' );
+          this.el_keyword = $("#javo-single-search-form input.search-type-inner-position-text");
+
+          if( this.type == "keyword" )
+          {
+            this.setKeywordAutoComplete();
+          }else{
+            var javo_ac = new google.maps.places.Autocomplete( this.el_keyword[0] );
+          }
+
+          ;$( document )
+                  .on( 'submit' , this.el_org.selector, this.submit )
+                  .on( 'click'  , '.javo-current-position', this.position )
+        }
+
+        , setKeywordAutoComplete: function()
+        {
+          this.el_keyword.typeahead({
+            hint      : false
+            , highlight   : true
+            , minLength   : 1
+          }, {
+            name      : 'tags'
+            , displayKey  : 'value'
+            , source    : this.keywordMatchesCallback( this.tags )
+          });
+        }
+
+        , keywordMatchesCallback: function( tags )
+        {
+          return function keywordFindMatches( q, cb )
+          {
+            var matches, substrRegex;
+
+            substrRegex   = new RegExp( q, 'i');
+            matches     = [];
+
+            $.each( tags, function( i, tag ){
+              if( substrRegex.test( tag ) ){
+
+                matches.push({ value : tag });
+              }
+            });
+            cb( matches );
+          }
+        }
+
+        , position: function( e )
+        {
+          e.preventDefault();
+
+          var obj   = javo_single_search_func;
+
+          if( $( this ).hasClass( 'active' ) )
+          {
+            obj.el.find( "[data-javo-sf-geolocation]" ).val( 0 );
+            $( this ).removeClass( 'active' );
+          }else{
+            obj.el.find( "[data-javo-sf-geolocation]" ).val( 1 );
+            $( this ).addClass( 'active' ).addClass( 'fa-spin' );
+          }
+
+          obj.submit(e);
+        }
+
+        , submit: function( e )
+        {
+          e.preventDefault();
+
+          var obj   = javo_single_search_func;
+          var el_org  = obj.el_org;
+          var el    = obj.el;
+          var type  = obj.type;
+          var input = el_org.find( "input.search-type-inner-position-text" );
+
+          if( type == "keyword" )
+          {
+            // Keyword
+            el.find( "[data-javo-sf-keyword]" ).val( input.val() );
+          }else{
+            // Locaiton
+            el.find( "[data-javo-sf-google-keyword]" ).val( input.val() );
+          }
+          el.submit();
+        }
+      }
+      window.javo_single_search_func.init();
+    });
+    </script>
+    <div class="ult-spacer spacer-55acf20a3f31b" data-id="55acf20a3f31b" data-height="100" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
+    </div> 
+  </div> 
+</div><!-- Row Backgrounds --><div class="upb_bg_img" data-ultimate-bg="url(/assets/sites/2/2015/01/image841.jpg)" data-image-id="4443" data-ultimate-bg-style="vcpb-default" data-bg-img-repeat="repeat" data-bg-img-size="cover" data-bg-img-position="" data-parallx_sense="30" data-bg-override="browser_size" data-bg_img_attach="scroll" data-upb-overlay-color="" data-upb-bg-animation="" data-fadeout="" data-bg-animation="left-animation" data-bg-animation-type="h" data-animation-repeat="repeat" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="false" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""   data-overlay="false" data-overlay-color="" data-overlay-pattern="" data-overlay-pattern-opacity="" data-overlay-pattern-size=""    ></div> <div  class="vc_row wpb_row vc_row-fluid vc_custom_1421227195453">
+  <div class="vc_col-sm-12 wpb_column vc_column_container ">
+    <div class="wpb_wrapper">
+      
+  <div class="wpb_text_column wpb_content_element ">
+    <div class="wpb_wrapper">
+      <div id="javo_scrollspy_category"></div>
+
+    </div> 
+  </div> 
+    </div> 
+  </div> 
+</div><!-- Row Backgrounds --><div class="upb_no_bg" data-fadeout="" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="true" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""    ></div>  <div  class="vc_row wpb_row vc_row-fluid vc_custom_1421292929557">
+  <div class="vc_col-sm-12 wpb_column vc_column_container ">
+    <div class="wpb_wrapper">
+      <div id="ultimate-heading55acf20a4238e" class="uvc-heading ultimate-heading55acf20a4238e uvc-8458 " data-hspacer="line_only"  data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a4238e h2'  data-responsive-json-new='{"font-size":"desktop:24px;","line-height":"desktop:30px;"}' ><h2 style="font-weight:bold;color:#454545;">Danh mục điểm đến</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;"><span class="uvc-headings-line" style="border-style:solid;border-bottom-width:2px;border-color:#818181;width:22px;"></span></div></div>          <style>
+      #javo-inline-category-slider-wrap .javo-inline-category:hover .javo-inline-cat-title{color:#454545 !important;}
+      </style>
+          <!-- Slider Shortcode Wrap -->
+    <div id="javo-inline-category-slider-wrap">
+      <div id="javo-inline-category-slider-inner">
+        <div id="javo-inline-category-slider" class="owl-carousel owl-theme" style="display:block;">
+        <%@places_category.each do |cate|%>
+          <div class="item javo-inline-category">
+            <a href="#">
+              <img src="assets/sites/2/2014/08/backyard-with-swimming-pool-house-250x250.jpg"style="width:111px; height:111px; border-radius:50%;">
+              <div class="javo-inline-cat-title" style="  color:#818181;">
+                <%=cate.cate_name%>                 
+              </div>
+            </a>  
+          </div>
+        <%end%>
+          </div>
+        <div class="customNavigation">
+          <a class="btn prev" style="color:#818181;"><i class="fa fa-angle-left"></i></a>
+          <a class="btn next" style="color:#818181;"><i class="fa fa-angle-right"></i></a>
+
+        </div><!--javo-inline-category-slider-->
+      </div><!--javo-inline-category-slider-inner-->
+    </div><!--javo-inline-category-slider-wrap-->
+
+    <script type="text/javascript">
+
+      jQuery( function( $ ) {
+        var el      = $( "#javo-inline-category-slider-wrap" );
+        var el_slider = el.find( "#javo-inline-category-slider" );
+
+        el_slider.owlCarousel({
+          items       : parseInt(8), //10 items above 1000px browser width
+          itemsDesktop    : [1000,5], //5 items between 1000px and 901px
+          itemsDesktopSmall : [900,3], // 3 items betweem 900px and 601px
+          itemsTablet     : [600,2], //2 items between 600 and 0;
+          itemsMobile     : false // itemsMobile disabled - inherit from itemsTablet option
+        });
+
+        $( el )
+          .on( 'click', '.next', function(){ el_slider.trigger( 'owl.next' ); } )
+          .on( 'click', '.prev', function(){ el_slider.trigger( 'owl.prev' ); } )
+          .on( 'click', '.play', function(){ el_slider.trigger( 'owl.play', 1000 ); } )
+          .on( 'click', '.stop', function(){ el_slider.trigger( 'owl.stop' ); } )
+      } );
+    </script>
+
+
+    
+    </div> 
+  </div> 
+</div><!-- Row Backgrounds -->
+
+<div class="upb_color" data-bg-override="full" data-bg-color="#f4f4f4" data-fadeout="" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="true" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""   data-overlay="false" data-overlay-color="" data-overlay-pattern="" data-overlay-pattern-opacity="" data-overlay-pattern-size=""    ></div>  <div  class="vc_row wpb_row vc_row-fluid">
+  <div class="vc_col-sm-12 wpb_column vc_column_container ">
+    <div class="wpb_wrapper">
+          <div id="javo-gall">
+      <div class="javo-gallery-navi">
+        <button class="javo-gall-filter" data-filter="all">ALL</button>
+        <%@places_category.each do |cate|%>
+
+        <button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-<%=cate.id%>"><%=cate.cate_name%>
+        </button>
+        <%end%>
+      </div>
+      <div class="javo-gallery">
+      <%@places_category.each do |cate|%>
+        <%@places.select("*").joins(:post => :post_category).where(post_categories: {type_id: cate.type[0].id } ).limit(8).each do |place|%>
+        <div class="javo-gall-mix javo-gallery-term-<%=cate.id%>">
+          <div class="javo-gallery-wrap">
+            <a href="<%=post_path(place.post)%>">
+              <div class="javo-gallery-shadow"></div>
+              <img width="288" height="266" src="<%=place.post.post_thumbnail%>" class="img-responsive wp-post-image" alt="hotel6" />
+              <div class="javo-gallery-term-content-title">
+                <%=place.post.post_title%><!-- <span class="glyphicon glyphicon-th-list"></span> -->
+              </div>
+              <div class="javo-gallery-term-content-inform">
+                <div class="javo-gallery-term-content-category">
+                  <%=cate.cate_name%>                 
+                </div><!-- javo-gallery-term-content-category -->
+                <div class="javo-gallery-term-content-rating">
+                  <div class="javo-gallery-on-hover-rating" data-score="5.0"></div>              
+                </div> <!-- javo-gallery-term-content-rating -->
+              </div> <!-- javo-gallery-trem-content-inform -->
+            </a>
+          </div><!-- wrap -->
+          <div class="javo-left-overlay bg-red">
+              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;<%=place.place_address%></div> <!-- javo-txt-meta-area -->
+              <div class="corner-wrap">
+                <div class="corner admin-color-setting"></div>
+                <div class="corner-background admin-color-setting"></div>
+              </div> <!-- corner-wrap -->
+          </div>
+        </div> <!-- javo-gallery-term -->
+        <%end%>
+      <%end%>
+      </div>
+    </div>
+    <script type="text/javascript">
+    jQuery(document).ready(function($){
+      "use strict";
+      $('.javo-gallery').mixItUp({
+        selectors:{
+          filter    : '.javo-gall-filter'
+          , target  : '.javo-gall-mix'
+        }
+      });
+      jQuery(function($){
+        $('.javo-gallery-on-hover-rating').each(function(){
+          $(this).raty({
+            starOff: 'assets/star-off-s.png'
+            , starOn: 'assets/star-on-s.png'
+            , starHalf: 'assets/star-half-s.png'
+            , half: true
+            , readOnly: true
+            , score: $(this).data('score')
+          }).css('width', '');
+
+        });
+        $(document).on('click', 'button.filter', function(){
+          $(window).trigger('resize');
+
+
+        });
+
+      });
+    });
+    </script>
+  
+    </div> 
+  </div> 
+</div><!-- Row Backgrounds --><div class="upb_no_bg" data-fadeout="" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="true" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""    ></div>  <div  class="vc_row wpb_row vc_row-fluid vc_custom_1421226101213">
+  <div class="vc_col-sm-12 wpb_column vc_column_container ">
+    <div class="wpb_wrapper">
+      <div id="ultimate-heading55acf20a5dad4" class="uvc-heading ultimate-heading55acf20a5dad4 uvc-1161 " data-hspacer="line_only"  data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a5dad4 h2'  data-responsive-json-new='{"font-size":"desktop:24px;","line-height":"desktop:30px;"}' ><h2 style="font-weight:bold;color:#454545;">Điếm đến đặc biệt</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;"><span class="uvc-headings-line" style="border-style:solid;border-bottom-width:2px;border-color:#818181;width:22px;"></span></div><div class="uvc-sub-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a5dad4 .uvc-sub-heading '  data-responsive-json-new='{"font-size":"desktop:15px;","line-height":"desktop:30px;"}'  style="font-weight:normal;color:#818181;">Những điểm đến được nhiều người theo dõi và tìm kiếm.</div></div>
+    </div> 
+  </div> 
+</div><!-- Row Backgrounds -->
+<div class="upb_color" data-bg-override="full" data-bg-color="#f4f4f4" data-fadeout="" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="true" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""   data-overlay="false" data-overlay-color="" data-overlay-pattern="" data-overlay-pattern-opacity="" data-overlay-pattern-size=""    ></div>  <div  class="vc_row wpb_row vc_row-fluid vc_row-no-padding" data-vc-full-width="true" data-vc-full-width-init="false"  data-vc-stretch-content="true">
+  <div class="vc_col-sm-12 wpb_column vc_column_container ">
+    <div class="wpb_wrapper">
+      
+    <div id="javo-featured-items-slider" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#javo-featured-items-slider" data-slide-to="0" class="active"></li>
+        <li data-target="#javo-featured-items-slider" data-slide-to="1"></li>
+        <li data-target="#javo-featured-items-slider" data-slide-to="2"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <div class="javo-featured-carousel-slider">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+                <div class="row">
+                <%@posts.each do |post|%>
+                  <div class="pull-left col-xs-6 javo-mobile col-md-3" id="grid-listing" style="padding:0px;">
+                    <div class="javo-relative">
+                      <div class="javo-thb" style="background-image:url(<%=post.post_thumbnail%>);"></div>
+                      <div class="javo-featured-items-slider-meta ">
+                        <div class="javo-featured-items-slider-title-wrap">
+                          <strong class="javo-featured-items-slider-title"><%=post.post_title%></strong>
+                        </div>
+                        <div class="col-md-12 javo-featured-items-slider-clwrap">
+                          <p class="javo-featured-items-slider-category"><i class="fa fa-book"></i>hotel</p>
+                          <p class="javo-featured-items-slider-location"><i class="fa fa-map-marker"></i><%=post.place[0].place_address%></p>
+                        </div>
+                        <div class="col-md-12 javo-rating-registered-score" data-score="5.0"></div>
+                      </div><!-- /.javo-featured-items-slider-meta -->
+
+                        <div class="javo-featured-items-slider-right-btn">
+                          <div class="javo-featured-items-slider-meta-view">
+                            <a href="<%=post_path(post)%>">VIEW</a>
+                          </div><!--javo-featured-items-slider-meta-view-->
+                        </div>
+
+                    </div><!-- /.row -->
+                  </div>
+                <%end%>
+                </div><!-- /.row -->
+              </div><!-- /.item -->
+            </div><!-- Carousel Inner -->
+        </div><!-- javo-featured-carousel-slider -->
+        <!-- Controls -->
+        <a class="left carousel-control" href="#javo-featured-items-slider" role="button" data-slide="prev" style="width:5%;">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#javo-featured-items-slider" role="button" data-slide="next" style="width:5%;">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div> <!-- carousel-inner -->
+    </div> <!-- #javo-featured-items-slider -->
+    <script type="text/javascript">
+
+    // Setup Rating Image
+    jQuery( function($){
+      $('.javo-rating-registered-score').each(function(k,v){
+        $(this).raty({
+          starOff: 'assets/star-off-s.png'
+          , starOn: 'assets/star-on-s.png'
+          , starHalf: 'assets/star-half-s.png'
+          , half: true
+          , readOnly: true
+          , score: $(this).data('score')
+        }).css('width', '');
+      });
+    } );
+    </script>
+
+    
+    </div> 
+  </div> 
+</div><div class="vc_row-full-width"></div><!-- Row Backgrounds --><div class="upb_no_bg" data-fadeout="" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="true" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""    ></div> <div  class="vc_row wpb_row vc_row-fluid vc_custom_1420768993074">
+  <div class="vc_col-sm-12 wpb_column vc_column_container ">
+    <div class="wpb_wrapper">
+      <div class="uavc-icons-center uavc-icons javo_rps_botm_snsicon">
+<div class="aio-icon none " data-animation="" data-animation-delay="03" style="color:#454545;font-size:50px;margin-right:70px;">
+  <i class="Defaults-twitter"></i>
+</div>
+<div class="aio-icon none " data-animation="" data-animation-delay="03" style="color:#454545;font-size:50px;margin-right:70px;">
+  <i class="Defaults-facebook"></i>
+</div>
+<div class="aio-icon none " data-animation="" data-animation-delay="03" style="color:#454545;font-size:50px;margin-right:70px;">
+  <i class="Defaults-google-plus"></i>
+</div>
+<div class="aio-icon none " data-animation="" data-animation-delay="03" style="color:#454545;font-size:50px;margin-right:70px;">
+  <i class="Defaults-tumblr"></i>
+</div>
+<div class="aio-icon none " data-animation="" data-animation-delay="03" style="color:#454545;font-size:50px;margin-right:5px;">
+  <i class="Defaults-pinterest"></i>
+</div></div>
+    </div> 
+  </div> 
+</div><!-- Row Backgrounds --><div class="upb_no_bg" data-fadeout="" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="true" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""    ></div>  <div  class="vc_row wpb_row vc_row-fluid vc_custom_1421332047927">
+  <div class="vc_col-sm-12 wpb_column vc_column_container ">
+    <div class="wpb_wrapper">
+      <div id="ultimate-heading55acf20a686fa" class="uvc-heading ultimate-heading55acf20a686fa uvc-3392 " data-hspacer="line_only"  data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a686fa h2'  data-responsive-json-new='{"font-size":"desktop:46px;","line-height":"desktop:50px;"}' ><h2 style="font-weight:bold;color:#ffffff;margin-top:54px;">Đăng ký nhận bài mới</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:22px;margin-bottom:22px;height:1px;"><span class="uvc-headings-line" style="border-style:solid;border-bottom-width:1px;border-color:#ffffff;width:22px;"></span></div><div class="uvc-sub-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a686fa .uvc-sub-heading '  data-responsive-json-new='{"font-size":"desktop:14px;","line-height":"desktop:30px;"}'  style="font-weight:normal;color:#ffffff;margin-bottom:58px;"></p>
+<p style="text-align: center;">Đăng ký để không bỏ lỡ thông báo về địa điểm mới qua email</p>
+<p></div></div>     <div id="javo_mailchimp" class="javo-mailchimp-container">
+        <form id="newsletter-form" name="newsletter-form" data-url="http://javothemes.com/directory/demo1/" method="post" role="form">
+
+          <div class="javo-mailchimp-wrap">
+            <div class="form-group javo-mailchimp-inner">
+
+              <div class="input-group input-group-sm javo-mailchimp-inner-name">
+                <!--<label class="input-group-addon" for="javo_cmp_name">
+                  <span class="glyphicon glyphicon-envelope"></span>
+                </label>-->
+                <input type="text" name="yname" id="javo_cmp_name" class="javo-mailchimp-inner-name-input" placeholder="Tên của bạn" class="form-control" required>
+              </div><!-- /.input-group -->
+
+              <div class="input-group input-group-sm javo-mailchimp-inner-mail">
+                <input type="email" name="mc_email" id="javo_cmp_email" class="javo-mailchimp-inner-mail-input"placeholder="Email của bạn" class="form-control" required>
+                <div class="form-group javo-mailchimp-inner-sand">
+
+                  <button type="submit" class="btn btn-primary javo-mailchimp-inner-sand-icon">
+                    <span><i class="fa fa-location-arrow"></i></span>
+                  </button>
+
+                </div><!--javo-mailchimp-inner-sand-->
+              </div><!-- /.input-group -->
+
+
+            </div><!-- /.form-group -->
+          </div>
+
+
+
+
+          <fieldset>
+            <input type="hidden" name="javo_mailchimp_security" value="60a2fa8354">
+            <input type="hidden" name="cm_list" value="94da6b00d5">
+            <input type="hidden" name="ajaxurl" value="wp-admin/admin-ajax.html">
+            <input type="hidden" name="no_msg" value="Failed to register">
+          </fieldset>
+        </form>
+
+      </div>
+      
+    </div> 
+  </div> 
+</div><!-- Row Backgrounds --><div class="upb_color" data-bg-override="full" data-bg-color="#4c9fcd" data-fadeout="" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="true" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""   data-overlay="false" data-overlay-color="" data-overlay-pattern="" data-overlay-pattern-opacity="" data-overlay-pattern-size=""    ></div>
+      </div><!-- .entry-content -->
+  <footer class="entry-meta">
+      </footer><!-- .entry-meta -->
+</article><!-- #post -->      </div>
+    </div>
+</div>

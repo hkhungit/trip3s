@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  post_id: 
+  expand_name: MyString
+  expand_value_string: MyString
+
+two:
+  post_id: 
+  expand_name: MyString
+  expand_value_string: MyString

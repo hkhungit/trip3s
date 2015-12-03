@@ -1,0 +1,2 @@
+module QueryPostsHelper
+end

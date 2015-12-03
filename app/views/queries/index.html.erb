@@ -1,0 +1,49 @@
+<h1>Listing queries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Crawler</th>
+      <th>Crawler time</th>
+      <th>Post title</th>
+      <th>Post excerpt</th>
+      <th>Post content</th>
+      <th>Post password</th>
+      <th>Post parent</th>
+      <th>Post type</th>
+      <th>Post view</th>
+      <th>Post review</th>
+      <th>Post point</th>
+      <th>Post thumbnail</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @queries.each do |query| %>
+      <tr>
+        <td><%= query.crawler %></td>
+        <td><%= query.crawler_time %></td>
+        <td><%= query.post_title %></td>
+        <td><%= query.post_excerpt %></td>
+        <td><%= query.post_content %></td>
+        <td><%= query.post_password %></td>
+        <td><%= query.post_parent %></td>
+        <td><%= query.post_type %></td>
+        <td><%= query.post_view %></td>
+        <td><%= query.post_review %></td>
+        <td><%= query.post_point %></td>
+        <td><%= query.post_thumbnail %></td>
+        <td><%= link_to 'Show', query %></td>
+        <td><%= link_to 'Edit', edit_query_path(query) %></td>
+        <td><%= link_to 'Destroy', query, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Query', new_query_path %>

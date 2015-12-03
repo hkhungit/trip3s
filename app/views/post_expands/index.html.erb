@@ -1,0 +1,31 @@
+<h1>Listing post_expands</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Post</th>
+      <th>Expand name</th>
+      <th>Expand value string</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @post_expands.each do |post_expand| %>
+      <tr>
+        <td><%= post_expand.post %></td>
+        <td><%= post_expand.expand_name %></td>
+        <td><%= post_expand.expand_value_string %></td>
+        <td><%= link_to 'Show', post_expand %></td>
+        <td><%= link_to 'Edit', edit_post_expand_path(post_expand) %></td>
+        <td><%= link_to 'Destroy', post_expand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post expand', new_post_expand_path %>

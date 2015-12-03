@@ -1,0 +1,31 @@
+<div id="wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<h1>Trip3s</h1>
+					<h2 class="subtitle">
+					Chúng tôi đang xây dựng và sẽ sớm hoàn thành trong thời gian sớm nhất
+					</h2>
+					<div id="countdown"></div>
+					
+					
+				</div>
+				
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+						<p class="copyright">Copyright &copy; 2015 - <a href="http://newfactor.vn">Newfactor.vn</a></p>
+				</div>
+			</div>		
+		</div>
+	</div>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/jquery.countdown.min.js"></script>
+	<script type="text/javascript">
+  $('#countdown').countdown('2016/01/01', function(event) {
+    $(this).html(event.strftime('Còn %w tuần  %d ngày <br /> %H:%M:%S'));
+  });
+</script>
+
+  </body>

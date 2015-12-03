@@ -1,0 +1,29 @@
+<h1>Listing config_options</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Config name</th>
+      <th>Config value</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @config_options.each do |config_option| %>
+      <tr>
+        <td><%= config_option.config_name %></td>
+        <td><%= config_option.config_value %></td>
+        <td><%= link_to 'Show', config_option %></td>
+        <td><%= link_to 'Edit', edit_config_option_path(config_option) %></td>
+        <td><%= link_to 'Destroy', config_option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Config option', new_config_option_path %>

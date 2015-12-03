@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  post_id: 
+  plan_day: 1
+  plan_start: 2015-09-16 14:32:59
+  plan_end: 2015-09-16 14:32:59
+  plan_money: MyString
+  plan_spend: MyString
+
+two:
+  post_id: 
+  plan_day: 1
+  plan_start: 2015-09-16 14:32:59
+  plan_end: 2015-09-16 14:32:59
+  plan_money: MyString
+  plan_spend: MyString

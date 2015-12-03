@@ -1,0 +1,57 @@
+<%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :post %><br>
+    <%= f.text_field :post %>
+  </div>
+  <div class="field">
+    <%= f.label :user %><br>
+    <%= f.text_field :user %>
+  </div>
+  <div class="field">
+    <%= f.label :comment_author %><br>
+    <%= f.text_field :comment_author %>
+  </div>
+  <div class="field">
+    <%= f.label :comment_author_email %><br>
+    <%= f.text_field :comment_author_email %>
+  </div>
+  <div class="field">
+    <%= f.label :comment_author_url %><br>
+    <%= f.text_field :comment_author_url %>
+  </div>
+  <div class="field">
+    <%= f.label :comment_author_ip %><br>
+    <%= f.text_field :comment_author_ip %>
+  </div>
+  <div class="field">
+    <%= f.label :comment_content %><br>
+    <%= f.text_field :comment_content %>
+  </div>
+  <div class="field">
+    <%= f.label :comment_status %><br>
+    <%= f.text_field :comment_status %>
+  </div>
+  <div class="field">
+    <%= f.label :comment_parent %><br>
+    <%= f.number_field :comment_parent %>
+  </div>
+  <div class="field">
+    <%= f.label :comment_review %><br>
+    <%= f.number_field :comment_review %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

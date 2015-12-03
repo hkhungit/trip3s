@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cate name:</strong>
+  <%= @category.cate_name %>
+</p>
+
+<p>
+  <strong>Cate url:</strong>
+  <%= @category.cate_url %>
+</p>
+
+<p>
+  <strong>Cate group:</strong>
+  <%= @category.cate_group %>
+</p>
+
+<p>
+  <strong>Cate thumbnail:</strong>
+  <%= @category.cate_thumbnail %>
+</p>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>

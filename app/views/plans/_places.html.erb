@@ -1,0 +1,63 @@
+<%@places.each do |place|%>
+
+<div class="item col-md-6 col-xs-12 grid-group-item">
+			<div class="thumbnail item-list-box-map">
+				<div class="thumb-wrap">
+					<div class="javo-thb" style="background-image:url(<%=place.post_thumbnail%>);"></div>
+					<div class="javo-left-overlay">
+						<div class="javo-txt-meta-area admin-color-setting">Cafe</div> <!-- javo-txt-meta-area -->
+						<div class="corner-wrap">
+							<div class="corner"></div>
+							<div class="corner-background"></div>
+						</div> <!-- corner-wrap -->
+					</div>
+					<div class="rate-icons">
+													<div class="col-md-2">
+								<div class="col-md-12 javo-rating-registed-score" data-score="0" title="Not rated yet!"><img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/star-off-s.png" alt="1" title="Not rated yet!">&nbsp;<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/star-off-s.png" alt="2" title="Not rated yet!">&nbsp;<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/star-off-s.png" alt="3" title="Not rated yet!">&nbsp;<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/star-off-s.png" alt="4" title="Not rated yet!">&nbsp;<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/star-off-s.png" alt="5" title="Not rated yet!"><input type="hidden" name="score" readonly="readonly"></div>
+							</div>
+											</div> <!-- rate-icons -->
+					<div class="intro">
+						<h2 class="group inner list-group-item-heading"><%=place.post_title%></h2>
+					</div> <!-- intro -->
+					<div class="location"></div> <!-- location -->
+					<div class="three-inner-button">
+						<a class="javo-hmap-marker-trigger three-inner-move" data-id="mid_741" data-post-id="741">Move</a>
+						<a href="http://javothemes.com/directory/demo2/item/the-grind/" class="three-inner-detail">Detail</a>
+						<a href="http://javothemes.com/directory/demo2/item/the-grind/" target="_brank" class="three-inner-popup">Popup</a>
+						<a href="http://javothemes.com/directory/demo2/item/the-grind/" target="_brank" class="three-inner-popup">Add</a>
+					</div><!-- three-inner-button -->
+				</div> <!-- thumb-wrap -->
+
+				<div class="caption">
+					<p class="group inner list-group-item-text">
+					</p> <!-- list-group-item-text -->
+					<div class="row">
+						<div class="item-title-list">
+							<a href="http://javothemes.com/directory/demo2/item/the-grind/"><%=place.post_title%></a>
+						</div>
+						<div class="group inner list-group-item-text item-excerpt-list"><%=place.post_content%>.</div> <!-- list-group-item-text -->
+						<div class="col-xs-8 col-sm-8 col-md-8">
+							<div class="row">
+								<div class="col-md-12"><%=place.place[0].place_address%></div><!-- col md 8 -->
+							</div><!-- Row -->
+						</div>
+						<div class="col-xs-4 col-sm-4 col-md-4">
+							<div class="social-wrap pull-right">
+								<span class="javo-sns-wrap">
+									<i class="sns-facebook" data-title="The Grind" data-url="http://javothemes.com/directory/demo2/item/the-grind/">
+										<a class="facebook"></a>
+									</i>
+									<i class="sns-twitter" data-title="The Grind" data-url="http://javothemes.com/directory/demo2/item/the-grind/">
+										<a class="twitter"></a>
+									</i>
+									<i class="sns-heart">
+										<a class="favorite javo_favorite" data-no-swap="yes" data-post-id="741"></a>
+									</i>
+								</span>
+							</div>
+						</div><!-- socail -->
+					</div><!-- row-->
+				</div><!-- Caption -->
+			</div><!-- Thumbnail -->
+		</div><!-- Col-md-4 -->
+	<%end%>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  place_id: 
+  schedule_id: 
+  place_name: MyString
+  place_spend: MyString
+  place_in: 2015-09-16 14:46:27
+  place_out: 2015-09-16 14:46:27
+  next_time: MyString
+  next_distance: MyString
+
+two:
+  place_id: 
+  schedule_id: 
+  place_name: MyString
+  place_spend: MyString
+  place_in: 2015-09-16 14:46:27
+  place_out: 2015-09-16 14:46:27
+  next_time: MyString
+  next_distance: MyString

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Query:</strong>
+  <%= @query_post.query %>
+</p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @query_post.post %>
+</p>
+
+<p>
+  <strong>Focus time:</strong>
+  <%= @query_post.focus_time %>
+</p>
+
+<p>
+  <strong>Focus late:</strong>
+  <%= @query_post.focus_late %>
+</p>
+
+<%= link_to 'Edit', edit_query_post_path(@query_post) %> |
+<%= link_to 'Back', query_posts_path %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  query_id: 
+  post_id: 
+  focus_time: 2015-09-16 14:46:16
+  focus_late: 1
+
+two:
+  query_id: 
+  post_id: 
+  focus_time: 2015-09-16 14:46:16
+  focus_late: 1

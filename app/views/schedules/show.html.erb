@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Plan:</strong>
+  <%= @schedule.plan %>
+</p>
+
+<p>
+  <strong>Schedule day:</strong>
+  <%= @schedule.schedule_day %>
+</p>
+
+<p>
+  <strong>Schedule action:</strong>
+  <%= @schedule.schedule_action %>
+</p>
+
+<p>
+  <strong>Schedule spend:</strong>
+  <%= @schedule.schedule_spend %>
+</p>
+
+<p>
+  <strong>Schedule distance:</strong>
+  <%= @schedule.schedule_distance %>
+</p>
+
+<p>
+  <strong>Schedule start:</strong>
+  <%= @schedule.schedule_start %>
+</p>
+
+<p>
+  <strong>Schedule end:</strong>
+  <%= @schedule.schedule_end %>
+</p>
+
+<%= link_to 'Edit', edit_schedule_path(@schedule) %> |
+<%= link_to 'Back', schedules_path %>

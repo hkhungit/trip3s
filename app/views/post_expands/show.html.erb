@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @post_expand.post %>
+</p>
+
+<p>
+  <strong>Expand name:</strong>
+  <%= @post_expand.expand_name %>
+</p>
+
+<p>
+  <strong>Expand value string:</strong>
+  <%= @post_expand.expand_value_string %>
+</p>
+
+<%= link_to 'Edit', edit_post_expand_path(@post_expand) %> |
+<%= link_to 'Back', post_expands_path %>

@@ -1,0 +1,49 @@
+<h1>Listing posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Post title</th>
+      <th>Post excerpt</th>
+      <th>Post content</th>
+      <th>Post status</th>
+      <th>Post password</th>
+      <th>Post parent</th>
+      <th>Post type</th>
+      <th>Post url</th>
+      <th>Post view</th>
+      <th>Post review</th>
+      <th>Post point</th>
+      <th>Post thumbnail</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.post_title %></td>
+        <td><%= post.post_excerpt %></td>
+        <td><%= post.post_content %></td>
+        <td><%= post.post_status %></td>
+        <td><%= post.post_password %></td>
+        <td><%= post.post_parent %></td>
+        <td><%= post.post_type %></td>
+        <td><%= post.post_url %></td>
+        <td><%= post.post_view %></td>
+        <td><%= post.post_review %></td>
+        <td><%= post.post_point %></td>
+        <td><%= post.post_thumbnail %></td>
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>

@@ -1,0 +1,1297 @@
+<script type="text/javascript">
+    jQuery(function($) {
+
+        var javo_directory_header_func = {
+
+            init: function() {
+                this.el = $("#javo-doc-top-level-menu");
+                this.el.hide().removeClass('hidden');
+                $(document)
+                    .on('click', '.javo-top-level-menu-openner', this.display_top_lev_menu);
+            },
+            display_top_lev_menu: function(e) {
+                e.preventDefault();
+
+                var obj = javo_directory_header_func;
+                obj.el.slideToggle('fast');
+            }
+        }
+
+        javo_directory_header_func.init();
+    });
+</script>
+<fieldset>
+    <!-- Current Item Information -->
+    <input type="hidden" value="2154" data-javo-this-post-id="">
+    <!-- /.Current Item Information -->
+
+    <input type="hidden" value="http://javothemes.com/directory/demo1/wp-admin/admin-ajax.php" data-admin-ajax-url="">
+    <input type="hidden" value="default" data-javo-map-none-style="">
+    <input type="hidden" value="" data-javo-map-single-marker="">
+    <input type="hidden" value="Not found this address for direction" name="javo_cannot_search_address">
+    <input type="hidden" value="The direction is too far or not provided by Google API" name="javo_cannot_search_direction">
+    <input type="hidden" value="0" data-javo-map-bound-max-level="">
+    <input type="hidden" name="javo_google_map_poi" value="on">
+    <input type="hidden" name="javo_location_click_on_action" value="streetview">
+    <input type="hidden" name="javo-this-term-posts-latlng" value="[{&quot;post_id&quot;:4210,&quot;lat&quot;:&quot;40.70473085130629&quot;,&quot;lng&quot;:&quot;-74.42309314169921&quot;,&quot;icon&quot;:&quot;http:\/\/javothemes.cafe24.com\/wp-content\/uploads\/2014\/08\/map-gift1.png&quot;,&quot;category&quot;:&quot;hotel&quot;,&quot;location&quot;:&quot;Brooklyn&quot;},{&quot;post_id&quot;:2141,&quot;lat&quot;:&quot;40.823306510679224&quot;,&quot;lng&quot;:&quot;-73.99290973105468&quot;,&quot;icon&quot;:&quot;http:\/\/javothemes.cafe24.com\/wp-content\/uploads\/2014\/08\/map-gift1.png&quot;,&quot;category&quot;:&quot;hotel&quot;,&quot;location&quot;:&quot;Manhattan&quot;},{&quot;post_id&quot;:2134,&quot;lat&quot;:&quot;40.70856788058088&quot;,&quot;lng&quot;:&quot;-73.62642690295411&quot;,&quot;icon&quot;:&quot;http:\/\/javothemes.cafe24.com\/wp-content\/uploads\/2014\/08\/map-gift1.png&quot;,&quot;category&quot;:&quot;hotel&quot;,&quot;location&quot;:&quot;Brooklyn&quot;},{&quot;post_id&quot;:4214,&quot;lat&quot;:&quot;40.61272654920349&quot;,&quot;lng&quot;:&quot;-74.47649404162598&quot;,&quot;icon&quot;:&quot;http:\/\/javothemes.cafe24.com\/wp-content\/uploads\/2014\/08\/map-gift1.png&quot;,&quot;category&quot;:&quot;hotel&quot;,&quot;location&quot;:&quot;Brooklyn&quot;}]">
+
+    <!-- Street View -->
+    <input type="hidden" value="1" data-street-visible="">
+    <input type="hidden" value="40.634965" data-street-lat="">
+    <input type="hidden" value="-74.026365" data-street-lng="">
+    <input type="hidden" value="0" data-street-pov-heading="">
+    <input type="hidden" value="0" data-street-pov-pitch="">
+    <input type="hidden" value="0.5" data-street-pov-zoom="">
+</fieldset>
+<div class="single-item-tab" jstcache="0">
+    <div class="single-item-tab-feature-bg" style="background:url('<%=@place.post.post_thumbnail%>') no-repeat center center fixed;  -webkit-background-size: cover;  -moz-background-size: cover; -o-background-size: cover; background-size: cover; background-attachment: fixed; min-height:px;" jstcache="0">
+        <div class="javo-single-item-tab-map-area" data-javo-single-item-header-panel="" style="height: 550px; left: -1349px; position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
+            <div class="gm-style" style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0;">
+                <div style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0; cursor: url(http://maps.gstatic.com/mapfiles/openhand_8_8.cur) 8 8, default;">
+                    <div style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; transform-origin: 0px 0px 0px; transform: matrix(1, 0, 0, 1, 0, 0);">
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;">
+                            <div style="position: absolute; left: 0px; top: 0px; z-index: 0;">
+                                <div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;">
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 426px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 682px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 682px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 426px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 426px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 682px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 170px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 938px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 170px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 938px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 938px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 170px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 1194px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -86px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -86px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 1194px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -86px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: 1194px; top: 407px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;">
+                            <div style="position: absolute; left: 0px; top: 0px; z-index: -1;">
+                                <div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;">
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 426px; top: 151px;">
+                                        <canvas draggable="false" height="256" width="256" style="-webkit-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;"></canvas>
+                                    </div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 682px; top: 151px;">
+                                        <canvas draggable="false" height="256" width="256" style="-webkit-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;"></canvas>
+                                    </div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 682px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 426px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 426px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 682px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 170px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 938px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 170px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 938px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 938px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 170px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 1194px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -86px; top: 151px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -86px; top: 407px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 1194px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -86px; top: -105px;"></div>
+                                    <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: 1194px; top: 407px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="position: absolute; z-index: 0; transform: translateZ(0px); left: 0px; top: 0px;">
+                            <div style="overflow: hidden;"></div>
+                        </div>
+                        <div style="position: absolute; left: 0px; top: 0px; z-index: 0;">
+                            <div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;">
+                                <div style="transform: translateZ(0px); position: absolute; left: 426px; top: 151px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9645!3i12329!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 426px; top: -105px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9645!3i12328!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 170px; top: 151px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9644!3i12329!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 426px; top: 407px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9645!3i12330!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 170px; top: 407px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9644!3i12330!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 938px; top: -105px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9647!3i12328!2m3!1e0!2sm!3i323172666!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 682px; top: 151px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9646!3i12329!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 682px; top: -105px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9646!3i12328!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 682px; top: 407px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9646!3i12330!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 938px; top: 151px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9647!3i12329!2m3!1e0!2sm!3i323172666!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 170px; top: -105px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9644!3i12328!2m3!1e0!2sm!3i323133785!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 938px; top: 407px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9647!3i12330!2m3!1e0!2sm!3i323172666!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: -86px; top: 151px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9643!3i12329!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: -86px; top: 407px; transition: opacity 200ms ease-out;"><img src="http://mt1.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9643!3i12330!2m3!1e0!2sm!3i323137386!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                                <div style="transform: translateZ(0px); position: absolute; left: 1194px; top: 151px; transition: opacity 200ms ease-out;"><img src="http://mt0.googleapis.com/vt?pb=!1m4!1m3!1i15!2i9648!3i12329!2m3!1e0!2sm!3i323172666!3m9!2sen-GB!3sUS!5e18!12m1!1e47!12m3!1e37!2m1!1ssmartmaps!4e0" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 256px; height: 256px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="position: absolute; left: 0px; top: 0px; z-index: 2; width: 100%; height: 100%;"></div>
+                    <div style="position: absolute; left: 0px; top: 0px; z-index: 3; width: 100%; transform-origin: 0px 0px 0px; transform: matrix(1, 0, 0, 1, 0, 0);">
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"></div>
+                    </div>
+                </div>
+                <div style="margin-left: 5px; margin-right: 5px; z-index: 1000000; position: absolute; left: 0px; bottom: 0px;">
+                    <a target="_blank" href="https://maps.google.com/maps?ll=40.634943,-74.026212&amp;z=15&amp;hl=en-GB&amp;gl=US&amp;mapclient=apiv3" title="Click to see this area on Google Maps" style="position: static; overflow: visible; float: none; display: inline;">
+                        <div style="width: 66px; height: 26px; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/google4.png" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 66px; height: 26px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                        </div>
+                    </a>
+                </div>
+                <div style="padding: 15px 21px; border: 1px solid rgb(171, 171, 171); font-family: Roboto, Arial, sans-serif; color: rgb(34, 34, 34); box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 16px; z-index: 10000002; display: none; width: 256px; height: 148px; position: absolute; left: 525px; top: 185px; background-color: white;">
+                    <div style="padding: 0px 0px 10px; font-size: 16px;">Map Data</div>
+                    <div style="font-size: 13px;">Map data ©2015 Google</div>
+                    <div style="width: 13px; height: 13px; overflow: hidden; position: absolute; opacity: 0.7; right: 12px; top: 12px; z-index: 10000; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png" draggable="false" style="position: absolute; left: -2px; top: -336px; width: 59px; height: 492px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                    </div>
+                </div>
+                <div class="gmnoprint" style="z-index: 1000001; position: absolute; right: 72px; bottom: 0px; width: 121px;">
+                    <div draggable="false" class="gm-style-cc" style="-webkit-user-select: none; height: 14px; line-height: 14px;">
+                        <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+                            <div style="width: 1px;"></div>
+                            <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div>
+                        </div>
+                        <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a style="color: rgb(68, 68, 68); text-decoration: none; cursor: pointer; display: none;">Map Data</a><span>Map data ©2015 Google</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gmnoscreen" style="position: absolute; right: 0px; bottom: 0px;">
+                    <div style="font-family: Roboto, Arial, sans-serif; font-size: 11px; color: rgb(68, 68, 68); direction: ltr; text-align: right; background-color: rgb(245, 245, 245);">Map data ©2015 Google</div>
+                </div>
+                <div class="gmnoprint gm-style-cc" draggable="false" style="z-index: 1000001; -webkit-user-select: none; height: 14px; line-height: 14px; position: absolute; right: 0px; bottom: 0px;">
+                    <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+                        <div style="width: 1px;"></div>
+                        <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div>
+                    </div>
+                    <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a href="https://www.google.com/intl/en-GB_US/help/terms_maps.html" target="_blank" style="text-decoration: none; cursor: pointer; color: rgb(68, 68, 68);">Terms of Use</a>
+                    </div>
+                </div>
+                <div draggable="false" class="gm-style-cc" style="-webkit-user-select: none; height: 14px; line-height: 14px; display: none; position: absolute; right: 0px; bottom: 0px;">
+                    <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+                        <div style="width: 1px;"></div>
+                        <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div>
+                    </div>
+                    <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a target="_new" title="Report errors in the road map or imagery to Google" href="https://www.google.com/maps/@40.634943,-74.026212,15z/data=!10m1!1e1!12b1?source=apiv3&amp;rapsrc=apiv3" style="font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); text-decoration: none; position: relative;">Report a map error</a>
+                    </div>
+                </div>
+                <div class="gmnoprint" draggable="false" controlwidth="28" controlheight="55" style="margin: 10px; -webkit-user-select: none; position: absolute; left: 0px; top: 238px;">
+                    <div class="gmnoprint" controlwidth="28" controlheight="55" style="position: absolute; left: 0px; top: 0px;">
+                        <div draggable="false" style="-webkit-user-select: none; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; border-radius: 2px; cursor: pointer; width: 28px; height: 55px; background-color: rgb(255, 255, 255);">
+                            <div title="Zoom in" style="position: relative; width: 28px; height: 27px; left: 0px; top: 0px;">
+                                <div style="overflow: hidden; position: absolute; width: 15px; height: 15px; left: 7px; top: 6px;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl.png" draggable="false" style="position: absolute; left: 0px; top: 0px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 120px; height: 54px;">
+                                </div>
+                            </div>
+                            <div style="position: relative; overflow: hidden; width: 67%; height: 1px; left: 16%; top: 0px; background-color: rgb(230, 230, 230);"></div>
+                            <div title="Zoom out" style="position: relative; width: 28px; height: 27px; left: 0px; top: 0px;">
+                                <div style="overflow: hidden; position: absolute; width: 15px; height: 15px; left: 7px; top: 6px;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl.png" draggable="false" style="position: absolute; left: 0px; top: -15px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 120px; height: 54px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gmnoprint" draggable="false" controlwidth="0" controlheight="0" style="margin: 10px; -webkit-user-select: none; position: absolute; display: none; bottom: 14px; right: 0px;">
+                    <div class="gmnoprint" controlwidth="28" controlheight="0" style="display: none; position: absolute;">
+                        <div title="Rotate map 90 degrees" style="width: 28px; height: 28px; overflow: hidden; position: absolute; border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; cursor: pointer; display: none; background-color: rgb(255, 255, 255);"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl4.png" draggable="false" style="position: absolute; left: -141px; top: 6px; width: 170px; height: 54px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                        </div>
+                        <div class="gm-tilt" style="width: 28px; height: 28px; overflow: hidden; position: absolute; border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; top: 0px; cursor: pointer; background-color: rgb(255, 255, 255);"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl4.png" draggable="false" style="position: absolute; left: -141px; top: -13px; width: 170px; height: 54px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="javo-single-item-tab-map-street-area" data-javo-single-item-header-panel="" jstcache="0" style="position: absolute; height: 550px; width: 100%; top: 0px; bottom: 0px; z-index: 2; left: -1349px; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
+            <div class="gm-style" jstcache="0" style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 1;">
+                <div style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0; background-color: rgb(229, 227, 223);">
+                    <div style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; height: 100%; cursor: url(http://maps.gstatic.com/mapfiles/openhand_8_8.cur) 8 8, default;">
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;"></div>
+                        <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"></div>
+                        <canvas width="1349" height="550"></canvas>
+                        <div class="gmnoprint" style="position: absolute; left: 0px; top: 0px; z-index: 2; width: 1349px; height: 550px; font-family: Roboto, Arial, sans-serif;">
+                            <svg version="1.1" overflow="hidden" width="1349px" height="550px" viewBox="0 0 1349 550" style="position: absolute; left: 0px; top: 0px;">
+                                <ellipse fill="white" fill-rule="evenodd" visibility="hidden"></ellipse>
+                                <path fill="white" fill-rule="evenodd" visibility="hidden"></path>
+                                <path fill="black" fill-rule="evenodd" fill-opacity="0.5" stroke="none" d="M 0 -100 L 40 -60 L 30 -50 L 0 -82 L -30 -50 L -40 -60" transform="translate(674.5 433.7713240271471) scale(1 0.31698729810778065) rotate(282) "></path>
+                                <path fill="white" fill-rule="evenodd" fill-opacity="1" stroke="none" d="M 0 -100 L 40 -60 L 30 -50 L 0 -82 L -30 -50 L -40 -60" transform="translate(674.5 430.7713240271471) scale(1 0.31698729810778065) rotate(282) "></path>
+                                <path fill="white" fill-rule="evenodd" fill-opacity="0" stroke="none" d="M 0 -120 L 60 -60 L 40 -30 L -40 -30 L -60 -60 L 0 -120" pano="uuqlxzrNw0rHXgA1eEZREQ" cursor="pointer" transform="translate(674.5 430.7713240271471) scale(1 0.31698729810778065) rotate(282) "></path>
+                                <text fill="white" fill-rule="evenodd" stroke="none" x="0" y="-140" font-size="20px" text-anchor="end" pano="uuqlxzrNw0rHXgA1eEZREQ" cursor="pointer" transform="translate(674.5 454) rotate(282) rotate(-278 0 -140)">Ovington Ave</text>
+                                <path fill="black" fill-rule="evenodd" fill-opacity="0.5" stroke="none" d="M 0 -100 L 40 -60 L 30 -50 L 0 -82 L -30 -50 L -40 -60" transform="translate(674.5 433.7713240271471) scale(1 0.31698729810778065) rotate(195) "></path>
+                                <path fill="white" fill-rule="evenodd" fill-opacity="1" stroke="none" d="M 0 -100 L 40 -60 L 30 -50 L 0 -82 L -30 -50 L -40 -60" transform="translate(674.5 430.7713240271471) scale(1 0.31698729810778065) rotate(195) "></path>
+                                <path fill="white" fill-rule="evenodd" fill-opacity="0" stroke="none" d="M 0 -120 L 60 -60 L 40 -30 L -40 -30 L -60 -60 L 0 -120" pano="MNSMk38EruJI0CvlQPFJlQ" cursor="pointer" transform="translate(674.5 430.7713240271471) scale(1 0.31698729810778065) rotate(195) "></path>
+                                <text fill="white" fill-rule="evenodd" stroke="none" x="0" y="-140" font-size="20px" text-anchor="middle" pano="MNSMk38EruJI0CvlQPFJlQ" cursor="pointer" transform="translate(674.5 341) rotate(195) rotate(-195 0 -140)">3rd Ave</text>
+                                <path fill="black" fill-rule="evenodd" fill-opacity="0.5" stroke="none" d="M 0 -100 L 40 -60 L 30 -50 L 0 -82 L -30 -50 L -40 -60" transform="translate(674.5 433.7713240271471) scale(1 0.31698729810778065) rotate(17) "></path>
+                                <path fill="white" fill-rule="evenodd" fill-opacity="1" stroke="none" d="M 0 -100 L 40 -60 L 30 -50 L 0 -82 L -30 -50 L -40 -60" transform="translate(674.5 430.7713240271471) scale(1 0.31698729810778065) rotate(17) "></path>
+                                <path fill="white" fill-rule="evenodd" fill-opacity="0" stroke="none" d="M 0 -120 L 60 -60 L 40 -30 L -40 -30 L -60 -60 L 0 -120" pano="-Wx_1N6nGXQPbHBVrd3D9w" cursor="pointer" transform="translate(674.5 430.7713240271471) scale(1 0.31698729810778065) rotate(17) "></path>
+                                <text fill="white" fill-rule="evenodd" stroke="none" x="0" y="-140" font-size="20px" text-anchor="middle" pano="-Wx_1N6nGXQPbHBVrd3D9w" cursor="pointer" transform="translate(674.5 525) rotate(17) rotate(-17 0 -140)">3rd Ave</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: 5px; margin-right: 5px; z-index: 1000000; position: absolute; left: 0px; bottom: 0px;">
+                    <a target="_blank" href="https://maps.google.com/maps?z=17&amp;layer=c&amp;cbll=40.634965,-74.026365&amp;panoid=xx_QEtnXW2v8o1EB6_DEdQ&amp;cbp=12,0,,-2.5,0&amp;hl=en-GB&amp;gl=US&amp;mapclient=apiv3" title="Click to see this area on Google Maps" style="position: static; overflow: visible; float: none; display: inline;">
+                        <div style="width: 66px; height: 26px; visibility: hidden; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/transparent.png" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 66px; height: 26px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                        </div>
+                    </a>
+                </div>
+                <div style="padding: 15px 21px; border: 1px solid rgb(171, 171, 171); font-family: Roboto, Arial, sans-serif; color: rgb(34, 34, 34); box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 16px; z-index: 10000002; display: none; width: 256px; height: 148px; position: absolute; left: 525px; top: 185px; background-color: white;">
+                    <div style="padding: 0px 0px 10px; font-size: 16px;">Map Data</div>
+                    <div style="font-size: 13px;">© 2015 Google</div>
+                    <div style="width: 13px; height: 13px; overflow: hidden; position: absolute; opacity: 0.7; right: 12px; top: 12px; z-index: 10000; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png" draggable="false" style="position: absolute; left: -2px; top: -336px; width: 59px; height: 492px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                    </div>
+                </div>
+                <div class="gmnoprint" style="z-index: 1000001; position: absolute; right: 161px; bottom: 0px; width: 79px;">
+                    <div draggable="false" class="gm-style-cc" style="-webkit-user-select: none; height: 14px; line-height: 14px;">
+                        <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+                            <div style="width: 1px;"></div>
+                            <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(0, 0, 0);"></div>
+                        </div>
+                        <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(255, 255, 255); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a style="color: rgb(68, 68, 68); text-decoration: none; cursor: pointer; display: none;">Map Data</a><span>© 2015 Google</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gmnoscreen" style="position: absolute; right: 0px; bottom: 0px;">
+                    <div style="font-family: Roboto, Arial, sans-serif; font-size: 11px; color: rgb(68, 68, 68); direction: ltr; text-align: right; background-color: rgb(245, 245, 245);">© 2015 Google</div>
+                </div>
+                <div class="gmnoprint gm-style-cc" draggable="false" style="z-index: 1000001; -webkit-user-select: none; height: 14px; line-height: 14px; position: absolute; right: 89px; bottom: 0px;">
+                    <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+                        <div style="width: 1px;"></div>
+                        <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(0, 0, 0);"></div>
+                    </div>
+                    <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(255, 255, 255); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a href="https://www.google.com/intl/en-GB_US/help/terms_maps.html" target="_blank" style="text-decoration: none; cursor: pointer; color: rgb(255, 255, 255);">Terms of Use</a>
+                    </div>
+                </div>
+                <div class="gmnoprint" draggable="false" controlwidth="48" controlheight="113" style="margin: 10px; -webkit-user-select: none; position: absolute; bottom: 127px; right: 48px;" jstcache="0">
+                    <div class="gmnoprint" controlwidth="28" controlheight="55" style="position: absolute; left: 10px; top: 58px;">
+                        <div draggable="false" style="-webkit-user-select: none; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; border-radius: 2px; cursor: pointer; width: 28px; height: 55px; background-color: rgb(34, 34, 34);">
+                            <div title="Zoom in" style="position: relative; width: 28px; height: 27px; left: 0px; top: 0px;">
+                                <div style="overflow: hidden; position: absolute; width: 15px; height: 15px; left: 7px; top: 6px;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl.png" draggable="false" style="position: absolute; left: -60px; top: 0px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 120px; height: 54px;">
+                                </div>
+                            </div>
+                            <div style="position: relative; overflow: hidden; width: 67%; height: 1px; left: 16%; top: 0px; background-color: rgb(26, 26, 26);"></div>
+                            <div title="Zoom out" style="position: relative; width: 28px; height: 27px; left: 0px; top: 0px;">
+                                <div style="overflow: hidden; position: absolute; width: 15px; height: 15px; left: 7px; top: 6px;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl.png" draggable="false" style="position: absolute; left: -60px; top: -15px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 120px; height: 54px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div dir="ltr" controlwidth="48" controlheight="48" style="position: absolute; left: 0px; top: 0px;" jstcache="0">
+                        <div jstcache="80" class="iv-tactile-compass">
+                            <div class="icon iv-tactile-compass-background"></div>
+                            <div jsaction="tactileCompass.north" jstcache="52" class="icon iv-tactile-compass-needle" style="-webkit-transform: rotate(0deg);-ms-transform: rotate(0deg);-moz-transform: rotate(0deg);transform: rotate(0deg)" jsan="7.icon,7.iv-tactile-compass-needle,4.style,0.jsaction"></div>
+                            <div jsaction="tactileCompass.counterclockwise" class="icon iv-tactile-compass-turn"></div>
+                            <div jsaction="tactileCompass.clockwise" class="icon iv-tactile-compass-turn iv-tactile-compass-turn-opposite"></div>
+                            <div>
+                                <div class="iv-tactile-compass-tooltip-text">Rotate view</div>
+                                <div class="iv-tactile-compass-arrow-right iv-tactile-compass-arrow-right-outer"></div>
+                                <div class="iv-tactile-compass-arrow-right iv-tactile-compass-arrow-right-inner"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div draggable="false" controlwidth="25px" style="-webkit-user-select: none; font-family: Roboto, Arial, sans-serif; font-size: 11px; width: 25px; text-align: center; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; cursor: pointer; display: none; position: absolute;"></div>
+                </div>
+                <div dir="ltr" jstcache="0" style="position: absolute; display: none; left: 0px; top: 0px;">
+                    <div jstcache="64" class="gm-iv-container">
+                        <div jsaction="closeControl.click" class="gm-iv-close">
+                            <div class="gm-iv-back">
+                                <div class="gm-iv-back-icon"> <img draggable="false" jstcache="60" src="http://maps.gstatic.com/mapfiles/api-3/images/sv4.png"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div dir="ltr" style="position: absolute; left: 0px; top: 0px;" jstcache="0">
+                    <div jstcache="81" class="gm-iv-address">
+                        <div class="gm-iv-address-description">
+                            <div jstcache="66" class="gm-iv-short-address-description" jsan="7.gm-iv-short-address-description">3rd Ave</div>
+                            <div jstcache="67" class="gm-iv-long-address-description" jsan="7.gm-iv-long-address-description">New York</div>
+                            <div jstcache="68" class="gm-iv-profile-url" style="display:none">
+                                <a target="_blank" jstcache="69">
+                                    <div jstcache="70" class="gm-iv-profile-link" jsan="7.gm-iv-profile-link"></div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="gm-iv-vertical-separator"></div>
+                        <div class="gm-iv-marker">
+                            <a target="_blank" jstcache="71" href="https://maps.google.com/maps?q=40.634965,-74.026365&amp;hl=en-GB&amp;gl=US">
+                                <div class="gm-iv-marker-icon"> <img draggable="false" jstcache="72" src="http://maps.gstatic.com/mapfiles/api-3/images/sv4.png"> </div>
+                            </a>
+                        </div>
+                        <div class="gm-iv-horizontal-separator"></div>
+                        <div class="gm-iv-address-link"> <a target="_blank" jstcache="73" href="https://maps.google.com/maps?z=5&amp;layer=c&amp;panoid=xx_QEtnXW2v8o1EB6_DEdQ&amp;cbp=12,0,,0,0&amp;hl=en-GB&amp;gl=US">View on Google Maps</a> </div>
+                    </div>
+                </div>
+                <div style="width: 25px; height: 25px; margin-right: 20px; margin-top: 10px; overflow: hidden; position: absolute; right: 0px; top: 0px;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/sv4.png" draggable="false" style="position: absolute; left: 0px; top: -86px; width: 164px; height: 112px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                </div>
+                <div draggable="false" style="color: white; font-family: Roboto, Arial, sans-serif; padding: 4px; border: 2px solid white; -webkit-user-select: none; display: none; position: absolute; left: 675px; top: 275px; background-color: black;">This image is no longer available</div>
+                <div draggable="false" class="gm-style-cc" style="-webkit-user-select: none; height: 14px; line-height: 14px; position: absolute; right: 0px; bottom: 0px;">
+                    <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+                        <div style="width: 1px;"></div>
+                        <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(0, 0, 0);"></div>
+                    </div>
+                    <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(255, 255, 255); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a target="_new" title="Report problems with Street View imagery to Google" style="text-decoration: none; color: rgb(255, 255, 255);" href="http://cbk0.googleapis.com/cbk?output=report&amp;cb_client=apiv3&amp;v=4&amp;gl=US&amp;panoid=xx_QEtnXW2v8o1EB6_DEdQ&amp;cbp=1,0,,0,0&amp;hl=en-GB">Report a problem</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="javo-single-item-tab-custom-item" data-javo-single-item-header-panel="" style="position: absolute; height: 550px; width: 100%; top: 0px; bottom: 0px; z-index: 2; overflow: hidden; left: -1349px; background: rgb(170, 170, 170);">
+            <iframe src="http://javothemes.com/assets/360/demo1/index.html" width="100%" height="100%" frameborder="0"></iframe>
+        </div>
+        <div class="single-item-tab-bg">
+            <div class="container captions">
+                <div class="header-inner">
+                    <div class="item-bg-left pull-left text-left">
+                        <h1 class="uppercase"><%=@place.post.post_title%></h1>
+                    </div>
+                    <div class="item-bg-right pull-right text-center">
+
+                        <div class="author-info javo-single-itemp-tab-intro-switch" data-javo-swap-button="" data-javo-swap-butotn-tar=".javo-single-item-tab-map-area" data-original="http://javothemes.com/directory/demo1/wp-content/uploads/sites/2/2014/08/hotel6-150x150.jpg" data-after="http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/icon/icon-location-red.png" data-javo-single-map="">
+                            <img src="../../wp-content/themes/javo-directory/assets/images/icon/icon-location-red.png" class="img-circle" style="cursor:pointer;">
+                        </div>
+                        <div class="author-info" data-javo-swap-button="" data-javo-swap-butotn-tar=".javo-single-item-tab-map-street-area" data-original="http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/icon/icon-streetview.png" data-after="http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/icon/icon-streetview-off.png" data-javo-single-streetview="">
+                            <img src="../../wp-content/themes/javo-directory/assets/images/icon/icon-streetview-off.png" class="img-circle" style="cursor:pointer;">
+                        </div>
+                        <div class="author-info " data-javo-swap-button="" data-javo-swap-butotn-tar=".javo-single-item-tab-custom-item" data-original="http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/icon/3D-view-icon-on.png" data-after="http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/icon/3D-view-icon-off.png" data-javo-single-customframe="">
+                            <img src="../../wp-content/themes/javo-directory/assets/images/icon/3D-view-icon-off.png" class="img-circle" style="cursor:pointer;">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- header-inner -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- single-item-tab-bg -->
+        <div class="bg-dot-black"></div>
+        <!-- bg-dot-black -->
+    </div>
+    <!-- single-item-tab-feature-bg -->
+
+
+    <script type="text/html" id="javo-map-loading-template">
+        <div class="text-center" id="javo-map-info-w-content">
+            <img src="http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/loading.gif" width="50" height="50">
+        </div>
+    </script>
+
+    <script type="text/html" id="javo-detail-item-header-map-info-template">
+        <div class="javo_somw_info panel">
+            <div class="des">
+
+                <h5>
+          {current}
+          <a href="{permalink}">{post_title}</a>
+        </h5>
+                <ul class="list-unstyled">
+                    <li>{address}</li>
+                    <li>{phone}</li>
+                    <li>{website}</li>
+                    <li>{email}</li>
+                </ul>
+            </div>
+            <!-- des -->
+
+            <div class="pics">
+                <div class="thumb">
+                    <a href="{permalink}">{thumbnail}</a>
+                </div>
+                <!-- thumb -->
+                <div class="img-in-text">{category}</div>
+                <div class="javo-left-overlay">
+                    <div class="javo-txt-meta-area">{location}</div>
+                    <div class="corner-wrap">
+                        <div class="corner"></div>
+                        <div class="corner-background"></div>
+                    </div>
+                    <!-- corner-wrap -->
+                </div>
+                <!-- javo-left-overlay -->
+            </div>
+            <!-- pic -->
+        </div>
+        <!-- javo_somw_info -->
+    </script>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 pp-single-content">
+
+
+                <div class="tabs-wrap">
+
+                    <ul id="single-tabs" class="nav nav-pills nav-justified" data-tabs="single-tabs">
+                        <li class="active about-tab-button"><a href="#item-detail" data-toggle="tab"><span class="glyphicon glyphicon-home"></span> Thông tin chính</a>
+                        </li>
+                        <li class="location-tab-button"><a href="#item-location" data-toggle="tab"><span class="glyphicon glyphicon-map-marker"></span> Vị trí</a>
+                        </li>
+                        <li class="event-tab-button"><a href="#item-events" data-toggle="tab"><span class="glyphicon glyphicon-heart-empty"></span> Sự kiện/ khuyến mãi</a>
+                        </li>
+                        <li class="review-tab-button"><a href="#item-reviews" data-toggle="tab"><span class="glyphicon glyphicon-comment"></span> Đánh giá/bình luận</a>
+                        </li>
+                    </ul>
+
+                    <div id="javo-single-tab" class="tab-content">
+                        <div class="active tab-pane" id="item-detail">
+                            <!-- slide -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="javo_detail_slide">
+                                        <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                                            <ul class="slides list-unstyled" style="width: 1000%; transition-duration: 0s; transform: translate3d(-796px, 0px, 0px);">
+                                                <li class="image clone" aria-hidden="true" style="overflow: hidden; width: 796px; float: left; display: block;"><i href="/assets/sites//2/2014/08/JAVO_car.jpg" style="cursor:pointer"><img width="823" height="420" src="/assets/sites//2/2014/08/JAVO_car-823x420.jpg" class="attachment-javo-item-detail" alt="JAVO_car" draggable="false"></i>
+                                                </li>
+                                                <li class="image flex-active-slide" style="overflow: hidden; width: 796px; float: left; display: block;"><i href="/assets/sites//2/2014/08/JAVO_0992.jpg" style="cursor:pointer"><img width="823" height="420" src="/assets/sites//2/2014/08/JAVO_0992-823x420.jpg" class="attachment-javo-item-detail" alt="JAVO_0992" draggable="false"></i>
+                                                </li>
+                                                <li class="image" style="overflow: hidden; width: 796px; float: left; display: block;"><i href="/assets/sites//2/2014/08/JAVO_0480.jpg" style="cursor:pointer"><img width="823" height="420" src="/assets/sites//2/2014/08/JAVO_0480-823x420.jpg" class="attachment-javo-item-detail" alt="JAVO_0480" draggable="false"></i>
+                                                </li>
+                                                <li class="image" style="overflow: hidden; width: 796px; float: left; display: block;"><i href="/assets/sites//2/2014/08/JAVO_car.jpg" style="cursor:pointer"><img width="823" height="420" src="/assets/sites//2/2014/08/JAVO_car-823x420.jpg" class="attachment-javo-item-detail" alt="JAVO_car" draggable="false"></i>
+                                                </li>
+                                                <li class="image clone" aria-hidden="true" style="overflow: hidden; width: 796px; float: left; display: block;"><i href="/assets/sites//2/2014/08/JAVO_0992.jpg" style="cursor:pointer"><img width="823" height="420" src="/assets/sites//2/2014/08/JAVO_0992-823x420.jpg" class="attachment-javo-item-detail" alt="JAVO_0992" draggable="false"></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <ul class="flex-direction-nav">
+                                            <li style="overflow: hidden;"><a class="flex-prev" href="#">Previous</a>
+                                            </li>
+                                            <li style="overflow: hidden;"><a class="flex-next" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <script type="text/javascript">
+                                        jQuery(function($) {
+                                            "use strict";
+                                            $(".javo_detail_slide_cnt").flexslider({
+                                                animation: "slide",
+                                                controlNav: false,
+                                                slideshow: false,
+                                                animationLoop: false,
+                                                itemWidth: 80,
+                                                itemMargin: 2,
+                                                asNavFor: ".javo_detail_slide"
+                                            });
+
+                                            $(".javo_detail_slide").flexslider({
+                                                animation: "slide",
+                                                controlNav: false,
+                                                slideshow: true,
+                                                sync: ".javo_detail_slide_cnt"
+                                            }).find('li').css('overflow', 'hidden');
+
+                                            $('.javo_detail_slide .image').magnificPopup({
+                                                gallery: {
+                                                    enabled: true
+                                                },
+                                                delegate: 'i',
+                                                type: 'image'
+                                            });
+                                            $('.javo_detail_slide .video').magnificPopup({
+                                                delegate: 'b',
+                                                type: 'iframe',
+                                                preloader: true
+                                            });
+
+                                        });
+                                    </script>
+                                    <!-- slide end -->
+                                </div>
+                                <!-- col-md-12 -->
+                            </div>
+                            <!-- row -->
+
+                            <div class="single-sns-wrap-div before-claim">
+                                <span class="javo-archive-sns-wrap social-wrap pull-right">
+      <i class="sns-facebook" data-title="JAVO HOTEL IN DOWNTOWN" data-url="http://javothemes.com/directory/demo1/item/javo-hotel-in-downtown/">
+        <a class="facebook javo-tooltip" title="" data-original-title="Share Facebook"></a>
+      </i>
+      <i class="sns-twitter" data-title="JAVO HOTEL IN DOWNTOWN" data-url="">
+        <a class="twitter javo-tooltip" title="" data-original-title="Share Twitter"></a>
+      </i>
+      <i class="sns-heart">
+        <a class="javo-tooltip favorite javo_favorite" data-no-swap="yes" data-post-id="2154" title="" data-original-title="Add My Favorite"></a>
+      </i>
+    </span>
+                            </div>
+                            <!-- single-sns-wrap-div -->
+                            <!-- slide end -->
+                            <div class="claim_btn_wrap clearfix">
+                                <a href="#" data-toggle="modal" data-target="#jv-claim-reveal" class="btn btn-primary javo-tooltip pull-right" title="" data-original-title="Claim This Business"><i class="glyphicon glyphicon-briefcase"></i>&nbsp;Own This Business?</a>
+                            </div>
+                            <!-- claim_btn_wrap -->
+                            <div class="row">
+                                <div class="col-md-12 description-part">
+                                    <div class="item-single-details-box">
+                                        <h4 class="detail-titles">Description</h4>
+                                        <div class="javo-left-overlay">
+                                            <div class="javo-txt-meta-area admin-color-setting">Description</div>
+                                            <!-- javo-txt-meta-area -->
+                                            <div class="corner-wrap">
+                                                <div class="corner admin-color-setting"></div>
+                                                <div class="corner-background admin-color-setting"></div>
+                                            </div>
+                                            <!-- corner-wrap -->
+                                        </div>
+                                        <!-- javo-left-overlay -->
+                                        <!-- <div class="title-box">Description</div> -->
+                                        <div class="inner-items">
+                                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                                        </div>
+                                        <!-- inner-items -->
+                                    </div>
+                                    <!-- item-single-details-box -->
+                                </div>
+                                <!-- col-md-12 -->
+
+                                <div class="col-md-12 contact-part">
+                                    <div class="item-single-details-box">
+                                        <h4 class="detail-titles">Contact</h4>
+                                        <div class="javo-left-overlay">
+                                            <div class="javo-txt-meta-area admin-color-setting">Contact</div>
+                                            <!-- javo-txt-meta-area -->
+                                            <div class="corner-wrap">
+                                                <div class="corner admin-color-setting"></div>
+                                                <div class="corner-background admin-color-setting"></div>
+                                            </div>
+                                            <!-- corner-wrap -->
+                                        </div>
+                                        <!-- javo-left-overlay -->
+
+                                        <div class="inner-items">
+                                            <ul>
+                                                <li class="single-contact-address">
+                                                    <div class="col-sm-2">Address</div>
+                                                    <div class="col-sm-10">Brooklyn New York</div>
+                                                </li>
+                                                <li class="single-contact-phone">
+                                                    <div class="col-sm-2">Phone</div>
+                                                    <div class="col-sm-10"><a href="tel:215-123-1234" target="_self">215-123-1234</a>
+                                                    </div>
+                                                </li>
+                                                <li class="single-contact-email">
+                                                    <div class="col-sm-2">E-mail</div>
+                                                    <div class="col-sm-10"><a href="mailto:javothemes@gmail.com" target="_self">javothemes@gmail.com</a>
+                                                    </div>
+                                                </li>
+                                                <li class="single-contact-website">
+                                                    <div class="col-sm-2">Website</div>
+                                                    <div class="col-sm-10"><a href="http://javothemes.com/" target="_blank">javothemes.com</a>
+                                                    </div>
+                                                </li>
+                                                <li class="single-contact-category">
+                                                    <div class="col-sm-2">Category</div>
+                                                    <div class="col-sm-10">hotel, IT business, leisure, store</div>
+                                                </li>
+                                                <li class="single-contact-location">
+                                                    <div class="col-sm-2">Location</div>
+                                                    <div class="col-sm-10">Brooklyn</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 custom-part">
+                                    <div class="item-single-details-box">
+                                        <h4 class="detail-titles">Additional Information</h4>
+                                        <div class="javo-left-overlay">
+                                            <div class="javo-txt-meta-area admin-color-setting">Additional Information</div>
+                                            <!-- javo-txt-meta-area -->
+                                            <div class="corner-wrap">
+                                                <div class="corner admin-color-setting"></div>
+                                                <div class="corner-background admin-color-setting"></div>
+                                            </div>
+                                            <!-- corner-wrap -->
+                                        </div>
+                                        <!-- javo-left-overlay -->
+                                        <div class="inner-items">
+                                            <ul>
+                                                <li class="jv-monday">
+                                                    <div class="col-sm-2">Mon</div>
+                                                    <div class="col-sm-10">09:00~ 21:00</div>
+                                                </li>
+                                                <li class="">
+                                                    <div class="col-sm-2">Tue</div>
+                                                    <div class="col-sm-10">09:00~ 21:00</div>
+                                                </li>
+                                                <li class="">
+                                                    <div class="col-sm-2">Wed</div>
+                                                    <div class="col-sm-10">09:00~ 21:00</div>
+                                                </li>
+                                                <li class="">
+                                                    <div class="col-sm-2">Thu</div>
+                                                    <div class="col-sm-10">09:00~ 21:00</div>
+                                                </li>
+                                                <li class="">
+                                                    <div class="col-sm-2">Fri</div>
+                                                    <div class="col-sm-10">09:00~ 21:00</div>
+                                                </li>
+                                                <li class="">
+                                                    <div class="col-sm-2">Sat</div>
+                                                    <div class="col-sm-10">09:00~ 21:00</div>
+                                                </li>
+                                                <li class="">
+                                                    <div class="col-sm-2">Sun</div>
+                                                    <div class="col-sm-10">09:00~ 21:00</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- col-md-12 -->
+                            </div>
+                            <!-- row -->
+                        </div>
+                        <div class="tab-pane" id="item-location">
+                            <div class="javo-fancy-title-section">
+                                <h2 style="">Location</h2>
+                                <div class="hr-wrap">
+                                    <span class="hr-inner" style="">
+        <span class="hr-inner-style"></span>
+                                    </span>
+                                </div>
+                                <!-- hr-wrap -->
+                                <div class="javo-fancy-title-description text-center" style="position:relative;">
+                                    <div style="">
+                                        JAVO HOTEL IN DOWNTOWN </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="javo-single-map-area" style="min-height: 500px; position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
+                                        <div class="gm-style" style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0;">
+                                            <div style="position: absolute; left: 0px; top: 0px; overflow: hidden; width: 100%; height: 100%; z-index: 0; cursor: url(http://maps.gstatic.com/mapfiles/openhand_8_8.cur) 8 8, default;">
+                                                <div style="position: absolute; left: 0px; top: 0px; z-index: 1; width: 100%; transform-origin: 0px 0px 0px; transform: matrix(1, 0, 0, 1, 0, 0);">
+                                                    <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 100; width: 100%;">
+                                                        <div style="position: absolute; left: 0px; top: 0px; z-index: 0;">
+                                                            <div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;">
+                                                                <div style="width: 256px; height: 256px; transform: translateZ(0px); position: absolute; left: -248px; top: -124px;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 101; width: 100%;"></div>
+                                                    <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 102; width: 100%;"></div>
+                                                    <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 103; width: 100%;">
+                                                        <div style="position: absolute; left: 0px; top: 0px; z-index: -1;">
+                                                            <div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;">
+                                                                <div style="width: 256px; height: 256px; overflow: hidden; transform: translateZ(0px); position: absolute; left: -248px; top: -124px;">
+                                                                    <canvas draggable="false" height="256" width="256" style="-webkit-user-select: none; position: absolute; left: 0px; top: 0px; height: 256px; width: 256px;"></canvas>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div style="position: absolute; z-index: 0; transform: translateZ(0px); left: 0px; top: 0px;">
+                                                        <div style="overflow: hidden;"></div>
+                                                    </div>
+                                                    <div style="position: absolute; left: 0px; top: 0px; z-index: 0;">
+                                                        <div aria-hidden="true" style="position: absolute; left: 0px; top: 0px; z-index: 1; visibility: inherit;"></div>
+                                                    </div>
+                                                </div>
+                                                <div style="position: absolute; left: 0px; top: 0px; z-index: 2; width: 100%; height: 100%;"></div>
+                                                <div style="position: absolute; left: 0px; top: 0px; z-index: 3; width: 100%; transform-origin: 0px 0px 0px; transform: matrix(1, 0, 0, 1, 0, 0);">
+                                                    <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 104; width: 100%;"></div>
+                                                    <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 105; width: 100%;"></div>
+                                                    <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 106; width: 100%;"></div>
+                                                    <div style="transform: translateZ(0px); position: absolute; left: 0px; top: 0px; z-index: 107; width: 100%;"></div>
+                                                </div>
+                                            </div>
+                                            <div style="margin-left: 5px; margin-right: 5px; z-index: 1000000; position: absolute; left: 0px; bottom: 0px;">
+                                                <a target="_blank" href="https://maps.google.com/maps?ll=40.634943,-74.026212&amp;z=15&amp;hl=en-GB&amp;gl=US&amp;mapclient=apiv3" title="Click to see this area on Google Maps" style="position: static; overflow: visible; float: none; display: inline;">
+                                                    <div style="width: 66px; height: 26px; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/google4.png" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 66px; height: 26px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div style="padding: 15px 21px; border: 1px solid rgb(171, 171, 171); font-family: Roboto, Arial, sans-serif; color: rgb(34, 34, 34); box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 16px; z-index: 10000002; display: none; width: 0px; height: 0px; position: absolute; left: 5px; top: 5px; background-color: white;">
+                                                <div style="padding: 0px 0px 10px; font-size: 16px;">Map Data</div>
+                                                <div style="font-size: 13px;"></div>
+                                                <div style="width: 13px; height: 13px; overflow: hidden; position: absolute; opacity: 0.7; right: 12px; top: 12px; z-index: 10000; cursor: pointer;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/mapcnt6.png" draggable="false" style="position: absolute; left: -2px; top: -336px; width: 59px; height: 492px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                                </div>
+                                            </div>
+                                            <div class="gmnoprint" style="z-index: 1000001; position: absolute; right: 0px; bottom: 0px; width: 12px;">
+                                                <div draggable="false" class="gm-style-cc" style="-webkit-user-select: none; height: 14px; line-height: 14px;">
+                                                    <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+                                                        <div style="width: 1px;"></div>
+                                                        <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div>
+                                                    </div>
+                                                    <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a style="color: rgb(68, 68, 68); text-decoration: none; cursor: pointer; display: none;">Map Data</a><span style="display: none;"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="gmnoscreen" style="position: absolute; right: 0px; bottom: 0px;">
+                                                <div style="font-family: Roboto, Arial, sans-serif; font-size: 11px; color: rgb(68, 68, 68); direction: ltr; text-align: right; background-color: rgb(245, 245, 245);"></div>
+                                            </div>
+                                            <div class="gmnoprint gm-style-cc" draggable="false" style="z-index: 1000001; -webkit-user-select: none; height: 14px; line-height: 14px; position: absolute; right: 0px; bottom: 0px;">
+                                                <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+                                                    <div style="width: 1px;"></div>
+                                                    <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div>
+                                                </div>
+                                                <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a href="https://www.google.com/intl/en-GB_US/help/terms_maps.html" target="_blank" style="text-decoration: none; cursor: pointer; color: rgb(68, 68, 68);">Terms of Use</a>
+                                                </div>
+                                            </div>
+                                            <div draggable="false" class="gm-style-cc" style="-webkit-user-select: none; height: 14px; line-height: 14px; display: none; position: absolute; right: 0px; bottom: 0px;">
+                                                <div style="opacity: 0.7; width: 100%; height: 100%; position: absolute;">
+                                                    <div style="width: 1px;"></div>
+                                                    <div style="width: auto; height: 100%; margin-left: 1px; background-color: rgb(245, 245, 245);"></div>
+                                                </div>
+                                                <div style="position: relative; padding-right: 6px; padding-left: 6px; font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); white-space: nowrap; direction: ltr; text-align: right; vertical-align: middle; display: inline-block;"><a target="_new" title="Report errors in the road map or imagery to Google" href="https://www.google.com/maps/@40.634943,-74.026212,15z/data=!10m1!1e1!12b1?source=apiv3&amp;rapsrc=apiv3" style="font-family: Roboto, Arial, sans-serif; font-size: 10px; color: rgb(68, 68, 68); text-decoration: none; position: relative;">Report a map error</a>
+                                                </div>
+                                            </div>
+                                            <div class="gmnoprint" draggable="false" controlwidth="0" controlheight="0" style="margin: 10px; -webkit-user-select: none; position: absolute; display: none; left: 0px; top: 0px;">
+                                                <div class="gmnoprint" style="display: none; position: absolute;">
+                                                    <div draggable="false" style="-webkit-user-select: none; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; border-radius: 2px; cursor: pointer; background-color: rgb(255, 255, 255);">
+                                                        <div title="Zoom in" style="position: relative;">
+                                                            <div style="overflow: hidden; position: absolute;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl.png" draggable="false" style="position: absolute; left: 0px; top: 0px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 120px; height: 54px;">
+                                                            </div>
+                                                        </div>
+                                                        <div style="position: relative; overflow: hidden; width: 67%; height: 1px; left: 16%; background-color: rgb(230, 230, 230);"></div>
+                                                        <div title="Zoom out" style="position: relative;">
+                                                            <div style="overflow: hidden; position: absolute;"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl.png" draggable="false" style="position: absolute; left: 0px; top: 0px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px; width: 120px; height: 54px;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="gmnoprint" draggable="false" controlwidth="0" controlheight="0" style="margin: 10px; -webkit-user-select: none; position: absolute; display: none; bottom: 0px; right: 0px;">
+                                                <div class="gmnoprint" controlwidth="28" controlheight="0" style="display: none; position: absolute;">
+                                                    <div title="Rotate map 90 degrees" style="width: 28px; height: 28px; overflow: hidden; position: absolute; border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; cursor: pointer; display: none; background-color: rgb(255, 255, 255);"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl4.png" draggable="false" style="position: absolute; left: -141px; top: 6px; width: 170px; height: 54px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                                    </div>
+                                                    <div class="gm-tilt" style="width: 0px; height: 0px; overflow: hidden; position: absolute; border-radius: 2px; box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px; top: 0px; cursor: pointer; background-color: rgb(255, 255, 255);"><img src="http://maps.gstatic.com/mapfiles/api-3/images/tmapctrl4.png" draggable="false" style="position: absolute; left: 0px; top: 0px; width: 170px; height: 54px; -webkit-user-select: none; border: 0px; padding: 0px; margin: 0px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.col-md-12 -->
+                            </div>
+                            <!-- /.row -->
+                            <div class="row get-direction">
+                                <div class="col-md-12">
+                                    <div class="input-group input-group-gray">
+                                        <span class="input-group-addon border-none reactangle">Get directions</span>
+                                        <div class="form-group">
+                                            <div class="row gd-inputs">
+                                                <div class="col-md-1 col-sm-1 col-xs-12">
+                                                    <div class="btn btn-dark btn-circle javo-tooltip" title="" data-original-title="This directory is based on google map API"><i class="fa fa-question"></i>
+                                                    </div>
+                                                </div>
+                                                <!-- /.col-md-1 -->
+                                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                                    <select data-javo-direction-travel="" class="form-control">
+                                                        <option value="driving">Lái xe</option>
+                                                        <option value="bicycling">Xe đạp</option>
+                                                        <option value="transit">Xe bus</option>
+                                                        <option value="walking">Đi bộ</option>
+                                                    </select>
+                                                </div>
+                                                <!-- /.  col-md-3 -->
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input type="text" class="form-control" data-javo-direction-start-text="" placeholder="Địa chỉ xuất phát" autocomplete="off">
+                                                </div>
+                                                <!-- col-md-8 -->
+                                            </div>
+                                            <!-- row -->
+                                        </div>
+                                        <span class="input-group-btn">
+        <button class="btn btn-primary admin-color-setting" type="button" data-javo-direction-start="">Tìm đường</button>
+      </span>
+                                    </div>
+
+                                </div>
+                                <!-- /.col-md-12 -->
+                            </div>
+                            <!-- /.row -->
+                            <div class="javo-fancy-title-section">
+                                <h2 style="">Liên hệ</h2>
+                                <div class="hr-wrap">
+                                    <span class="hr-inner" style="">
+        <span class="hr-inner-style"></span>
+                                    </span>
+                                </div>
+                                <!-- hr-wrap -->
+                                <div class="javo-fancy-title-description text-center" style="position:relative;">
+                                    <div style="">
+                                        <%=@place.post.post_title%> </div>
+                                </div>
+                            </div>
+
+                            <!-- total contact start -->
+                            <div class="row single-contact-wrap">
+                                <div class="col-md-6 javo-animation x2 javo-left-to-right-999">
+                                    <div class="single-contact-info">
+                                        <img src="../../../../../javothemes.cafe24.com/wp-content/themes/javo-directory/assets/images/no-image.png" style="width:150px; height:150px;">
+                                        <ul class="inner-items">
+                                            <li class="jv-location-user-name"><strong>By javo</strong>
+                                            </li>
+                                            <li class="jv-location-user-phone">Phone: 215-458-3045</li>
+                                            <li class="jv-location-user-email">Email: javothemes@gmail.com</li>
+                                        </ul>
+
+                                    </div>
+                                    <!-- single-contact-info -->
+                                </div>
+                                <!-- col-md-6 -->
+
+                                <div class="col-md-6 javo-animation x2 javo-right-to-left-999">
+                                    <div class="single-contact-form">
+                                        <div class="wpcf7" id="wpcf7-f2237-p2154-o1" lang="en-US" dir="ltr">
+                                            <div class="screen-reader-response"></div>
+                                            <form name="" action="http://javothemes.com/directory/demo1/item/javo-hotel-in-downtown/#wpcf7-f2237-p2154-o1" method="post" class="wpcf7-form" novalidate="novalidate">
+                                                <div style="display: none;">
+                                                    <input type="hidden" name="_wpcf7" value="2237">
+                                                    <input type="hidden" name="_wpcf7_version" value="4.0.3">
+                                                    <input type="hidden" name="_wpcf7_locale" value="en_US">
+                                                    <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f2237-p2154-o1">
+                                                    <input type="hidden" name="_wpnonce" value="53dcd0feec">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 form-group"><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required form-control" aria-required="true" aria-invalid="false" placeholder="Full Name"></span>
+                                                    </div>
+                                                    <div class="col-md-6 form-group"><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email form-control" aria-required="true" aria-invalid="false" placeholder="Email Address"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group"><span class="wpcf7-form-control-wrap your-subject"><input type="text" name="your-subject" value="" size="40" class="wpcf7-form-control wpcf7-text form-control" aria-invalid="false" placeholder="Subject"></span>
+                                                </div>
+                                                <div class="form-group"><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="5" class="wpcf7-form-control wpcf7-textarea form-control" aria-invalid="false" placeholder="message"></textarea></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="submit" value="Send Message" class="wpcf7-form-control wpcf7-submit btn btn-primary"><img class="ajax-loader" src="http://javothemes.com/directory/demo1/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden;">
+                                                </div>
+                                                <div class="wpcf7-response-output wpcf7-display-none"></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- single-contact-form -->
+                                </div>
+                                <!-- col-md-6 single-contact-form -->
+                            </div>
+                            <!-- total contact end -->
+                        </div>
+                        <div class="tab-pane" id="item-events">
+                            <div class="javo-fancy-title-section">
+                                <h2 style="">Events</h2>
+                                <div class="hr-wrap">
+                                    <span class="hr-inner" style="">
+        <span class="hr-inner-style"></span>
+                                    </span>
+                                </div>
+                                <!-- hr-wrap -->
+                                <div class="javo-fancy-title-description text-center" style="position:relative;">
+                                    <div style="">
+                                        <%=@place.post.post_title%> </div>
+                                </div>
+                            </div>
+
+                            <div class="events-wrap">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6 javo-animation x2 javo-left-to-right-999 loaded">
+                                                <div class="event-img-box">
+
+                                                    <img width="720" height="367" src="/assets/sites//2/2014/08/backyard-with-swimming-pool-house-720x367.jpg" class="img-responsive wp-post-image" alt="backyard-with-swimming-pool-house">
+                                                    <div class="label-ribbon-row {f}">
+                                                        <div class="label-info-ribbon-row-wrapper">
+                                                            <div class="label-info-ribbon-row">
+                                                                <div class="ribbons" id="ribbon-15">
+                                                                    <div class="ribbon-wrap">
+                                                                        <div class="content">
+                                                                            <div class="ribbon">
+                                                                                <span class="ribbon-span">
+                            20%OFF                          </span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- /.content -->
+                                                                    </div>
+                                                                    <!-- /.ribbon-wrap -->
+                                                                </div>
+                                                                <!-- /.ribbons -->
+                                                            </div>
+                                                            <!-- /.label-info-ribbon -->
+                                                        </div>
+                                                        <!-- /.ribbon-wrapper -->
+                                                    </div>
+                                                    <!-- /.label-ribbon -->
+
+                                                    <div class="event-title"><span>Hotel</span>
+                                                    </div>
+                                                </div>
+                                                <!-- event-img-box -->
+                                            </div>
+                                            <div class="col-md-6 javo-animation x2 javo-right-to-left-999 loaded">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                                                        <span class="javo-archive-sns-wrap social-wrap pull-right">
+                <i class="sns-facebook" data-title="Hotel" data-url="index.html#item-events">
+                  <a class="facebook javo-tooltip" title="" data-original-title="Share Facebook"></a>
+                </i>
+                <i class="sns-twitter" data-title="Hotel" data-url="">
+                  <a class="twitter javo-tooltip" title="" data-original-title="Share Twitter"></a>
+                </i>
+              </span>
+                                                    </div>
+                                                    <!-- /.col-md-12 -->
+                                                </div>
+                                                <!-- /.row -->
+                                            </div>
+                                            <!-- /.javo-animation -->
+                                        </div>
+                                        <!-- Close Row -->
+                                    </div>
+                                    <!-- 3 Columns Close -->
+                                </div>
+                                <!-- 1 ROW -->
+                            </div>
+                            <!-- event wrap -->
+                        </div>
+                        <div class="tab-pane" id="item-reviews">
+                            <div class="javo-fancy-title-section">
+                                <h2 style="">Ratings</h2>
+                                <div class="hr-wrap">
+                                    <span class="hr-inner" style="">
+        <span class="hr-inner-style"></span>
+                                    </span>
+                                </div>
+                                <!-- hr-wrap -->
+                                <div class="javo-fancy-title-description text-center" style="position:relative;">
+                                    <div style="">
+                                        JAVO HOTEL IN DOWNTOWN </div>
+                                </div>
+                            </div>
+
+                            <!-- total rating result start -->
+                            <div class="total-rating">
+                                <div class="row total-rating-top-wrap">
+                                    <div class="col-xs-12 col-md-12 col-sm-12 total-rating-top loaded">
+                                        <div class="well well-sm">
+                                            <div class="total-rating-title">
+                                                <h3>Total REVIEWS</h3>
+
+                                            </div>
+                                            <!-- total-rating-title -->
+
+
+                                            <div class="row total-rating-wrap">
+                                                <div class="col-xs-12 col-md-6 col-sm-6 loaded">
+                                                    <div class="total-rating-left-wrap">
+                                                        <!--<div class="total-rating-title">
+                <h3>Javo Rating Notice</h3>
+              </div> <!-- total-rating-title -->
+
+                                                        <div class="rating-inner-wrap">
+                                                            <div class="rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                            </div>
+                                                            <!-- rating -->
+                                                            <h1 class="rating-num">5.0</h1>
+                                                            <div class="rating-user">
+                                                                <span class="glyphicon glyphicon-user"></span>1 Total </div>
+                                                        </div>
+                                                        <div class="rating-alert-content-wrap">
+                                                            This is a sample content. you can add some notice or special comment for ratings. If you need to modify rating statements, please go to theme option and you can add or change.
+                                                            <br>Thank you. </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 col-sm-6 rating-desc-wrap">
+                                                    <div class="rating-desc">
+                                                        <div class="progress-wrap">
+                                                            <div class="progress-title col-md-6 col-sm-6 col-xs-6">Service</div>
+                                                            <div class="progress col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="progress-bar progress-bar-blug progress-bar-striped" aria-valuenow="86.7" aria-valuemin="0" aria-valuemax="100" style="width:86.7%">86.7% </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-wrap">
+                                                            <div class="progress-title col-md-6 col-sm-6 col-xs-6">Location</div>
+                                                            <div class="progress col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="progress-bar progress-bar-blug progress-bar-striped" aria-valuenow="93.3" aria-valuemin="0" aria-valuemax="100" style="width:93.3%">93.3% </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-wrap">
+                                                            <div class="progress-title col-md-6 col-sm-6 col-xs-6">Quality</div>
+                                                            <div class="progress col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="progress-bar progress-bar-blug progress-bar-striped" aria-valuenow="100.0" aria-valuemin="0" aria-valuemax="100" style="width:100.0%">100.0% </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-wrap">
+                                                            <div class="progress-title col-md-6 col-sm-6 col-xs-6">Others</div>
+                                                            <div class="progress col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="progress-bar progress-bar-blug progress-bar-striped" aria-valuenow="100.0" aria-valuemin="0" aria-valuemax="100" style="width:100.0%">100.0% </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- rating-desc -->
+                                                </div>
+                                                <!-- col-md-7 -->
+
+                                            </div>
+
+                                        </div>
+                                        <!-- well -->
+                                    </div>
+                                    <!-- col-md-12 -->
+
+
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+
+
+                                        </div>
+                                        <!-- /.col-md-12 -->
+                                    </div>
+                                    <!-- /.rating-form-wrap -->
+
+                                    <fieldset>
+                                        <input type="hidden" javo-ajax-url="" value="../../wp-admin/admin-ajax.html">
+                                    </fieldset>
+
+                                    <div class="row javo-reviews-title-wrap">
+                                        <div class="col-md-12">
+                                            <h3 class="page-header">
+          REVIEWS       </h3>
+
+                                        </div>
+                                        <!-- /.col-md-12-->
+                                    </div>
+                                    <!-- /.row -->
+
+                                    <div class="row javo-detail-item-review-wrap">
+                                        <div id="javo-detail-item-review-container"></div>
+                                    </div>
+                                    <!-- /.row -->
+
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <button type="button" class="btn btn-primary" id="javo-detail-item-review-loadmore">
+                                                <i class="fa fa-write"></i> Load More </button>
+                                            <!-- /#javo-detail-item-review-loadmore -->
+                                        </div>
+                                        <!-- /.col-md-12 -->
+                                    </div>
+                                    <!-- /.row -->
+
+                                    <fieldset id="javo-detail-item-review-parameter">
+                                        <input type="hidden" name="ajaxurl" value="../../wp-admin/admin-ajax.html">
+                                        <input type="hidden" name="nonce" value="45a1ebff8d">
+                                        <input type="hidden" name="post_id" value="2154">
+                                        <input type="hidden" name="user_id" value="">
+                                        <input type="hidden" name="reply_register_success" value="Successfully Saved">
+                                        <input type="hidden" name="reply_modify_fail" value="Save failed">
+                                        <input type="hidden" name="review_register_success" value="Successfully Saved">
+                                        <input type="hidden" name="review_register_fail" value="Save failed">
+
+                                    </fieldset>
+
+                                    <script type="text/html" id="javo-detail-item-review-template">
+                                        <div class="javo-detail-item-review-inner col-md-12 col-sm-12 col-xs-12">
+                                            <!-- Title -->
+                                            <div class="">
+
+                                                <div class="inline-block col-md-2 col-xs-3 col-ms-2 review-left-wrap">
+                                                    <div class="javo-thb" style="background-image:url({avatar}); width:100px; height:100px; border-radius:100%;"></div>
+
+                                                </div>
+                                                <!-- /.inline-block -->
+
+                                                <div class="inline-block col-md-9 col-xs-12 col-ms-10 review-right-wrap">
+                                                    <!-- Content -->
+                                                    <div class="row">
+                                                        <div class="review-author pull-left">
+                                                            <h4>{author}</h4>
+                                                            <!-- Date -->
+                                                            <small>{date}</small>
+                                                        </div>
+                                                        <!-- /.pull-left -->
+                                                        <div class="review-rating pull-right">
+                                                            <!-- Ratings -->
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div data-score="{rating_average}"></div> {edit}
+                                                                </div>
+                                                                <!-- /.col-md-12 -->
+                                                            </div>
+                                                            <!-- /.row -->
+                                                        </div>
+                                                        <div class="col-md-12 col-xs-12 javo-detail-item-comment-content-wrap">
+                                                            <div class="javo-detail-item-comment-content">
+                                                                {content}
+                                                            </div>
+                                                            <!-- /.javo-detail-item-comment-content -->
+                                                        </div>
+                                                        <!-- /.col-md-12 -->
+                                                    </div>
+                                                    <!-- /.row -->
+                                                    <!-- Thumbnails -->
+                                                    <div class="row review-thumbnails-wrap">
+                                                        <div class="col-md-12 col-xs-12">
+                                                            {thumbnails}
+                                                        </div>
+                                                        <!-- /.col-md-12 -->
+                                                    </div>
+                                                    <!-- /.row -->
+                                                    <!-- Reply Listing -->
+                                                    <div class="row javo-detail-item-reply-container" data-parent-id="{comment-id}">
+                                                        <div class="row">
+                                                            <div class="col-md-12 javo-detail-item-inner">
+                                                                {reviews}
+                                                            </div>
+                                                            <!-- /.col-md-12 -->
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </div>
+                                                    <!-- /.javo-detail-item-reply-container -->
+                                                    <!-- Reply Field -->
+                                                    <div class="row javo-detail-item-reply-textarea">
+
+                                                    </div>
+                                                </div>
+                                                <!-- /.inline-block -->
+                                            </div>
+                                            <!-- /.panel-footer -->
+                                        </div>
+                                        <!-- Separator -->
+                                        <hr>
+
+                                    </script>
+                                    <script type="text/html" id="javo-detail-item-reply-template">
+
+
+                                        <div class="row">
+
+                                            <div class="col-md-12 javo-detail-item-replys">
+                                                <div class="javo-detail-item-reply-inner">
+                                                    <span class="col-md-3">{author}</span>
+                                                    <h6 class="javo-detail-item-reply-content col-md-9">{content}
+                <span class="javo-detail-item-reply-content-date">{date}</span>
+              </h6>
+                                                </div>
+                                                <div class="javo-detail-item-reply-meta"></div>
+                                            </div>
+                                            <!-- /.col-md-4 -->
+
+                                        </div>
+                                        <!-- /.row -->
+                                    </script>
+
+                                    <script type="text/html" id="javo-detail-item-review-empty">
+                                        <div class="alert alert-warning dismiss-ready text-center col-xs-12 col-md-12">
+                                            Not found review. </div>
+                                    </script>
+
+                                </div>
+                                <!-- row total-rating-top-wrap -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- tabs-wrap -->
+
+                <script type="text/javascript">
+                    jQuery(document).ready(function($) {
+                        $('#single-tabs').tab();
+                        // link to specific single-tabs
+                        var hash = location.hash,
+                            hashPieces = hash.split('?'),
+                            activeTab = hashPieces[0] != '' ? $('[href=' + hashPieces[0] + ']') : null;
+                        activeTab && activeTab.tab('show');
+                    });
+                </script>
+            </div>
+
+            <div class="col-md-3 sidebar-right">
+                <div class="row">
+                    <div class="col-lg-12 siderbar-inner">
+                        <div class="row widgets-wraps ss ">
+                            <div class="widgettitle_wrap col-md-12">
+                                <h2 class="widgettitle"><span>New Events</span></h2>
+                            </div>
+                            <div class="widget_posts_wrap">
+                                <div class="latest-posts posts row">
+                                    <div class="col-md-12">
+                                        <span class="thumb">
+                  <a href="index.html#item-events">
+                    <img width="80" height="80" src="/assets/sites//2/2014/08/backyard-with-swimming-pool-house-80x80.jpg" class="attachment-javo-tiny wp-post-image" alt="backyard-with-swimming-pool-house">                  </a>
+                </span>
+                                        <h3><a href="index.html#item-events">Hotel</a></h3><a href="index.html#item-events"><span>Sed ut perspiciatis ...</span></a> </div>
+                                    <!-- /.col-md-12 -->
+                                </div>
+                                <!-- /.row -->
+                                <div class="latest-posts posts row">
+                                    <div class="col-md-12">
+                                        <span class="thumb">
+                  <a href="../super-car-rental/index.html#item-events">
+                    <img width="80" height="80" src="/assets/sites//2/2014/08/bus1-80x80.jpg" class="attachment-javo-tiny wp-post-image" alt="bus">                 </a>
+                </span>
+                                        <h3><a href="../super-car-rental/index.html#item-events">Temporibus autem</a></h3><a href="../super-car-rental/index.html#item-events"><span>Temporibus autem qui...</span></a> </div>
+                                    <!-- /.col-md-12 -->
+                                </div>
+                                <!-- /.row -->
+                                <div class="latest-posts posts row">
+                                    <div class="col-md-12">
+                                        <span class="thumb">
+                  <a href="../espresso-cafe/index.html#item-events">
+                    <img width="80" height="80" src="/assets/sites//2/2014/08/JAVO_1704-80x80.jpg" class="attachment-javo-tiny wp-post-image" alt="JAVO_1704">                  </a>
+                </span>
+                                        <h3><a href="../espresso-cafe/index.html#item-events">Duis autem</a></h3><a href="../espresso-cafe/index.html#item-events"><span>Lorem ipsum dolor si...</span></a> </div>
+                                    <!-- /.col-md-12 -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.widget_posts_wrap -->
+                        </div>
+                        <div class="row widgets-wraps ss ">
+                            <div class="widgettitle_wrap col-md-12">
+                                <h2 class="widgettitle"><span>New Posts</span></h2>
+                            </div>
+                            <div class="widget_posts_wrap">
+                                <div class="latest-posts posts row">
+                                    <div class="col-md-12">
+                                        <span class="thumb">
+                  <a href="../../sed-ut-perspiciatis/index.html">
+                    <img width="80" height="80" src="/assets/sites//2/2014/08/JAVO_1705-80x80.jpg" class="attachment-javo-tiny wp-post-image" alt="JAVO_1705">                  </a>
+                </span>
+                                        <h3><a href="../../sed-ut-perspiciatis/index.html">Sed ut perspiciatis</a></h3><a href="../../sed-ut-perspiciatis/index.html"><span>Sed ut perspiciatis ...</span></a> </div>
+                                    <!-- /.col-md-12 -->
+                                </div>
+                                <!-- /.row -->
+                                <div class="latest-posts posts row">
+                                    <div class="col-md-12">
+                                        <span class="thumb">
+                  <a href="../../james-garner-dies-at-86-tv-antihero-of-maverick-rockford-files/index.html">
+                    <img width="80" height="80" src="/assets/sites//2/2014/07/JAVO_2999-80x80.jpg" class="attachment-javo-tiny wp-post-image" alt="JAVO_2999">                  </a>
+                </span>
+                                        <h3><a href="../../james-garner-dies-at-86-tv-antihero-of-maverick-rockford-files/index.html">Itaque earum rerum h...</a></h3><a href="../../james-garner-dies-at-86-tv-antihero-of-maverick-rockford-files/index.html"><span>Sed ut perspiciatis ...</span></a> </div>
+                                    <!-- /.col-md-12 -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.widget_posts_wrap -->
+                        </div>
+                    </div>
+                    <!-- pp-siderbar inner -->
+                </div>
+                <!-- new row -->
+            </div>
+            <!-- Side bar -->
+        </div>
+    </div>
+    <!-- container -->
+</div>

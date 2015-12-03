@@ -1,0 +1,352 @@
+div.javo_mhome_wrap{ display:block; position:relative; top:0; left:0; right:0; bottom:0; }
+div.javo_mhome_wrap div.javo_mhome_content{
+	position:relative;
+	padding-left:100px;
+}
+.page-template-templatestp-javo-map-box-php footer,
+.page-template-templatestp-javo-map-box-php .footer-bottom,
+.page-template-templatestp-javo-map-box-php .footer-top-banner-row{display:none;}
+.page-template-templatestp-javo-map-box-php .javo_mhome_map_lists .javo_mhome_map_output>div:last-child{padding-bottom:90px !important;}
+div.javo_mhome_wrap div.javo_mhome_sidebar{
+	position:fixed;
+	top:0;
+	left:0;
+	height:100%;
+	z-index:1001;
+	background:#fafafa;
+	overflow:hidden;
+	width:300px;
+}
+div.javo_mhome_wrap div.javo_mhome_sidebar div.body-detail-add-plan{
+	overflow-y:auto;
+	overflow-x: hidden;
+	max-height: 100%;
+}
+div.javo_mhome_sidebar{
+	border-right:solid 1px #aaa;
+	box-shadow:0 5px 5px rgba(45, 45, 45, .5);
+}
+div.javo_mhome_map_lists{
+	position:fixed;
+	top:0;
+	bottom:0;
+	right:0;
+	width:45%;
+	/* height:100%;*/
+	background:#fff;
+	border-left:1px solid #ccc;
+}
+div.javo_mhome_map_lists h2{ color:#fff; }
+div.javo_mhome_map_output{
+	position:absolute;
+	/* Explorer Padding */
+	box-sizing:content-box;
+	-webkit-box-sizing:content-box;
+	-moz-box-sizing:content-box;
+	-o-box-sizing:content-box;
+	-ms-box-sizing:content-box;
+	top:0;
+	right:0;
+	bottom:0;
+	width:100%;
+	/* margin-top:150px; */
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+div.javo-mhome-contents{ padding:10px; }
+
+div.javo_mhome_map_area{
+	position:fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	width:55%;
+
+}
+a.javo-hmap-marker-trigger{
+	display:block;
+	width:100%;
+	height:00%;
+	cursor:pointer;
+}
+a.javo-hmap-close-trigger{
+	display:inline-block;
+	position:absolute;
+	cursor:pointer;
+	z-index:1;
+	margin:5px;
+	right:0;
+	top:0;
+	font:1.0em / 1.0em sans-serif;
+}
+div.javo-hmap-pagination-wrap{
+	display:block;
+	width:100%;
+	text-align:center;
+}
+div.javo-hmap-pagination-wrap span.javo-hmap-pagination{
+	border:solid 1px #ddd;
+	background:#fff;
+	margin: 5px 3px;
+	padding:5px 10px;
+}
+
+div.javo-mhome-contents .flex-control-nav{ display:none; }
+div.javo-mhome-contents .flex-direction-nav .flex-prev,
+div.javo-mhome-contents .flex-direction-nav .flex-next{
+	text-indent: -999999px;
+	display: block;
+	margin: -15px 0 0 0;
+	width: 30px;
+	height: 30px;
+	background: url('../../images/javo_btn_slide_arrow.html') no-repeat;
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+}
+
+div.javo-mhome-contents .flex-direction-nav .flex-prev{ position:absolute; top:50%; left:0; background-position: 0px 0px; }
+div.javo-mhome-contents .flex-direction-nav .flex-next{ position:absolute; top:50%; right:0; background-position: -30px 0px; }
+div.javo-hmap-flexslider{ overflow:hidden; }
+div.javo_mhome_map_output { padding-top:0px; padding-bottom:150px; }
+div.javo_mhome_map_output .item{ padding:0 5px; }
+div.javo_mhome_map_output .thumbnail{ border:none; max-width: 358px;}
+div.javo_mhome_map_output .list-group-item .thumbnail{max-width:100%;}
+
+
+div.javo-map-remote-panel{
+	position:absolute;
+	z-index:1;
+	top:100px;
+	left:100px;
+	background:transparent;
+	border:solid 1px #000;
+	line-height:0px;
+	background:#fff;
+	overflow:hidden;
+	width:41px;
+
+}
+
+div.javo-map-remote-panel div.javo-map-remote-item{
+	position:relative;
+	display:inline-block;
+	width:41px;
+	height:47px;
+	background:#efefef;
+	overflow:hidden;
+	cursor:pointer;
+	float:left;
+}
+div.javo-map-remote-panel div.javo-map-remote-item span{ font-size:1.0em; }
+div.javo-map-remote-panel div.javo-map-remote-item .text-center{ font-size:0.8em; }
+div.javo_mhome_sidebar_wrap{ position:relative;}
+div.javo-mhome-sidebar-onoff{
+	position:fixed;
+	display:table;
+	left:-1px;
+	top:50%;
+	width:15px;
+	height:73px;
+	background:url('../panel-open.png') no-repeat;
+	z-index:1;
+	cursor:pointer;
+}
+div.javo-mhome-sidebar-onoff.active{
+	background:url('../panel-close.png') no-repeat;
+}
+div.javo-mhome-sidebar-onoff span{
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+}
+
+.javo_mhome_map_output #products .list-group-item .thumbnail .caption> .list-group-item-text{margin:0;}
+.javo_mhome_map_output #products .list-group-item .thumbnail .caption>.row{position:relative; margin-right:5px;}
+.javo_mhome_map_output #products .list-group-item .thumbnail .caption>.row .item-excerpt-list{max-height:80px; overflow:hidden;}
+.javo_mhome_map_output #products .list-group-item .thumbnail .caption>.row>.col-md-7{
+	width:25%;
+	padding-left:0px;
+	position:relative;
+	bottom:10px;
+}
+.javo_mhome_map_output #products .list-group-item .thumbnail .caption>.row>.col-md-7 .col-md-8{padding-left:0px; margin-top:5px;}
+.javo_mhome_map_output #products .list-group-item .thumbnail .caption>.row>.col-md-5{
+	position:absolute;
+	bottom:10px;
+	right:0;
+	padding-right:0px;
+}
+.javo_mhome_map_output #products .list-group-item .thumbnail .thumb-wrap{width:400px;}
+
+.javo_mhome_map_output .thumbnail .caption {
+color: #aaa;
+border: 1px #ddd solid;
+}
+
+.javo_mhome_map_output .list-group-item .thumbnail .caption {
+border:0;
+}
+
+/* Tags on images */
+.javo-right-overlay { position:absolute; top:31px; right:-4px; z-index:10;cursor: pointer;}
+.javo-right-overlay .javo-txt-meta-area {
+	display:block;
+	padding:0.2em 7px;
+	min-width:38px;
+	border:1px solid rgba(0,0,0,0.1);
+	background-color:#FF2D2D;
+	color:#fff;
+	text-align:center;
+	text-shadow:0 -1px 0 rgba(0,0,0,0.15);
+	font-size:1.0em;
+	text-transform:capitalize;
+	line-height:18px;
+	background-color: #B90B0B !important;
+}
+
+.free-author .javo-right-overlay .javo-txt-meta-area{ background-color:#f3715d; }
+.javo-right-overlay .corner-wrap {
+	position:absolute;
+	bottom:-4px;
+	right:0;
+	width:4px;
+	height:4px;
+}
+
+.javo-right-overlay .corner,
+.javo-right-overlay .corner-background {
+	width:0;
+	height:0;
+	border:2px solid #FF4457;
+	border-bottom-color:transparent;  /* #fff or background color */
+	border-left-color:transparent;  /* #fff or background color */
+}
+
+.javo-right-overlay .corner-background {
+	position:absolute;
+	top:0;
+	left:0;
+	border-top-color:#000;
+	border-right-color:#000;
+}
+
+.javo-right-overlay .corner { position:relative; z-index:1; opacity:0.8; }
+
+
+
+
+.javo-left-overlay { position:absolute; top:11px; left:-4px; z-index:10;}
+.javo-left-overlay .javo-txt-meta-area {
+	display:block;
+	padding:0.2em 7px;
+	min-width:38px;
+	border:1px solid rgba(0,0,0,0.1);
+	background-color:#FF2D2D;
+	color:#fff;
+	text-align:center;
+	text-shadow:0 -1px 0 rgba(0,0,0,0.15);
+	font-size:1.0em;
+	text-transform:capitalize;
+	line-height:18px;
+}
+
+.free-author .javo-left-overlay .javo-txt-meta-area{ background-color:#f3715d; }
+.javo-left-overlay .corner-wrap {
+	position:absolute;
+	bottom:-4px;
+	left:0;
+	width:4px;
+	height:4px;
+}
+
+.javo-left-overlay .corner,
+.javo-left-overlay .corner-background {
+	width:0;
+	height:0;
+	border:2px solid #FF4457;
+	border-bottom-color:transparent;  /* #fff or background color */
+	border-left-color:transparent;  /* #fff or background color */
+}
+
+.javo-left-overlay .corner-background {
+	position:absolute;
+	top:0;
+	left:0;
+	border-top-color:#000;
+	border-right-color:#000;
+}
+
+.javo-left-overlay .corner { position:relative; z-index:1; opacity:0.8; }
+
+.javo-hmap-marker-trigger{ cursor:pointer; }
+.main-map-search-wrap>.col-md-2{width:20%;}
+.page-template-templatestp-map-home-php .main-map-search-wrap>.col-md-2{padding-left:0px;}
+
+.page-template-templatestp-map-home-php footer,
+.page-template-templatestp-map-home-php .footer-top,
+.page-template-templatestp-map-home-php .footer-bottom{display:none;}
+
+/** javo map type B **/
+.javo-map-type-b .thumb-wrap {height:auto;}
+.javo-map-type-b div.javo-hmap-pagination-wrap {margin-top: 10px;}
+.javo-map-type-b div.javo-hmap-pagination-wrap a {color:#eee;}
+.javo-map-type-b div.javo-hmap-pagination-wrap span.javo-hmap-pagination {border: solid 1px #ddd;background: #aaa;}
+
+
+.javo_mhome_map_lists .javo-rating-registed-score {
+	width: 95px;
+	background: #eee;
+	padding: 0px 4px 3px 6px;
+	border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.5);
+	letter-spacing:0px;
+	font-size:11px;
+}
+.javo_mhome_map_lists .list-group-item .javo-rating-registed-score{padding: 5px 0px 0px 12px;}
+.javo_mhome_map_lists .rate-icons>.col-md-2{padding: 0px;right: -4px}
+
+.javo_mhome_wrap .javo-sidebar-title{ color:#fff; font-size:14px; margin-top:5px; margin-bottom:5px; text-transform:uppercase;}
+.javo_mhome_wrap .javo_mhome_sidebar>ul>li{text-align:left; font-size:13px; height:46px;}
+.javo_mhome_wrap .javo_mhome_sidebar>ul>li>span{margin-right:5px; top:2px;}
+
+.javo_mhome_map_output .body-content .col-md-12 #products .item.col-md-6 .thumb-wrap>img{height:100%; max-height:200px;}
+.javo_mhome_map_output .body-content>.col-md-12 {padding-left:6px;}
+
+.javo_mhome_map_output .list-group>.item.col-xs-12.list-group-item .caption>.row>.col-md-8{
+	position: absolute;
+	bottom: 25px;
+	display:inline-block;
+	padding-left:0px;
+	width:35%;
+}
+.javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-8,
+.javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-8 .col-md-12{padding-right:0px;}
+.javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-8 .col-md-12{
+	height:18px;
+	overflow:hidden;
+
+}
+.javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-4{padding-left:0px;}
+.javo_mhome_map_output .list-group>.item.list-group-item .caption>.row>.col-md-4{float:right; padding-top:10px;}
+/** get direction **/
+.javo_somw_info .btn-get-direction {padding: 0 6px 0 4px; font-size: 11px; margin-left:3px; background-color: #F17171; border-color: #FF3535;}
+
+.javo-map-inner-control-wrap .javo-my-position{ padding:0 10px; cursor:pointer; }
+.javo-map-inner-control-wrap .javo-my-position.active{
+	box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+	background-color: #f9f9f9;
+}
+
+.javo-map-inner-control-wrap .javo-geoloc-slider{ min-width:100px; margin:0 15px; }
+.javo-map-inner-control-wrap .btn.btn-default:hover{ background:#fff; }
+.javo-map-inner-control-wrap .btn.btn-default:active{
+	background:#fff;
+	box-shadow:none;
+}
+.javo-map-inner-control-wrap .btn.btn-default.default-cursor{ cursor:default; }
+
+.javo_mhome_map_lists .main-map-search-wrap .javo-filter-column>select,
+.javo_mhome_map_lists .main-map-search-wrap .javo-filter-column>.sel-box>.sel-container{height:34px;}

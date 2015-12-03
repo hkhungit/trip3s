@@ -1,0 +1,21 @@
+/***************************************@
+	Chosen Plugin Custom Style
+@***************************************/
+
+div.chosen-container-single a.chosen-single{
+	background:#fff;
+	border-radius:0px;
+	height:34px;
+	box-shadow:none;
+}
+div.chosen-container-single a.chosen-single span{
+	line-height:30px;
+	color:#aaa;
+}
+div.chosen-container-single a.chosen-single div b{
+	background-position:0px 6px;
+	border-right:solid 1px #eee;
+}}
+.chosen-single, .chosen-drop { text-align:left; }
+
+ul.chosen-results{ text-align:left !important; }
