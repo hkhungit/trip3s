@@ -62,9 +62,7 @@ jQuery( function( $ ){
 				tripPlan.placeIds.push(itemSelected.place_id);
 				tripPlan.placeLists.push(itemSelected);
 			};
-			$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
-				console.log(data);
-			});
+			$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){});
 
 			var obj = window.javo_map_box_func;
 			obj.ajax_favorite(tripPlan.placeLists,2);
@@ -126,6 +124,7 @@ jQuery( function( $ ){
 				};
 				
 			});
+			console.log("Added a day to plan 1");
 			update_list_day();
 		});
 		$(document).on('click','#all-to-plan',function(){
@@ -175,6 +174,9 @@ jQuery( function( $ ){
 		});
 		function update_list_day(day_number){
 			var strFull ='';
+			if (typeof day_number === 'undefined') {
+				day_number = tripPlan.dayNumber;
+			};
 			for (var i = 1; i <= day_number; i++) {
 				var str ='';
 				str  = $('#trip3s-list-day').html();
@@ -295,7 +297,7 @@ jQuery( function( $ ){
 				strAttr 	= strAttr.replace(/{{data-index}}/g,    (index) || strNull);
 				strAttr 	= strAttr.replace(/{{data-distance}}/g, data.distance.toFixed(2) || strNull);
 				strAttr 	= strAttr.replace(/{{data-place}}/g,	data.placeLists.length || strNull);
-				strAttr 	= strAttr.replace(/{{data-time}}/g,		data.duration.toFixed(2) || strNull);
+				strAttr 	= strAttr.replace(/{{data-time}}/g,		(data.duration/3600).toFixed(2) || strNull);
 				strAttr 	= strAttr.replace(/{{data-user}}/g,		data.userNumber || strNull);
 				strAttr 	= strAttr.replace(/{{data-money}}/g,	data.moneyNumber.toFixed(2) || strNull);
 			$('#attribute-schedule-'+index).html(strAttr);
@@ -306,6 +308,9 @@ jQuery( function( $ ){
  			};
  			if (typeof choice == 'undefined' || !$.isNumeric(choice)) {
  				choice =0;
+ 				console.log("not choice: " + choice);
+ 			}else{
+ 				console.log("choice: "+choice);
  			};
  			var strFull="<div class=\"full-detail \">",nstr='',strNull='0',strCurr='';
 
@@ -358,7 +363,9 @@ jQuery( function( $ ){
 
 			$('#dropdown-select-days').html('Ngày '+ schedule_day + ' <span class="caret"></span>');
 			$('#dropdown-select-days').attr("data-place_id",schedule_day);
-			update_sidebar_boby(tripPlan.schedules,parseInt(schedule_day));
+			update_sidebar_boby(tripPlan.schedules,(parseInt(schedule_day) - 1));
+			var obj = window.javo_map_box_func;
+			obj.resize();
 		});
 
 		function update_bar_day(data){
@@ -390,7 +397,6 @@ jQuery( function( $ ){
 								if (response.schedule[i].place_ids.indexOf(parseInt($(this).attr('place_id'))) > -1 && 
 										response.schedule[i].day == i
 									) {
-
 									cls_return_day = 'fa selected fa-times';
 								};
 							}
@@ -1447,7 +1453,11 @@ jQuery( function( $ ){
 					obj.ajax_favorite();
 				}
 			}
-
+			, send_plan: function(_tripPlan){
+				$.post('/api/trip3sPlan',{plan:JSON.stringify(_tripPlan)},function(data){
+					console.log(data);
+				});	
+			}
 			, side_out: function()
 			{
 				var panel	= $( ".javo_mhome_sidebar");

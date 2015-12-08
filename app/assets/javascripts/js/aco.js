@@ -30,7 +30,6 @@ function _intACO (_Places,endplace,_parent) {
 	antBestDuration = antBestDistance = 10000000;
 	antBetal = 0.3; antDelta =1; placeLength = _Places.length;
 	antMaxLoop	 	= placeLength * placeLength + 25;
-	console.log("placeLength: " + placeLength);
 	var obj = window.javo_map_box_func;
 	for (var i = 0; i < _Places.length; i++) {
 		antPheromone[i] = [];
@@ -44,8 +43,8 @@ function _intACO (_Places,endplace,_parent) {
 	antVector = getArrayDistances(_Places,antVector,endplace);
 	if (typeof _parent !== 'undefined' && _parent !==null) {
 		tripPlan.vectorDistances = antVector;
-		console.log("Vector");	
-		console.log(tripPlan.vectorDistances);	
+		var obj = window.javo_map_box_func;
+		tripPlan = obj.send_plan(tripPlan);
 	};
 }
 function getArrayDistances(_places, arrDistances,endplace){
@@ -64,11 +63,15 @@ function getArrayDistances(_places, arrDistances,endplace){
 							duration: 0
 						};	
 					}else if (typeof arrDistances[_places[i].place_id][_places[j].place_id] === 'undefined') {
-						arrDistances[_places[i].place_id][_places[j].place_id] = obj.getDistancePoint(_places[i],_places[j]);			
+						if (typeof tripPlan.vectorDistances[_places[i].place_id][_places[j].place_id] === 'undefined') {
+							arrDistances[_places[i].place_id][_places[j].place_id] = obj.getDistancePoint(_places[i],_places[j]);			
+						}else{
+							arrDistances[_places[i].place_id][_places[j].place_id] = tripPlan.vectorDistances[_places[i].place_id][_places[j].place_id];			
+						};
+						
 					};
 				};
 			};
-			
 			return arrDistances;			
 		}
 
@@ -145,7 +148,6 @@ function antCycle(_Places,endplace,_parent){
 				antBestDistance = antCurrDistance;
 				antBestDuration = antBestDuration1;
 				antRs = _SaveArray(antSchedule);
-				console.log("MIN: " + antSchedule + "  -- CP: " + antBestDistance  + "    AntRS" + antRs);
 			};
 			for (var i = 0; i < placeLength; i++) {
 				for (var j = 0; j < placeLength; j++) {
