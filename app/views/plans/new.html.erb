@@ -61,6 +61,8 @@
 	.schedule-day-header-bar .title-information{width: 100%;float: left;border-bottom: 2px rgba(68, 68, 68, 0.25) solid; text-align: center;}
 	.header-detail-add-plan{border: 0px;border-top-left-radius: 0px;border-top-right-radius: 0px;z-index: 10;width: 100%;padding-bottom: 0px;height: 50px}
 	.body-detail-add-plan{padding-top: 0px}
+	.schedule-day-boby-detail-fix{overflow-y: scroll;min-height: 1px;width: 100%;}
+	.schedule-day-boby-fixed{float: left;width: 100%;}
 	.attribute-schedule div{float:left;}
 	.day-in-plan{float: left;width: 100%; background-color: #fff;border: 1px solid #ddd;padding: 4px;cursor: pointer;}
 	.day-in-plan .thumbnail .number{position: absolute;left: -5px;top: -5px;width: 35px;height: 35px;background-color: #a88e4b;border-radius: 30px;padding: 6px 10px;font-weight: bold;color: #fff;border: 2px rgba(189, 180, 180, 0.85) solid;}
@@ -76,7 +78,7 @@
 		padding: 0px 0px 0px 0px;
 		max-width: 300px;
 		float: left;
-		overflow-y: scroll;
+		height: initial !important;
 		list-style: none;
 		min-height: 1px;
 	    width: 100%;

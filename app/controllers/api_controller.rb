@@ -24,7 +24,7 @@ class ApiController < ApplicationController
 		        :planStart 			=> "",
 		        :placeIds 			=> Array.new,
 		        :placeLists			=> Array.new,
-		        :vectorDistances	=> Array.new,
+		        :vectorDistances	=> {},
 		        :placeNotSchedule	=> Array.new,
 		        :schedules 			=> Array.new
 			}
