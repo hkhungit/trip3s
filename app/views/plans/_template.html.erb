@@ -117,6 +117,9 @@
 			<b data-user="{{data-user}}" id="user-of-{{data-user}}" class="user-number">{{data-user}}</b> Người 
 		</div>
 	</script>
+	<script type="text/template" id="trip3s-attribute-schedule-3">
+		<div class="title-information" ><b><i class="fa  fa-map-marker icon"></i> {{data-index}} - Địa điểm chưa sắp lịch </b></div>
+	</script>
 	<script type="text/template" id="trip3s-attribute-schedule-1">
 		<div class="title-information" ><b>Thông tin ngày thứ {{data-index}}</b></div>
 		<div><i class="fa  fa-map-marker icon"></i
@@ -166,7 +169,7 @@
 		</div>
 	</script>
 	<script type="text/template" id="trip3s-place-in-schedule">
-		<li class="day-in-plan col-md-12" remote ="true" data-place_id="{{place_id}}" data-place='{{current_place}}'>
+		<li class="day-in-plan col-md-12 {{truetime}}" remote ="true" data-place_id="{{place_id}}" data-place='{{current_place}}'>
 			<div class="thumbnail item-list-day"> 
 				<img src="{{post_thumbnail}}" /><i class="number">{{sort_thumbnail}}</i>
 				<i class="select-home fa fa-home"></i>	

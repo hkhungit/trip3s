@@ -1,5 +1,3 @@
- 
-
 //Varible use ACO algorithms
 
 var antVector 	={}, //
@@ -140,25 +138,30 @@ function antCycle(options){
 			};
 
 			antCurrDistance  = 0,antBestDuration1=0;antBestMoney = 0;
-
 			for (var i = 0; i < options.placeLists.length; i++) {
 				antSchedule[i] = antLottery_Wheel(antSchedule[i]);
+				if (options.check ==true) {
+				if (encrypt_time(_Places[antSchedule[i]].place_late) < antBestDuration1) {
+					continue;
+				};};
+
 				antBestMoney += (typeof _Places[antSchedule[i]].place_ticket == 'undefined') ? 
 						0 : parseFloat(_Places[antSchedule[i]].place_ticket) ;
 				if (i == 0) {
 					var next_time = antVector["T"+options.placeBegin.place_id.toString()]["T"+_Places[antSchedule[i]].place_id.toString()].duration;
 					var next_distance = antVector["T"+options.placeBegin.place_id.toString()]["T"+_Places[antSchedule[i]].place_id.toString()].distance
-					options.placeBegin.next_time =  (next_time/3600).toFixed(2);
+					options.placeBegin.next_time =  next_time;
 					options.placeBegin.next_distance = next_distance;
 					antCurrDistance += next_distance ;
 					antBestDuration1 += next_time;
+
 				}else{
 					var next_time = antVector["T"+_Places[antSchedule[i-1]].place_id.toString()]["T"+_Places[antSchedule[i]].place_id.toString()].duration;
 					var next_distance = antVector["T"+_Places[antSchedule[i-1]].place_id.toString()]["T"+_Places[antSchedule[i]].place_id.toString()].distance
 					_Places[antSchedule[i-1]].next_time =  (next_time/3600).toFixed(2);
 					_Places[antSchedule[i-1]].next_distance =next_distance;
 					antCurrDistance += next_distance ;
-					antBestDuration1 += next_time   + (parseFloat(_Places[antSchedule[i]].place_time) * 3600);
+					antBestDuration1 += next_time   + parseFloat(_Places[antSchedule[i]].place_time);
 				};
 				antVisited[antSchedule[i]] = true;
 			}
@@ -166,7 +169,7 @@ function antCycle(options){
 
 		antCurrDistance += antVector["T"+_Places[antSchedule[placeLength-1]].place_id.toString()]["T"+options.placeEnd.place_id.toString()].distance ;
 		antBestDuration1 += antVector["T"+_Places[antSchedule[placeLength-1]].place_id.toString()]["T"+options.placeEnd.place_id.toString()].duration  
-							+ (parseFloat(_Places[antSchedule[placeLength-1]].place_time) * 3600);
+							+ parseFloat(_Places[antSchedule[placeLength-1]].place_time);
 			//antBestMoney += _Places[antSchedule[0]].place_ticket;
 		if (antCurrDistance < antBestDistance) {
 			antBestDistance = antCurrDistance;

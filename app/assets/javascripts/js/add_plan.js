@@ -14,9 +14,19 @@ var tripPlan = {
 			placeNotSchedule : 	[],
 			schedules: 			[]
 		};
+
+		function decrypt_time(time){
+			var dece =  Math.floor(time);
+			return dece+":"+Math.ceil((time%dece) * 60);
+		}
+		function encrypt_time(time){
+			time = time.split(":");
+			time[0] = (typeof time[0] =='undefined') ? 0: time[0];
+			time[1] = (typeof time[1] =='undefined') ? 0: time[1];
+			return parseFloat(time[0]) + (parseFloat(time[1])/60);
+		}
 jQuery( function( $ ){
 		"use strict";
- 
 		var items;
 		
 		//Restone tripPlan from session
@@ -25,10 +35,9 @@ jQuery( function( $ ){
 					tripPlan = data.plan;
 					var obj = window.javo_map_box_func;
 					obj.ajax_favorite(tripPlan.placeLists,2);
-
 					if (tripPlan.schedules.length > 0) {
 						update_time_comings(tripPlan.schedules,7.5);
-						update_sidebar_plan(tripPlan.schedules);
+						update_sidebar_plan(tripPlan.schedules,tripPlan.placeNotSchedule);
 					}else{
 
 						obj.ajax_favorite(tripPlan.placeLists,2);
@@ -63,7 +72,9 @@ jQuery( function( $ ){
 				tripPlan.placeIds.push(itemSelected.place_id);
 				tripPlan.placeLists.push(itemSelected);
 			};
-			$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){});
+			$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
+				console.log(data);
+			});
 
 			var obj = window.javo_map_box_func;
 			obj.ajax_favorite(tripPlan.placeLists,2);
@@ -135,20 +146,23 @@ jQuery( function( $ ){
 			}else{
 				$(this).text("Thu lại");
 				var _width = $('.schedule-day-boby-detail:first-child').outerWidth() + 5;
-				_width = _width*tripPlan.schedules.length;
+				
+				if (tripPlan.placeNotSchedule.length > 0) {
+					_width = _width*(tripPlan.schedules.length +1);
+				}else{
+					_width = (_width*tripPlan.schedules.length);
+				};
 				$('.full-detail ').css('width',_width);
 				obj.resize();
 			} 
 
 			$('.javo_mhome_sidebar').toggleClass('all_day');
-			enable_sortable("ul.schedule-day-boby");
-			 
 			update_list_day();
 		});
-		function enable_sortable(_class){
+		function enable_sortable(_class,class2){
 			//"ul.schedule-day-boby"
-			$(_class).sortable({
-			 	connectWith: _class,
+			$(_class + "," + class2 ).sortable({
+			 	connectWith: _class + ","  +class2,
 			 	start: function(event, ui){
 			 		if (ui.item == 0) {
 			 			alert("Bạn không thể di chuyển nơi xuất phát");
@@ -165,12 +179,18 @@ jQuery( function( $ ){
 								tripPlan.schedules[i].placeIds.push(place.place_id);	
 				        	});
 				        	update_sidebar_header_bar(tripPlan.schedules[i], (i+1));
-				        	
 			        	};
 				 	};
-				 	update_sidebar_boby(tripPlan.schedules, 0);
+				 	tripPlan.placeNotSchedule = [];
+				 	$('ul.schedule-day-boby-bk li').each(function(e){
+					 			var place = $(this).data('place');
+					 			tripPlan.placeNotSchedule.push(place);
+				        	});
+				 	update_sidebar_boby(tripPlan.schedules, 0,tripPlan.placeNotSchedule);
 				 	$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
 					});
+				var obj = window.javo_map_box_func;
+				obj.resize();
 		        }
 			 });
 		}
@@ -178,21 +198,30 @@ jQuery( function( $ ){
 			if (typeof schedule === 'object') {
 				var _schPlaces = schedule.placeLists;
 				var _duration=0,_distance=0,_money=0;
-				console.log(tripPlan.vectorDistances);
-				_duration 	+= parseFloat(tripPlan.vectorDistances["T"+schedule.placeBegin.place_id.toString()]["T"+_schPlaces[0].place_id.toString()].duration);
-				_distance 	+= tripPlan.vectorDistances["T"+schedule.placeBegin.place_id.toString()]["T"+_schPlaces[0].place_id.toString()].distance;
+				schedule.placeBegin.next_time = parseFloat(tripPlan.vectorDistances["T"+schedule.placeBegin.place_id.toString()]["T"+_schPlaces[0].place_id.toString()].duration);
+				schedule.placeBegin.next_distance = parseFloat(tripPlan.vectorDistances["T"+schedule.placeBegin.place_id.toString()]["T"+_schPlaces[0].place_id.toString()].distance);
+					
+
+				_duration 	+= schedule.placeBegin.next_time;
+				_distance 	+= schedule.placeBegin.next_distance;
+
 				for (var i = 0; i < _schPlaces.length-1; i++) {
-					_duration 	+= parseFloat(tripPlan.vectorDistances["T"+_schPlaces[i].place_id.toString()]["T"+_schPlaces[i+1].place_id.toString()].duration) + parseFloat(_schPlaces[i].place_time);
-					_distance 	+= tripPlan.vectorDistances["T"+_schPlaces[i].place_id.toString()]["T"+_schPlaces[i+1].place_id.toString()].distance;
+					_schPlaces[i].next_time = parseFloat(tripPlan.vectorDistances["T"+_schPlaces[i].place_id.toString()]["T"+_schPlaces[i+1].place_id.toString()].duration);
+					_schPlaces[i].next_distance = parseFloat(tripPlan.vectorDistances["T"+_schPlaces[i].place_id.toString()]["T"+_schPlaces[i+1].place_id.toString()].distance);
+					
+					_duration 	+= _schPlaces[i].next_time + parseFloat(_schPlaces[i].place_time);
+					_distance 	+= _schPlaces[i].next_distance;
 					_money 		+= 0;
 				};
-				_duration 	+= tripPlan.vectorDistances["T"+_schPlaces[_schPlaces.length-1].place_id.toString()]["T"+schedule.placeEnd.place_id.toString()].duration+ parseFloat(_schPlaces[_schPlaces.length-1].place_time);
-				_distance 	+= tripPlan.vectorDistances["T"+_schPlaces[_schPlaces.length-1].place_id.toString()]["T"+schedule.placeEnd.place_id.toString()].distance;
+				schedule.placeEnd.next_time = parseFloat(tripPlan.vectorDistances["T"+_schPlaces[_schPlaces.length-1].place_id.toString()]["T"+schedule.placeEnd.place_id.toString()].duration);
+				schedule.placeEnd.next_distance = parseFloat(tripPlan.vectorDistances["T"+_schPlaces[_schPlaces.length-1].place_id.toString()]["T"+schedule.placeEnd.place_id.toString()].distance);
+
+				_duration 	+= schedule.placeEnd.next_time + parseFloat(_schPlaces[_schPlaces.length-1].place_time);
+				_distance 	+= schedule.placeEnd.next_distance;
 
 				schedule.duration = _duration;
 				schedule.distance = _distance;
 				schedule.money = _money;
-				
 			};
 			return schedule;
 		}
@@ -218,9 +247,24 @@ jQuery( function( $ ){
 				alert('Chọn 1 địa điểm bạn ở lại trong hành trình');
 				return false;
 			}
-			var _rs =  antCycle({placeLists: tripPlan.placeLists, placeBegin:tripPlan.placeBegin, placeEnd: tripPlan.placeEnd, parent:true })
+			var placeLists 	= _SaveArray(tripPlan.placeLists);
+			var placeDay 	= [];
+			var placeNight 	= [];
+			for (var i = 0; i < placeLists.length; i++) {
+				if (encrypt_time(placeLists[i].place_late) > 18) {
+					placeNight.push(placeLists[i]);
+				}else{
+					placeDay.push(placeLists[i]);
+				};
+			};
+
+			var _rs =  antCycle({placeLists: tripPlan.placeLists, 
+								placeBegin:tripPlan.placeBegin, 
+								placeEnd: tripPlan.placeEnd, 
+								check:false,
+								parent:true })
 						, _tempPlaceLists =[],
-			 tmpCluster =[], fullTime =36000, minTime = 0, _success = false;
+			 tmpCluster =[], fullTime =10, minTime = 0, _success = false;
 			var Clusters = [], count = 0, currCluster = {
 				distance: 0,duration:0,placeLists: []
 			};
@@ -231,12 +275,12 @@ jQuery( function( $ ){
 				tmpCluster.push(_rs.placeLists[0]);
 				tripPlan.placeNotSchedule = [];
 				for (var i = 1; i < _rs.placeLists.length; i++) {
-					if (count > tripPlan.dayNumber) {
+					if (count >= tripPlan.dayNumber) {
 						tripPlan.placeNotSchedule.push(_rs.placeLists[i]);
 					}else{
 						tmpCluster.push(_rs.placeLists[i]);
 						var _tmpRs = antCycle({placeLists: tmpCluster, placeBegin:tripPlan.placeBegin
-							, placeEnd: tripPlan.placeEnd, parent:false });
+							, placeEnd: tripPlan.placeEnd,check:true, parent:false });
 						if (_tmpRs.duration >= fullTime) {
 							i--;count++; tmpCluster=[];
 							tmpCluster.push(_rs.placeLists[0]);
@@ -247,7 +291,7 @@ jQuery( function( $ ){
 				};
 				_success =true;
 				if (Clusters.length < tripPlan.dayNumber) {
-					_success = false; fullTime -= 3600;
+					_success = false; fullTime -= 0.5;
 					if (fullTime <= 0) {
 						_success = true;
 						fullTime =0;
@@ -256,6 +300,10 @@ jQuery( function( $ ){
 				};
 
 			}
+			for (var i = 0; i < Clusters.length; i++) {
+				Clusters[i]
+			};
+
 			tripPlan.schedules = Clusters;
 			$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
 				console.log("Created the trip");
@@ -281,10 +329,6 @@ jQuery( function( $ ){
 			timeStart += parseFloat(_schedule.placeLists[(_schedule.placeLists.length - 1)].next_time);
 			_schedule.placeEnd.place_come = decrypt_time(timeStart);
 			return _schedule;
-		}
-		function decrypt_time(time){
-			var dece =  Math.floor(time);
-			return dece+":"+Math.ceil((time%dece) * 60);
 		}
 		function update_time_comings(_schedules,timeStart){
 			for (var i = 0; i < _schedules.length; i++) {
@@ -342,11 +386,11 @@ jQuery( function( $ ){
 		} 
  		 
  		//Update side left bar
- 		function update_sidebar_plan(schedules){
+ 		function update_sidebar_plan(schedules,notSchedule){
 
  			update_sidebar_header_control({currDay:1, indexControl: 2,numDay:tripPlan.dayNumber});
  			//update_sidebar_header_bar();
- 			update_sidebar_boby(schedules);
+ 			update_sidebar_boby(schedules,0,notSchedule);
 
  		}
 
@@ -366,7 +410,6 @@ jQuery( function( $ ){
 					userNumber: tripPlan.userNumber});
  		}
  		function update_sidebar_header_bar(data,index){
- 			data = update_duration(data);
  			var strAttr = $("#trip3s-attribute-schedule-1").html(),strNull='0';
 				strAttr 	= strAttr.replace(/{{data-index}}/g,    (index) || strNull);
 				strAttr 	= strAttr.replace(/{{data-distance}}/g, data.distance.toFixed(2) || strNull);
@@ -379,6 +422,12 @@ jQuery( function( $ ){
  		function string_placelist(place,i){
  			var str = '',nstr="";
 			str = $("#trip3s-place-in-schedule").html();
+
+			if (encrypt_time(place.place_come) > encrypt_time(place.place_late) ) {
+				str = str.replace( /{{truetime}}/g , "overtime" );
+			}else{
+				str = str.replace( /{{truetime}}/g , "truetime" );
+			};
 			str = str.replace( /{{post_thumbnail}}/g , place.post_thumbnail || nstr );
 			str = str.replace( /{{place_id}}/g , place.place_id || nstr );
 			str = str.replace( /{{current_place}}/g	 , JSON.stringify(place) || nstr );
@@ -394,7 +443,7 @@ jQuery( function( $ ){
 			str = str.replace( /{{next_detail}}/g ,  place.next_detail  || nstr );
 			return str;
  		}
- 		function update_sidebar_boby(schedules,choice){
+ 		function update_sidebar_boby(schedules,choice,notSchedule){
  			if (schedules.length < 1) {
  				return false;
  			};
@@ -406,12 +455,16 @@ jQuery( function( $ ){
 
 		 	$('#body-detail-add-plan').html('');
  			for(var ik=0; ik< schedules.length; ik++){
+				schedules[ik] = update_duration(schedules[ik]);
 	 			var places  = _SaveArray(schedules[ik].placeLists),cls= "notselect",data = schedules[ik];
 	 			if (choice == ik) {
 	 				cls= "_selected"; 
 	 			};
 	 			strFull +=html_body(schedules[ik],cls,ik);
 		 	}
+		 	if (typeof notSchedule !== 'undefined') {
+		 		strFull +=html_body2(notSchedule);
+		 	};
 		 	strFull +="</div>";
 		 	$('#body-detail-add-plan').html(strFull);
 
@@ -419,6 +472,8 @@ jQuery( function( $ ){
 		 	for(var ik=0; ik< schedules.length; ik++){
 		 		update_sidebar_header_bar(schedules[ik],(ik+1));
 		 	}
+
+			enable_sortable("ul.schedule-day-boby","ul.schedule-day-boby-bk");
  		}
  		function html_body(_schedule,cls,ik){
  			var strFull ="<div class=\"row schedule-day-boby-detail "+cls+" \">",places  = _SaveArray(_schedule.placeLists);
@@ -430,7 +485,23 @@ jQuery( function( $ ){
 			 		strFull +=string_placelist(places[i],(i+2));
 			 	};
 			 	strFull +="</ul>";
-			 	strFull +="<div class=\"schedule-day-boby-fixed\">"+string_placelist(_schedule.placeEnd,(places.length+2))+"</div> ";
+			 	strFull +="</div></div>";
+
+			 	return strFull;
+ 		}
+ 		function html_body2(_schedule){
+ 			var strFull ="<div class=\"row schedule-day-boby-detail notselect \">",strAttr ="";
+
+	 			strAttr = $("#trip3s-attribute-schedule-3").html();
+	 			strAttr = strAttr.replace( /{{data-index}}/g ,  _schedule.length  || "0" );
+
+	 			strFull +="<div class=\"schedule-day-header-bar attribute-schedule\">"+strAttr+"</div> ";
+	 			strFull +="<div class=\"schedule-day-boby-detail-fix  scrollbar style-3\">";
+	 			strFull +="<ul class=\"schedule-day-boby-bk \">";
+				for (var i = 0; i < _schedule.length; i++) {
+			 		strFull +=string_placelist(_schedule[i],(i+1));
+			 	};
+			 	strFull +="</ul>";
 			 	strFull +="</div></div>";
 
 			 	return strFull;
@@ -907,9 +978,10 @@ jQuery( function( $ ){
 
 				//$('.body-detail-add-plan').css( 'height', content_sidebar);
 				$('.body-detail-add-plan').css( 'top', winY);
-				$('.body-detail-add-plan').css( 'height', (content_sidebar + 90));
-				$('div.schedule-day-boby-detail').css( 'height', content_sidebar);
+				$('.body-detail-add-plan').css( 'height', (content_sidebar + 130));
+				//$('div.schedule-day-boby-detail').css( 'height', content_sidebar);
 				$('div.schedule-day-boby-detail-fix').css( 'height', content_sidebar);
+				$('ul.schedule-day-boby.scrollbar').css( 'height', content_sidebar+40);
 
 
 				$('.javo_mhome_map_output').css( 'marginTop', $('.main-map-search-wrap').outerHeight(true) );
