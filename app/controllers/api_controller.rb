@@ -279,7 +279,7 @@ class ApiController < ApplicationController
 				end
 
 			end
-			
+	 		
 		elsif session[:plan][:schedule].blank?
 			schedule 		= { :place_ids => Array.new, :day	=> day_of_schedule}
 			session[:plan][:schedule][day_of_schedule] =  schedule
@@ -293,8 +293,13 @@ class ApiController < ApplicationController
 	# add extra day to schedule
 	def add_day
 		if params[:add_day].present?
+
 			session[:plan][:dayNumber] = session[:plan][:dayNumber].to_i +  1
+			
+		puts "dayNumber"
+		puts session[:plan][:dayNumber]
 		end
+
 		render json: {
 			'dayNumber' => session[:plan][:dayNumber]
 		}
