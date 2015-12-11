@@ -278,8 +278,7 @@ class ApiController < ApplicationController
 					session[:plan][:schedule][i.to_i][:distance] = 0
 				end
 
-			end
-	 		
+			end		
 		elsif session[:plan][:schedule].blank?
 			schedule 		= { :place_ids => Array.new, :day	=> day_of_schedule}
 			session[:plan][:schedule][day_of_schedule] =  schedule
