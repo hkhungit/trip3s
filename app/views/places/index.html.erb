@@ -12,27 +12,86 @@ Bạn cũng có thể tìm kiếm và tham khảo những chia sẻ các chuyế
 </p>
 <p></div></div><div class="ult-spacer spacer-55acf20a3edbf" data-id="55acf20a3edbf" data-height="50" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
     <div class="container javo-single-search-form" id="javo-single-search-form">
-      <form role="form" data-javo-search-form class="search-form-type">
+     <!--  <form role="form" data-javo-search-form class="search-form-type"> -->
 
         <div class="search-type-a-inner">
 
+<style type="text/css">
+#search{border: 0px;}
+#btn-search{    width: 20% !important;
+    height: 55px !important;
+    margin-top: -10px;
+    text-align: center;
+  }
+  #pretty{background: #fff;width: 100%;text-align: left;
+  }
+  #pretty tr td img{height: 20px;}
+</style>
+<script type="text/javascript">
+jQuery(function ($) {
+  // Sorting and pagination links.
+  $('#products th a, #products .pagination a').live('click', 
+    function () {
+      $.getScript(this.href);
+      return false;
+    }
+  );
+  
 
+  var delay = (function(){
+    var timer = 0;
+    return function(callback, ms){
+      clearTimeout (timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+
+  $('#search_form input').keyup(function () {
+    var loadAjax = function() {
+      var data = {};
+      $('#search_form input').each(function() {
+          data[this.name] = $(this).val();
+      });
+      $.get('places/search.json', data , function(result) {
+        if (result) {
+          $("#products").html(
+            '<table class="table" id="pretty"><tr><td></td><td><a href="http://google">View All</a></td></tr>' 
+            + result.map(function(row) {
+              return '<tr><td><img src="'+row.post_thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+row.place_choice + '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
+            }).join(''))
+            + '</table>'
+        }
+      })
+       $.get('places/search_all.json', data , function(result) {
+        if (result) {
+          $("#places").html(
+            '<table class="table" id="pretty" style="margin-top:-20px">' 
+            + result.map(function(row) {
+              return '<tr><td><img src="'+row.post_thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+ '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
+            }).join(''))
+            + '</table>'
+        }
+      })
+    }
+
+    delay(function(){ loadAjax() }, 500 );
+  });
+});
+
+</script>
+
+<a href=""></a>
           <div class="search-box-inline search-box-inline-position">
-            <input type="text" class="search-type-inner-position-text" placeholder="Nhập từ khóa hoặc địa điểm cần tìm">
-            <div class="inner-marker"><i class="fa fa-map-marker javo-current-position cursor-pointer"></i></div>
-            <div class="search-box-inline search-box-inline-position-button">
-              <button type="submit" class="search-submit admin-color-setting"
-                >
-                <i class="fa fa-search search-box-inline-icon cursor-pointer"></i>
-                <span class="search-submit-text">Tìm kiếm</span>
-              </button>
-            </div><!-- /.col-md-2 -->
-
-          </div><!-- /.col-md-2 -->
-
-        </div> <!-- search-type-inner -->
-
-      </form><!--search-form-type-->
+           <%= form_tag search_index_path,:action=>'search/index', :method => 'get', :id => 'search_form' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil,:id=>"btn-search",:class=>"btn btn-success",:placeholder =>"Enter places" %>
+  </p>
+<% end %>
+  <div id="products"></div>
+  <div id="places"></div>
+          </div>
+        </div>
 
       <fieldset>
         <input type="hidden" value="http://javothemes.com/directory/demo1/map-wide/" data-javo-search-action-template-url>
@@ -57,106 +116,6 @@ Bạn cũng có thể tìm kiếm và tham khảo những chia sẻ các chuyế
       </form><!-- /data-javo-patch-form-for-template : Go to Map -->
     </div>
 
-    <script type="text/javascript">
-
-    jQuery( function($){
-      window.javo_single_search_func = {
-
-        init: function()
-        {
-
-          this.el_org   = $( "[data-javo-search-form]" );
-          this.el     = $( "[" + $("[data-javo-search-form-action-type]").val() + "]" );
-          this.type   = this.el.closest( "#javo-single-search-form" ).find( "[javo-input-field-type]" ).val();
-          this.tags   = $('[javo-map-all-tags]').val().toLowerCase().split( '|' );
-          this.el_keyword = $("#javo-single-search-form input.search-type-inner-position-text");
-
-          if( this.type == "keyword" )
-          {
-            this.setKeywordAutoComplete();
-          }else{
-            var javo_ac = new google.maps.places.Autocomplete( this.el_keyword[0] );
-          }
-
-          ;$( document )
-                  .on( 'submit' , this.el_org.selector, this.submit )
-                  .on( 'click'  , '.javo-current-position', this.position )
-        }
-
-        , setKeywordAutoComplete: function()
-        {
-          this.el_keyword.typeahead({
-            hint      : false
-            , highlight   : true
-            , minLength   : 1
-          }, {
-            name      : 'tags'
-            , displayKey  : 'value'
-            , source    : this.keywordMatchesCallback( this.tags )
-          });
-        }
-
-        , keywordMatchesCallback: function( tags )
-        {
-          return function keywordFindMatches( q, cb )
-          {
-            var matches, substrRegex;
-
-            substrRegex   = new RegExp( q, 'i');
-            matches     = [];
-
-            $.each( tags, function( i, tag ){
-              if( substrRegex.test( tag ) ){
-
-                matches.push({ value : tag });
-              }
-            });
-            cb( matches );
-          }
-        }
-
-        , position: function( e )
-        {
-          e.preventDefault();
-
-          var obj   = javo_single_search_func;
-
-          if( $( this ).hasClass( 'active' ) )
-          {
-            obj.el.find( "[data-javo-sf-geolocation]" ).val( 0 );
-            $( this ).removeClass( 'active' );
-          }else{
-            obj.el.find( "[data-javo-sf-geolocation]" ).val( 1 );
-            $( this ).addClass( 'active' ).addClass( 'fa-spin' );
-          }
-
-          obj.submit(e);
-        }
-
-        , submit: function( e )
-        {
-          e.preventDefault();
-
-          var obj   = javo_single_search_func;
-          var el_org  = obj.el_org;
-          var el    = obj.el;
-          var type  = obj.type;
-          var input = el_org.find( "input.search-type-inner-position-text" );
-
-          if( type == "keyword" )
-          {
-            // Keyword
-            el.find( "[data-javo-sf-keyword]" ).val( input.val() );
-          }else{
-            // Locaiton
-            el.find( "[data-javo-sf-google-keyword]" ).val( input.val() );
-          }
-          el.submit();
-        }
-      }
-      window.javo_single_search_func.init();
-    });
-    </script>
     <div class="ult-spacer spacer-55acf20a3f31b" data-id="55acf20a3f31b" data-height="100" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
     </div> 
   </div> 
@@ -172,7 +131,8 @@ Bạn cũng có thể tìm kiếm và tham khảo những chia sẻ các chuyế
   </div> 
     </div> 
   </div> 
-</div><!-- Row Backgrounds --><div class="upb_no_bg" data-fadeout="" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="true" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""    ></div>  <div  class="vc_row wpb_row vc_row-fluid vc_custom_1421292929557">
+</div><!-- Row Backgrounds -->
+<div class="upb_no_bg" data-fadeout="" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="true" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""    ></div>  <div  class="vc_row wpb_row vc_row-fluid vc_custom_1421292929557">
   <div class="vc_col-sm-12 wpb_column vc_column_container ">
     <div class="wpb_wrapper">
       <div id="ultimate-heading55acf20a4238e" class="uvc-heading ultimate-heading55acf20a4238e uvc-8458 " data-hspacer="line_only"  data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a4238e h2'  data-responsive-json-new='{"font-size":"desktop:24px;","line-height":"desktop:30px;"}' ><h2 style="font-weight:bold;color:#454545;">Danh mục điểm đến</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;"><span class="uvc-headings-line" style="border-style:solid;border-bottom-width:2px;border-color:#818181;width:22px;"></span></div></div>          <style>

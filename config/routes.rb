@@ -1,4 +1,5 @@
 Trip3s::Application.routes.draw do
+  get "search/index"
   resources :config_options
 
   resources :schedule_details
@@ -49,7 +50,13 @@ Trip3s::Application.routes.draw do
 
   resources :collection_details
 
-  resources :places
+  resources :places do 
+    collection do
+      get 'search'
+      get 'search_all'
+      get 'resuft'
+    end
+  end
 
   resources :plans do
     collection do
@@ -81,7 +88,6 @@ Trip3s::Application.routes.draw do
   root 'home#index' 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
@@ -93,7 +99,6 @@ Trip3s::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
   # Example resource route with options:
   #   resources :products do
   #     member do
