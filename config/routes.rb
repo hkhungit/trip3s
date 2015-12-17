@@ -1,4 +1,15 @@
-Trip3s::Application.routes.draw do
+Rails.application.routes.draw do
+  
+  get 'auth/:provider/callback', to: 'session#create'
+  get 'auth/failure', to: redirect('/')
+  get 'signout',      to: 'session#destroy', as: 'signout'
+  get 'login',        to: 'session#login',   as: 'login'
+  get 'signin',       to: 'session#signin',  as: 'signin'
+
+  resources :session, only: [:create, :destroy]
+  get 'session/create'
+  get 'session/destroy'
+
   resources :config_options
 
   resources :schedule_details

@@ -1,10 +1,9 @@
 source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
-
-# Use mysql as the database for Active Record
-gem 'mysql2'
+gem 'rails', '4.1.8'
+# Use sqlite3 as the database for Active Record
+gem 'mysql2', '~> 0.3.18'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -26,12 +25,16 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+gem 'omniauth-facebook', '~> 1.4.1'
+gem 'coffee-script-source', '1.8.0'
 
+
+gem 'activerecord-session_store'
+gem 'tzinfo-data', platforms: [:mingw, :mswin]
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

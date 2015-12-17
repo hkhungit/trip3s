@@ -14,7 +14,7 @@ class ApiController < ApplicationController
 	end
 	def createTrip3sPlan
 		session[:plan] = {
-				:dayNumber 			=> "1",
+				:dayNumber 			=> "2",
 		        :userNumber			=> "1",
 		        :planStart			=> "",
 		        :moneyNumber		=> "1",
