@@ -100,48 +100,62 @@ class ApiController < ApplicationController
 		#Get all place of location
 		if location_arr.present?
 			check_filter =true
-			places = places.where("posts.id in (?)",places.select(:id).where(:types => {:category_id=> location_arr[:ids],:type_name=> location_arr[:name]})	)
+			_temp 	= Post.select("posts.id")
+						.distinct
+						.joins(:place,:post_category =>{:type=>:category})
+						.where(:types => {:category_id=> location_arr[:ids],:type_name=> location_arr[:name]})
+			places = places.where("posts.id in (?)",_temp	)
 		end
 
 
 		#Check city
 		if params[:cateIds].present?
 			check_filter =true
-			places = places.where("posts.id in (?)",places.select(:id).where(:types => {:category_id=> params[:cateIds],:type_name=> 'type_category_place'})	)
+			_temp 	= Post.select("posts.id")
+						.distinct
+						.joins(:place,:post_category =>{:type=>:category})
+						.where(:types => {:category_id=> params[:cateIds],:type_name=> 'type_category_place'})	)
+			places = places.where("posts.id in (?)",_temp	)
 		end
 
 		#Check city
 		if params[:proIds].present?
-			places = places.where("posts.id in (?)",
-							places.select("posts.id")
-							.where(:types => {:category_id=> params[:proIds],:type_name=> 'type_property_place'})		)
 			check_filter =true
+			_temp 	= Post.select("posts.id")
+						.distinct
+						.joins(:place,:post_category =>{:type=>:category})
+						.where(:types => {:category_id=> params[:proIds],:type_name=> 'type_property_place'})		)
+			places = places.where("posts.id in (?)",_temp	)
 		end
 
 		#Check city
 		if params[:cuiIds].present?
-			places = places.where("posts.id in (?)",
-							places.select("posts.id")
-							 .where(:types => {:category_id=> params[:cuiIds],:type_name=> 'type_cuisine_place'})	)
-			
+
+			_temp 	= Post.select("posts.id")
+						.distinct
+						.joins(:place,:post_category =>{:type=>:category})
+						.where(:types => {:category_id=> params[:cuiIds],:type_name=> 'type_cuisine_place'})	)
+			places = places.where("posts.id in (?)",_temp	)
 			check_filter =true
 		end
 
 		#Check city
 		if params[:didIds].present?
-			places = places.where("posts.id in (?)",
-							places.select("posts.id")
-							.where(:types => {:category_id=> params[:didIds],:type_name=> 'type_diding_place'})	)
-			
+			_temp 	= Post.select("posts.id")
+						.distinct
+						.joins(:place,:post_category =>{:type=>:category})
+						.where(:types => {:category_id=> params[:didIds],:type_name=> 'type_diding_place'})	)
+			places = places.where("posts.id in (?)",_temp	)
 			check_filter =true
 		end
 
 		#Check city
 		if params[:purIds].present?
-			places = places.where("posts.id in (?)",
-							places.select("posts.id")
-							.where(:types => {:category_id=> params[:purIds],:type_name=> 'type_purpose_place'}))
-			
+			_temp 	= Post.select("posts.id")
+						.distinct
+						.joins(:place,:post_category =>{:type=>:category})
+						.where(:types => {:category_id=> params[:purIds],:type_name=> 'type_purpose_place'}))
+			places = places.where("posts.id in (?)",_temp	)
 			check_filter =true
 		end
 
