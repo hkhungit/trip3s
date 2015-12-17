@@ -23,6 +23,9 @@ class PlacesController < ApplicationController
     
     render "place_three"
   end
+  def list
+    @post_places=Post.all.paginate(page: params[:page], per_page: 5)
+  end
   # GET /places/1
   # GET /places/1.json
   def show

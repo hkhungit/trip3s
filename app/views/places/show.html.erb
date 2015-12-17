@@ -728,55 +728,33 @@
 
 
                                             <div class="row total-rating-wrap">
-                                                <div class="col-xs-12 col-md-6 col-sm-6 loaded">
-                                                    <div class="total-rating-left-wrap">
-                                                        <!--<div class="total-rating-title">
-                <h3>Javo Rating Notice</h3>
-              </div> <!-- total-rating-title -->
-
+                                                <div class="col-xs-12">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                             <div class="total-rating-left-wrap">
                                                         <div class="rating-inner-wrap">
                                                             <div class="rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
                                                             </div>
                                                             <!-- rating -->
                                                             <h1 class="rating-num"><%=@place.post.post_point%> </h1>
                                                             <div class="rating-user">
-                                                                <span class="glyphicon glyphicon-user"></span>1 Total </div>
+                                                                <span class="glyphicon glyphicon-user"></span><%=@place.post.post_view%> Total </div>
                                                         </div>
                                                         <div class="rating-alert-content-wrap">
-                                                            This is a sample content. you can add some notice or special comment for ratings. If you need to modify rating statements, please go to theme option and you can add or change.
-                                                            <br>Thank you. </div>
+                                                           <%=@place.post.post_excerpt%>
+                                                            <br> </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-xs-12 col-md-6 col-sm-6 rating-desc-wrap">
-                                                    <div class="rating-desc">
-                                                        <div class="progress-wrap">
-                                                            <div class="progress-title col-md-6 col-sm-6 col-xs-6">Service</div>
-                                                            <div class="progress col-md-6 col-sm-6 col-xs-6">
-                                                                <div class="progress-bar progress-bar-blug progress-bar-striped" aria-valuenow="86.7" aria-valuemin="0" aria-valuemax="100" style="width:86.7%">86.7% </div>
-                                                            </div>
                                                         </div>
-                                                        <div class="progress-wrap">
-                                                            <div class="progress-title col-md-6 col-sm-6 col-xs-6">Location</div>
-                                                            <div class="progress col-md-6 col-sm-6 col-xs-6">
-                                                                <div class="progress-bar progress-bar-blug progress-bar-striped" aria-valuenow="93.3" aria-valuemin="0" aria-valuemax="100" style="width:93.3%">93.3% </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="progress-wrap">
-                                                            <div class="progress-title col-md-6 col-sm-6 col-xs-6">Quality</div>
-                                                            <div class="progress col-md-6 col-sm-6 col-xs-6">
-                                                                <div class="progress-bar progress-bar-blug progress-bar-striped" aria-valuenow="100.0" aria-valuemin="0" aria-valuemax="100" style="width:100.0%">100.0% </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="progress-wrap">
-                                                            <div class="progress-title col-md-6 col-sm-6 col-xs-6">Others</div>
-                                                            <div class="progress col-md-6 col-sm-6 col-xs-6">
-                                                                <div class="progress-bar progress-bar-blug progress-bar-striped" aria-valuenow="100.0" aria-valuemin="0" aria-valuemax="100" style="width:100.0%">100.0% </div>
-                                                            </div>
-                                                        </div>
+                                                         <div class="col-sm-3">
+                                                            <button ><i class="fa fa-heart"></i> Yêu Thích</button>
+                                                         </div>
+                                                         <div class="col-sm-3">
+                                                            <button > + Thêm vào kế hoạch</button>
+                                                         </div>
                                                     </div>
-                                                    <!-- rating-desc -->
+                                                   
                                                 </div>
-                                                <!-- col-md-7 -->
+                                                
 
                                             </div>
 
@@ -802,7 +780,7 @@
                                     <div class="row javo-reviews-title-wrap">
                                         <div class="col-md-12">
                                             <h3 class="page-header">
-          REVIEWS       </h3>
+          REVIEWS:   <%=@place.post.post_review%>     </h3>
 
                                         </div>
                                         <!-- /.col-md-12-->

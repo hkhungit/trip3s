@@ -1,0 +1,138 @@
+
+<div class="search-tk">
+<div class="ult-spacer spacer-55acf20a3edbf" data-id="55acf20a3edbf" data-height="100" data-height-mobile="50" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
+    <div class="container javo-single-search-form" id="javo-single-search-form">
+     <!--  <form role="form" data-javo-search-form class="search-form-type"> -->
+
+        <div class="search-type-a-inner">
+
+<style type="text/css">
+#search{border: 0px;}
+#btn-search{    width: 20% !important;
+    height: 55px !important;
+    margin-top: -10px;
+    text-align: center;
+  }
+  #pretty{background: #fff;width: 100%;text-align: left;
+  }
+  #pretty tr td img{height: 20px;}
+</style>
+<script type="text/javascript">
+jQuery(function ($) {
+  // Sorting and pagination links.
+  $('#products th a, #products .pagination a').live('click', 
+    function () {
+      $.getScript(this.href);
+      return false;
+    }
+  );
+  
+
+  var delay = (function(){
+    var timer = 0;
+    return function(callback, ms){
+      clearTimeout (timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+
+  $('#search_form input').keyup(function () {
+    var loadAjax = function() {
+      var data = {};
+      $('#search_form input').each(function() {
+          data[this.name] = $(this).val();
+      });
+      $.get('places/search.json', data , function(result) {
+        if (result) {
+          $("#products").html(
+            '<table class="table" id="pretty"><tr><td></td><td><a href="http://google">View All</a></td></tr>' 
+            + result.map(function(row) {
+              return '<tr><td><img src="'+row.post_thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+row.place_choice + '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
+            }).join(''))
+            + '</table>'
+        }
+      })
+       $.get('places/search_all.json', data , function(result) {
+        if (result) {
+          $("#places").html(
+            '<table class="table" id="pretty" style="margin-top:-20px">' 
+            + result.map(function(row) {
+              return '<tr><td><img src="'+row.post_thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+ '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
+            }).join(''))
+            + '</table>'
+        }
+      })
+    }
+
+    delay(function(){ loadAjax() }, 500 );
+  });
+});
+
+</script>
+
+<a href=""></a>
+          <div class="search-box-inline search-box-inline-position">
+           <%= form_tag search_index_path,:action=>'search/index', :method => 'get', :id => 'search_form' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil,:id=>"btn-search",:class=>"btn btn-success",:placeholder =>"Enter places" %>
+  </p>
+<% end %>
+  <div id="products"></div>
+  <div id="places"></div>
+          </div>
+        </div>
+    </div>
+
+    <div class="ult-spacer spacer-55acf20a3f31b" data-id="55acf20a3f31b" data-height="100" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
+    </div>
+<div class="container">
+<div class="search-content">
+	<div class="row">
+		<div class="col-md-3"><br>
+			<div class="row widgets-wraps">
+				<div class="widgettitle_wrap col-md-12"><h2 class="widgettitle"><span>Danh Mục</span></h2></div>			<div class="widget_posts_wrap">
+				  <%@places_category.each do |cate|%>
+										<div class="latest-posts posts row">
+							<div class="col-md-12">
+								<span class='thumb'>
+									<a href="item/javo-hotel-in-downtown/index.html#item-events">
+										<img width="80" height="80" src="/assets/sites/2/2014/08/backyard-with-swimming-pool-house-80x80.jpg" class="attachment-javo-tiny wp-post-image" alt="backyard-with-swimming-pool-house" />									</a>
+								</span>
+								<h3><a href="item/javo-hotel-in-downtown/index.html#item-events"><%=cate.cate_name%>     </a></h3>							</div><!-- /.col-md-12 -->
+						</div><!-- /.row -->
+        <%end%>
+    </div><!-- /.widget_posts_wrap -->
+		</div>
+		</div>
+		<div class="col-md-6 widgets-wraps">
+			<div class="widgettitle_wrap col-md-12"><h2 class="widgettitle"><span><br>Kết quả tìm kiếm</span></h2></div>
+			<table class="result">
+  				<% for place in @places_post %>
+  					<tr>
+  						<td><img src="<%= place.post_thumbnail %>"></td>
+    					<td>
+    						<a href="/places/<%=place.id%>" class="places-title"><%= place.post_title %></a><br>
+    						<%= place.place_address %>
+    						<div class="row">
+    							<div class="col-xs-6 col-sm-4"><i class="fa fa-heart"></i>123</div>
+    							<div class="col-xs-6 col-sm-4"><i class="fa fa-check"></i><%= place.post_view %></div>
+    							<div class="col-xs-6 col-sm-4"><i class="fa fa-star-o"></i><%= place.post_review %></div>
+    						</div>
+    					</td>
+    					<td>
+    						<button class="btn btn-success">+ Thêm vào kế hoạch</button>
+    					</td>
+  					</tr>
+
+  				<% end %>
+
+  				
+			</table>
+      <%= will_paginate @places_two_limit_one %>
+			<button class="btn btn-success view-all">Xem thêm địa điểm</button>
+		</div>
+		<div class="col-md-3 widgets-wraps"><div class="widgettitle_wrap col-md-12"><h2 class="widgettitle"><span><br>Kế hoạch hay</span></h2></div></div>
+	</div>
+</div>
+</div>
