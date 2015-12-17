@@ -100,14 +100,14 @@ class ApiController < ApplicationController
 		#Get all place of location
 		if location_arr.present?
 			check_filter =true
-			places = places.where("posts.id in (?)",places.select("posts.id").where(:types => {:category_id=> location_arr[:ids],:type_name=> location_arr[:name]})	)
+			places = places.where("posts.id in (?)",places.select(:id).where(:types => {:category_id=> location_arr[:ids],:type_name=> location_arr[:name]})	)
 		end
 
 
 		#Check city
 		if params[:cateIds].present?
 			check_filter =true
-			places = places.where("posts.id in (?)",places.select("posts.id").where(:types => {:category_id=> params[:cateIds],:type_name=> 'type_category_place'})	)
+			places = places.where("posts.id in (?)",places.select(:id).where(:types => {:category_id=> params[:cateIds],:type_name=> 'type_category_place'})	)
 		end
 
 		#Check city
@@ -149,7 +149,7 @@ class ApiController < ApplicationController
 			places = places.where(:types => {:type_name=> 'type_category_place'})
 		end
 
-		_count = places.count('posts.id')
+		_count = 1
 
 		offset = 0;
 		limit = 12;

@@ -1,3 +1,15 @@
 // Place all the styles related to the places controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.search-header{background: black;height: 70px;}
+.search-tk{background:url(/assets/sites/2/2015/01/image841.jpg);}
+.search-content{
+	.result{
+		img{height: 100px;width: 100px;padding: 5px 5px 5px 5px;}
+		.places-title{font-weight: bold;}
+		tr {border-bottom: 1px solid black;}
+
+	
+	}
+	.view-all{margin-top: 20px;margin-bottom: 20px;}
+}
