@@ -14,7 +14,7 @@ div.javo_mhome_wrap div.javo_mhome_sidebar{
 	height:100%;
 	z-index:1001;
 	background:#fafafa;
-	overflow:hidden;
+
 	width:300px;
 }
 div.javo_mhome_wrap div.javo_mhome_sidebar div.body-detail-add-plan{
@@ -25,18 +25,29 @@ div.javo_mhome_sidebar{
 	border-right:solid 1px #aaa;
 	box-shadow:0 5px 5px rgba(45, 45, 45, .5);
 }
+div.setting-day{float: left;width: 100%}
+div.setting-day h3{width: 112%;float: left;text-align: center;margin-left:-15px;background: #dff0d8;    padding: 10px 5px;font-size: 18px;}
+span.open-advance{cursor: pointer;color: blue;text-decoration: underline;}
 div.javo_mhome_map_lists{
+	margin-right: 0px;
 	position:fixed;
 	top:0;
 	bottom:0;
 	right:0;
-	width:45%;
+	width:50%;
 	/* height:100%;*/
 	background:#fff;
 	border-left:1px solid #ccc;
 }
+div.main-map-search-wrap{    padding: 0px 5px;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;}
 div.javo_mhome_map_lists h2{ color:#fff; }
 div.javo_mhome_map_output{
+
+	padding: 0px;
+    border-left: 1px solid #CCC;
 	position:absolute;
 	/* Explorer Padding */
 	box-sizing:content-box;
@@ -47,10 +58,45 @@ div.javo_mhome_map_output{
 	top:0;
 	right:0;
 	bottom:0;
-	width:100%;
-	/* margin-top:150px; */
 	overflow-x:hidden;
 	overflow-y:scroll;
+}
+button.javo-mhome-onoff-sidebar{
+	position: absolute;
+
+	right: -22px;top: 0px;
+}
+.left{
+	float: left;
+}
+.body-detail-create-plan .form-group{
+	float: left;
+	margin-bottom: 5px;
+}
+label.left{
+	margin-right: 10px;
+	line-height: 30px;
+	    width: 95px;
+}
+.panel-heading{
+	padding:10px;
+}
+div.body-detail-create-plan{
+display: none;
+overflow-y:scroll;
+overflow-x:hidden;  
+}
+div.turn-on-off-filter:hover{opacity: 0.8}
+div.turn-on-off-filter{
+
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    left: -15px;
+    opacity: 1;
+    background: #CCC8C8;
+    padding: 5px;
+
 }
 div.javo-mhome-contents{ padding:10px; }
 
@@ -109,7 +155,6 @@ div.javo-mhome-contents .flex-direction-nav .flex-next{
 div.javo-mhome-contents .flex-direction-nav .flex-prev{ position:absolute; top:50%; left:0; background-position: 0px 0px; }
 div.javo-mhome-contents .flex-direction-nav .flex-next{ position:absolute; top:50%; right:0; background-position: -30px 0px; }
 div.javo-hmap-flexslider{ overflow:hidden; }
-div.javo_mhome_map_output { padding-top:0px; padding-bottom:150px; }
 div.javo_mhome_map_output .item{ padding:0 5px; }
 div.javo_mhome_map_output .thumbnail{ border:none; max-width: 358px;}
 div.javo_mhome_map_output .list-group-item .thumbnail{max-width:100%;}
@@ -183,7 +228,10 @@ div.javo-mhome-sidebar-onoff span{
 .javo_mhome_map_output .thumbnail .caption {
 color: #aaa;
 border: 1px #ddd solid;
+padding: 3px 9px;min-height: 55px;
 }
+.javo_mhome_map_output .thumbnail .caption  .col-md-5{padding: 0px;padding-right: 10px;}
+.javo_mhome_map_output .thumbnail .caption  .col-md-7{padding: 0px;padding-left: 10px;}
 
 .javo_mhome_map_output .list-group-item .thumbnail .caption {
 border:0;
@@ -312,7 +360,7 @@ border:0;
 .javo_mhome_wrap .javo_mhome_sidebar>ul>li>span{margin-right:5px; top:2px;}
 
 .javo_mhome_map_output .body-content .col-md-12 #products .item.col-md-6 .thumb-wrap>img{height:100%; max-height:200px;}
-.javo_mhome_map_output .body-content>.col-md-12 {padding-left:6px;}
+.javo_mhome_map_output .body-content>.col-md-12 {padding-left:2px;padding-right:2px;}
 
 .javo_mhome_map_output .list-group>.item.col-xs-12.list-group-item .caption>.row>.col-md-8{
 	position: absolute;
@@ -326,8 +374,10 @@ border:0;
 .javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-8 .col-md-12{
 	height:18px;
 	overflow:hidden;
-
 }
+.javo-filter-column-header{    display: inline-block;vertical-align: top;min-width: 32%; width: 100%;margin-bottom:4px;}
+.javo-filter-column-header h3,.javo_mhome_map_output_header h3{ text-align: center; margin: 0px; background: #dff0d8;color: #434446;font-size: 18px;padding: 8px 5px;font-weight: bold;}
+
 .javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-4{padding-left:0px;}
 .javo_mhome_map_output .list-group>.item.list-group-item .caption>.row>.col-md-4{float:right; padding-top:10px;}
 /** get direction **/

@@ -134,16 +134,42 @@
 	    padding: 5px;
 	    cursor: pointer;
 	}
+	.open-lists-day{
+		position: absolute;
+	    top: 4px;
+	    right: 0px;
+	    color: #fff;
+	    padding: 0.2em 7px;opacity: 0.8
+	}
+	#add-to-plan{
+		padding-right: 17px
+	}
+	.open-lists-day:hover{opacity: 1}
+	.javo-right-overlay ul.list-day-in-plan{
+		display: none;
+		padding: 0px;
+	    margin: 0px;
+	    list-style: none;
+	    background: #F5F2F2;
+	    max-height: 100px;
+    	overflow-y: scroll;
+	}
+	.javo-right-overlay ul.list-day-in-plan li{
+		    padding: 3px 5px;
+    		color: #000;
+	}
 </style>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <div class="javo_mhome_wrap">
 	<div class="javo_mhome_sidebar_wrap panel">
-		<div class="javo-mhome-sidebar-onoff" style="margin-left: 0px;"></div>
-			<div class="javo_mhome_sidebar panel panel-success" style="margin-left: 0px; margin-top: 76px;">		
-			</div>
+		<div class="javo_mhome_sidebar panel panel-success" style="margin-left: 0px; margin-top: 76px;">	
+		
+		
 		</div>
 	</div>
 	<!-- MAP Area -->
-	<div class="javo_mhome_map_area" style="height: 335px; position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
+	<div class="javo_mhome_map_area col-md-3" style="height: 335px; position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
 		
 		<div style="position: absolute; z-index: 1000; visibility: visible; top: 0px; left: 0px;">
 		<div class="javo-map-inner-control-wrap">
@@ -325,21 +351,31 @@
 	<div class="category-menu-bar"></div>
 
 	<!-- Right Sidebar Content -->
-	<div class="javo_mhome_map_lists" style="top: 76px;">
+	<div class="javo_mhome_map_lists row" style="top: 76px;">
+	<!-- Turn off filter -->
+	<div class="turn-on-off-filter"><i class="fa fa-chevron-circle-left"></i></div>
 		<!-- Right Sidebar Inner -->
 		<!-- Control & Filter Area -->
-		<div class="main-map-search-wrap">
+		<div class="main-map-search-wrap  col-md-4 style-6 ">
 			<div class="row">
 
 				<div class="col-md-12 text-left">
-					<div class="javo-filter-column">
-						<select multiple="multiple" data-placeholder="Danh Mục" name="filter[item_category]" style="display: none;" class="chzn-select">
-							<option value="0" disabled>Danh Mục</option>
-							<% @places_category.each do |cate|%>
-							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
-							<%end%>
-						</select>
+					<div class="javo-filter-column-header">
+						<h3>Lọc danh sách địa điểm</h3>
+						<input class="form-control input-filter-text" placeholder="Nhập từ khóa"/>
+						<span>
+							<button class="btn btn-xs btn-success btn-filter-place"> <i class="fa fa-filter"></i>
+								Lọc
+							</button>
+							<button class="btn btn-xs btn-danger btn-filter-remove"> <i class="fa fa-remove"></i>
+								Hủy bỏ
+							</button>
+							<button class="btn btn-xs btn-info btn-filter-my-location"> <i class="fa fa-map-marker"></i> 
+								Địa điểm của tôi
+							</button>
+						</span>
 					</div>
+
 					<div class="javo-filter-column">
 						<select  multiple="multiple"  data-placeholder="Tỉnh/Thành"  name="filter[item_city]" style="display: none;">
 							<option value="0" disabled>Tỉnh Thành</option>
@@ -348,6 +384,7 @@
 							<%end%>
 						</select>
 					</div>
+
 					<div class="javo-filter-column">
 						<select  multiple="multiple"  data-placeholder="Quận/Huyện"  name="filter[item_district]" style="display: none;">
 							<option value="0" disabled>Quận/Huyện</option>
@@ -360,6 +397,14 @@
 						<select  multiple="multiple"  data-placeholder="Khu Vực"  name="filter[item_area]" style="display: none;">
 							<option value="0" disabled>Khu Vực</option>
 							<%@places_area.each do |cate|%>
+							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
+							<%end%>
+						</select>
+					</div>
+					<div class="javo-filter-column">
+						<select multiple="multiple" data-placeholder="Danh Mục" name="filter[item_category]" style="display: none;" class="chzn-select">
+							<option value="0" disabled>Danh Mục</option>
+							<% @places_category.each do |cate|%>
 							<option value="<%=cate.id%>"> <%=cate.cate_name%></option>		
 							<%end%>
 						</select>
@@ -405,8 +450,11 @@
 
 		<!-- Ajax Results Output Element-->
 
-		<div class="javo_mhome_map_output item-list-page-wrap" style="margin-top: 82px;">
+		<div class="javo_mhome_map_output item-list-page-wrap  col-md-8 style-6 ">
 			<div class="body-content">
+				<div class="col-md-12 javo_mhome_map_output_header">
+					<h3>Danh sách địa điểm</h3>
+				</div>
 				<div class="col-md-12">
 					<div id="products" class="list-group">
 					</div><!-- /#prodicts -->

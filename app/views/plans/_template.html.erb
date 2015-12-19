@@ -37,9 +37,10 @@
 	</script>
 	<script type="text/html" id="load-schedule-day-header-control-1">
 		<div class="col-md-12">
-			<strong ><i class="fa fa-list"></i> Danh sách địa điểm</strong>
+			<strong ><i class="fa fa-list"></i> Địa điểm đã chọn</strong>
 			<button class="btn btn-xs btn-danger  showMap-place"><i class="fa fa-map-o"></i> Bản đồ</button>
-			<button class="btn btn-xs btn-info create-trip"><i class="fa fa-pie-chart"></i> Sắp lịch</button>
+			<button class="btn btn-xs btn-info create-trip"><i class="fa fa-pie-chart"></i> Tạo lịch</button>
+			<button class="btn btn-xs btn-warning open-trip-down"><i class="fa fa-chevron-circle-down"></i></button>
 		</div>
 	</script>
 
@@ -59,22 +60,114 @@
 		</div>
 	</script>
  
+	<script type="text/html" id="loading-place-start-1">
+		<div class="form-group">
+			<h3>Cài đặt ngày {{dayNumber}}</h3>
+       		<label class="left" for="tripPlan_placeBegin_{{dayNumber}}"><strong>Điểm bắt đầu:  </strong></label>
+            <select class="tripPlan-placeBegin form-control left"  data-schedule="{{dayNumber}}" name="tripPlan_placeBegin_{{dayNumber}}"  style ="width:150px">
+            	{{places-list-start}}
+            </select>
+	        <div class="form-group">
+	       		<label class="left" for="tripPlan_placeEnd_{{dayNumber}}"><strong>Điểm ở lại:  </strong></label>
+	            <select class="tripPlan-placeEnd form-control left" data-schedule="{{dayNumber}}" name="tripPlan_placeEnd_{{dayNumber}}"  style ="width:150px">
+	            	{{places-list-end}}
+	            </select>
+	        </div>
+        </div>
+		
+	</script>
+	<script type="text/html" id="loading-place-start-2">
+		<div class="form-group">
+			<h3>Cài đặt ngày {{dayNumber}}</h3>
+       		<label class="left" for="tripPlan_placeEnd_{{dayNumber}}"><strong>Điểm ở lại:  </strong></label>
+            <select class="tripPlan-placeEnd form-control left" data-schedule="{{dayNumber}}"  name="tripPlan_placeEnd_{{dayNumber}}"  style ="width:150px">
+            	{{places-list-end}}
+            </select>
+        </div>
+	</script>
 	<script type="text/html" id="loading-list-place-plan">
+	<button class="btn-xs javo-mhome-onoff-sidebar" ><i class="fa fa-chevron-circle-left"></i></button>	
+
+		
 		<div class="well-default panel-heading header-detail-add-plan">
 			<div class="row schedule-day-header-control" id="schedule-day-header-control">
 				<div class="col-md-12">
-					<strong ><i class="fa fa-list"></i> Danh sách địa điểm</strong>
+					<strong ><i class="fa fa-list"></i> Địa điểm đã chọn</strong>
 					<button class="btn btn-xs btn-danger  showMap-place"><i class="fa fa-map-o"></i> Bản đồ</button>
-					<button class="btn btn-xs btn-info create-trip"><i class="fa fa-pie-chart"></i> Sắp lịch</button>
+					<button class="btn btn-xs btn-info create-trip"><i class="fa fa-pie-chart"></i> Tạo lịch</button>
+					<button class="btn btn-xs btn-warning open-trip-down"><i class="fa fa-chevron-circle-down"></i></button>
 				</div>
 			</div>
+		</div>
+		<div class="well-default panel-body body-detail-create-plan style-6" id="body-detail-create-plan">
+		<form>
+			<div class="form-group">
+                <label class="left" for="tripPlan[dayNumbers]"><strong>Số ngày:  </strong></label>
+                <input type="number" name="tripPlan[dayNumbers]" class="form-control left" id="tripPlan-dayNumbers" placeholder="Số ngày" required="required" style ="width:150px">
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[userNumbers]"><strong>Số Người:  </strong></label>
+                <input type="number" name="tripPlan[userNumbers]" class="form-control left" id="tripPlan-userNumbers" placeholder="Số Người" required="required" style ="width:150px">
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[moneyNumbers]"><strong>Số Tiền:  </strong></label>
+                <input type="number" name="tripPlan[moneyNumbers]" class="form-control left" id="tripPlan-moneyNumbers" placeholder="Số tiền chuẩn bị" required="required" style ="width:150px">
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[planStart]"><strong>Ngày đi:  </strong></label>
+                <input type="text" name="tripPlan[planStart]" class="form-control left" id="tripPlan-planStart"  required="required" style ="width:150px">
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[placeBegin]"><strong>Điểm ở lại:  </strong></label>
+                <select class="tripPlan-placeBegin form-control left" name="tripPlan[placeBegin]"  style ="width:150px">
+                </select>
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[placeBegin]"></label>
+                <Span class="open-advance">Nâng cao</span>
+            </div>
+            <div class="setting-day"></div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[placeBegin]"></label>
+                <button type="button" class="btn btn-sm btn-success btn-save-detail-plan"><i class="fa fa-save"></i> Lưu</button>
+                <button type="reset" class="reset btn-sm btn btn-danger" ><i class="fa fa-times"></i> Hủy bỏ</button>
+            </div>
+        </form>
 		</div>
 		<div class=" well-default panel-body body-detail-add-plan" id="body-detail-add-plan">
 			<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="150">
 		</div>
 	</script>
-	
+	<script type="text/html" id="load-body-detail-create-plan">
+		<form>
+			<div class="form-group">
+                <label class="left" for="tripPlan[dayNumbers]"><strong>Số ngày:  </strong></label>
+                <input type="number" name="tripPlan[dayNumbers]" class="form-control left" id="tripPlan-dayNumbers" placeholder="Số ngày" required="required" style ="width:150px">
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[userNumbers]"><strong>Số Người:  </strong></label>
+                <input type="number" name="tripPlan[userNumbers]" class="form-control left" id="tripPlan-userNumbers" placeholder="Số Người" required="required" style ="width:150px">
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[moneyNumbers]"><strong>Số Tiền:  </strong></label>
+                <input type="number" name="tripPlan[moneyNumbers]" class="form-control left" id="tripPlan-moneyNumbers" placeholder="Số tiền chuẩn bị" required="required" style ="width:150px">
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[placeBegin]"><strong>Điểm ở lại:  </strong></label>
+                <select class="tripPlan-placeBegin form-control left" name="tripPlan[placeBegin]"  style ="width:150px">
+                </select>
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[placeBegin]"></label>
+                <button type="button" class="btn btn-sm btn-success btn-save-detail-plan"><i class="fa fa-save"></i> Lưu</button>
+                <button type="reset" class="reset btn-sm btn btn-danger" ><i class="fa fa-times"></i> Hủy bỏ</button>
+            </div>
+        </form>
+	</script>
 	<script type="text/html" id="loading-detail-plan">
+	<button class="btn-xs javo-mhome-onoff-sidebar" ><i class="fa fa-chevron-circle-left"></i></button>	
+	<div>	
+
 		<div class="well-default panel-heading header-detail-add-plan">
 			<div class="row schedule-day-header-control" id="schedule-day-header-control">
 				<div class="col-md-12">
@@ -95,9 +188,9 @@
 			</div>
 		</div>
 
-		<div class=" well-default panel-body body-detail-add-plan" id="body-detail-add-plan">
-			
-		</div>
+		<div class="well-default panel-body body-detail-create-plan style-6" id="body-detail-create-plan"></div>
+		<div class="well-default panel-body body-detail-add-plan" id="body-detail-add-plan"></div>
+
 	</script>
 	<script type="text/template" id="trip3s-list-day">
 		<li role="presentation">
@@ -212,16 +305,15 @@
 						</div> <!-- corner-wrap -->
 					</div>
 					<div class="javo-right-overlay">
-						<div class="javo-txt-meta-area admin-color-setting" data-id="{post_id}" btn-add-place-plan id="add-to-plan"><i class="fa fa-plus"></i>Thêm</div> <!-- javo-txt-meta-area -->
-					</div>
-					<div class="nav-drop javo-full-select-day" id="javo-full-select-day" javo-full-select-day>
-						<ul class="nav-drop-menu" list-day-in-plan  place_id="{place_id}" >
+						<div class="javo-txt-meta-area admin-color-setting" data-id="{post_id}" btn-add-place-plan id="add-to-plan">Thêm &nbsp; </div> <!-- javo-txt-meta-area -->
+						<i class="fa fa-arrow-circle-down open-lists-day"></i>
+						<ul class="nav-drop-menu list-day-in-plan scrollbar style-8" list-day-in-plan  place_id="{place_id}" >
 	                       	<li>
 								<a href="#" class="fa fa-times" day="1"> Ngày 1</a>
 							</li>
                         </ul><!-- nav-drop-menu -->
 					</div>
-
+					
 					<div class="rate-icons">
 						<div class="col-md-2">
 							<div class="col-md-12 javo-rating-registed-score" data-score="{rating}"></div>
@@ -236,8 +328,7 @@
 					</div> <!-- location -->
 					<div class="three-inner-button">
 						<a class="javo-hmap-marker-trigger three-inner-move" data-id="mid_{post_id}" data-post-id="{post_id}">Move</a>
-						<a href="{permalink}" class="three-inner-detail">Detail</a>
-						<a href="{permalink}" target="_brank" class="three-inner-popup">Popup</a>
+						<a href="{permalink}"  target="_brank" class="three-inner-detail">Detail</a>
 					</div><!-- three-inner-button -->
 				</div> <!-- thumb-wrap -->
 

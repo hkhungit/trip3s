@@ -114,7 +114,7 @@ class ApiController < ApplicationController
 			_temp 	= Post.select("posts.id")
 						.distinct
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:cateIds],:type_name=> 'type_category_place'})	)
+						.where(:types => {:category_id=> params[:cateIds],:type_name=> 'type_category_place'})
 			places = places.where("posts.id in (?)",_temp	)
 		end
 
@@ -124,7 +124,7 @@ class ApiController < ApplicationController
 			_temp 	= Post.select("posts.id")
 						.distinct
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:proIds],:type_name=> 'type_property_place'})		)
+						.where(:types => {:category_id=> params[:proIds],:type_name=> 'type_property_place'})
 			places = places.where("posts.id in (?)",_temp	)
 		end
 
@@ -134,7 +134,7 @@ class ApiController < ApplicationController
 			_temp 	= Post.select("posts.id")
 						.distinct
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:cuiIds],:type_name=> 'type_cuisine_place'})	)
+						.where(:types => {:category_id=> params[:cuiIds],:type_name=> 'type_cuisine_place'})	
 			places = places.where("posts.id in (?)",_temp	)
 			check_filter =true
 		end
@@ -144,7 +144,7 @@ class ApiController < ApplicationController
 			_temp 	= Post.select("posts.id")
 						.distinct
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:didIds],:type_name=> 'type_diding_place'})	)
+						.where(:types => {:category_id=> params[:didIds],:type_name=> 'type_diding_place'})	
 			places = places.where("posts.id in (?)",_temp	)
 			check_filter =true
 		end
@@ -154,7 +154,7 @@ class ApiController < ApplicationController
 			_temp 	= Post.select("posts.id")
 						.distinct
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:purIds],:type_name=> 'type_purpose_place'}))
+						.where(:types => {:category_id=> params[:purIds],:type_name=> 'type_purpose_place'})
 			places = places.where("posts.id in (?)",_temp	)
 			check_filter =true
 		end

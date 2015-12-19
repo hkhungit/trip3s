@@ -553,19 +553,9 @@ footer.footer-wrap:before{
 
 .display-types {margin-left:0; padding-left:0;}
 .display-types .btn {border-radius: 2px;}
-
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active,
-.btn-success.active,
-.open .dropdown-toggle.btn-success{
-	color: #fff;
-	background-color: #777;
-	border-color: #666;
+.btn-sm{
+	padding: 4px 10px
 }
-
-.btn-success{ color:#fff; background-color:#aaa; border-color: #bbb;}
-
 
 .back-to-top, .javo-quick-contact-us{
     cursor: pointer;
@@ -1783,7 +1773,7 @@ h3#comments{text-align:center; margin-bottom:20px;}
 	display:inline-block;
 	vertical-align:top;
 	min-width:32%;
-	width: auto;
+	width: 100%;
 }
 
 
@@ -1800,7 +1790,7 @@ h3#comments{text-align:center; margin-bottom:20px;}
 .flex-control-thumbs img:hover {opacity: 1;}
 .flex-control-thumbs .active {opacity: 1; cursor: default;}
 
-
+.btn-group-xs>.btn, .btn-xs{font-size: 11px}
 .item-list-page-wrap input[readonly]{
 	background:#fff;
 	height:32px;
