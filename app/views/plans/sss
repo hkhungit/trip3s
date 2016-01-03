@@ -1,0 +1,281 @@
+<link rel="stylesheet" id="plan-css" href="/assets/css/plan.css" type="text/css" media="screen">
+
+<script type="text/javascript" src="/assets/js/add_plan.js"></script>
+<div class="container">
+  <div class="cover-fui-row-full">
+    <div class="container text-left">
+      <ul class="breadcrumb fleft">
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+          <a href="/guide" itemprop="url">
+            <span itemprop="title">Trang chủ</span>
+          </a>
+        </li>
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="hidden-sm hidden-xs">
+          <a href="/plan/a-wonderful-trip-to-davao-16386" itemprop="url">
+            <span itemprop="title">Lập mới kế hoạch</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="itinerary-body">
+    <div class="container">
+      <div class="row">
+        <div id="itinerary-detail" class="col-md-9">
+          <div class="panel panel-default fleft fui-row-full">
+            <div class="panel-heading">
+              <strong>Thông tin kế hoạch</strong>
+            </div>
+            <div class="panel-body row panel-body-nopadding">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="email"><strong>Tên của hành trình:</strong></label>
+                  <input type="text" class="form-control" name="plan[plan_title]" id="tripPlan-name" placeholder="Tên của hành trình" required="required"
+                      oninvalid="this.setCustomValidity('Nhập tiêu đề cho hành trình')"
+                      />
+                  </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="plan[plan_content]"><strong>Mô tả:</strong></label>
+                  <textarea name="plan[plan_content]" rows="10" cols="50" placeholder=""  class="form-control" ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 fleft">
+                  <button class="btn btn-vote  btn-default" title="Lưu lại" href="#setting-day-plan" data-move="collapse">
+                    <i class="fa fa-hand-o-down"></i><span> Cài đặt</span>
+                  </button>
+                  <button class="btn btn-vote  btn-default" title="Lưu lại">
+                    <i class="fa fa-hand-o-down"></i><span> Lọc địa điểm</span>
+                  </button>
+                  <button class="btn btn-vote  btn-default" title="Hủy bỏ">
+                    <i class="fa fa-hand-o-down"></i><span> Địa điểm</span>
+                  </button>
+                  <button class="btn btn-vote  btn-default" title="Hủy bỏ">
+                    <i class="fa fa-hand-o-down"></i><span> Thêm bạn bè</span>
+                  </button>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 tright">
+                  <button class="btn btn-vote  btn-default" title="Lưu lại">
+                    <i class="fa fa-save"></i><span> Lưu kế hoạch</span>
+                  </button>
+                  <button class="btn btn-vote  btn-default" title="Hủy bỏ">
+                    <i class="fa fa-times"></i><span> Hủy bỏ</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="setting-day-plan" class="setting-day-plan panel panel-default">
+            <div id="nav-setting-day-1" class="panel-heading"><i class="day-icon fa fa-calendar"></i>
+              <strong>Cài đặt</strong>
+                <span class="badge fright fui-bg-orange hidden-xs"></span>
+                <i class="fa fa-toggle-off"  data-toggle="collapsed" href="#setting-day-plan .list-item"></i>
+            </div>
+              <div class="list-item panel-body">
+                <div class="fui-row-full att-item" id="place-no-1-1" data-application="1">
+                  <div class="form-group col-md-6">
+                    <label for="email"><strong>Số ngày dự tính:</strong></label>
+                    <input type="number" min="1"  class="form-control" name="plan[plan_title]" id="tripPlan-name" placeholder="Số ngày dự tính" required="required" />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="email"><strong>Số tiền dự tính:</strong></label>
+                      <input type="number" min="1" class="form-control" name="plan[plan_title]" id="tripPlan-name" placeholder="Số tiền dự tính" required="required" />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="email"><strong>Số người dự tính:</strong></label>
+                    <input type="number" min="1"  class="form-control" name="plan[plan_title]" id="tripPlan-name" placeholder="Số người dự tính" required="required" />
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="email"><strong>Ngày đi dự tính:</strong></label>
+                    <input type="text" class="form-control" name="plan[plan_start]" id="tripPlan-StartDay" placeholder="Ngày đi dự tính" required="required"/>
+                  </div>
+                </div>
+              </div>
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 fleft">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 tright">
+                  <button class="btn btn-vote  btn-default" title="Lưu lại">
+                    <i class="fa fa-save"></i><span> Cập nhật</span>
+                  </button>
+                  <button class="btn btn-vote  btn-default" title="Hủy bỏ">
+                    <i class="fa fa-times"></i><span> Hủy bỏ</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="setting-day-plan" class="setting-day-plan panel panel-default">
+            <div id="nav-setting-day-1" class="panel-heading"><i class="day-icon fa fa-calendar"></i>
+              <strong>Lọc địa điểm</strong>
+                <span class="badge fright fui-bg-orange hidden-xs"></span>
+                <i class="fa fa-toggle-off"  data-toggle="collapsed" href="#setting-day-plan .list-item"></i>
+            </div>
+            <div class="list-item panel-body">
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label for="email"><strong>Tỉnh/thành phố:</strong></label>
+                    <select  multiple="multiple"  data-placeholder="Tỉnh/Thành"  name="filter[item_city]" style="display: none;">
+                      <option value="0" disabled>Tỉnh Thành</option>
+                      <%@places_city.each do |cate|%>
+                      <option value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
+                      <%end%>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="email"><strong>Quận/huyện:</strong></label>
+                    <select  multiple="multiple"  data-placeholder="Quận/Huyện"  name="filter[item_district]" style="display: none;">
+                      <option value="0" disabled>Quận/Huyện</option>
+                      <%@district_category.each do |cate|%>
+                      <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                      <%end%>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="email"><strong>Khu vực:</strong></label>
+                    <select  multiple="multiple"  data-placeholder="Khu Vực"  name="filter[item_area]" style="display: none;">
+                      <option value="0" disabled>Khu Vực</option>
+                      <%@places_area.each do |cate|%>
+                      <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                      <%end%>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="email"><strong>Danh mục:</strong></label>
+                    <select multiple="multiple" data-placeholder="Danh Mục" name="filter[item_category]" style="display: none;" class="chzn-select">
+                      <option value="0" disabled>Danh Mục</option>
+                      <% @places_category.each do |cate|%>
+                      <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                      <%end%>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="email"><strong>Mục Đích:</strong></label>
+                    <select  multiple="multiple" data-placeholder="Mục Đích" name="filter[item_purpose]" style="display: none;">
+                    <option value="0" disabled>Mục Đích</option>
+                    <%@places_purpose.each do |cate|%>
+                    <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                    <%end%>
+                  </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="email"><strong>Phù hợp:</strong></label>
+                    <select  multiple="multiple" data-placeholder="Thích Hợp" name="filter[item_diding]" style="display: none;">
+                      <option value="0" disabled>Thích Hợp</option>
+                      <%@places_diding.each do |cate|%>
+                      <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                      <%end%>
+                    </select>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-12 javo_mhome_map_area">
+                  </div>
+                </div>
+                <ul class="row" id="body-place-lists">
+                  
+                </ul>
+            </div>
+
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 fleft">
+                  <div class="col-lg-6 fleft form-group">
+                    <input class="form-control" placeholder="Từ khóa tìm kiếm"/>
+                  </div>
+                  <div class="col-lg-6 fleft form-group">
+                    <label><input type="checkbox" value="0">Địa điểm của tôi</label>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 tright">
+                  <button class="btn btn-filter-place  btn-default" title=" Lọc địa điểm">
+                    <i class="fa fa-filter"></i><span> Lọc địa điểm</span>
+                  </button>
+                  <button class="btn btn-vote  btn-default" title="Hủy bỏ">
+                    <i class="fa fa-times"></i><span> Hủy bỏ</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="setting-day-plan" class="setting-day-plan panel panel-default">
+            <div id="nav-setting-day-1" class="panel-heading"><i class="day-icon fa fa-calendar"></i>
+              <strong>Địa điểm</strong>
+                <span class="badge fright fui-bg-orange hidden-xs"></span>
+                <i class="fa fa-toggle-off"  data-toggle="collapsed" href="#setting-day-plan .list-item"></i>
+            </div>
+            <div class="list-item panel-body">
+                
+            </div>
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 fleft">
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 tright">
+                  <button class="btn btn-vote  btn-default" title="Lưu lại">
+                    <i class="fa fa-save"></i><span> Sắp lịch</span>
+                  </button>
+                  <button class="btn btn-vote  btn-default" title="Hủy bỏ">
+                    <i class="fa fa-times"></i><span> Hủy bỏ</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="setting-day-plan" class="setting-day-plan panel panel-default">
+            <div id="nav-setting-day-1" class="panel-heading"><i class="day-icon fa fa-user"></i>  
+              <strong>Thêm bạn</strong>  &nbsp; &nbsp;
+              <input type="text" class="form-control" style="max-width:150px; display: inline; ">   &nbsp;
+              <button class="btn btn-default">Thêm</button>
+            </div>
+            <div class="list-item panel-body">
+                
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-right col-md-3 hidden-xs hidden-sm">
+          <div class="iti-day-nav fui-row-full pos-fixed">
+            <div class="iti-day-nav-list fui-box">
+              <ul class="nav nav-pills nav-stacked list-unstyled">
+                <li class="bottom-border active">
+                   <a href="#page-itinerary">
+                   <i class="icomoon-icon-map-2"></i>Chi tiết kế hoạch
+                   </a>
+                </li>
+                <li>
+                  <a>Số ngày đi: <span class="badge fright"></span></a>
+                </li>
+                <li>
+                  <a>Số địa điểm: <span class="badge fright"></span></a>
+                </li>
+                <li>
+                  <a>Ngày bắt đầu: <span class="badge fright"></span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%=render :partial=> 'plans/template'%>
+
+                    <script type="text/javascript">
+                      jQuery( function( $ ){ 
+                        var nowTemp = new Date();
+                        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+           
+                      $('#tripPlan-StartDay').datepicker({
+                        onRender: function(date) {
+                          return date.valueOf() < now.valueOf() ? 'disabled' : '';
+                        }
+                      });});
+                    </script>

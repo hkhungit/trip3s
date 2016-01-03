@@ -5,8 +5,13 @@ class CreateScheduleDetails < ActiveRecord::Migration
       t.references :schedule, index: true
       t.string :place_name
       t.string :place_spend
-      t.datetime :place_in
-      t.datetime :place_out
+      t.string :place_note, :limit => 4294967295 
+      t.string :place_img,:limit => 65535  
+      t.string :place_in
+      t.string :place_lat
+      t.string :place_lng
+      t.integer :place_type
+      t.string :place_out
       t.string :next_time
       t.string :next_distance
 

@@ -19,7 +19,25 @@
 			<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="50" height="50">
 		</div>
 	</script>
+	<script type="text/html" id="load-added-friend">
+		<li class="list-group-item" data-userid="{{user-id}}">
+			{{user-name}}
+			<button class="btn-xs btn-default pull-right remove-friend-to-plan" data-userid="{{user-id}}"><i class="glyphicon glyphicon-remove"></i></button>
+		</li>            
+	</script>
+	<script type="text/html" id="load-item-friend">
+		<li class="list-group-item">
+			{{user-namea}}
+			<button class="btn-xs btn-default pull-right add-friend-to-plan"  data-username="{{user-name}}" data-userid="{{user-id}}"><i class="glyphicon glyphicon-plus-sign"></i></button>
+		</li>            
+	</script>
 
+	<script type="text/html" id="load-schedule-day-header-control-3">
+		<div class="col-md-12">
+		    <button class="btn btn-xs btn-danger"    id="back-to-day"><i class="fa fa-arrow-circle-left"></i> Quay lại</button>
+		    <button class="btn btn-xs btn-success"    id="save-to-plan"><i class="fa fa-save"></i> Xem trước</button>
+		</div>
+	</script>
 	<script type="text/html" id="load-schedule-day-header-control-2">
 		<div class="col-md-3 dropdown pull-left dropleft">
 			<button class="btn btn-xs btn-warning dropdown-toggle" type="button" data-place_id="1" id="dropdown-select-days" data-toggle="dropdown">
@@ -30,17 +48,16 @@
 			</ul>
 		</div>
 		<div class="col-md-9">
-		   	<button class="btn btn-xs btn-danger " id="showMap-plan"><i class="glyphicon glyphicon-globe"></i> Bản đồ</button>
-		    <button class="btn btn-xs btn-success" id="add-day-to-plan"><i class="glyphicon glyphicon-plus"></i> Ngày</button>
-		    <button class="btn btn-xs btn-info"    id="all-to-plan"><i class="glyphicon glyphicon-th-list"></i>Tât cả</button>
+		   	<button class="btn btn-xs btn-danger" id="showMap-plan"><i class="glyphicon glyphicon-globe"></i> Lộ trình</button>
+		    <button class="btn btn-xs btn-info"    id="all-to-plan"><i class="glyphicon glyphicon-th-list"></i> Tất cả</button>
+		    <button class="btn btn-xs btn-primary"    id="back-to-plan"><i class="glyphicon glyphicon-th-list"></i> Địa điểm</button>
 		</div>
 	</script>
 	<script type="text/html" id="load-schedule-day-header-control-1">
 		<div class="col-md-12">
 			<strong ><i class="fa fa-list"></i> Địa điểm đã chọn</strong>
-			<button class="btn btn-xs btn-danger  showMap-place"><i class="fa fa-map-o"></i> Bản đồ</button>
+			<button class="btn btn-xs btn-danger  showMap-place"><i class="glyphicon glyphicon-globe"></i> Bản đồ</button>
 			<button class="btn btn-xs btn-info create-trip"><i class="fa fa-pie-chart"></i> Tạo lịch</button>
-			<button class="btn btn-xs btn-warning open-trip-down"><i class="fa fa-chevron-circle-down"></i></button>
 		</div>
 	</script>
 
@@ -61,78 +78,208 @@
 	</script>
  
 	<script type="text/html" id="loading-place-start-1">
-		<div class="form-group">
+<div class="form-group">
 			<h3>Cài đặt ngày {{dayNumber}}</h3>
        		<label class="left" for="tripPlan_placeBegin_{{dayNumber}}"><strong>Điểm bắt đầu:  </strong></label>
             <select class="tripPlan-placeBegin form-control left"  data-schedule="{{dayNumber}}" name="tripPlan_placeBegin_{{dayNumber}}"  style ="width:150px">
             	{{places-list-start}}
             </select>
+
+	    </div>
+
 	        <div class="form-group">
 	       		<label class="left" for="tripPlan_placeEnd_{{dayNumber}}"><strong>Điểm ở lại:  </strong></label>
 	            <select class="tripPlan-placeEnd form-control left" data-schedule="{{dayNumber}}" name="tripPlan_placeEnd_{{dayNumber}}"  style ="width:150px">
 	            	{{places-list-end}}
 	            </select>
 	        </div>
-        </div>
+
+
+				<div class="form-group">
+                        <label class="left" for="tripPlan_placeMoney_{{dayNumber}}"><strong>Số Tiền:  </strong></label>
+                        <input type="number" name="tripPlan_placeMoney_{{dayNumber}}" class="form-control left tripPlan_placeMoney_{{dayNumber}}" id="tripPlan_placeMoney_{{dayNumber}}" placeholder="Số tiền chuẩn bị" required="required" style ="width:150px">
+                    </div>
+
+				<div class="form-group">
+                        <label class="left" for="tripPlan_placeUser_{{dayNumber}}"><strong>Số Người:  </strong></label>
+                        <input type="number" name="tripPlan_placeUser_{{dayNumber}}" class="form-control left tripPlan_placeUser_{{dayNumber}}" id="tripPlan_placeUser_{{dayNumber}}" placeholder="Số người tham gia" required="required" style ="width:150px">
+                    </div>
+
+              <div class="form-group">
+                        <label class="left" for="tripPlan_timeBegin_{{dayNumber}}"><strong>Thời gian đi:  </strong></label>
+                        <input type="text" min="1" max="24" name="tripPlan_timeBegin_{{dayNumber}}" class="form-control left tripPlan_timeBegin_{{dayNumber}}" id="tripPlan_timeBegin_{{dayNumber}}"  required="required" style ="width:150px">
+                    </div>
+              <div class="form-group">
+                        <label class="left" for="tripPlan_timeEnd_{{dayNumber}}"><strong>Thời gian về:  </strong></label>
+                        <input type="text"  min="1" max="24"  name="tripPlan_timeEnd_{{dayNumber}}" class="form-control left" id="tripPlan_timeEnd_{{dayNumber}}"  required="required" style ="width:150px">
+                    </div>
+
 		
 	</script>
 	<script type="text/html" id="loading-place-start-2">
-		<div class="form-group">
+			<div class="form-group">
 			<h3>Cài đặt ngày {{dayNumber}}</h3>
        		<label class="left" for="tripPlan_placeEnd_{{dayNumber}}"><strong>Điểm ở lại:  </strong></label>
             <select class="tripPlan-placeEnd form-control left" data-schedule="{{dayNumber}}"  name="tripPlan_placeEnd_{{dayNumber}}"  style ="width:150px">
             	{{places-list-end}}
             </select>
         </div>
+				<div class="form-group">
+                        <label class="left" for="tripPlan_placeMoney_{{dayNumber}}"><strong>Số Tiền:  </strong></label>
+                        <input type="number" name="tripPlan_placeMoney_{{dayNumber}}" class="form-control left tripPlan_placeMoney_{{dayNumber}}" id="tripPlan_placeMoney_{{dayNumber}}" placeholder="Số tiền chuẩn bị" required="required" style ="width:150px">
+                    </div>
+
+				<div class="form-group">
+                        <label class="left" for="tripPlan_placeUser_{{dayNumber}}"><strong>Số Người:  </strong></label>
+                        <input type="number" name="tripPlan_placeUser_{{dayNumber}}" class="form-control left tripPlan_placeUser_{{dayNumber}}" id="tripPlan_placeUser_{{dayNumber}}" placeholder="Số người tham gia" required="required" style ="width:150px">
+                    </div>
+
+              <div class="form-group">
+                        <label class="left" for="tripPlan_timeBegin_{{dayNumber}}"><strong>Thời gian đi:  </strong></label>
+                        <input type="text" min="1" max="24" name="tripPlan_timeBegin_{{dayNumber}}" class="form-control left tripPlan_timeBegin_{{dayNumber}}" id="tripPlan_timeBegin_{{dayNumber}}"  required="required" style ="width:150px">
+                    </div>
+              <div class="form-group">
+                        <label class="left" for="tripPlan_timeEnd_{{dayNumber}}"><strong>Thời gian về:  </strong></label>
+                        <input type="text"  min="1" max="24"  name="tripPlan_timeEnd_{{dayNumber}}" class="form-control left" id="tripPlan_timeEnd_{{dayNumber}}"  required="required" style ="width:150px">
+                    </div>
+
 	</script>
+	<script type="text/html" id="loading-preview-detail-day">
+		<section class="col-md-12">
+                        <div class="iti-att-content  col-md-12">
+                          <div class="col-md-4">
+                            <img class="thumbnail-img" src="{{place_thumbnail}}" alt="{{place_name}}">
+                          </div>
+                          <div class="col-md-8">
+                            <div class="col-md-12">
+                              <strong>Tên địa điểm: {{place_name}}</strong>
+                            </div>
+                            <div class="col-md-12">
+                              <strong>Thời gian thăm: {{place_time}}</strong>
+                            </div>
+                            <div class="col-md-12">
+                              <strong>Thời gian đến: {{place_come}}</strong>
+                            </div>
+                            <div class="col-md-12">
+                              <strong>Thời gian mở cửa: {{place_open}}</strong>
+                            </div>
+                            <div class="col-md-12">
+                              <strong>Thời gian đóng cửa: {{place_close}}</strong>
+                            </div>
+                            <div class="col-md-12">
+                              <strong>Ghi chú: {{place_note}}</strong>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="iti-att-next-route fui-row-full col-md-12 route-content-preview">
+                          <div class="attribute-route">
+
+                            <div class="pull-right trans-detail" style="    cursor: pointer;">  &nbsp; Chi tiết  &nbsp;</div>
+                             <div class="pull-left trans-mode">
+                            <i class="trans-icon icomoon-icon-bus"></i>
+                            <span class="hidden-xs title">Đi đến <a target="_blank" href="#">{{place_next}}</a></span>
+                            </div>
+                            <div class="pull-right trans-time">&nbsp; <i class="glyphicon glyphicon-time"></i>
+                              {{next_time}} giờ
+                            </div>  
+                            <div class="pull-right trans-distance">
+                              <i class="glyphicon glyphicon-arrow-down"></i> {{next_distance}}<span class="trans-unit"> km</span>
+                            </div>
+                          </div>
+
+                          <div class="content-detail-next-place content-detail-next-place-{{place_id}}-{{day-index}}" id="content-detail-next-place-{{place_id}}-{{day-index}}">
+               
+                          </div>
+                        </div>
+
+                      </section>
+	</script>
+	<script type="text/html" id="loading-preview-detail-schedule">
+		<div class="col-md-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <strong>Ngày {{day-index}}: </strong>
+                    <span class="badge fright">{{place-count}}  Địa điểm</span>
+                    <span class="badge fright">{{user-count}}  Người</span>
+                    <span class="badge fright">{{money-count}}  Vnđ</span>
+                  </div>
+                  <div class="panel-body">
+                    <div class="map-in-schedule map-schedule-{{day-index}}" id="map-schedule-{{day-index}}" style="height:500px; width:100%" >
+                      
+                    </div>
+                    <div class="row">
+                      {{section_detail}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+	</script>
+	<script type="text/html" id="loading-preview-plan">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		          <button type="button" class="close" title="Đóng" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times-circle"></i></button>
+
+		          <h4 class="modal-title"  >Xem trước kế hoạch</h4> 
+		      </div>
+		      <div class="modal-body" id="preview_detail_panel_content">
+		        <div class="row">
+		          <div class="col-sm-12">
+		            <div class="text-left quote fleft">
+		              <div class="quote-content fui-gray">
+		                {{plan_name}}
+		              </div>
+		            </div>
+		            <ul class="iti-attributes nav-links fui-row-full list-unstyled">
+		              <li><span class="fleft">Tổng thời gian:</span><span class="fright plan-value"><b> {{plan_day}}</b> <small> Ngày</small></span></li>
+
+		              <li><span class="fleft">Tổng chi phí:</span><span class="fright plan-value"><b> {{plan_all_money}}</b> <small> Vnđ</small></span></li>
+
+		              <li><span class="fleft">Tổng khoảng cách:</span><span class="fright plan-value"><b>{{plan_all_distance}}</b> <small> km</small></span></li>
+
+		              <li> <span class="fleft">Tổng địa điểm</span> <span class="fright plan-value"><b>{{plan_all_place}}</b> <small> địa điểm</small></span></li>
+		            </ul>
+		          </div>
+		        </div>
+		        <div class="row detail-plan-html" >
+		        	{{plan_all_detail}}
+		        </div>
+		        <div class="modal-footer">
+		        </div>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+	</script>
+
 	<script type="text/html" id="loading-list-place-plan">
 	<button class="btn-xs javo-mhome-onoff-sidebar" ><i class="fa fa-chevron-circle-left"></i></button>	
-
-		
+	
 		<div class="well-default panel-heading header-detail-add-plan">
+			<div class="manage-btn">
+				<button class="btn-xs btn-success preview-to-plan save-left" ><i class="fa fa-save"></i>
+					Xem trước
+				</button>
+				<button class="btn-xs btn-danger cancel-to-plan save-left" ><i class="fa fa-remove"></i>
+					Hủy
+				</button>
+			</div>	
 			<div class="row schedule-day-header-control" id="schedule-day-header-control">
 				<div class="col-md-12">
-					<strong ><i class="fa fa-list"></i> Địa điểm đã chọn</strong>
-					<button class="btn btn-xs btn-danger  showMap-place"><i class="fa fa-map-o"></i> Bản đồ</button>
-					<button class="btn btn-xs btn-info create-trip"><i class="fa fa-pie-chart"></i> Tạo lịch</button>
-					<button class="btn btn-xs btn-warning open-trip-down"><i class="fa fa-chevron-circle-down"></i></button>
+					<h4>Danh sách địa điểm đã chọn</h4>
+				</div>
+				<div class="col-md-12">
+					<button class="btn btn-xs btn-danger  showMap-place"><i class="glyphicon glyphicon-globe"></i> Xem bản đồ</button>
+					<button class="btn btn-xs btn-info create-trip">
+					
+						<i class="fa fa-pie-chart"></i> Sắp lịch
+					<span class="trigger-create">
+					</span>
+					</button>
+			
+					<button class="btn btn-xs btn-primary view-trip-down"><i class="fa fa-list-alt"></i> Kế hoạch đã sắp</button>
 				</div>
 			</div>
-		</div>
-		<div class="well-default panel-body body-detail-create-plan style-6" id="body-detail-create-plan">
-		<form>
-			<div class="form-group">
-                <label class="left" for="tripPlan[dayNumbers]"><strong>Số ngày:  </strong></label>
-                <input type="number" name="tripPlan[dayNumbers]" class="form-control left" id="tripPlan-dayNumbers" placeholder="Số ngày" required="required" style ="width:150px">
-            </div>
-			<div class="form-group">
-                <label class="left" for="tripPlan[userNumbers]"><strong>Số Người:  </strong></label>
-                <input type="number" name="tripPlan[userNumbers]" class="form-control left" id="tripPlan-userNumbers" placeholder="Số Người" required="required" style ="width:150px">
-            </div>
-			<div class="form-group">
-                <label class="left" for="tripPlan[moneyNumbers]"><strong>Số Tiền:  </strong></label>
-                <input type="number" name="tripPlan[moneyNumbers]" class="form-control left" id="tripPlan-moneyNumbers" placeholder="Số tiền chuẩn bị" required="required" style ="width:150px">
-            </div>
-			<div class="form-group">
-                <label class="left" for="tripPlan[planStart]"><strong>Ngày đi:  </strong></label>
-                <input type="text" name="tripPlan[planStart]" class="form-control left" id="tripPlan-planStart"  required="required" style ="width:150px">
-            </div>
-			<div class="form-group">
-                <label class="left" for="tripPlan[placeBegin]"><strong>Điểm ở lại:  </strong></label>
-                <select class="tripPlan-placeBegin form-control left" name="tripPlan[placeBegin]"  style ="width:150px">
-                </select>
-            </div>
-			<div class="form-group">
-                <label class="left" for="tripPlan[placeBegin]"></label>
-                <Span class="open-advance">Nâng cao</span>
-            </div>
-            <div class="setting-day"></div>
-			<div class="form-group">
-                <label class="left" for="tripPlan[placeBegin]"></label>
-                <button type="button" class="btn btn-sm btn-success btn-save-detail-plan"><i class="fa fa-save"></i> Lưu</button>
-                <button type="reset" class="reset btn-sm btn btn-danger" ><i class="fa fa-times"></i> Hủy bỏ</button>
-            </div>
-        </form>
 		</div>
 		<div class=" well-default panel-body body-detail-add-plan" id="body-detail-add-plan">
 			<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="150">
@@ -166,6 +313,9 @@
 	</script>
 	<script type="text/html" id="loading-detail-plan">
 	<button class="btn-xs javo-mhome-onoff-sidebar" ><i class="fa fa-chevron-circle-left"></i></button>	
+	<button class="btn-xs save-to-plan save-left" ><i class="fa fa-chevron-circle-left"></i>
+	Lưu kế hoạch
+	</button>	
 	<div>	
 
 		<div class="well-default panel-heading header-detail-add-plan">
@@ -183,12 +333,10 @@
 					<div><i data-distance="2" id="distance-of-1" class="distance-number">3</i><i class="fa fa-arrows-h icon"></i></div>
 					<div><i data-time="2" id="time-of-1" class="time-number">2</i><i class="fa fa-clock-o icon"></i></div>
 					<div><i data-user="2" id="user-of-1" class="user-number">2</i><i class="fa fa-user icon"></i></div>
-					<div><i data-money="2" id="money-of-1" class="money-number">300</i><i class="fa fa-money icon"></i></div>
+					<div><i data-money="2" id="money-of-1" class="money-number">300</i> đ</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="well-default panel-body body-detail-create-plan style-6" id="body-detail-create-plan"></div>
 		<div class="well-default panel-body body-detail-add-plan" id="body-detail-add-plan"></div>
 
 	</script>
@@ -214,7 +362,9 @@
 		<div class="title-information" ><b><i class="fa  fa-map-marker icon"></i> {{data-index}} - Địa điểm chưa sắp lịch </b></div>
 	</script>
 	<script type="text/template" id="trip3s-attribute-schedule-1">
-		<div class="title-information" ><b>Thông tin ngày thứ {{data-index}}</b></div>
+		<div class="title-information" ><b>Thông tin ngày thứ {{data-index}}</b>
+		<button class="btn-xs btn-default pull-right btn-optimize" data-day="{{data-index}}">Tối ưu</button>
+		</div>
 		<div><i class="fa  fa-map-marker icon"></i
 			<b data-place="{{data-place}}" id="place-of-{{data-place}}" class="place-number">{{data-place}}</b>  | 
 		</div>
@@ -233,8 +383,7 @@
 			 | 
 		</div>
 		<div>
-			<i class="fa fa-money icon"></i>
-			<b data-money="{{data-money}}" id="money-of-{{data-money}}" class="money-number">{{data-money}}</b> 
+			<b data-money="{{data-money}}" id="money-of-{{data-money}}" class="money-number">{{data-money}}</b> đ
 		</div>
 	</script>
 	<script type="text/template" id="trip3s-attribute-schedule-info">
@@ -257,38 +406,261 @@
 			 | 
 		</div>
 		<div>
-			<i class="fa fa-money icon"></i>
-			<b data-money="{{data-money}}" id="money-of-{{data-money}}" class="money-number">{{data-money}}</b> 
+
+			<b data-money="{{data-money}}" id="money-of-{{data-money}}" class="money-number">{{data-money}}</b> đ
 		</div>
 	</script>
+	<script type="text/template" id="load-model-detail-place">
+<div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		        <h4 class="modal-title text-left"><i class="icomoon-icon-location-2"></i><span class="attraction-name">{{place_name}}</span></h4>
+		      </div>
+		      <div class="row">
+		        <div class="col-sm-12 col-xs-12 place-content">
+		          <div id="attraction-info" class="col-xs-12" title="Langkawi city center">
+		            <div class="fleft visible-xs col-xs-12" style="padding:0px;margin-bottom:15px">
+		              <div class="fui-row-full fleft">
+		                <a href="#" target="_blank">
+		                <img class="img-rounded fui-row-full fleft" style="margin-top:15px;" src="/media/a/00/0a/42787_lg_1.jpeg">
+		                </a>
+		              </div>
+		            </div>
+		            <div role="tabpanel" class="place-tabs">
+		              <ul class="nav nav-tabs" role="tablist">
+		                <li role="presentation" class="active"><a aria-controls="place-info" role="tab" data-toggle="tab">Thông tin</a></li>
+		              </ul>
+		              <div class="tab-content">
+		                <div role="tabpanel" class="tab-pane active" control="place-info">
+		                  <div class="fui-block fleft">
+		                    <div class="table-attribute fui-row-full row fleft">
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Địa chỉ:  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{place_address}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Giờ mở cửa:  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{place_open}} - {{place_close}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Giá :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{place_min}} - {{place_max}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Thời gian thăm :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{place_time}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Danh mục :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{place_category}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Lượt xem :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{post_view}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Rating :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{post_rating}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                        {{place_expert}}
+		                      </div>
+		                    </div>
+		                  </div>
+		                </div> 
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		       <div class="modal-footer">
+		 
+
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+	</script>
+	<script type="text/template" id="load-model-edit-place">
+		   <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		        <h4 class="modal-title text-left"><i class="icomoon-icon-location-2"></i><span class="attraction-name">{{place_name}}</span></h4>
+		      </div>
+		      <div class="row">
+		        <div class="col-sm-8 col-xs-12 place-content">
+		          <div id="attraction-info" class="col-xs-12" title="Langkawi city center">
+		            <div class="fleft visible-xs col-xs-12" style="padding:0px;margin-bottom:15px">
+		              <div class="fui-row-full fleft">
+		                <a href="#" target="_blank">
+		                <img class="img-rounded fui-row-full fleft" style="margin-top:15px;" src="/media/a/00/0a/42787_lg_1.jpeg">
+		                </a>
+		              </div>
+		            </div>
+		            <div role="tabpanel" class="place-tabs">
+		              <ul class="nav nav-tabs" role="tablist">
+		                <li role="presentation" class="active"><a aria-controls="place-info" role="tab" data-toggle="tab">Thông tin</a></li>
+		              </ul>
+		              <div class="tab-content">
+		                <div role="tabpanel" class="tab-pane active" control="place-info">
+		                  <div class="fui-block fleft">
+		                    <div class="table-attribute fui-row-full row fleft">
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Địa chỉ:  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{place_address}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Giờ mở cửa:  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{place_open}} - {{place_close}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Giá :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{place_min}} - {{place_max}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Thời gian thăm :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span class="place_time_updated">{{place_time}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Danh mục :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{place_category}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Lượt xem :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{post_view}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                          <div class="col-sm-4 col-xs-12">
+		                            <label>Rating :  </label>
+		                          </div>
+		                          <div class="col-sm-8 col-xs-12">
+		                            <span>{{post_rating}}</span>
+		                          </div>
+		                      </div>
+		                      <div class="col-md-12">
+		                        {{place_expert}}
+		                      </div>
+		                    </div>
+		                  </div>
+		                </div> 
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		        <div class="col-sm-4 col-xs-12 place-noti row">
+		          <div class="pull-left fui-row-full place-event">
+		            <div class="form-group">
+		              <strong>Ghi chú</strong>
+		              <textarea name="description"  style="min-height:75px" data-attr="description" class="description-note form-control input-sm" placeholder="Thông tin ghi chú">{{place_note}}</textarea>
+		            </div>
+		             <div class="form-group">
+		              <strong>Cập nhật thời gian thăm</strong>
+		              <input type="number" min="0" max="24" value="{{place_time}}" class="form-control place_time_update"  name="time_place" />
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+
+		      <div class="modal-footer">
+		        <label class="label-status"></label>
+		        <button class="btn btn-default update-place-time" data-place_id="{{place_id}}" data-schedule_id="{{schedule_id}}">
+		          Cập nhật
+		        </button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+	</script>
+	<script type="text/template" id="load-day-in-place">
+		<li><a href="#" class="fa  {{index-class}}" day="{{index-number}}"> Ngày {{index-number}}</a><li>
+	</script>
 	<script type="text/template" id="trip3s-place-in-schedule">
-		<li class="day-in-plan col-md-12 {{truetime}}" remote ="true" data-place_id="{{place_id}}" data-place='{{current_place}}'>
+		<li class="day-in-plan col-md-12 {{truetime}} place-num-{{place_id}}"  remote ="true" data-schedule_id="{{schedule_id}}" data-place_id="{{place_id}}" data-place='{{current_place}}'>
 			<div class="thumbnail item-list-day"> 
 				<img src="{{post_thumbnail}}" /><i class="number">{{sort_thumbnail}}</i>
-				<i class="select-home fa fa-home"></i>	
+				<i class="remove-place fa fa-trash-o" data-place_id="{{place_id}}"></i>	
 				<div class="excerpt-place">
 					{{post_excerpt}}
 				</div>
 
+				<div class="edit-item-place btn btn-default" data-place_id="{{place_id}}" >
+					Chi tiết
+				</div>
 				<div class="title-place">
 				<label class="label label-success">{{place_come}}</label>
 					<b>{{post_title}}</b>
 				</div>
 			</div>
-			
 			<div class="place-attribute">
 				<span><i class="fa fa-clock-o icon"></i><i class="value place_time" place_time data-value="{{place_time}}">{{place_time}}</i> giờ</span>
 				<span><i class="fa fa-money icon"></i><i class="value place_ticket" place_ticket data-value="{{place_ticket}}">{{place_ticket}}</i></span>
-				<span><i class="fa fa-sticky-note-o icon"></i><i class="value">Ghi chú</i></span>
+				<span><i class="fa fa-sticky-note-o icon"></i><i class="value" place_note >Ghi chú</i></span>
 			</div>
-			<div class="place_note" style="display:none" place_note  data-value="{{place_note}}">{{place_note}}</div>
+
+			<div class="place_note_value" style="display:none"   data-value="{{place_note}}">{{place_note}}</div>
 			<div class="next_detail"  style="display:none" next_detail data-value="{{next_detail}}">{{next_detail}}</div>
 			<div class="place-router">
 				<span><i class="icon fa fa-car"></i>
 				</span>
 				<span><i class="icon fa fa-arrows-h icon"></i><i class="value next_distance" next_distance data-value="{{next_distance}}">{{next_distance}}</i> Km</span>
 				<span><i class="icon fa fa-clock-o icon"></i><i class="value next_time" next_time data-value="{{next_time}}">{{next_time}}</i> Giờ</span>
-				<span><i class="icon"></i><i class="value">Chi tiết</i></span>
+				<span data-place_id="{{place_id}}" class="detail-next"><i class="icon"></i><i class="value">Chi tiết</i></span>
+
+			<div class="place-router-detail" id="router-panel-{{place_id}}">
+
+			</div>
 			</div>
 		</li>
 	</script>
@@ -308,9 +680,7 @@
 						<div class="javo-txt-meta-area admin-color-setting" data-id="{post_id}" btn-add-place-plan id="add-to-plan">Thêm &nbsp; </div> <!-- javo-txt-meta-area -->
 						<i class="fa fa-arrow-circle-down open-lists-day"></i>
 						<ul class="nav-drop-menu list-day-in-plan scrollbar style-8" list-day-in-plan  place_id="{place_id}" >
-	                       	<li>
-								<a href="#" class="fa fa-times" day="1"> Ngày 1</a>
-							</li>
+	                       	{{day_in_place}}
                         </ul><!-- nav-drop-menu -->
 					</div>
 					

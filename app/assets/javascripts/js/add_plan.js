@@ -1,4 +1,6 @@
 var tripPlan = {
+
+			tripName: 			 'Du lịch trip3s',
 			dayNumber: 			2,
 			userNumber: 		1,
 			planStart: 			null,
@@ -24,7 +26,7 @@ var tripPlan = {
 			try{
 				time = time.split(":");	
 			}catch(e){
-				console.log(time);
+				//console.log(time);
 			}
 			time[0] = (typeof time[0] =='undefined') ? 0: time[0];
 			time[1] = (typeof time[1] =='undefined') ? 0: time[1];
@@ -69,13 +71,35 @@ jQuery( function( $ ){
 			}
 			return arrbk;
 		}
+		function showSave(display){
+			if (typeof display == 'undefined') {display == false};
+			if (display) {$('.manage-btn').fadeIn()}else{$('.manage-btn').fadeOut();};
+			
+		}
+		function removeDuplicate2(arr){
+			var resultsaa = [],arrbk  =[];
+			for (var i = 0; i < arr.length; i++) {
+			    if (resultsaa.indexOf(arr[i].place_id) < 0 ) {
+			        resultsaa.push(arr[i].place_id);
+			        arrbk.push(arr[i]);
+			    }
+			}
+			return {
+				placeLists:arrbk,
+				placeIds:resultsaa
+			};
+		}
 		/*Add the place to places in plan*/
 		$(document).on('click','[btn-add-place-plan]',function(){
 			var itemSelected 	= 	$(this).parent().parent().parent().data('place');
 			if (tripPlan.placeIds.indexOf(itemSelected.place_id) == -1) {
 				tripPlan.placeIds.push(itemSelected.place_id);
+				itemSelected.place_note = '';
+				itemSelected.place_time1 = itemSelected.place_time;
 				tripPlan.placeLists.push(itemSelected);
 			};
+
+
 			$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
 			});
 
@@ -92,6 +116,9 @@ jQuery( function( $ ){
 		        	});
 		        }
 		    });
+		   
+
+		    $(this).parent().parent().parent().parent().remove();
 		});
 		/*Add event when set a place number 1 of a day in schedule */
 		$(document).on('click','.select-home',function(){
@@ -146,22 +173,57 @@ jQuery( function( $ ){
 			console.log("Added a day to plan 1");
 			update_list_day();
 		});
+		$(document).on('click','#back-to-plan',function(){
+
+			var obj = window.javo_map_box_func;
+			obj.ajax_favorite(tripPlan.placeLists,2);
+					obj.resize();
+					$("ul#schedule-day-boby").sortable({
+				        update: function(event, ui) {
+				        	$('ul#schedule-day-boby li').each(function(e){
+				        		var place = $(this).data('place');
+				        		$(this).find('.number').text(e + 1);
+				        		tripPlan.placeIds[e] = place.id;
+								tripPlan.placeLists[e] = place;
+				        	});
+				        }
+				    });
+		});
+		$(document).on('click','#back-to-day',function(){
+			$('.javo_mhome_sidebar').removeClass('all_day');
+			var strHtml = $('#load-schedule-day-header-control-2').html(),current_day =1;
+			
+ 			update_sidebar_header_control({currDay:current_day, indexControl: 2,numDay:tripPlan.dayNumber});
+
+			$('#dropdown-select-days').html('Ngày '+ current_day + ' <span class="caret"></span>');
+			$('#dropdown-select-days').attr("data-place_id",current_day);
+			update_sidebar_boby(tripPlan,parseInt(current_day));
+
+			var obj = window.javo_map_box_func;
+			obj.resize();
+			
+ 			update_list_day(tripPlan.dayNumber);
+		});
 		$(document).on('click','#all-to-plan',function(){
 			var obj = window.javo_map_box_func;
+			var html_header = $('#load-schedule-day-header-control-3').html();
+			$('#schedule-day-header-control').html(html_header);
 			if ($('.javo_mhome_sidebar').hasClass('all_day')) {
 				$(this).text("Tất cả");
 			}else{
 				$(this).text("Thu lại");
 				var _width = $('.schedule-day-boby-detail:first-child').outerWidth() + 5;
-				
-				if (tripPlan.placeNotSchedule.length > 0) {
+				if (typeof tripPlan.schedules["Day_Not"] == 'undefined') {
+					_width = _width*(tripPlan.schedules.length);
+				}else if (tripPlan.schedules["Day_Not"].placeLists.length > 0) {
 					_width = _width*(tripPlan.schedules.length +1);
 				}else{
 					_width = (_width*tripPlan.schedules.length);
 				};
 				$('.full-detail ').css('width',_width);
-				obj.resize();
+				
 			} 
+			obj.resize();
 
 			$('.javo_mhome_sidebar').toggleClass('all_day');
 			update_list_day();
@@ -194,15 +256,17 @@ jQuery( function( $ ){
 					 			var place = $(this).data('place');
 					 			tripPlan.schedules["Day_Not"].placeLists.push(place);
 				        	});
-				 	update_sidebar_boby(tripPlan);
+				 	var choice = $('#dropdown-select-days').data('place_id');
+				 	update_sidebar_boby(tripPlan,choice);
 
-				 	$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
-					});
-				var obj = window.javo_map_box_func;
-				obj.resize();
+				 	$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){});
+					var obj = window.javo_map_box_func;
+					obj.resize();
 		        }
 			 });
 		}
+
+
 		function update_duration(schedule){
 			if (typeof schedule === 'object') {
 				var _schPlaces = schedule.placeLists;
@@ -250,35 +314,575 @@ jQuery( function( $ ){
 			console.log("Updates day lists");
 			//update_selected();
 		}
-		$(document).on('click','.create-trip',function(){
+		jQuery.fn.slideLeftHide = function(speed, callback,options) { 
+			var defaults = {
+		 			width: "0", 
+				    paddingLeft: "0", 
+				    paddingRight: "0", 
+				    marginLeft: "0", 
+				    marginRight: "0" 
+			}
+			defaults = jQuery.extend(defaults,options);
+		  this.animate({ 
+		    width: defaults.width, 
+		    paddingLeft: defaults.paddingLeft, 
+		    paddingRight: defaults.paddingRight, 
+		    marginLeft: defaults.marginLeft, 
+		    marginRight: defaults.marginRight
+		  }, speed, callback);
+		}
 
+		jQuery.fn.slideLeftShow = function(speed, callback,options) { 
+		  var defaults = { 
+		    width: "50%", 
+		    paddingLeft: "0", 
+		    paddingRight: "0", 
+		    marginLeft: "0", 
+		    marginRight: "0" 
+		  };
+		  defaults = jQuery.extend(defaults,options);
+		   this.animate({ 
+		    width: defaults.width, 
+		    paddingLeft: defaults.paddingLeft, 
+		    paddingRight: defaults.paddingRight, 
+		    marginLeft: defaults.marginLeft, 
+		    marginRight: defaults.marginRight
+		  }, speed, callback);
+		}
+		$(document).on('click','[place_note]',function(e){
+			$('.place_note_value').toggle();
+		});
+		$(document).on('click','.btn-box-description',function(e){
+			$('.javo_mhome_sidebar_wrap').fadeOut();
+			$('#sidebar-desciption').toggle();
+		});
+		$(document).on('click','.update-place-time',function(e){
+			var modal = $(this).parent().parent();
+
+			var place_time = modal.find('.place_time_update').val();
+			var place_note = modal.find('.description-note').val();
+			modal.find('.place_time_updated').html(place_time);
+
+			var place_id = $(this).data('place_id');
+			var schedule_id = $(this).data('schedule_id');
+			var data  = $('.place-num-'+place_id).data('place');
+			data.place_time = place_time;data.place_note = place_note;
+			$('.place_note_value').attr('data-value',place_note).text(place_note);
+			$('.place-num-'+place_id).attr('data-place',JSON.stringify(data));
+			//$('.place-num-'+place_id).find('.place_time').attr('data-value',place_time).text(place_time);
+			$('.place-num-'+place_id).find('.place_time').attr('data-value',place_time).text(place_time);
+
+			if (schedule_id =='{{schedule_id}}') {
+
+				for (var i = 0; i < tripPlan.placeLists.length; i++) {
+					if (tripPlan.placeLists[i].place_id == place_id) {
+						tripPlan.placeLists[i].place_time 	= place_time;
+						tripPlan.placeLists[i].place_time1 	= place_time;
+						tripPlan.placeLists[i].place_note 	= place_note;
+					
+						$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){	console.log("updated !!");});
+					};
+				};
+			};
+
+		});
+
+		$(document).on('click','.edit-item-place',function(e){
+
+
+			var strFull = $('#load-model-edit-place').html();
+			var data = $(this).parent().parent().data('place');
+			strFull = strFull.replace(/{{place_id}}/g, data.place_id||'');
+			strFull = strFull.replace(/{{place_name}}/g, data.post_title||'');
+			strFull = strFull.replace(/{{place_expert}}/g, data.post_content||'');
+			strFull = strFull.replace(/{{place_address}}/g, data.location||'');
+			strFull = strFull.replace(/{{place_open}}/g, data.place_open||'');
+			strFull = strFull.replace(/{{place_close}}/g, data.place_close||'');
+			strFull = strFull.replace(/{{place_min}}/g, data.place_min||'');
+			strFull = strFull.replace(/{{place_max}}/g, data.place_max||'');
+			strFull = strFull.replace(/{{place_category}}/g, data.category||'');
+			strFull = strFull.replace(/{{place_time}}/g, data.place_time||'');
+			strFull = strFull.replace(/{{post_view}}/g, data.post_view||'');
+			strFull = strFull.replace(/{{post_rating}}/g, data.post_rating||'');
+			strFull = strFull.replace(/{{place_note}}/g, data.place_note||'');
+
+
+			$('#place_detail_panel').html(strFull).modal();
+			//return false;
+		});
+		$(document).on('click','.three-inner-detail',function(e){
+			var strFull = $('#load-model-detail-place').html();
+			var data = $(this).parent().parent().parent().data('place');
+			strFull = strFull.replace(/{{place_id}}/g, data.place_id||'');
+			strFull = strFull.replace(/{{place_name}}/g, data.post_title||'');
+			strFull = strFull.replace(/{{place_expert}}/g, data.post_content||'');
+			strFull = strFull.replace(/{{place_address}}/g, data.location||'');
+			strFull = strFull.replace(/{{place_open}}/g, data.place_open||'');
+			strFull = strFull.replace(/{{place_close}}/g, data.place_close||'');
+			strFull = strFull.replace(/{{place_min}}/g, data.place_min||'');
+			strFull = strFull.replace(/{{place_max}}/g, data.place_max||'');
+			strFull = strFull.replace(/{{place_category}}/g, data.category||'');
+			strFull = strFull.replace(/{{place_time}}/g, data.place_time||'');
+			strFull = strFull.replace(/{{post_view}}/g, data.post_view||'');
+			strFull = strFull.replace(/{{post_rating}}/g, data.post_rating||'');
+
+			$('#place_detail_panel').html(strFull).modal();
+			return false;
+		});
+		$(document).on('click','.btn-box-filter',function(e){
+			//$('.javo_mhome_sidebar_wrap').fadeOut();
+			if ($('.javo_mhome_map_lists').is(":visible")) {
+				$('.javo_mhome_map_lists').slideLeftHide(1000);
+				$('div.javo_mhome_wrap .javo_mhome_map_area').slideLeftShow(1000,function(){},{width: "100%"});
+
+				$('.javo_mhome_map_lists').fadeOut(1000);
+			}else{
+				$('.javo_mhome_map_lists').fadeIn();
+				//$('div.javo_mhome_wrap .javo_mhome_map_area').css('width','45%');
+
+				$('div.javo_mhome_wrap .javo_mhome_map_area').slideLeftShow(1000,function(){},{width: "50%"});
+				$('.javo_mhome_map_lists').slideLeftShow(1000);
+			};
+		});
+
+		$(document).on('click','.remove-friend-to-plan',function(e){
+			var userID 		= $(this).data('userid');
+			if (typeof tripPlan.userList !== 'undefined') {
+					var index= tripPlan.userList.indexOf(userID);
+					tripPlan.userList.splice(index,1);
+
+				 	$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){});
+				};
+			$(this).parent().remove();
+		});
+		$(document).on('click','.trans-detail',function(e){
+
+			//$('.content-detail-next-place').slideUp();
+			$(this).parent().parent().find('.content-detail-next-place').stop().toggle();
+		});
+		$(document).on('click','.add-friend-to-plan',function(e){
+			var userID 		= $(this).data('userid');
+			var userName 	= $(this).data('username');
+
+
+			var check = false;
+			if ($('ul.result-added-friend li').length > 0) {
+				$('ul.result-added-friend li').each(function(e){ 
+					if (parseFloat($(this).data('userid')) == parseFloat(userID)) 
+						check =true;
+				});
+			};
+			
+			if (!check) {
+				var textAdded 	= $('#load-added-friend').html();
+					textAdded 		= textAdded.replace(/{{user-name}}/g,userName || '');
+					textAdded 		= textAdded.replace(/{{user-id}}/g,userID || 0);
+					$('.result-added-friend').append(textAdded);
+				if (typeof tripPlan.userList == 'undefined') {
+					tripPlan.userList = [];
+					
+				};
+				tripPlan.userList.push(userID);
+				$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
+
+					console.log(data);
+				});
+			};
+		});
+		$(document).on('keypress','#tripPlan-user-friend',function(e){
+			var inputText  = $(this).val();
+			$.post('/api/response_user',{username:inputText}).done(function(data){
+				var strFull='';
+				if (data.status) {	
+					$.each( data.users, function( index, key ){
+						var strCurr = $('#load-item-friend').html();
+						strCurr = strCurr.replace(/{{user-name}}/,key.user_display || key.user_name );
+						strCurr = strCurr.replace(/{{user-namea}}/,key.user_display || key.user_name );
+						
+						strCurr = strCurr.replace(/{{user-id}}/,key.id ||'0');
+						strFull += strCurr;
+					});
+				};
+				$('.result-search-friend').html(strFull)
+			});
+		});
+		$(document).on('click','.btn-box-place',function(e){
+			$('.javo_mhome_sidebar_wrap').fadeOut();
+			$('#sidebar-places').toggle();
+
+		});
+		$(document).on('click','.btn-box-weather',function(e){
+			$('.javo_mhome_sidebar_wrap').fadeOut();
+		});
+
+		$(document).on('click','.btn-box-seting',function(e){
+			$('.javo_mhome_sidebar_wrap').fadeOut();
+
+			var _places =merge_places(tripPlan);
+			if ($('#sidebar-setups').is(":visible")) {
+				$('#sidebar-setups').fadeOut();
+			}else{
+				$('#sidebar-setups').fadeIn();
+				if (tripPlan.placeBegin =='' || typeof tripPlan.placeBegin == 'undefined'){
+					$('[name="tripPlan[placeBegin]"]').html(load_place_lists(_places));
+				}
+				else{
+					$('[name="tripPlan[placeBegin]"]').html(load_place_lists(_places,tripPlan.placeBegin));
+				}
+				console.log(tripPlan);
+				tripPlan.moneyNumber = (tripPlan.moneyNumber == null) ? 0 : parseFloat(tripPlan.moneyNumber);
+				$('#tripPlan-tripName').val(tripPlan.tripName);
+				$('#tripPlan-dayNumbers').val(tripPlan.dayNumber);
+				$('#tripPlan-userNumbers').val(tripPlan.userNumber);
+				$('#tripPlan-moneyNumbers').val(tripPlan.moneyNumber);
+				$('#tripPlan-planStart').val(tripPlan.planStart);
+				$('#tripPlan-timeStart').val(tripPlan.timeStart);
+				$('#tripPlan-timeEnd').val(tripPlan.timeEnd);
+
+				var nowTemp = new Date();
+				var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+		      
+		        $('#tripPlan-planStart').datepicker({
+				  onRender: function(date) {
+				    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+				  }
+				});
+			};
+		});
+			 // init the FB JS SDK
+		    FB.init({
+		      appId      : '689577704510810',                           // App ID from the app dashboard
+		      channelUrl : '/auth/facebook/',    // Channel file for x-domain comms
+		      status     : true,                               // Check Facebook Login status
+		      cookie     : true,
+		      xfbml      : true                                // Look for social plugins on the page
+		    });
+
+		$(document).on('click','.facebook_connect',function(e){
+			FB.getLoginStatus(function(response) {
+				  if (response.status === 'connected') {
+				
+				 LoginFb();
+
+				  } else if (response.status === 'not_authorized') {
+				 	 LoginFb();
+
+				  } else {
+				     LoginFb();
+				  }
+				 });
+		});
+
+			function LoginFb(){
+				$('#register_waiting_create').addClass('active_wait');
+				    FB.login(function(response) {
+				    	var accesstoken = response.authResponse.accessToken;
+				        if (response.authResponse) {
+				            FB.api('/me?fields=name,email', function(response) {
+							 var im =  "http://graph.facebook.com/" + response.id + "/pciture?type=normal";
+							  var users  = {
+							  	id: response.id,
+							  	name: response.name,
+							  	email: response.email,
+							  	image: im,
+							  	token: accesstoken
+							  }
+							  $.get('/auth/s/callback',{user: users}).done(function(data){
+							  	user  = data;
+							  	user.id = data.id;
+							  	console.log(user.id);
+							  	$('#login_panel').modal('hide');
+							  	$('#register_waiting_create').removeClass('active_wait');
+							  });
+							});
+				        } else {
+				            $('#register_waiting_create').removeClass('active_wait');
+				        }
+				    }, {scope: 'email,user_likes'});
+				}
+		$(document).on('click','.btn-box-users',function(e){
+			$('.javo_mhome_sidebar_wrap').fadeOut();
+			$('#sidebar-users').toggle();
+		});
+		$(document).on('click','.btn-box-cancel',function(e){
+			$('.javo_mhome_sidebar_wrap').fadeOut();
+		});
+		$(document).on('click','.btn-off-on',function(e){
+			console.log("dd");
+			if ($('.btn-default .btn-string').is(":visible")) {
+				$('.btn-off-on-control').html('<i class="fa fa-forward"></i>');
+				$('.sidebar_control').css('width','40px');
+				$('.javo_mhome_sidebar_wrap').css('left','41px');
+				
+				$('.btn-default .btn-string').stop().fadeOut();
+
+			}else{
+				$('.btn-default .btn-string').stop().fadeIn();
+				$('.btn-off-on-control').html('<i class="fa fa-fast-backward"></i>');
+				$('.sidebar_control').css('width','100px');
+				$('.javo_mhome_sidebar_wrap').css('left','101px');
+			};
+		});
+		$(document).on('click','.preview-to-plan',function(){
+
+			var strCurrDayDetail = '', allPlace = 0, allMoney = 0, allDistance = 0;
+			for (var day = 1; day <= tripPlan.dayNumber; day++) {
+
+				var strFullDayDetail = $('#loading-preview-detail-day').html(), money = 0, distance = 0, place = 0 ;
+				var strFullScheduleDetail1 = $('#loading-preview-detail-schedule').html(),user_count = 1,place_count = 0,money_count = 0,distance_count = 0;
+				var schedule  = tripPlan.schedules["Day_"+day];
+				place_count = schedule.placeLists.length +  1;
+				if (schedule.placeBegin.place_id != schedule.placeEnd.place_id) {place_count++};
+				money_count = schedule.money;
+				allMoney += parseFloat(money_count);
+				user_count = schedule.userNumber;
+				distance_count = schedule.distance;
+				allDistance += parseFloat(distance_count);
+				allPlace += parseFloat(place_count);
+
+				strFullScheduleDetail1 = strFullScheduleDetail1.replace(/{{day-index}}/g, day || '');
+				strFullScheduleDetail1 = strFullScheduleDetail1.replace(/{{place-count}}/g, place_count|| '0');
+				strFullScheduleDetail1 = strFullScheduleDetail1.replace(/{{user-count}}/g, user_count|| '1');
+				strFullScheduleDetail1 = strFullScheduleDetail1.replace(/{{money-count}}/g, money_count|| '0');
+				strFullScheduleDetail1 = strFullScheduleDetail1.replace(/{{distance-count}}/g, distance_count|| '0');
+				
+				var strFullScheduleDetailB = $('#loading-preview-detail-day').html(), begin = tripPlan.schedules["Day_"+day].placeBegin, strDetail = '';
+
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_time}}/g, begin.place_time || '');
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_come}}/g, begin.place_come || '');
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_open}}/g, begin.place_open || '');
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_close}}/g, begin.place_close || '');
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_note}}/g, begin.place_note || '');
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_thumbnail}}/g, begin.post_thumbnail || '');
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_name}}/g, begin.post_title || '');
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{next_distance}}/g, begin.next_distance || '');
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{next_time}}/g, begin.next_time || '');
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_id}}/g, begin.place_id || '');
+
+				if (tripPlan.schedules["Day_"+day].placeLists.length > 0) {
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_next}}/g, tripPlan.schedules["Day_"+day].placeLists[0].post_title || '');
+				};
+
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{day-index}}/g, day || 1);
+
+				strDetail += strFullScheduleDetailB;
+				for (var i = 0; i < tripPlan.schedules["Day_"+day].placeLists.length; i++) {
+					var strFullScheduleDetailB = $('#loading-preview-detail-day').html();
+					begin = tripPlan.schedules["Day_"+day].placeLists[i];
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_time}}/g, begin.place_time || '');
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_come}}/g, begin.place_come || '');
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_open}}/g, begin.place_open || '');
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_close}}/g, begin.place_close || '');
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_note}}/g, begin.place_note || '');
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_thumbnail}}/g, begin.post_thumbnail || '');
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_name}}/g, begin.post_title || '');
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{next_distance}}/g, begin.next_distance || '');
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{next_time}}/g, begin.next_time || '');
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_id}}/g, begin.place_id || '');
+					if (tripPlan.schedules["Day_"+day].placeLists.length - 1 > i) {
+						strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_next}}/g, tripPlan.schedules["Day_"+day].placeLists[i+1].post_title || '');
+					}else{
+						strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_next}}/g, tripPlan.schedules["Day_"+day].placeEnd.post_title || '');
+					};
+
+				strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{day-index}}/g, day || 1);
+					strDetail += strFullScheduleDetailB;
+				};
+
+				var strFullScheduleDetailE = $('#loading-preview-detail-day').html(), end = tripPlan.schedules["Day_"+day].placeEnd;
+
+					strFullScheduleDetailB = strFullScheduleDetailB.replace(/{{place_id}}/g, begin.place_id || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{place_time}}/g, end.place_time || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{place_come}}/g, end.place_come || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{place_open}}/g, end.place_open || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{place_close}}/g, end.place_close || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{place_note}}/g, end.place_note || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{place_thumbnail}}/g, end.post_thumbnail || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{place_name}}/g, end.post_title || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{next_distance}}/g, end.next_distance || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{next_time}}/g, end.next_time || '');
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{place_next}}/g, '' || '');
+
+				strFullScheduleDetailE = strFullScheduleDetailE.replace(/{{day-index}}/g, day || 1);
+
+
+				strDetail += strFullScheduleDetailE;
+
+				strFullScheduleDetail1 = strFullScheduleDetail1.replace(/{{section_detail}}/g, strDetail|| '');
+
+				strCurrDayDetail += strFullScheduleDetail1;
+
+			};
+			tripPlan.distance = allDistance;
+			tripPlan.money = allMoney;
+
+			var strFull = $('#loading-preview-plan').html();
+				strFull = strFull.replace(/{{plan_name}}/g, ''||'');
+				strFull = strFull.replace(/{{plan_day}}/g, 		tripPlan.dayNumber||'1');
+				strFull = strFull.replace(/{{plan_all_money}}/g,   allMoney ||'0');
+				strFull = strFull.replace(/{{plan_all_distance}}/g, tripPlan.distance.toFixed(2) ||'0');
+				strFull = strFull.replace(/{{plan_all_place}}/g,  allPlace||'0');
+				strFull = strFull.replace(/{{plan_all_detail}}/g, strCurrDayDetail||'');
+			
+			
+			
+
+
+			$('#preview_detail_panel').html(strFull);
+			$('#preview_detail_panel').modal();
+			setTimeout(function(){
+				var obj 		= window.javo_map_box_func;
+				
+				
+				
+				for (var day = 1; day <= tripPlan.dayNumber; day++) {
+					$('#map-schedule-'+day).gmap3(obj.options.map_init);
+					var map = $('#map-schedule-'+day).gmap3( 'get' );
+					tripPlan.schedules["Day_"+day].currentNumber = day;
+					obj.drawRoutePreview(tripPlan.schedules["Day_"+day],map);
+				}
+
+			},1500);
+
+			$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
+				console.log("Preview");
+				console.log(data);
+			}); 
+		});
+
+			
+		$(document).on('click','.btn-printf',function(){
+
+
+
+		});
+		$(document).on('click','.submit-to-plan',function(){
+			if (user.id < 1) {
+				$('#login_panel').modal();
+				return false;
+			};
+			
+		})
+		$(document).on('click','.save-to-plan',function(){
+			if (user.id < 1) {
+				$('#login_panel').modal();
+				return false;
+			};
+			$.post('/plans/createPlan',{},function(data){
+				if (data.status == true) {
+					window.location.href = "/plans/"+data.plan;
+				};
+			});
+		});
+		$(document).on('click','.cancel-to-plan',function(){
+			$.post('/api/trip3sReset',{ },function(data){
+				console.log("Reset trip");
+				tripPlan = data.plan;
+					var obj = window.javo_map_box_func;
+					obj.ajax_favorite(tripPlan.placeLists,2);
+					
+					obj.resize();
+			});
+		});
+		$(document).on('click','.trigger-create',function(){
 			if (typeof tripPlan.placeBegin =='undefined' || tripPlan.placeBegin == "") {
 				alert('Chọn 1 địa điểm bạn ở lại trong hành trình');
+
+				$('#register_waiting_create').removeClass('active_wait');
 				return false;
 			}
 
-			var antVectors = tripPlan.vectorDistances;
-			tripPlan.vectorDistances = getArrayDistances({placeLists: _saveArray(tripPlan.placeLists), 
+			var antVectors = tripPlan.vectorDistances,_places = _places =merge_places(tripPlan);
+
+			tripPlan.vectorDistances = getArrayDistances({placeLists: _saveArray(_places), 
 								placeBegin:tripPlan.placeBegin, 
 								placeEnd: tripPlan.placeEnd},antVectors);
 			tripPlan.schedules["Day_Not"] = { placeNumber:0, placeLists:[], placeIds:[] };
 			var optionsToPlan ={
-				dayNumber:tripPlan.dayNumber,
-				placeLists: tripPlan.placeLists,
-				placeBegin:tripPlan.placeBegin,
-				placeEnd:tripPlan.placeEnd,
+				dayNumber: 		tripPlan.dayNumber,
+				placeLists: 	tripPlan.placeLists,
+				placeBegin: 	tripPlan.placeBegin,
+				placeEnd: 		tripPlan.placeEnd,
+				timeStart: 		tripPlan.timeStart,
+				timeEnd: 		tripPlan.timeEnd,
 				antVectorDistance: tripPlan.vectorDistances,
-				schedules:tripPlan.schedules
+				schedules: 		tripPlan.schedules
 			}
+
 			optionsToPlan = acoCreateSchedule(optionsToPlan);
-			tripPlan.schedules = optionsToPlan.schedules;
+			
+
+		 	optionsToPlan.schedules = cloneObject(optionsToPlan.schedules);
+			
+
+		 	for (var ik = 1; ik <= tripPlan.dayNumber; ik++) {
+		 		optionsToPlan.schedules["Day_"+ik] = updatePlaceCome(optionsToPlan.schedules["Day_"+ik]);
+		 	}
+
+		 	tripPlan.schedules = cloneObject(optionsToPlan.schedules);
+			
+		
 
 			$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
-				console.log("Created the trip");
+				console.log("Created the trip successfully");
 				console.log(data);
-			});
 
+				$('#register_waiting_create').removeClass('active_wait');
+		
+			}); 
+			var obj  = window.javo_map_box_func;
+			obj.resize();
 			update_sidebar_plan(tripPlan);
+
+		});
+		
+		$(document).on('click','.btn-optimize',function(){
+			$('#register_waiting_create').addClass('active_wait');
+			var day = $(this).data('day');
+			if (typeof tripPlan.schedules["Day_"+day] == 'object') {
+				var tmpCluster = _saveArray(tripPlan.schedules["Day_"+day].placeLists);
+				var _tmpSchedule = cloneObject(tripPlan.schedules["Day_"+day] );
+
+		
+
+				console.log(_tmpSchedule);
+				var _tmpRs = acoAlgorithm({
+								placeLists: tmpCluster, 
+								check: true,
+								timeStart: 	_tmpSchedule.timeStart, 
+								userNumber: _tmpSchedule.userNumber,
+								moneyNumber: _tmpSchedule.moneyNumber, 
+								placeBegin: _tmpSchedule.placeBegin, 
+								placeEnd: 	_tmpSchedule.placeEnd,
+								antVectorDistance: tripPlan.vectorDistances
+							});
+
+				_tmpRs = updatePlaceCome(_tmpRs);
+				console.log(_tmpRs);
+
+				tripPlan.schedules["Day_"+day] = _tmpRs;
+
+				
+	 			update_sidebar_header_control({currDay:day, indexControl: 2, numDay:tripPlan.dayNumber});
+
+				update_sidebar_boby(tripPlan,parseInt(day));
+				$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
+					console.log("Updated !!!");
+						$('#register_waiting_create').removeClass('active_wait');
+				
+				}); 
+				var obj = window.javo_map_box_func;
+				obj.resize();
+
+				$('#register_waiting_create').removeClass('active_wait');
+			};
+
+		});
+		$(document).on('click','.create-trip',function(){
+			$('#register_waiting_create').addClass('active_wait');
+			setTimeout(function(){
+				$('.trigger-create').trigger('click');
+			},500);
 		});
 		function update_time_coming(_schedule,timeStart){
 			if (typeof timeStart == 'undefined' || !$.isNumeric(timeStart)) {
@@ -299,9 +903,11 @@ jQuery( function( $ ){
 			return _schedule;
 		}
 		function update_time_comings(_schedules,timeStart){
+
 			for (var i = 0; i < _schedules.length; i++) {
 				_schedules[i] = update_time_coming(_schedules[i],timeStart);
 			};
+			showSave(true);
 			return _schedules;
 		}
 
@@ -370,12 +976,14 @@ jQuery( function( $ ){
 
  			$('#schedule-day-header-control').html(strHtml);
  			update_list_day(tripPlan.dayNumber);
+
  			var currSchedule = tripPlan.schedules["Day_"+data.currDay];
- 			update_bar_day({index:1, distance: ((currSchedule.antBestDistance).toFixed(2)),
+
+ 			update_bar_day({index:1, distance: ((currSchedule.distance).toFixed(2)),
 					placeNumber: currSchedule.placeLists.length,
-					dayNumber: ((currSchedule.antBestDuration).toFixed(2)),
-					moneyNumber: currSchedule.moneySpend,
-					userNumber: tripPlan.userNumber});
+					dayNumber: ((currSchedule.duration).toFixed(2)),
+					moneyNumber: currSchedule.money,
+					userNumber: currSchedule.userNumber});
  		}
  		function update_sidebar_header_bar(data,index){
  			var strAttr = $("#trip3s-attribute-schedule-1").html(),strNull='0';
@@ -384,7 +992,7 @@ jQuery( function( $ ){
 				strAttr 	= strAttr.replace(/{{data-place}}/g,	(data.placeLists.length + 2) || strNull);
 				strAttr 	= strAttr.replace(/{{data-time}}/g,		data.duration || strNull);
 				strAttr 	= strAttr.replace(/{{data-user}}/g,		data.userNumber || strNull);
-				strAttr 	= strAttr.replace(/{{data-money}}/g,	data.moneyNumber || strNull);
+				strAttr 	= strAttr.replace(/{{data-money}}/g,	data.money || strNull);
 			$('#attribute-schedule-'+index).html(strAttr);
  		}
  		function string_placelist(place,i){
@@ -418,7 +1026,8 @@ jQuery( function( $ ){
  			}
  			var strFull="<div class=\"full-detail \">",nstr='',strNull='0',strCurr='';
  			console.log("tripPlan in update sidebar body");
- 			console.log(tripPlan);
+
+
 		 	$('#body-detail-add-plan').html('');
 		 	for (var ik = 1; ik <= tripPlan.dayNumber; ik++) {
 		 		tripPlan.schedules["Day_"+ik] = updatePlaceCome(tripPlan.schedules["Day_"+ik]);
@@ -508,7 +1117,6 @@ jQuery( function( $ ){
 				'/api/return_day'
 				, {},
 				function(response){
-
 					$('[list-day-in-plan]').each(function(e){
 						var max_day =	response.day_number;
 
@@ -539,9 +1147,7 @@ jQuery( function( $ ){
 		}
 
 		$(document).on('click','[list-day-in-plan] li a',function(){
-			//update_selected();
-
-			var place_id = $(this).parent().parent().attr('place_id');
+			var place = $(this).parent().parent().parent().parent().parent().data('place');
 			var schedule_day = $(this).attr('day');
 			$('[javo-current-day]').val(schedule_day);
 			var action 	='add_place';
@@ -553,49 +1159,48 @@ jQuery( function( $ ){
 				$('.list-announcement').append('<li>Xóa địa điểm thành công</li>'); 
 				action 	='remove_place';
 			}	
-			update_listPlaces(place_id,schedule_day,action);
+			update_listPlaces(place,schedule_day);
+			
 			update_announcement();
 		});
 	
-		function update_listPlaces(place_id,schedule_day,action){
-			$.get(
-					'/api/add_place_to_plan'
-					, {
-						place_id		: place_id,
-						schedule_day	: schedule_day,
-						action2 			: action
-					}
-					, function( response ){
-						
-						items = response.places;
-						
-						var strFull = '', nstr = '1';
-						if (response.status = "success") {
+		function update_listPlaces(place,schedule_day){
+			if (typeof tripPlan.schedules["Day_"+schedule_day] == 'undefined') {
+				tripPlan.schedules["Day_"+schedule_day] = {
+					timeTemp:7.5,
+					moneyNumber:0,
+					currentNumber:schedule_day,
+					placeBegin: tripPlan.placeBegin,
+					placeEnd: tripPlan.placeEnd,
+					placeLists:[],
+					placeIds:[]
+				}
+			};try{
+				if (tripPlan.schedules["Day_"+schedule_day].placeIds.indexOf(place.place_id) < 0) {
+					tripPlan.schedules["Day_"+schedule_day].placeLists.push(place);
+					tripPlan.schedules["Day_"+schedule_day].placeIds.push(place.place_id);
+				};
+			}catch(e){
+				tripPlan.schedules["Day_"+schedule_day].placeLists   = [];
+				tripPlan.schedules["Day_"+schedule_day].placeIds   = [];
+				tripPlan.schedules["Day_"+schedule_day].placeLists.push(place);
+				tripPlan.schedules["Day_"+schedule_day].placeIds.push(place.place_id);
+			}
 
-							var places = response.places;
-							
-							for (var i = 0; i < places.length; i++) {
-								var str = ''
-								str = $("#trip3s-place-in-schedule").html();
-								
-								str = str.replace( /{{post_thumbnail}}/g , places[i].post_thumbnail || nstr );
-								str = str.replace( /{{post_title}}/g	 , places[i].post_title || nstr );
-								str = str.replace( /{{post_excerpt}}/g	 , places[i].phone || nstr );
-								str = str.replace( /{{sort_thumbnail}}/g , (i + 1) || nstr );
-								strFull +=str;
-							};
-							console.log("ddddddddddddddddddddddd");
-							$('#schedule-day-boby').html(strFull);
-						}
-						else{
-							strFull = "error";
-						}
-					});
+			
+
+			$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){});
+			console.log(tripPlan);
+			return tripPlan;
 		}
 		
 		function load_place_lists(data,selected){
 			var strFull = '';
+			if (data[0] =='') {
+				return strFull;
+			};
 			for (var i = 0; i < data.length; i++) {
+
 				if (typeof selected =="undefined")
 					strFull+="<option value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
 				else if (data[i].place_id === selected.place_id) 
@@ -617,40 +1222,89 @@ jQuery( function( $ ){
 			return data[0]
 		}
 
+		function update_day_in_place(tripPlan,id){
+			var strFull = '';
+			for (var j = 1; j <= tripPlan.dayNumber; j++) {
+				var strTmp = $('#load-day-in-place').html();
+				if (typeof tripPlan.schedules["Day_"+j] == 'undefined') {
+					strTmp = strTmp.replace(/{{index-number}}/g, j);
+					strTmp = strTmp.replace(/{{index-class}}/g,'fa-check-circle-o');
+
+				}else{
+					var schedule = tripPlan.schedules["Day_"+j];
+					if (schedule.placeLists.length > 0) {
+						for (var i = 0; i < schedule.placeLists.length; i++) {
+							if (schedule.placeLists[i].place_id == id) {
+								strTmp = strTmp.replace(/{{index-number}}/g, j);
+								strTmp = strTmp.replace(/{{index-class}}/g,' selected fa-times');
+							}
+							else{
+								strTmp = strTmp.replace(/{{index-number}}/g, j);
+								strTmp = strTmp.replace(/{{index-class}}/g,  'fa-check-circle-o');
+							}
+						};
+					}else{
+						strTmp = strTmp.replace(/{{index-number}}/g, j);
+						strTmp = strTmp.replace(/{{index-class}}/g,'fa-check-circle-o');
+					}
+				}
+				strFull+= strTmp;
+			}
+			return strFull;
+		}
+		$(document).on('click','i.remove-place',function(e){
+			var place_id = $(this).data('place_id');
+			var indexPlace = tripPlan.placeIds.indexOf(place_id);
+			if (indexPlace > -1) {
+				tripPlan.placeIds.splice(indexPlace,1);
+				tripPlan.placeLists.splice(indexPlace,1);
+			}else{
+				var indexPlace = tripPlan.placeIds.indexOf(null);
+				if (indexPlace > -1) {
+					tripPlan.placeIds.splice(indexPlace,1);
+					tripPlan.placeLists.splice(indexPlace,1);
+				}
+			};
+
+				$(this).parent().parent().remove();
+				console.log(tripPlan);
+				//remove place 
+				$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
+					console.log(data);
+				});
+		});
+
+
+
 		$(document).on('change','[name="tripPlan[placeBegin]"]',function(e){
 			tripPlan.placeBegin = load_place_selected(tripPlan.placeLists,$(this).val());
 			tripPlan.placeEnd = load_place_selected(tripPlan.placeLists,$(this).val());
 		});
 		$(document).on('change','select[name^="tripPlan_placeBegin_"]',function(e){
-			console.log($(this).val());
-		});
-		$(document).on('click','.open-trip-down',function(e){
-			var _places =merge_places(tripPlan);
-			if ($('.body-detail-create-plan').is(":visible")) {
-				$(this).html('<i class="fa fa-chevron-circle-down"></i>');
-				$('.body-detail-create-plan').slideUp();
-			}else{
-				$(this).html('<i class="fa fa-chevron-circle-up"></i>');
-				$('.body-detail-create-plan').slideDown();
-				if (tripPlan.placeBegin =='' || typeof tripPlan.placeBegin == 'undefined'){
-					$('[name="tripPlan[placeBegin]"]').html(load_place_lists(_places));
-				}
-				else{
-					$('[name="tripPlan[placeBegin]"]').html(load_place_lists(_places,tripPlan.placeBegin));
-				}
-
-				if ($('#tripPlan-dayNumbers').val() =='') {
-					$('#tripPlan-dayNumbers').val(tripPlan.dayNumber);
-					$('#tripPlan-userNumbers').val(tripPlan.userNumber);
-					$('#tripPlan-planStart').val(tripPlan.planStart);
-					$('#tripPlan-moneyNumbers').val(tripPlan.moneyNumber);
-				};
-			};
-			$('#tripPlan-planStart').datepicker({dateFormat: 'dd/mm/yy'});
 			
+		});
+		function hide_setting(){
+			$('#body-detail-create-plan').hide();
+			console.log("Hide");
+		}
+		$(document).on('click','.view-trip-down',function(e){
+			hide_setting();
+			for (var i = 1; i <= tripPlan.dayNumber; i++) {
+				if (typeof tripPlan.schedules["Day_"+i] !== 'undefined') {
+					console.log("d");
+					if (tripPlan.schedules["Day_"+i].placeLists.length > 0) {
+						update_time_comings(tripPlan.schedules,7.5);
+						update_sidebar_plan(tripPlan,i);
+						break;
+					};
+				}
+			};
+			var obj = window.javo_map_box_func;
+			obj.resize();
 		});
 		function merge_places(tripPlan){
 			var _places = _saveArray(tripPlan.placeLists);
+
 			_places.push(tripPlan.placeBegin);
 
 
@@ -665,10 +1319,16 @@ jQuery( function( $ ){
 				};
 			}
 			_places  = removeDuplicate(_places);
+
 			return _places;
 
 		}
 		function devide_places(tripPlan,_places){
+			for (var i = 0; i < _places.length; i++) {
+				if (_places[i] =="" && typeof _places[i] =="string") {
+					_places.splice(i,1)
+				};
+			}
 			for (var i = 1; i <= tripPlan.dayNumber; i++) {
 				if (typeof tripPlan.schedules["Day_"+i] !== 'undefined') {
 					if (tripPlan.schedules["Day_"+i].placeBegin !== '' || typeof tripPlan.schedules["Day_"+i] !=='undefined') {
@@ -681,6 +1341,8 @@ jQuery( function( $ ){
 				};
 			};
 			var _placeIds = [];
+
+
 			for (var i = 0; i < _places.length; i++) {
 				_placeIds.push(_places[i].place_id);
 			};
@@ -689,42 +1351,90 @@ jQuery( function( $ ){
 				placeIds: _placeIds
 			}
 		}
+		$(document).on('click','.detail-next',function(e){
+			var place_id = $(this).data('place_id');
+			if ($('#router-panel-'+place_id).is(":visible")) {
+				$('.place-router-detail').fadeOut();
+			}else{
+				$('#router-panel-'+place_id).fadeIn();
+			};
+			
+		});
+			
 		$(document).on('click','.open-advance',function(e){
 			
+			$('.btn-save-detail-advance-plan').toggle();
+			$('.btn-save-detail-plan').toggle();
+
+
 			var dayNumbers 		= $('#tripPlan-dayNumbers').val() ==''? 1: $('#tripPlan-dayNumbers').val();
 			dayNumbers 	= parseFloat(dayNumbers);
-			
-			var strFull = '',_places =merge_places(tripPlan) ;
-			for (var i = 1; i <= dayNumbers; i++) {
-				if (i===1) {
-					var strCurr = $('#loading-place-start-1').html();
-				}else{
-					var strCurr = $('#loading-place-start-2').html();
+			if ($('.btn-save-detail-advance-plan').is(":visible")) {
+				var strFull = '',_places =merge_places(tripPlan) ;
+				for (var i = 1; i <= dayNumbers; i++) {
+					if (i===1) {
+						var strCurr = $('#loading-place-start-1').html();
+					}else{
+						var strCurr = $('#loading-place-start-2').html();
+					};
+					strCurr 	= strCurr.replace( /{{dayNumber}}/g		, i );
+					if (typeof tripPlan.schedules["Day_"+i] !== 'undefined') {
+						strCurr 	= strCurr.replace( /{{places-list-start}}/g, load_place_lists(_places,tripPlan.schedules["Day_"+i].placeBegin)  );
+						strCurr 	= strCurr.replace( /{{places-list-end}}/g	, load_place_lists(_places,tripPlan.schedules["Day_"+i].placeEnd)  );
+					}else{
+						strCurr 	= strCurr.replace( /{{places-list-start}}/g, load_place_lists(_places));
+						strCurr 	= strCurr.replace( /{{places-list-end}}/g, load_place_lists(_places));
+					};
+					strFull 	+= strCurr;
 				};
-				strCurr 	= strCurr.replace( /{{dayNumber}}/g		, i );
-				if (typeof tripPlan.schedules["Day_"+i] !== 'undefined') {
-					strCurr 	= strCurr.replace( /{{places-list-start}}/g, load_place_lists(_places,tripPlan.schedules["Day_"+i].placeBegin)  );
-					strCurr 	= strCurr.replace( /{{places-list-end}}/g	, load_place_lists(_places,tripPlan.schedules["Day_"+i].placeEnd)  );
-				}else{
-					strCurr 	= strCurr.replace( /{{places-list-start}}/g, load_place_lists(_places));
-					strCurr 	= strCurr.replace( /{{places-list-end}}/g, load_place_lists(_places));
-				};
-				strFull 	+= strCurr;
-			};
+				$('.setting-day').slideDown();
+				$('.setting-day').html(strFull);
 
-			$('.setting-day').html(strFull);
+				for (var i = 1; i <= dayNumbers; i++) {
+					if (typeof tripPlan.schedules["Day_"+i] !=='undefined') {
+						tripPlan.schedules["Day_"+i].moneyNumber 
+														= (tripPlan.schedules["Day_"+i].moneyNumber == null) 
+															? 0:tripPlan.schedules["Day_"+i].moneyNumber;
+						tripPlan.schedules["Day_"+i].timeEnd 
+														= (tripPlan.schedules["Day_"+i].timeEnd == null)
+															?tripPlan.timeEnd: tripPlan.schedules["Day_"+i].timeEnd;
+
+						tripPlan.schedules["Day_"+i].timeEnd 
+														= (parseFloat(tripPlan.schedules["Day_"+i].timeEnd) == NaN || parseFloat(tripPlan.schedules["Day_"+i].timeEnd) == 0)
+															? 24: tripPlan.schedules["Day_"+i].timeEnd;
+
+						$('.setting-day').find('#tripPlan_placeMoney_'+i).val( tripPlan.schedules["Day_"+i].moneyNumber);
+						$('.setting-day').find('#tripPlan_timeBegin_'+i).val( tripPlan.schedules["Day_"+i].timeStart);
+						$('.setting-day').find('#tripPlan_placeUser_'+i).val( tripPlan.schedules["Day_"+i].userNumber);
+						$('.setting-day').find('#tripPlan_timeEnd_'+i).val( tripPlan.schedules["Day_"+i].timeEnd);
+					};
+				}
+
+			}else{
+				$('.setting-day').slideUp();
+			};
 		});
 		$(document).on('click','.btn-save-detail-plan',function(e){
+
+			$('#register_waiting_create').addClass('active_wait');
+
 			var date = new Date(); date.setDate(date.getDate() + 7);
 			var timeCurrent = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
 
-			var dayNumbers 		= $('#tripPlan-dayNumbers').val() ==''? 1: $('#tripPlan-dayNumbers').val(),
-				userNumbers 	= $('#tripPlan-userNumbers').val() ==''? 1:$('#tripPlan-userNumbers').val(),
-				planStart 		= $('#tripPlan-planStart').val() ==''? timeCurrent :$('#tripPlan-planStart').val(),
-				moneyNumbers 	=$('#tripPlan-moneyNumbers').val() ==''? 1:$('#tripPlan-moneyNumbers').val();
+			var dayNumbers 		= ($('#tripPlan-dayNumbers').val() =='')? 1: $('#tripPlan-dayNumbers').val(),
+				nameTrip 		= ($('#tripPlan-tripName').val() =='')? 'Du lịch trip3s' : $('#tripPlan-tripName').val(),
+				userNumbers 	= ($('#tripPlan-userNumbers').val() =='')? 1:$('#tripPlan-userNumbers').val(),
+				planStart 		= ($('#tripPlan-planStart').val() =='')? timeCurrent :$('#tripPlan-planStart').val(),
+				timeStart 		= ($('#tripPlan-timeStart').val() =='')? timeCurrent :$('#tripPlan-timeStart').val(),
+				timeEnd  		= ($('#tripPlan-timeEnd').val() =='')? timeCurrent :$('#tripPlan-timeEnd').val(),
+				moneyNumbers 	= ($('#tripPlan-moneyNumbers').val() =='')? 1:$('#tripPlan-moneyNumbers').val();
+
 			tripPlan.dayNumber 		= parseFloat(dayNumbers),
 			tripPlan.moneyNumber 	= parseFloat(moneyNumbers),
 			tripPlan.userNumber 	= parseFloat(userNumbers);
+			tripPlan.tripName		= nameTrip;
+			tripPlan.timeStart		= timeStart;
+			tripPlan.timeEnd		= timeEnd;
 			tripPlan.planStart 		= planStart;
 
 			var _placeBegin = $('select[name="tripPlan[placeBegin]"]').val();
@@ -732,31 +1442,117 @@ jQuery( function( $ ){
 			var _places =merge_places(tripPlan);
 
 
-			for (var i = 1; i <= tripPlan.dayNumber; i++) {
-				var _placeTmp1 	= $('select[name="tripPlan_placeBegin_'+i+'"]').val();
-				var _placeTmp2 	= $('select[name="tripPlan_placeEnd_'+i+'"]').val();
+			tripPlan.placeBegin = tripPlan.placeEnd =  load_place_selected(_places,_placeBegin);
 
-				if (typeof _placeTmp1 == 'undefined') {_placeTmp1 = $('select[name="tripPlan_placeEnd_'+(i-1)+'"]').val(); };
+			for (var i = 1; i <= tripPlan.dayNumber; i++) {
+
 				tripPlan.schedules["Day_"+i] = {
-					timeTemp:7.5,
-					moneyNumber:0,
-					placeBegin: load_place_selected(_places,_placeTmp1),
-					placeEnd: load_place_selected(_places,_placeTmp2),
+					timeTemp: timeStart,
+					timeStart: timeStart,
+					userNumber: parseFloat(userNumbers),
+					timeEnd: timeEnd,
+					moneyNumber:( parseFloat(moneyNumbers)/tripPlan.dayNumber).toFixed(2),
+					currentNumber:i,
+					placeBegin: tripPlan.placeBegin,
+					placeEnd: tripPlan.placeBegin,
 					placeLists:[],
 					placeIds:[]
 				}
 			};
+
 			tripPlan.schedules   = convArrToObj(tripPlan.schedules);
 			var devide = devide_places(tripPlan,_places);
 			tripPlan.placeLists = devide.placeLists;
 			tripPlan.placeIds = devide.placeIds;
-
-			console.log(tripPlan);
+			var obj = window.javo_map_box_func;
+			obj.ajax_favorite(tripPlan.placeLists);
 			//remove place 
 			$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
-				console.log(data);
+				console.log("Successfully!");
+				tripPlan = data.plan;
+				console.log(tripPlan);
+
+				$('#register_waiting_create').removeClass('active_wait');
 			});
 		});
+		$(document).on('click','.btn-save-detail-advance-plan',function(e){
+			$('#register_waiting_create').addClass('active_wait');
+
+			var date = new Date(); date.setDate(date.getDate() + 7);
+			var timeCurrent = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+
+			var dayNumbers 		= ($('#tripPlan-dayNumbers').val() =='')? 1: $('#tripPlan-dayNumbers').val(),
+				userNumbers 	= ($('#tripPlan-userNumbers').val() =='')? 1:$('#tripPlan-userNumbers').val(),
+				planStart 		= ($('#tripPlan-planStart').val() =='')? timeCurrent :$('#tripPlan-planStart').val();
+
+			tripPlan.planStart 		= planStart;
+			tripPlan.dayNumber 		= parseFloat(dayNumbers),
+			tripPlan.userNumber 	= parseFloat(userNumbers);
+
+			var _placeBegin = $('select[name="tripPlan[placeBegin]"]').val();
+
+			var _places =merge_places(tripPlan),
+			moneyNumbers = 0;
+
+
+			tripPlan.placeBegin = tripPlan.placeEnd =  load_place_selected(_places,_placeBegin);
+
+			tripPlan.schedules = [];
+			tripPlan.schedules = {};
+			for (var i = 1; i <= tripPlan.dayNumber; i++) {
+
+				var userNumbers 	= ($('input[name="tripPlan_placeUser_'+i+'"]').val() =='')? 1: $('input[name="tripPlan_placeUser_'+i+'"]').val(),
+					timeStart 		= ($('input[name="tripPlan_timeBegin_'+i+'"]').val() =='')? tripPlan.timeStart : $('input[name="tripPlan_timeBegin_'+i+'"]').val(),
+					timeEnd 		= ($('input[name="tripPlan_timeEnd_'+i+'"]').val() =='')?   tripPlan.timeEnd : $('input[name="tripPlan_timeEnd_'+i+'"]').val(),
+					moneyNumber 	= ($('input[name="tripPlan_placeMoney_'+i+'"]').val() =='')? 0: $('input[name="tripPlan_placeMoney_'+i+'"]').val(),
+
+					_placeBegin = $('select[name="tripPlan_placeBegin_'+i+'"]').val(),	
+					_placeEnd 	= $('select[name="tripPlan_placeEnd_'+i+'"]').val();
+
+				if (typeof _placeBegin == 'undefined') {_placeBegin = _placeEnd };
+				moneyNumbers  += parseFloat(moneyNumber);
+				$('input[name="tripPlan_placeMoney_'+i+'"]').val(parseFloat(moneyNumber));
+				if (timeStart == 0 )  timeStart = 7.5; 
+				if (timeEnd == 0)  timeEnd = 24; 
+				tripPlan.schedules["Day_"+i] = {
+					timeTemp: timeStart,
+					timeStart: timeStart,
+					timeEnd: timeEnd,
+					userNumber: userNumbers,
+					moneyNumber:moneyNumber,
+					currentNumber:i,
+					placeBegin: load_place_selected(_places,_placeBegin),
+					placeEnd: load_place_selected(_places,_placeEnd),
+					placeLists:[],
+					placeIds:[]
+				}
+			};
+
+			tripPlan.moneyNumber 	= parseFloat(moneyNumbers);
+			$('#tripPlan-moneyNumbers').val(parseFloat(moneyNumbers));
+			tripPlan.schedules["Day_Not"] = {
+			
+					placeLists:[],
+					placeIds:[]
+				}
+
+			//tripPlan.schedules   = convArrToObj(tripPlan.schedules);
+			var devide = devide_places(tripPlan,_places);
+			tripPlan.placeLists = devide.placeLists;
+			tripPlan.placeIds = devide.placeIds; 
+ 
+			var obj = window.javo_map_box_func;
+			obj.ajax_favorite(tripPlan.placeLists);
+
+			//remove place 
+			$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
+				console.log("Successfully!");
+				tripPlan = data.plan;
+				console.log(tripPlan);
+				$('#register_waiting_create').removeClass('active_wait');
+			});
+		});
+
 function removePlace(places,element){
 	for (var i = 0; i < places.length; i++) {
 		if (places[i].place_id == element.place_id) {
@@ -766,6 +1562,7 @@ function removePlace(places,element){
 	return places;
 }
 		$(document).on('click','.javo-mhome-onoff-sidebar',function(e){
+			
 			if ($('.javo_mhome_sidebar').css('width') =="300px") {
 				$('.javo_mhome_sidebar').css("width","0px");
 				$('.javo_mhome_sidebar .well-default').fadeOut();
@@ -775,6 +1572,7 @@ function removePlace(places,element){
 				$('.javo_mhome_sidebar .well-default').fadeIn();
 				$(this).html('<i class="fa fa-chevron-circle-left"></i>');
 			};
+			hide_setting();
 		});
 		function update_announcement(){
 			$('.list-announcement li').each(function(){
@@ -859,8 +1657,7 @@ function removePlace(places,element){
 				// Topbar is entered into Header Navigation.
 				// + $('.javo-topbar').outerHeight()
 
-			} // End Define Variables
-
+			}
 			// Javo Maps Initialize
 			, init: function()
 			{
@@ -956,21 +1753,83 @@ function removePlace(places,element){
 				});
 
 			} // End Initialize Function
+			, drawRoutePreview:function(schedule,map){
+				var myLatlng	= {lat: -25.363, lng: 131.044};
+ 				var obj 		= window.javo_map_box_func, currDay = $("#dropdown-select-days").attr("data-place_id");
+ 				var _schedule   = schedule; 
+ 				var items  		= _SaveArray(_schedule.placeLists);
+ 				if (items.length < 1) {
+ 					return; 
+ 				};
+
+ 				items.unshift(_schedule.placeBegin);
+ 				if (_schedule.placeBegin.place_id != _schedule.placeEnd.place_id) {	items.push(_schedule.placeEnd);};
+ 			
+
+ 				obj.setMarkersPreview(items,true,true,$('#map-schedule-'+schedule.currentNumber));
+				var lengthItems	 = items.length;
+				var arrRequest   = [],strHtml ='';
+
+				for (var i = 0; i < lengthItems; i++) {
+					if (i < lengthItems -1) {
+						obj.drawRoutePointPreview(items[i],items[i+1],schedule.currentNumber,map);
+					}else{
+						obj.drawRoutePointPreview(items[i],items[0],schedule.currentNumber,map);
+					};
+				};
+			}
+			, drawRoutePointPreview: function(place1,place2,index,map)
+			{
+				var obj 		= window.javo_map_box_func;
+				var color 		= '#ec'+Math.floor((Math.random() * 10) + 1)+'71f'
+				//Set up options color in road result
+			    var polylineOptionsActual = new google.maps.Polyline({
+				    strokeColor: color,
+				    strokeOpacity: 1,
+				    strokeWeight: 5
+			    });
+
+			    var directionsService = new google.maps.DirectionsService();
+			    var directionsDisplay;
+			    //remove icon start and end of result
+			    var rendererOptions = {
+			          map: map,
+			          suppressMarkers : true,
+			          polylineOptions : polylineOptionsActual
+			        }
+			    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
+			    var request = {
+			        origin: new google.maps.LatLng(place1.place_lat, place1.place_lng),
+			        destination: new google.maps.LatLng(place2.place_lat, place2.place_lng),
+			        travelMode: google.maps.TravelMode.DRIVING
+			    };
+
+			    directionsService.route(request, function(result, status) {
+			        if (status == google.maps.DirectionsStatus.OK) {
+			            directionsDisplay.setDirections(result);
+
+			            directionsDisplay.setPanel(document.getElementById("content-detail-next-place-"+place1.place_id+"-"+index));
+			        }
+			    });
+			}
+			 // End Initialize Function
 			, drawRoute:function(){
 				var myLatlng	= {lat: -25.363, lng: 131.044};
  				var obj 		= window.javo_map_box_func, currDay = $("#dropdown-select-days").attr("data-place_id");
- 				var _schedule   = tripPlan.schedules[currDay-1]; 
+ 				var _schedule   = tripPlan.schedules["Day_"+currDay]; 
  				var items  		= _SaveArray(_schedule.placeLists);
  				if (items.length < 1) {
  					return; 
  				};
  				items.unshift(_schedule.placeBegin);
- 				items.push(_schedule.placeEnd);
+ 				if (_schedule.placeBegin.place_id != _schedule.placeEnd.place_id) {	items.push(_schedule.placeEnd);};
 				obj.items  = items;
 				obj.setMarkers( items, true,true );
 				var lengthItems	 = items.length;
-				var arrRequest   = [];
-				tripPlan.schedules[currDay-1].distance  = 0;
+				var arrRequest   = [],strHtml ='';
+				tripPlan.schedules["Day_"+currDay].distance  = 0;
+			
 				for (var i = 0; i < lengthItems; i++) {
 					if (i < lengthItems -1) {
 						obj.drawRoutePoint(items[i],items[i+1]);
@@ -982,9 +1841,10 @@ function removePlace(places,element){
 			, drawRoutePoint: function(place1,place2)
 			{
 				var obj 		= window.javo_map_box_func,currDay = $("#dropdown-select-days").attr("data-place_id");
+				var color 		= '#ec'+Math.floor((Math.random() * 10) + 1)+'71f'
 				//Set up options color in road result
 			    var polylineOptionsActual = new google.maps.Polyline({
-				    strokeColor: '#ec971f',
+				    strokeColor: color,
 				    strokeOpacity: 1,
 				    strokeWeight: 5
 			    });
@@ -1013,6 +1873,7 @@ function removePlace(places,element){
 			    directionsService.route(request, function(result, status) {
 			        if (status == google.maps.DirectionsStatus.OK) {
 			            directionsDisplay.setDirections(result);
+			            directionsDisplay.setPanel(document.getElementById("router-panel-"+place1.place_id));
 			        }
 			    });
 			}
@@ -1038,7 +1899,14 @@ function removePlace(places,element){
 			        		duration: parseFloat((result.routes[0].legs[0].duration.value/3600).toFixed(2))
 			        	};
 			        }
+			        /*else {    
+			            setTimeout(function() {
+			            	tripPlan.vectorDistances["T"+_places[i].place_id.toString()]["T"+_places[j].place_id.toString()] = obj.getDistancePoint(place1,place2);
+			            }, 200);
+			        }*/
+			        console.log(status);
 			    });
+			    
 				var d =  parseFloat((google.maps.geometry.spherical.computeDistanceBetween(request.origin,request.destination)/ 1000).toFixed(2));
 				return {
 					distance: d,
@@ -1120,27 +1988,38 @@ function removePlace(places,element){
 			{
 				var obj		= window.javo_map_box_func;
 				var winX	= $(window).width();
+				var winYz	= $(window).height();
 				var winY	= 0;
 				var header_sidebar 	= 86,javo_mhome_sidebar = 300, content_sidebar =0;
 
 				winY += $('header.main').outerHeight(true);
 				winY += $('#wpadminbar').outerHeight(true);
-				header_sidebar = $('.panel-heading.header-detail-add-plan').outerHeight(true);
-				javo_mhome_sidebar = $('.javo_mhome_sidebar').outerHeight(true);
-				content_sidebar =parseFloat(javo_mhome_sidebar) -parseFloat(header_sidebar) -winY - 200;
+				winYz -= winY + 1;
+				//header_sidebar = $('.panel-heading.header-detail-add-plan').outerHeight(true);
+				//javo_mhome_sidebar = $('.javo_mhome_sidebar').outerHeight(true);
+				//content_sidebar =parseFloat(javo_mhome_sidebar) -parseFloat(header_sidebar) -winY - 110;
 				// Topbar is entered into Header Navigation.
 				// winY += $('div.javo-topbar').outerHeight(true);
 
 				//$('.body-detail-add-plan').css( 'height', content_sidebar);
-				$('.body-detail-add-plan').css( 'top', winY);
-				$('.body-detail-add-plan').css( 'height', (content_sidebar + 130));
+				//$('.body-detail-add-plan').css( 'top', winY);
+				//$('.body-detail-add-plan').css( 'height', (content_sidebar + 130));
 				//$('div.schedule-day-boby-detail').css( 'height', content_sidebar);
-				$('div.schedule-day-boby-detail-fix').css( 'height', content_sidebar);
-				$('div.body-detail-create-plan').css( 'height', content_sidebar + 100);
-				$('ul.schedule-day-boby.scrollbar').css( 'height', content_sidebar+40);
+				//$('div.schedule-day-boby-detail-fix').css( 'height', content_sidebar);
+				//$('div.body-detail-create-plan').css( 'height', content_sidebar + 100);
 
+				//$('ul.schedule-day-boby.scrollbar').css( 'height', content_sidebar+40);
 
-				//$('.javo_mhome_map_output').css( 'marginTop', $('.main-map-search-wrap').outerHeight(true) );
+				$('.schedule-day-boby-detail .schedule-day-boby-detail-fix ').css( 'height', winYz - 120);
+				$('.schedule-day-boby-detail .schedule-day-boby').css( 'height', winYz - 110);
+
+				$('.schedule-day-boby-detail .schedule-day-boby-detail-fix .schedule-day-boby').css( 'height', 'auto');
+				$('#sidebar-desciption .panel-body-nopadding').css( 'height', winYz - 80);
+				$('#sidebar-setups .panel-body-nopadding').css( 'height', winYz - 50);
+
+				//$('.javo_mhome_sidebar_wrap').css( 'height', winYz );
+
+				$('.javo_mhome_map_lists').css( 'height', winYz);
 
 				if( parseInt( winX ) >= 1120 )
 				{
@@ -1433,7 +2312,8 @@ function removePlace(places,element){
 				var result = {};
 				var cate_ids ={},pro_ids={},cui_ids={},
 					did_ids={},pur_ids={},city_ids={},
-					dis_ids={},area_ids={};
+					dis_ids={},area_ids={}, fl_keyword ='',userId=0;
+				fl_keyword =  $("input[name='fl_keyword']").val();
 				cate_ids =  $("select[name='filter[item_category]']").val();
 				city_ids =  $("select[name='filter[item_city]']").val();
 				dis_ids =  $("select[name='filter[item_district]']").val();
@@ -1442,9 +2322,18 @@ function removePlace(places,element){
 				cui_ids =  $("select[name='filter[item_cuisine]']").val();
 				did_ids =  $("select[name='filter[item_diding]']").val();
 				pur_ids =  $("select[name='filter[item_purpose]']").val();
+				if ($(".btn-filter-my-location").is(":checked")) {
+					
+					if ( user.id ==0 ||  user.id < 1) {
+						alert("Bạn phải đăng nhập trước.!");
+						return false;
+					};
+					userId = user.id;
+				};
 				// DATA
 				btn.prop( 'disabled', true ).find('i').addClass('fa-spin');
 				$.getJSON('/api/load_place_filter', {
+					keyword 	:fl_keyword,
 					cityIds 	:city_ids,
 					districtIds :dis_ids,
 					areaIds 	:area_ids,
@@ -1453,6 +2342,7 @@ function removePlace(places,element){
 					cuiIds 		:cui_ids,
 					didIds 		:did_ids,
 					purIds 		:pur_ids,
+					userId 		:userId,
 					offset 		:_offset,
 					limit		:_limit
 				})
@@ -1645,6 +2535,154 @@ function removePlace(places,element){
 					this.el.gmap3( _opt , "autofit" );
 				}
 			}
+			, setMarkersPreview: function( response,clear,icon, element )
+			{
+				var item_markers	= new Array();
+				var obj				= window.javo_map_box_func;
+
+
+				$.each( response, function( i, item ){
+
+					if( item.lat != "" && item.lng != "" )
+					{
+						var k =1;
+						if (i ==response.length - 1) {k =0}else{k = i +1}; 
+
+						var icon_content ='';
+						if (typeof icon !=='undefined' && icon == true) {
+							icon_content= '<span class="icon-item-place-number" >'+(i+1)+'</span>';
+						};
+
+						item_markers.push( {
+							//latLng		: new google.maps.LatLng( item.lat, item.lng )
+							lat			: item.place_lat
+							, lng		: item.place_lng
+							, thumbnail : item.post_thumbnail
+
+							, options	: { icon: item.post_thumbnail , content 	: icon_content +'<img src="'+item.post_thumbnail + '"  width="40" height="40" class="icon-item-place"  />'}
+							, id		: "mid_" + item.post_id
+							, data		: item
+						} );
+					}
+				});
+
+				if( item_markers.length > 0 )
+				{
+
+					var _opt = {
+						marker:{
+							values:item_markers
+							, events:{
+								click: function( m, e, c ){
+
+									var map = element.gmap3( 'get' );
+									
+
+									$.get(
+										'/api/trip3s_place_by_id'
+										, {
+											 post_id	: c.data.post_id
+										}
+										, function( response )
+										{
+											var str = '', nstr = '';
+
+											if( response.state == "success" )
+											{
+												
+												str = $('#javo-map-box-infobx-content').html();
+												str = str.replace( /{post_id}/g		, response.post_id );
+												str = str.replace( /{post_title}/g	, response.post_title );
+												str = str.replace( /{permalink}/g	, response.permalink );
+												str = str.replace( /{thumbnail}/g	, response.thumbnail );
+												str = str.replace( /{category}/g	, response.category );
+												str = str.replace( /{location}/g	, response.location );
+												str = str.replace( /{phone}/g		, response.phone || nstr );
+												str = str.replace( /{mobile}/g		, response.mobile || nstr );
+												str = str.replace( /{website}/g		, response.website || nstr );
+												str = str.replace( /{email}/g		, response.email || nstr );
+												str = str.replace( /{address}/g		, response.address || nstr );
+												str = str.replace( /{author_name}/g	, response.author_name || nstr );
+
+											}else{
+												str = "error";
+											}
+											obj.infoWindo.setContent( str);
+									obj.infoWindo.open( map, m);
+									map.setCenter( m.getPosition() );
+											$( "#javo-map-info-w-content" ).html( str );
+										}
+										, "json"
+									)
+									.fail( function( response ){
+
+										$.javo_msg({ content: $( "[javo-server-error]" ).val(), delay: 10000 });
+										console.log( response.responseText );
+
+									} );
+								} // End Click
+							} // End Event
+						} // End Marker
+					}
+
+
+					if( $( "[javo-cluster-onoff]" ).val() != "disable" ) {
+
+						_opt.marker.cluster = {
+							radius: parseInt( $("[javo-cluster-level]").val() ) || 100
+							, 0:{ content:'<div class="javo-map-cluster admin-color-setting">CLUSTER_COUNT</div>', width:52, height:52 }
+							, events:{
+								click: function( c, e, d )
+								{
+									var $map = $(this).gmap3('get');
+									var maxZoom = new google.maps.MaxZoomService();
+									var c_bound = new google.maps.LatLngBounds();
+
+									// IF Cluster Max Zoom ?
+									maxZoom.getMaxZoomAtLatLng( d.data.latLng , function( response ){
+										if( response.zoom <= $map.getZoom() && d.data.markers.length > 0 )
+										{
+											var str = '';
+
+											str += "<ul class='list-group'>";
+
+											str += "<li class='list-group-item disabled text-center'>";
+												str += "<strong>";
+													str += $("[javo-cluster-multiple]").val();
+												str += "</strong>";
+											str += "</li>";
+
+											$.each( d.data.markers, function( i, k ){
+												str += "<a onclick=\"window.javo_map_box_func.marker_trigger('" + k.id +"');\" ";
+													str += "class='list-group-item'>";
+													str += k.data.post_title;
+												str += "</a>";
+											});
+
+											str += "</ul>";
+											var hMarker		= new google.maps.Marker({
+												position	: c.main.getPosition()
+												, map		: $map
+												, icon		: ''
+											});
+
+											obj.infoWindo.setContent( str );
+											obj.infoWindo.open( $map, hMarker );
+											hMarker.setMap( null );
+
+										}else{
+											$map.setCenter( c.main.getPosition() );
+											$map.setZoom( $map.getZoom() + 2 );
+										}
+									} ); // End Get Max Zoom
+								} // End Click
+							} // End Event
+						} // End Cluster
+					} // End If
+
+					element.gmap3( _opt , "autofit" );
+				}
+			}
 
 			, map_clear: function( marker_with )
 			{
@@ -1685,7 +2723,7 @@ function removePlace(places,element){
 								var str = "";
 
 								str = $('#javo-map-box-panel-content').html();
-
+								str = str.replace(/{{day_in_place}}/g	, update_day_in_place(tripPlan,data.place_id));
 								str = str.replace(/{place_full}/g		, JSON.stringify(data));
 								str = str.replace(/{post_id}/g			, data.post_id );
 								str = str.replace(/{place_id}/g			, data.place_id );
@@ -1809,9 +2847,9 @@ function removePlace(places,element){
 
 			, ajax_favorite:function(places,index){
 				var obj			= this;
-				var panel		= $('.javo_mhome_sidebar');
+				var panel		= $('#sidebar-places .javo_mhome_sidebar');
 				
-				panel = $('.javo_mhome_sidebar');
+				panel = $('#sidebar-places .javo_mhome_sidebar');
 				panel.html( $('#loading-list-place-plan').html() );
 				var schedule_day = $('[javo-current-day]').val();
 				
@@ -1854,11 +2892,12 @@ function removePlace(places,element){
 				if (typeof index !== 'undefined') {
 					_index = index;
 				};
+				showSave(false);
 				update_bar_day({index:_index,distance:0,
-					placeNumber:placeLength,
-					dayNumber:tripPlan.dayNumber,
-					moneyNumber:tripPlan.moneyNumber,
-					userNumber:tripPlan.userNumber});
+					placeNumber: 	placeLength,
+					dayNumber: 		tripPlan.dayNumber,
+					moneyNumber: 	tripPlan.moneyNumber,
+					userNumber: 	tripPlan.userNumber});
 			}
 
 			, apply_order: function( data )
@@ -2062,3 +3101,269 @@ function removePlace(places,element){
 		}
 		window.javo_map_box_func.init();
 	});
+
+/**
+ * covert canvas to image
+ * and save the image file
+ */
+
+var Canvas2Image = function () {
+
+	// check if support sth.
+	var $support = function () {
+		var canvas = document.createElement('canvas'),
+			ctx = canvas.getContext('2d');
+
+		return {
+			canvas: !!ctx,
+			imageData: !!ctx.getImageData,
+			dataURL: !!canvas.toDataURL,
+			btoa: !!window.btoa
+		};
+	}();
+
+	var downloadMime = 'image/octet-stream';
+
+	function scaleCanvas (canvas, width, height) {
+		var w = canvas.width,
+			h = canvas.height;
+		if (width == undefined) {
+			width = w;
+		}
+		if (height == undefined) {
+			height = h;
+		}
+
+		var retCanvas = document.createElement('canvas');
+		var retCtx = retCanvas.getContext('2d');
+		retCanvas.width = width;
+		retCanvas.height = height;
+		retCtx.drawImage(canvas, 0, 0, w, h, 0, 0, width, height);
+		return retCanvas;
+	}
+
+	function getDataURL (canvas, type, width, height) {
+		canvas = scaleCanvas(canvas, width, height);
+		return canvas.toDataURL(type);
+	}
+
+	function saveFile (strData) {
+		document.location.href = strData;
+	}
+
+	function genImage(strData) {
+		var img = document.createElement('img');
+		img.src = strData;
+		return img;
+	}
+	function fixType (type) {
+		type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+		var r = type.match(/png|jpeg|bmp|gif/)[0];
+		return 'image/' + r;
+	}
+	function encodeData (data) {
+		if (!window.btoa) { throw 'btoa undefined' }
+		var str = '';
+		if (typeof data == 'string') {
+			str = data;
+		} else {
+			for (var i = 0; i < data.length; i ++) {
+				str += String.fromCharCode(data[i]);
+			}
+		}
+
+		return btoa(str);
+	}
+	function getImageData (canvas) {
+		var w = canvas.width,
+			h = canvas.height;
+		return canvas.getContext('2d').getImageData(0, 0, w, h);
+	}
+	function makeURI (strData, type) {
+		return 'data:' + type + ';base64,' + strData;
+	}
+
+
+	/**
+	 * create bitmap image
+	 * 按照规则生成图片响应头和响应体
+	 */
+	var genBitmapImage = function (oData) {
+
+		//
+		// BITMAPFILEHEADER: http://msdn.microsoft.com/en-us/library/windows/desktop/dd183374(v=vs.85).aspx
+		// BITMAPINFOHEADER: http://msdn.microsoft.com/en-us/library/dd183376.aspx
+		//
+
+		var biWidth  = oData.width;
+		var biHeight	= oData.height;
+		var biSizeImage = biWidth * biHeight * 3;
+		var bfSize  = biSizeImage + 54; // total header size = 54 bytes
+
+		//
+		//  typedef struct tagBITMAPFILEHEADER {
+		//  	WORD bfType;
+		//  	DWORD bfSize;
+		//  	WORD bfReserved1;
+		//  	WORD bfReserved2;
+		//  	DWORD bfOffBits;
+		//  } BITMAPFILEHEADER;
+		//
+		var BITMAPFILEHEADER = [
+			// WORD bfType -- The file type signature; must be "BM"
+			0x42, 0x4D,
+			// DWORD bfSize -- The size, in bytes, of the bitmap file
+			bfSize & 0xff, bfSize >> 8 & 0xff, bfSize >> 16 & 0xff, bfSize >> 24 & 0xff,
+			// WORD bfReserved1 -- Reserved; must be zero
+			0, 0,
+			// WORD bfReserved2 -- Reserved; must be zero
+			0, 0,
+			// DWORD bfOffBits -- The offset, in bytes, from the beginning of the BITMAPFILEHEADER structure to the bitmap bits.
+			54, 0, 0, 0
+		];
+
+		//
+		//  typedef struct tagBITMAPINFOHEADER {
+		//  	DWORD biSize;
+		//  	LONG  biWidth;
+		//  	LONG  biHeight;
+		//  	WORD  biPlanes;
+		//  	WORD  biBitCount;
+		//  	DWORD biCompression;
+		//  	DWORD biSizeImage;
+		//  	LONG  biXPelsPerMeter;
+		//  	LONG  biYPelsPerMeter;
+		//  	DWORD biClrUsed;
+		//  	DWORD biClrImportant;
+		//  } BITMAPINFOHEADER, *PBITMAPINFOHEADER;
+		//
+		var BITMAPINFOHEADER = [
+			// DWORD biSize -- The number of bytes required by the structure
+			40, 0, 0, 0,
+			// LONG biWidth -- The width of the bitmap, in pixels
+			biWidth & 0xff, biWidth >> 8 & 0xff, biWidth >> 16 & 0xff, biWidth >> 24 & 0xff,
+			// LONG biHeight -- The height of the bitmap, in pixels
+			biHeight & 0xff, biHeight >> 8  & 0xff, biHeight >> 16 & 0xff, biHeight >> 24 & 0xff,
+			// WORD biPlanes -- The number of planes for the target device. This value must be set to 1
+			1, 0,
+			// WORD biBitCount -- The number of bits-per-pixel, 24 bits-per-pixel -- the bitmap
+			// has a maximum of 2^24 colors (16777216, Truecolor)
+			24, 0,
+			// DWORD biCompression -- The type of compression, BI_RGB (code 0) -- uncompressed
+			0, 0, 0, 0,
+			// DWORD biSizeImage -- The size, in bytes, of the image. This may be set to zero for BI_RGB bitmaps
+			biSizeImage & 0xff, biSizeImage >> 8 & 0xff, biSizeImage >> 16 & 0xff, biSizeImage >> 24 & 0xff,
+			// LONG biXPelsPerMeter, unused
+			0,0,0,0,
+			// LONG biYPelsPerMeter, unused
+			0,0,0,0,
+			// DWORD biClrUsed, the number of color indexes of palette, unused
+			0,0,0,0,
+			// DWORD biClrImportant, unused
+			0,0,0,0
+		];
+
+		var iPadding = (4 - ((biWidth * 3) % 4)) % 4;
+
+		var aImgData = oData.data;
+
+		var strPixelData = '';
+		var biWidth4 = biWidth<<2;
+		var y = biHeight;
+		var fromCharCode = String.fromCharCode;
+
+		do {
+			var iOffsetY = biWidth4*(y-1);
+			var strPixelRow = '';
+			for (var x = 0; x < biWidth; x++) {
+				var iOffsetX = x<<2;
+				strPixelRow += fromCharCode(aImgData[iOffsetY+iOffsetX+2]) +
+							   fromCharCode(aImgData[iOffsetY+iOffsetX+1]) +
+							   fromCharCode(aImgData[iOffsetY+iOffsetX]);
+			}
+
+			for (var c = 0; c < iPadding; c++) {
+				strPixelRow += String.fromCharCode(0);
+			}
+
+			strPixelData += strPixelRow;
+		} while (--y);
+
+		var strEncoded = encodeData(BITMAPFILEHEADER.concat(BITMAPINFOHEADER)) + encodeData(strPixelData);
+
+		return strEncoded;
+	};
+
+	/**
+	 * saveAsImage
+	 * @param canvasElement
+	 * @param {String} image type
+	 * @param {Number} [optional] png width
+	 * @param {Number} [optional] png height
+	 */
+	var saveAsImage = function (canvas, width, height, type) {
+		if ($support.canvas && $support.dataURL) {
+			if (typeof canvas == "string") { canvas = document.getElementById(canvas); }
+			if (type == undefined) { type = 'png'; }
+			type = fixType(type);
+			if (/bmp/.test(type)) {
+				var data = getImageData(scaleCanvas(canvas, width, height));
+				var strData = genBitmapImage(data);
+				saveFile(makeURI(strData, downloadMime));
+			} else {
+				var strData = getDataURL(canvas, type, width, height);
+				saveFile(strData.replace(type, downloadMime));
+			}
+		}
+	};
+
+	var convertToImage = function (canvas, width, height, type) {
+		if ($support.canvas && $support.dataURL) {
+			if (typeof canvas == "string") { canvas = document.getElementById(canvas); }
+			if (type == undefined) { type = 'png'; }
+			type = fixType(type);
+
+			if (/bmp/.test(type)) {
+				var data = getImageData(scaleCanvas(canvas, width, height));
+				var strData = genBitmapImage(data);
+				return genImage(makeURI(strData, 'image/bmp'));
+			} else {
+				var strData = getDataURL(canvas, type, width, height);
+				return genImage(strData);
+			}
+		}
+	};
+
+
+
+	return {
+		saveAsImage: saveAsImage,
+		saveAsPNG: function (canvas, width, height) {
+			return saveAsImage(canvas, width, height, 'png');
+		},
+		saveAsJPEG: function (canvas, width, height) {
+			return saveAsImage(canvas, width, height, 'jpeg');
+		},
+		saveAsGIF: function (canvas, width, height) {
+			return saveAsImage(canvas, width, height, 'gif');
+		},
+		saveAsBMP: function (canvas, width, height) {
+			return saveAsImage(canvas, width, height, 'bmp');
+		},
+
+		convertToImage: convertToImage,
+		convertToPNG: function (canvas, width, height) {
+			return convertToImage(canvas, width, height, 'png');
+		},
+		convertToJPEG: function (canvas, width, height) {
+			return convertToImage(canvas, width, height, 'jpeg');
+		},
+		convertToGIF: function (canvas, width, height) {
+			return convertToImage(canvas, width, height, 'gif');
+		},
+		convertToBMP: function (canvas, width, height) {
+			return convertToImage(canvas, width, height, 'bmp');
+		}
+	};
+
+}();

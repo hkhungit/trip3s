@@ -3,8 +3,8 @@
 
 @media only screen and (max-width:1500px){
 	/*map*/
-	.javo_mhome_wrap .javo_mhome_map_lists{width:55%;}
-	.javo_mhome_wrap .javo_mhome_map_area{width:45%;}
+	.javo_mhome_wrap .javo_mhome_map_lists{width:0;}
+	.javo_mhome_wrap .javo_mhome_map_area{width:100%;}
 	.javo_mhome_map_output #products .list-group-item .thumbnail .thumb-wrap>img{width:350px !important;}
 	.javo_mhome_map_output #products .list-group-item .thumbnail .caption>.row .item-title-list{height:25px; overflow:hidden;}
 	/*map*/
@@ -120,6 +120,10 @@
 	.javo_mhome_map_output #products .list-group-item .thumbnail .thumb-wrap{width:350px !important;}
 	.javo_mhome_map_output #products .list-group-item .thumbnail .thumb-wrap>img{height:219px !important;}
 	/*map*/
+}
+
+@media only screen and  (min-width: 768px){
+	#preview_detail_panel .modal-dialog{width: 900px}
 }
 /*iPad in landscape*/
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {

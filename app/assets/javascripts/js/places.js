@@ -1,4 +1,6 @@
 var tripPlan = {
+
+			tripName: 			 'Du lịch trip3s',
 			dayNumber: 			2,
 			userNumber: 		1,
 			planStart: 			null,
@@ -20,7 +22,12 @@ var tripPlan = {
 			return dece+":"+Math.ceil((time%dece) * 60);
 		}
 		function encrypt_time(time){
-			time = time.split(":");
+			if (typeof time === 'undefined') return 0;
+			try{
+				time = time.split(":");	
+			}catch(e){
+				//console.log(time);
+			}
 			time[0] = (typeof time[0] =='undefined') ? 0: time[0];
 			time[1] = (typeof time[1] =='undefined') ? 0: time[1];
 			return parseFloat(time[0]) + (parseFloat(time[1])/60);
@@ -35,13 +42,12 @@ jQuery( function( $ ){
 					tripPlan = data.plan;
 					var obj = window.javo_map_box_func;
 					obj.ajax_favorite(tripPlan.placeLists,2);
-					if (tripPlan.schedules.length > 0) {
-						update_time_comings(tripPlan.schedules,7.5);
-						update_sidebar_plan(tripPlan.schedules,tripPlan.placeNotSchedule);
-					}else{
-
-						obj.ajax_favorite(tripPlan.placeLists,2);
-					};
+					if (typeof tripPlan.schedules["Day_1"] !== 'undefined') {
+						if (tripPlan.schedules["Day_1"].placeLists.length > 0) {
+							update_time_comings(tripPlan.schedules,7.5);
+							update_sidebar_plan(tripPlan,1);
+						};
+					}
 					obj.resize();
 					$("ul#schedule-day-boby").sortable({
 				        update: function(event, ui) {
@@ -65,6 +71,24 @@ jQuery( function( $ ){
 			}
 			return arrbk;
 		}
+		function showSave(display){
+			if (typeof display == 'undefined') {display == false};
+			if (display) {$('.manage-btn').fadeIn()}else{$('.manage-btn').fadeOut();};
+			
+		}
+		function removeDuplicate2(arr){
+			var resultsaa = [],arrbk  =[];
+			for (var i = 0; i < arr.length; i++) {
+			    if (resultsaa.indexOf(arr[i].place_id) < 0 ) {
+			        resultsaa.push(arr[i].place_id);
+			        arrbk.push(arr[i]);
+			    }
+			}
+			return {
+				placeLists:arrbk,
+				placeIds:resultsaa
+			};
+		}
 		/*Add the place to places in plan*/
 		$(document).on('click','[btn-add-place-plan]',function(){
 			var itemSelected 	= 	$(this).parent().parent().parent().data('place');
@@ -73,7 +97,6 @@ jQuery( function( $ ){
 				tripPlan.placeLists.push(itemSelected);
 			};
 			$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
-				console.log(data);
 			});
 
 			var obj = window.javo_map_box_func;
@@ -89,6 +112,7 @@ jQuery( function( $ ){
 		        	});
 		        }
 		    });
+		    $(this).parent().parent().parent().parent().remove();
 		});
 		/*Add event when set a place number 1 of a day in schedule */
 		$(document).on('click','.select-home',function(){
@@ -126,7 +150,11 @@ jQuery( function( $ ){
 		        }
 		    });
 		});
-		
+
+		$(document).on('click','.open-lists-day',function(){
+			$('[list-day-in-plan]').hide();
+			$(this).parent().parent().find("[list-day-in-plan]").slideDown();
+		});
 		$(document).on('click','#add-day-to-plan',function(){
 			$.post('/api/add_day',{add_day:true},function(data){
 				if (data.dayNumber != 0) {
@@ -139,15 +167,46 @@ jQuery( function( $ ){
 			console.log("Added a day to plan 1");
 			update_list_day();
 		});
+		$(document).on('click','#back-to-plan',function(){
+
+			var obj = window.javo_map_box_func;
+			obj.ajax_favorite(tripPlan.placeLists,2);
+					obj.resize();
+					$("ul#schedule-day-boby").sortable({
+				        update: function(event, ui) {
+				        	$('ul#schedule-day-boby li').each(function(e){
+				        		var place = $(this).data('place');
+				        		$(this).find('.number').text(e + 1);
+				        		tripPlan.placeIds[e] = place.id;
+								tripPlan.placeLists[e] = place;
+				        	});
+				        }
+				    });
+		});
+		$(document).on('click','#back-to-day',function(){
+			$('.javo_mhome_sidebar').removeClass('all_day');
+			var strHtml = $('#load-schedule-day-header-control-2').html(),current_day =1;
+			$('.full-detail  .schedule-day-boby-detail').each(function(e){
+				if ($(this).hasClass('_selected')) {
+					current_day = (e+1);
+					return false;
+				};
+			});
+			strHtml		= strHtml.replace(/{{current_day}}/,current_day || 1 );
+
+ 			$('#schedule-day-header-control').html(strHtml);
+ 			update_list_day(tripPlan.dayNumber);
+		});
 		$(document).on('click','#all-to-plan',function(){
 			var obj = window.javo_map_box_func;
+			var html_header = $('#load-schedule-day-header-control-3').html();
+			$('#schedule-day-header-control').html(html_header);
 			if ($('.javo_mhome_sidebar').hasClass('all_day')) {
 				$(this).text("Tất cả");
 			}else{
 				$(this).text("Thu lại");
 				var _width = $('.schedule-day-boby-detail:first-child').outerWidth() + 5;
-				
-				if (tripPlan.placeNotSchedule.length > 0) {
+				if (tripPlan.schedules["Day_Not"].placeLists.length > 0) {
 					_width = _width*(tripPlan.schedules.length +1);
 				}else{
 					_width = (_width*tripPlan.schedules.length);
@@ -169,24 +228,26 @@ jQuery( function( $ ){
 			 		};
 			 	},
 			 	update: function(event, ui) {
-			 		for (var i = 0; i < tripPlan.schedules.length; i++) {
-			 			if (typeof tripPlan.schedules[i] != 'undefined') {
-			 				tripPlan.schedules[i].placeLists = [];
-			 				tripPlan.schedules[i].placeIds = [];
+			 		for (var i = 0; i <= tripPlan.dayNumber; i++) {
+			 			if (typeof tripPlan.schedules["Day_"+(i+1)] != 'undefined') {
+			 				tripPlan.schedules["Day_"+(i+1)].placeLists = [];
+			 				tripPlan.schedules["Day_"+(i+1)].placeIds = [];
 					 		$('ul#schedule-day-boby-'+(i+1)+' li').each(function(e){
 					 			var place = $(this).data('place');
-								tripPlan.schedules[i].placeLists.push(place);	
-								tripPlan.schedules[i].placeIds.push(place.place_id);	
+								tripPlan.schedules["Day_"+(i+1)].placeLists.push(place);	
+								tripPlan.schedules["Day_"+(i+1)].placeIds.push(place.place_id);	
 				        	});
-				        	update_sidebar_header_bar(tripPlan.schedules[i], (i+1));
+				        	update_sidebar_header_bar(tripPlan.schedules["Day_"+(i+1)], (i+1));
 			        	};
 				 	};
-				 	tripPlan.placeNotSchedule = [];
+
+				 	tripPlan.schedules["Day_Not"] = {placeIds:[],placeLists:[]};
 				 	$('ul.schedule-day-boby-bk li').each(function(e){
 					 			var place = $(this).data('place');
-					 			tripPlan.placeNotSchedule.push(place);
+					 			tripPlan.schedules["Day_Not"].placeLists.push(place);
 				        	});
-				 	update_sidebar_boby(tripPlan.schedules, 0,tripPlan.placeNotSchedule);
+				 	update_sidebar_boby(tripPlan);
+
 				 	$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
 					});
 				var obj = window.javo_map_box_func;
@@ -197,7 +258,7 @@ jQuery( function( $ ){
 		function update_duration(schedule){
 			if (typeof schedule === 'object') {
 				var _schPlaces = schedule.placeLists;
-				var _duration=0,_distance=0,_money=0;
+				var _duration=schedule.timeStart,_distance=0,_money=0;
 				schedule.placeBegin.next_time = parseFloat(tripPlan.vectorDistances["T"+schedule.placeBegin.place_id.toString()]["T"+_schPlaces[0].place_id.toString()].duration);
 				schedule.placeBegin.next_distance = parseFloat(tripPlan.vectorDistances["T"+schedule.placeBegin.place_id.toString()]["T"+_schPlaces[0].place_id.toString()].distance);
 					
@@ -241,76 +302,59 @@ jQuery( function( $ ){
 			console.log("Updates day lists");
 			//update_selected();
 		}
+		$(document).on('click','.save-to-plan',function(){
+			console.log("Save trip");
+			console.log(tripPlan);
+			$.post('/plans/createPlan',{user_id: user.id},function(data){
+				console.log("Result");
+				console.log(data);
+			});
+		});
+		$(document).on('click','.cancel-to-plan',function(){
+			$.post('/api/trip3sReset',{ },function(data){
+				console.log("Reset trip");
+				tripPlan = data.plan;
+					var obj = window.javo_map_box_func;
+					obj.ajax_favorite(tripPlan.placeLists,2);
+					
+					obj.resize();
+			});
+		});
 		$(document).on('click','.create-trip',function(){
 
 			if (typeof tripPlan.placeBegin =='undefined' || tripPlan.placeBegin == "") {
 				alert('Chọn 1 địa điểm bạn ở lại trong hành trình');
 				return false;
 			}
-			var placeLists 	= _SaveArray(tripPlan.placeLists);
-			var placeDay 	= [];
-			var placeNight 	= [];
-			for (var i = 0; i < placeLists.length; i++) {
-				if (encrypt_time(placeLists[i].place_late) > 18) {
-					placeNight.push(placeLists[i]);
-				}else{
-					placeDay.push(placeLists[i]);
-				};
-			};
 
-			var _rs =  antCycle({placeLists: tripPlan.placeLists, 
+			var antVectors = tripPlan.vectorDistances,_places = _places =merge_places(tripPlan);
+
+			tripPlan.vectorDistances = getArrayDistances({placeLists: _saveArray(_places), 
 								placeBegin:tripPlan.placeBegin, 
-								placeEnd: tripPlan.placeEnd, 
-								check:false,
-								parent:true })
-						, _tempPlaceLists =[],
-			 tmpCluster =[], fullTime =10, minTime = 0, _success = false;
-			var Clusters = [], count = 0, currCluster = {
-				distance: 0,duration:0,placeLists: []
-			};
-			tripPlan.dayNumber = parseInt( tripPlan.dayNumber);
-			while(!_success){
-				Clusters = [];
-				count = 0;tmpCluster =[];
-				tmpCluster.push(_rs.placeLists[0]);
-				tripPlan.placeNotSchedule = [];
-				for (var i = 1; i < _rs.placeLists.length; i++) {
-					if (count >= tripPlan.dayNumber) {
-						tripPlan.placeNotSchedule.push(_rs.placeLists[i]);
-					}else{
-						tmpCluster.push(_rs.placeLists[i]);
-						var _tmpRs = antCycle({placeLists: tmpCluster, placeBegin:tripPlan.placeBegin
-							, placeEnd: tripPlan.placeEnd,check:true, parent:false });
-						if (_tmpRs.duration >= fullTime) {
-							i--;count++; tmpCluster=[];
-							tmpCluster.push(_rs.placeLists[0]);
-							continue;
-						};
-						Clusters[count] = _tmpRs;
-					}
-				};
-				_success =true;
-				if (Clusters.length < tripPlan.dayNumber) {
-					_success = false; fullTime -= 0.5;
-					if (fullTime <= 0) {
-						_success = true;
-						fullTime =0;
-						//Clusters = [];
-					};
-				};
-
+								placeEnd: tripPlan.placeEnd},antVectors);
+			tripPlan.schedules["Day_Not"] = { placeNumber:0, placeLists:[], placeIds:[] };
+			var optionsToPlan ={
+				dayNumber:tripPlan.dayNumber,
+				placeLists: tripPlan.placeLists,
+				placeBegin:tripPlan.placeBegin,
+				placeEnd:tripPlan.placeEnd,
+				antVectorDistance: tripPlan.vectorDistances,
+				schedules:tripPlan.schedules
 			}
-			for (var i = 0; i < Clusters.length; i++) {
-				Clusters[i]
-			};
+			optionsToPlan = acoCreateSchedule(optionsToPlan);
 
-			tripPlan.schedules = Clusters;
+
+		 	for (var ik = 1; ik <= tripPlan.dayNumber; ik++) {
+		 		optionsToPlan.schedules["Day_"+ik] = updatePlaceCome(optionsToPlan.schedules["Day_"+ik]);
+		 	}
+			tripPlan.schedules = optionsToPlan.schedules;
+
 			$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
-				console.log("Created the trip");
+				console.log("Created the trip successfully");
 				console.log(data);
 			});
 
-			update_sidebar_plan(Clusters);
+			update_sidebar_plan(tripPlan);
 		});
 		function update_time_coming(_schedule,timeStart){
 			if (typeof timeStart == 'undefined' || !$.isNumeric(timeStart)) {
@@ -331,9 +375,11 @@ jQuery( function( $ ){
 			return _schedule;
 		}
 		function update_time_comings(_schedules,timeStart){
+
 			for (var i = 0; i < _schedules.length; i++) {
 				_schedules[i] = update_time_coming(_schedules[i],timeStart);
 			};
+			showSave(true);
 			return _schedules;
 		}
 
@@ -386,11 +432,11 @@ jQuery( function( $ ){
 		} 
  		 
  		//Update side left bar
- 		function update_sidebar_plan(schedules,notSchedule){
+ 		function update_sidebar_plan(tripPlan){
 
  			update_sidebar_header_control({currDay:1, indexControl: 2,numDay:tripPlan.dayNumber});
  			//update_sidebar_header_bar();
- 			update_sidebar_boby(schedules,0,notSchedule);
+ 			update_sidebar_boby(tripPlan,1);
 
  		}
 
@@ -402,21 +448,21 @@ jQuery( function( $ ){
 
  			$('#schedule-day-header-control').html(strHtml);
  			update_list_day(tripPlan.dayNumber);
- 			var currSchedule = tripPlan.schedules[data.currDay - 1];
- 			update_bar_day({index:1, distance: ((currSchedule.distance).toFixed(2)),
+ 			var currSchedule = tripPlan.schedules["Day_"+data.currDay];
+ 			update_bar_day({index:1, distance: ((currSchedule.antBestDistance).toFixed(2)),
 					placeNumber: currSchedule.placeLists.length,
-					dayNumber: ((currSchedule.duration/3600).toFixed(2)),
-					moneyNumber: currSchedule.moneyNumber,
+					dayNumber: ((currSchedule.antBestDuration).toFixed(2)),
+					moneyNumber: currSchedule.moneySpend,
 					userNumber: tripPlan.userNumber});
  		}
  		function update_sidebar_header_bar(data,index){
  			var strAttr = $("#trip3s-attribute-schedule-1").html(),strNull='0';
-				strAttr 	= strAttr.replace(/{{data-index}}/g,    (index) || strNull);
-				strAttr 	= strAttr.replace(/{{data-distance}}/g, data.distance.toFixed(2) || strNull);
+				strAttr 	= strAttr.replace(/{{data-index}}/g,    index || strNull);
+				strAttr 	= strAttr.replace(/{{data-distance}}/g, data.distance || strNull);
 				strAttr 	= strAttr.replace(/{{data-place}}/g,	(data.placeLists.length + 2) || strNull);
-				strAttr 	= strAttr.replace(/{{data-time}}/g,		data.duration.toFixed(2) || strNull);
+				strAttr 	= strAttr.replace(/{{data-time}}/g,		data.duration || strNull);
 				strAttr 	= strAttr.replace(/{{data-user}}/g,		data.userNumber || strNull);
-				strAttr 	= strAttr.replace(/{{data-money}}/g,	data.moneyNumber.toFixed(2) || strNull);
+				strAttr 	= strAttr.replace(/{{data-money}}/g,	data.moneyNumber || strNull);
 			$('#attribute-schedule-'+index).html(strAttr);
  		}
  		function string_placelist(place,i){
@@ -443,48 +489,48 @@ jQuery( function( $ ){
 			str = str.replace( /{{next_detail}}/g ,  place.next_detail  || nstr );
 			return str;
  		}
- 		function update_sidebar_boby(schedules,choice,notSchedule){
- 			if (schedules.length < 1) {
- 				return false;
- 			};
- 			update_time_comings(schedules,7.5);
+ 		function update_sidebar_boby(tripPlan,choice){
+
  			if (typeof choice == 'undefined' || !$.isNumeric(choice)) {
  				choice =0;
  			}
  			var strFull="<div class=\"full-detail \">",nstr='',strNull='0',strCurr='';
-
+ 			console.log("tripPlan in update sidebar body");
+ 			console.log(tripPlan);
 		 	$('#body-detail-add-plan').html('');
- 			for(var ik=0; ik< schedules.length; ik++){
-				schedules[ik] = update_duration(schedules[ik]);
-	 			var places  = _SaveArray(schedules[ik].placeLists),cls= "notselect",data = schedules[ik];
-	 			if (choice == ik) {
-	 				cls= "_selected"; 
-	 			};
-	 			strFull +=html_body(schedules[ik],cls,ik);
-		 	}
-		 	if (typeof notSchedule !== 'undefined') {
-		 		strFull +=html_body2(notSchedule);
+		 	for (var ik = 1; ik <= tripPlan.dayNumber; ik++) {
+		 		tripPlan.schedules["Day_"+ik] = updatePlaceCome(tripPlan.schedules["Day_"+ik]);
+
+		 		var _place = _saveArray(tripPlan.schedules["Day_"+ik].placeLists), cls ="notselect",data = tripPlan.schedules["Day_"+ik];
+		 		if (choice === ik) {cls= "_selected"; };
+
+		 		strFull+=html_body(tripPlan.schedules["Day_"+ik],cls,ik);
+		 	};
+		 	//check places are not in schedule
+		 	if (typeof tripPlan.schedules["Day_Not"] !=='undefined' && tripPlan.schedules["Day_Not"].placeLists.length > 0) {
+		 		strFull +=html_body2(tripPlan.schedules["Day_Not"].placeLists);
 		 	};
 		 	strFull +="</div>";
+
 		 	$('#body-detail-add-plan').html(strFull);
-
-
-		 	for(var ik=0; ik< schedules.length; ik++){
-		 		update_sidebar_header_bar(schedules[ik],(ik+1));
+		 	for (var ik = 1; ik <= tripPlan.dayNumber; ik++) {
+		 		update_sidebar_header_bar(tripPlan.schedules["Day_"+ik],ik);
 		 	}
+		 	enable_sortable("ul.schedule-day-boby","ul.schedule-day-boby-bk");
 
-			enable_sortable("ul.schedule-day-boby","ul.schedule-day-boby-bk");
  		}
  		function html_body(_schedule,cls,ik){
  			var strFull ="<div class=\"row schedule-day-boby-detail "+cls+" \">",places  = _SaveArray(_schedule.placeLists);
-	 			strFull +="<div class=\"schedule-day-header-bar attribute-schedule\" id=\"attribute-schedule-"+(ik+1)+"\"  data-index=\""+(ik+1)+"\"></div> ";
+	 			strFull +="<div class=\"schedule-day-header-bar attribute-schedule\" id=\"attribute-schedule-"+ik+"\"  data-index=\""+ik+"\"></div> ";
 	 			strFull +="<div class=\"schedule-day-boby-detail-fix  scrollbar style-3\">";
 	 			strFull +="<div class=\"schedule-day-boby-fixed\">"+string_placelist(_schedule.placeBegin,1)+"</div> ";
-	 			strFull +="<ul class=\"schedule-day-boby\" data-index=\""+(ik+1)+"\" id=\"schedule-day-boby-"+(ik+1)+"\" >";
+	 			strFull +="<ul class=\"schedule-day-boby\" data-index=\""+ik+"\" id=\"schedule-day-boby-"+ik+"\" >";
 				for (var i = 0; i < places.length; i++) {
 			 		strFull +=string_placelist(places[i],(i+2));
 			 	};
 			 	strFull +="</ul>";
+
+	 			strFull +="<div class=\"schedule-day-boby-fixed\">"+string_placelist(_schedule.placeEnd,places.length +2)+"</div> ";
 			 	strFull +="</div></div>";
 
 			 	return strFull;
@@ -515,13 +561,14 @@ jQuery( function( $ ){
 
 			$('#dropdown-select-days').html('Ngày '+ schedule_day + ' <span class="caret"></span>');
 			$('#dropdown-select-days').attr("data-place_id",schedule_day);
-			update_sidebar_boby(tripPlan.schedules,(parseInt(schedule_day) - 1));
+			update_sidebar_boby(tripPlan,parseInt(schedule_day));
+
 			var obj = window.javo_map_box_func;
 			obj.resize();
 		});
 
 		function update_bar_day(data){
-			if (typeof data === 'undefined') {
+			if (typeof data === 'undefined') { 
 				return;
 			};
 			var strNull='0';
@@ -531,6 +578,7 @@ jQuery( function( $ ){
 			str 	= str.replace(/{{data-time}}/g,		data.dayNumber || strNull);
 			str 	= str.replace(/{{data-user}}/g,		data.userNumber || strNull);
 			str 	= str.replace(/{{data-money}}/g,	data.moneyNumber || strNull);
+
 			$('#attribute-schedule').html(str);
 		}
 		function update_selected(){
@@ -538,7 +586,6 @@ jQuery( function( $ ){
 				'/api/return_day'
 				, {},
 				function(response){
-
 					$('[list-day-in-plan]').each(function(e){
 						var max_day =	response.day_number;
 
@@ -569,9 +616,7 @@ jQuery( function( $ ){
 		}
 
 		$(document).on('click','[list-day-in-plan] li a',function(){
-			//update_selected();
-
-			var place_id = $(this).parent().parent().attr('place_id');
+			var place = $(this).parent().parent().parent().parent().parent().data('place');
 			var schedule_day = $(this).attr('day');
 			$('[javo-current-day]').val(schedule_day);
 			var action 	='add_place';
@@ -583,45 +628,319 @@ jQuery( function( $ ){
 				$('.list-announcement').append('<li>Xóa địa điểm thành công</li>'); 
 				action 	='remove_place';
 			}	
-			update_listPlaces(place_id,schedule_day,action);
+			update_listPlaces(place,schedule_day);
+			
 			update_announcement();
 		});
 	
-		function update_listPlaces(place_id,schedule_day,action){
-			$.get(
-					'/api/add_place_to_plan'
-					, {
-						place_id		: place_id,
-						schedule_day	: schedule_day,
-						action2 			: action
-					}
-					, function( response ){
-						
-						items = response.places;
-						
-						var strFull = '', nstr = '1';
-						if (response.status = "success") {
+		function update_listPlaces(place,schedule_day){
+			if (typeof tripPlan.schedules["Day_"+schedule_day] == 'undefined') {
+				tripPlan.schedules["Day_"+schedule_day] = {
+					timeTemp:7.5,
+					moneyNumber:0,
+					currentNumber:schedule_day,
+					placeBegin: tripPlan.placeBegin,
+					placeEnd: tripPlan.placeEnd,
+					placeLists:[],
+					placeIds:[]
+				}
+			};try{
+				if (tripPlan.schedules["Day_"+schedule_day].placeIds.indexOf(place.place_id) < 0) {
+					tripPlan.schedules["Day_"+schedule_day].placeLists.push(place);
+					tripPlan.schedules["Day_"+schedule_day].placeIds.push(place.place_id);
+				};
+			}catch(e){
+				tripPlan.schedules["Day_"+schedule_day].placeLists   = [];
+				tripPlan.schedules["Day_"+schedule_day].placeIds   = [];
+				tripPlan.schedules["Day_"+schedule_day].placeLists.push(place);
+				tripPlan.schedules["Day_"+schedule_day].placeIds.push(place.place_id);
+			}
 
-							var places = response.places;
-							
-							for (var i = 0; i < places.length; i++) {
-								var str = ''
-								str = $("#trip3s-place-in-schedule").html();
-								
-								str = str.replace( /{{post_thumbnail}}/g , places[i].post_thumbnail || nstr );
-								str = str.replace( /{{post_title}}/g	 , places[i].post_title || nstr );
-								str = str.replace( /{{post_excerpt}}/g	 , places[i].phone || nstr );
-								str = str.replace( /{{sort_thumbnail}}/g , (i + 1) || nstr );
-								strFull +=str;
-							};
-							console.log("ddddddddddddddddddddddd");
-							$('#schedule-day-boby').html(strFull);
-						}
-						else{
-							strFull = "error";
-						}
-					});
+			
+
+			$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){});
+			console.log(tripPlan);
+			return tripPlan;
 		}
+		
+		function load_place_lists(data,selected){
+			var strFull = '';
+			if (data[0] =='') {
+				return strFull;
+			};
+			for (var i = 0; i < data.length; i++) {
+
+				if (typeof selected =="undefined")
+					strFull+="<option value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
+				else if (data[i].place_id === selected.place_id) 
+					strFull+="<option selected value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
+				else
+					strFull+="<option value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
+			};
+			return strFull;
+		}
+		function load_place_selected(data,selected){
+			for (var i = 0; i < data.length; i++) {
+				if (typeof selected =="undefined"){
+					return data[i];
+				}
+				else if (parseFloat(data[i].place_id) == parseFloat(selected)){
+					return data[i];
+				}
+			};
+			return data[0]
+		}
+
+		function update_day_in_place(tripPlan,id){
+			var strFull = '';
+			for (var j = 1; j <= tripPlan.dayNumber; j++) {
+				var strTmp = $('#load-day-in-place').html();
+				if (typeof tripPlan.schedules["Day_"+j] == 'undefined') {
+					strTmp = strTmp.replace(/{{index-number}}/g, j);
+					strTmp = strTmp.replace(/{{index-class}}/g,'fa-check-circle-o');
+
+				}else{
+					var schedule = tripPlan.schedules["Day_"+j];
+					if (schedule.placeLists.length > 0) {
+						for (var i = 0; i < schedule.placeLists.length; i++) {
+							if (schedule.placeLists[i].place_id == id) {
+								strTmp = strTmp.replace(/{{index-number}}/g, j);
+								strTmp = strTmp.replace(/{{index-class}}/g,' selected fa-times');
+							}
+							else{
+								strTmp = strTmp.replace(/{{index-number}}/g, j);
+								strTmp = strTmp.replace(/{{index-class}}/g,  'fa-check-circle-o');
+							}
+						};
+					}else{
+						strTmp = strTmp.replace(/{{index-number}}/g, j);
+						strTmp = strTmp.replace(/{{index-class}}/g,'fa-check-circle-o');
+					}
+				}
+				strFull+= strTmp;
+			}
+			return strFull;
+		}
+		$(document).on('click','i.remove-place',function(e){
+			var place_id = $(this).data('place_id');
+			var indexPlace = tripPlan.placeIds.indexOf(place_id);
+			if (indexPlace > -1) {
+				tripPlan.placeIds.splice(indexPlace,1);
+				tripPlan.placeLists.splice(indexPlace,1);
+			}else{
+				var indexPlace = tripPlan.placeIds.indexOf(null);
+				if (indexPlace > -1) {
+					tripPlan.placeIds.splice(indexPlace,1);
+					tripPlan.placeLists.splice(indexPlace,1);
+				}
+			};
+
+				$(this).parent().parent().remove();
+				console.log(tripPlan);
+				//remove place 
+				$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
+					console.log(data);
+				});
+		});
+
+
+
+		$(document).on('change','[name="tripPlan[placeBegin]"]',function(e){
+			tripPlan.placeBegin = load_place_selected(tripPlan.placeLists,$(this).val());
+			tripPlan.placeEnd = load_place_selected(tripPlan.placeLists,$(this).val());
+		});
+		$(document).on('change','select[name^="tripPlan_placeBegin_"]',function(e){
+			
+		});
+		function hide_setting(){
+			$('#body-detail-create-plan').hide();
+			console.log("Hide");
+		}
+		$(document).on('click','.view-trip-down',function(e){
+			hide_setting();
+			for (var i = 1; i <= tripPlan.dayNumber; i++) {
+				if (typeof tripPlan.schedules["Day_"+i] !== 'undefined') {
+					console.log("d");
+					if (tripPlan.schedules["Day_"+i].placeLists.length > 0) {
+						update_time_comings(tripPlan.schedules,7.5);
+						update_sidebar_plan(tripPlan,i);
+						break;
+					};
+				}
+			};
+			var obj = window.javo_map_box_func;
+			obj.resize();
+		});
+		$(document).on('click','.open-trip-down',function(e){
+			var _places =merge_places(tripPlan);
+
+			if ($('.body-detail-create-plan').is(":visible")) {
+				$(this).html('<i class="fa fa-chevron-circle-down">  Cài đặt</i>');
+				$('.body-detail-create-plan').slideUp();
+			}else{
+				$(this).html('<i class="fa fa-chevron-circle-up">  Cài đặt</i>');
+				$('.body-detail-create-plan').slideDown();
+				if (tripPlan.placeBegin =='' || typeof tripPlan.placeBegin == 'undefined'){
+					$('[name="tripPlan[placeBegin]"]').html(load_place_lists(_places));
+				}
+				else{
+					$('[name="tripPlan[placeBegin]"]').html(load_place_lists(_places,tripPlan.placeBegin));
+				}
+
+				$('#tripPlan-tripName').val(tripPlan.tripName);
+				$('#tripPlan-dayNumbers').val(tripPlan.dayNumber);
+				$('#tripPlan-userNumbers').val(tripPlan.userNumber);
+				$('#tripPlan-moneyNumbers').val(tripPlan.moneyNumber);
+				$('#tripPlan-planStart').val(tripPlan.planStart);
+
+			};
+			$('#tripPlan-planStart').datepicker({dateFormat: 'dd/mm/yy'});
+			
+		});
+		function merge_places(tripPlan){
+			var _places = _saveArray(tripPlan.placeLists);
+
+			_places.push(tripPlan.placeBegin);
+
+
+			for (var i = 1; i <= tripPlan.dayNumber; i++) {
+				if (typeof tripPlan.schedules["Day_"+i] !== 'undefined') {
+					if (tripPlan.schedules["Day_"+i].placeBegin !== '' || typeof tripPlan.schedules["Day_"+i] !=='undefined') {
+						if (i==1) {
+							_places.push(tripPlan.schedules["Day_"+i].placeBegin);
+						};
+						_places.push(tripPlan.schedules["Day_"+i].placeEnd);
+					};
+				};
+			}
+			_places  = removeDuplicate(_places);
+
+			return _places;
+
+		}
+		function devide_places(tripPlan,_places){
+			for (var i = 0; i < _places.length; i++) {
+				if (_places[i] =="" && typeof _places[i] =="string") {
+					_places.splice(i,1)
+				};
+			}
+			for (var i = 1; i <= tripPlan.dayNumber; i++) {
+				if (typeof tripPlan.schedules["Day_"+i] !== 'undefined') {
+					if (tripPlan.schedules["Day_"+i].placeBegin !== '' || typeof tripPlan.schedules["Day_"+i] !=='undefined') {
+						
+						if (i==1) {
+							_places = removePlace(_places, tripPlan.schedules["Day_"+i].placeBegin);
+						};
+							_places = removePlace(_places, tripPlan.schedules["Day_"+i].placeEnd);
+					};
+				};
+			};
+			var _placeIds = [];
+
+
+			for (var i = 0; i < _places.length; i++) {
+				_placeIds.push(_places[i].place_id);
+			};
+			return {
+				placeLists: _places,
+				placeIds: _placeIds
+			}
+		}
+		$(document).on('click','.open-advance',function(e){
+			
+			var dayNumbers 		= $('#tripPlan-dayNumbers').val() ==''? 1: $('#tripPlan-dayNumbers').val();
+			dayNumbers 	= parseFloat(dayNumbers);
+			
+			var strFull = '',_places =merge_places(tripPlan) ;
+			for (var i = 1; i <= dayNumbers; i++) {
+				if (i===1) {
+					var strCurr = $('#loading-place-start-1').html();
+				}else{
+					var strCurr = $('#loading-place-start-2').html();
+				};
+				strCurr 	= strCurr.replace( /{{dayNumber}}/g		, i );
+				if (typeof tripPlan.schedules["Day_"+i] !== 'undefined') {
+					strCurr 	= strCurr.replace( /{{places-list-start}}/g, load_place_lists(_places,tripPlan.schedules["Day_"+i].placeBegin)  );
+					strCurr 	= strCurr.replace( /{{places-list-end}}/g	, load_place_lists(_places,tripPlan.schedules["Day_"+i].placeEnd)  );
+				}else{
+					strCurr 	= strCurr.replace( /{{places-list-start}}/g, load_place_lists(_places));
+					strCurr 	= strCurr.replace( /{{places-list-end}}/g, load_place_lists(_places));
+				};
+				strFull 	+= strCurr;
+			};
+
+			$('.setting-day').html(strFull);
+		});
+		$(document).on('click','.btn-save-detail-plan',function(e){
+			var date = new Date(); date.setDate(date.getDate() + 7);
+			var timeCurrent = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+
+			var dayNumbers 		= ($('#tripPlan-dayNumbers').val() =='')? 1: $('#tripPlan-dayNumbers').val(),
+				nameTrip 		= ($('#tripPlan-tripName').val() =='')? 'Du lịch trip3s' : $('#tripPlan-tripName').val(),
+				userNumbers 	= ($('#tripPlan-userNumbers').val() =='')? 1:$('#tripPlan-userNumbers').val(),
+				planStart 		= ($('#tripPlan-planStart').val() =='')? timeCurrent :$('#tripPlan-planStart').val(),
+				moneyNumbers 	= ($('#tripPlan-moneyNumbers').val() =='')? 1:$('#tripPlan-moneyNumbers').val();
+
+			tripPlan.dayNumber 		= parseFloat(dayNumbers),
+			tripPlan.moneyNumber 	= parseFloat(moneyNumbers),
+			tripPlan.userNumber 	= parseFloat(userNumbers);
+			tripPlan.tripName		= nameTrip;
+			tripPlan.planStart 		= planStart;
+
+			var _placeBegin = $('select[name="tripPlan[placeBegin]"]').val();
+
+			var _places =merge_places(tripPlan);
+
+
+			tripPlan.placeBegin = tripPlan.placeEnd =  load_place_selected(_places,_placeBegin);
+
+			for (var i = 1; i <= tripPlan.dayNumber; i++) {
+				var _placeTmp1 	= $('select[name="tripPlan_placeBegin_'+i+'"]').val();
+				var _placeTmp2 	= $('select[name="tripPlan_placeEnd_'+i+'"]').val();
+
+				if (typeof _placeTmp1 == 'undefined') {_placeTmp1 = $('select[name="tripPlan_placeEnd_'+(i-1)+'"]').val(); };
+				tripPlan.schedules["Day_"+i] = {
+					timeTemp:7.5,
+					moneyNumber:0,
+					currentNumber:i,
+					placeBegin: load_place_selected(_places,_placeTmp1),
+					placeEnd: load_place_selected(_places,_placeTmp2),
+					placeLists:[],
+					placeIds:[]
+				}
+			};
+			tripPlan.schedules   = convArrToObj(tripPlan.schedules);
+			var devide = devide_places(tripPlan,_places);
+			tripPlan.placeLists = devide.placeLists;
+			tripPlan.placeIds = devide.placeIds;
+
+			console.log(tripPlan);
+			//remove place 
+			$.post('/api/trip3sPlan',{plan:stringify(tripPlan)},function(data){
+				console.log(data);
+			});
+		});
+function removePlace(places,element){
+	for (var i = 0; i < places.length; i++) {
+		if (places[i].place_id == element.place_id) {
+			places.splice(i, 1);
+		};
+	};
+	return places;
+}
+		$(document).on('click','.javo-mhome-onoff-sidebar',function(e){
+			
+			if ($('.javo_mhome_sidebar').css('width') =="300px") {
+				$('.javo_mhome_sidebar').css("width","0px");
+				$('.javo_mhome_sidebar .well-default').fadeOut();
+				$(this).html('<i class="fa fa-chevron-circle-right"></i>');
+			}else{
+				$('.javo_mhome_sidebar').css("width","300px");
+				$('.javo_mhome_sidebar .well-default').fadeIn();
+				$(this).html('<i class="fa fa-chevron-circle-left"></i>');
+			};
+			hide_setting();
+		});
 		function update_announcement(){
 			$('.list-announcement li').each(function(){
 				$(this).fadeOut(7000,function(){
@@ -705,8 +1024,7 @@ jQuery( function( $ ){
 				// Topbar is entered into Header Navigation.
 				// + $('.javo-topbar').outerHeight()
 
-			} // End Define Variables
-
+			}
 			// Javo Maps Initialize
 			, init: function()
 			{
@@ -763,10 +1081,11 @@ jQuery( function( $ ){
 				; $( document )
 					.on( 'click'	, '.javo-hmap-marker-trigger'				, this.marker_on_list )
 					.on( 'click'	, '.showMap-place'							, this.showmap_place )
-					.on( 'change'	, 'select[name^="filter"]'					, this.filter_trigger )
+					.on( 'click'	, '.btn-filter-place'						, this.filter_trigger )
+					.on( 'click'	, '.btn-filter-remove'						, this.filter_remove )
+					.on( 'click'	, '.btn-filter-my-location'					, this.filter_mylocation )
 					.on( 'click'	, '[data-javo-map-load-more]'				, this.load_more )
 					.on( 'click'	, '[data-javo-hmap-sort]'					, this.order_switcher )
-					.on( 'keypress'	, '#javo-map-box-auto-tag'					, this.keyword_ )
 					.on( 'click'	, '[data-map-move-allow]'					, this.map_locker )
 					.on( 'click'	, '#javo-map-box-search-button'				, this.search_button )
 					.on( 'click'	, 'li[data-javo-hmap-ppp]'					, this.trigger_ppp )
@@ -804,7 +1123,7 @@ jQuery( function( $ ){
 			, drawRoute:function(){
 				var myLatlng	= {lat: -25.363, lng: 131.044};
  				var obj 		= window.javo_map_box_func, currDay = $("#dropdown-select-days").attr("data-place_id");
- 				var _schedule   = tripPlan.schedules[currDay-1]; 
+ 				var _schedule   = tripPlan.schedules["Day_"+currDay]; 
  				var items  		= _SaveArray(_schedule.placeLists);
  				if (items.length < 1) {
  					return; 
@@ -815,7 +1134,8 @@ jQuery( function( $ ){
 				obj.setMarkers( items, true,true );
 				var lengthItems	 = items.length;
 				var arrRequest   = [];
-				tripPlan.schedules[currDay-1].distance  = 0;
+				tripPlan.schedules["Day_"+currDay].distance  = 0;
+
 				for (var i = 0; i < lengthItems; i++) {
 					if (i < lengthItems -1) {
 						obj.drawRoutePoint(items[i],items[i+1]);
@@ -981,10 +1301,11 @@ jQuery( function( $ ){
 				$('.body-detail-add-plan').css( 'height', (content_sidebar + 130));
 				//$('div.schedule-day-boby-detail').css( 'height', content_sidebar);
 				$('div.schedule-day-boby-detail-fix').css( 'height', content_sidebar);
+				$('div.body-detail-create-plan').css( 'height', content_sidebar + 100);
 				$('ul.schedule-day-boby.scrollbar').css( 'height', content_sidebar+40);
 
 
-				$('.javo_mhome_map_output').css( 'marginTop', $('.main-map-search-wrap').outerHeight(true) );
+				//$('.javo_mhome_map_output').css( 'marginTop', $('.main-map-search-wrap').outerHeight(true) );
 
 				if( parseInt( winX ) >= 1120 )
 				{
@@ -1119,7 +1440,6 @@ jQuery( function( $ ){
 
 			, setAutoComplete: function()
 			{
-
 				$('[name^="filter"]').chosen({
 					width				: '100%'
 					, search_contains	: 1
@@ -1241,6 +1561,21 @@ jQuery( function( $ ){
 				obj.append_list_items( tripPlan.placeLists);
 				$("ol#schedule-day-boby").sortable();
 			}
+			, filter_mylocation: function(  )
+			{
+
+			}
+			, filter_remove: function(  )
+			{
+				var obj			= window.javo_map_box_func;
+				$('.javo_mhome_map_output #products').empty();
+				$( '[data-javo-map-load-more]' ).attr('data-javo-map-load-more',0);
+				obj.loading( true );
+				obj.clear_map();
+				obj.items =[];
+				$(".input-filter-text").val("");
+				$('select[name^="filter"]').val('').trigger('chosen:updated');
+			}
 			, filter: function( data )
 			{
 				var obj			= window.javo_map_box_func;
@@ -1263,12 +1598,27 @@ jQuery( function( $ ){
 				var result = {};
 				var cate_ids ={},pro_ids={},cui_ids={},
 					did_ids={},pur_ids={},city_ids={},
-					dis_ids={},area_ids={};
-				all_ids =  $("select[name='filter[item_category]']").val();
+					dis_ids={},area_ids={}, keyword ='';
+				keyword =  $("select[name='filter[item_category]']").val();
+				cate_ids =  $("select[name='filter[item_category]']").val();
+				city_ids =  $("select[name='filter[item_city]']").val();
+				dis_ids =  $("select[name='filter[item_district]']").val();
+				area_ids =  $("select[name='filter[item_area]']").val();
+				pro_ids =  $("select[name='filter[item_property]']").val();
+				cui_ids =  $("select[name='filter[item_cuisine]']").val();
+				did_ids =  $("select[name='filter[item_diding]']").val();
+				pur_ids =  $("select[name='filter[item_purpose]']").val();
 				// DATA
 				btn.prop( 'disabled', true ).find('i').addClass('fa-spin');
-				$.getJSON('/places/load_place_filter', {
-					allIds 	:all_ids,
+				$.getJSON('/api/load_place_filter', {
+					cityIds 	:city_ids,
+					districtIds :dis_ids,
+					areaIds 	:area_ids,
+					cateIds 	:cate_ids,
+					proIds 		:pro_ids,
+					cuiIds 		:cui_ids,
+					didIds 		:did_ids,
+					purIds 		:pur_ids,
 					offset 		:_offset,
 					limit		:_limit
 				})
@@ -1501,7 +1851,7 @@ jQuery( function( $ ){
 								var str = "";
 
 								str = $('#javo-map-box-panel-content').html();
-
+								str = str.replace(/{{day_in_place}}/g	, update_day_in_place(tripPlan,data.place_id));
 								str = str.replace(/{place_full}/g		, JSON.stringify(data));
 								str = str.replace(/{post_id}/g			, data.post_id );
 								str = str.replace(/{place_id}/g			, data.place_id );
@@ -1670,6 +2020,7 @@ jQuery( function( $ ){
 				if (typeof index !== 'undefined') {
 					_index = index;
 				};
+				showSave(false);
 				update_bar_day({index:_index,distance:0,
 					placeNumber:placeLength,
 					dayNumber:tripPlan.dayNumber,

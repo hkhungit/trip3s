@@ -5,9 +5,9 @@ class CreatePlaces < ActiveRecord::Migration
       t.string :place_lat
       t.string :place_lng
       t.string :place_ticket
-      t.datetime :place_open
-      t.datetime :place_close
-      t.datetime :place_late
+      t.string :place_open
+      t.string :place_close
+      t.string :place_late
       t.string :place_choice
 
       t.string :place_min

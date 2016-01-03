@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   get 'list/index'
 
   get 'auth/:provider/callback', to: 'session#create'
+  
   get 'auth/failure', to: redirect('/')
   get 'signout',      to: 'session#destroy', as: 'signout'
   get 'login',        to: 'session#login',   as: 'login'
   get 'signin',       to: 'session#signin',  as: 'signin'
+
+  get 'error',       to: 'api#error',  as: 'error'
 
   resources :session, only: [:create, :destroy]
   get 'session/create'
@@ -34,6 +37,9 @@ Rails.application.routes.draw do
       get 'return_day'
     end
     collection do
+      post 'response_user'
+      post 'detail_by_schedule_id'
+      post 'add_friend'
       get 'record'
       get 'trip3sReset'
       post 'trip3sReset'
@@ -75,6 +81,8 @@ Rails.application.routes.draw do
   resources :plans do
     collection do
       get 'k_mean'
+      post 'createPlan'
+      get 'createPlan'
     end
   end
 

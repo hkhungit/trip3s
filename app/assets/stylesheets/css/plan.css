@@ -1,0 +1,84 @@
+/*CSS PAGE INDEX Ò PLAN */
+html header#header-one-line.main{background: #000000}
+
+
+/*CSS PAGE DETAILS OF PLAN*/
+.cover-fui-row-full{margin-top:100px;}
+ul.iti-attributes li{width: 100%;float: left;}
+.fleft{float: left;}
+.fright{float: right;}
+.tleft{text-align: left;}
+.tright{text-align: right;}
+.fright.plan-value .label{padding: 4px; margin: 2px;cursor: pointer;}
+.iti-day-nav {
+    top: 165px;
+    max-width: 262px;
+}
+.pos-fixed {
+    position: fixed;
+}
+.iti-day-nav-list ul li a {
+    color: #666;
+}
+.iti-day-nav-list {
+    padding: 0px;
+}
+.fui-box {
+    border-radius: 0;
+    background: white;
+    box-shadow: 0 1px 1px rgba(50,50,50,.2);
+}
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+.fui-row-full, .row-full {
+    width: 100%;
+    float: left;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+    background-color: #3cbae9;
+}
+.route-content{background: #E8E8E8;    margin-top: 10px;}
+.border-dotted{
+    border-bottom: 1px #000 dotted;
+    margin: 5px 0px;
+}
+.map-in-plan{
+    width: 100%;
+    height: 400px
+}
+.icon-item-place {
+    z-index: 10;
+    border: 3px #717171 solid;
+}
+.icon-item-place-number{
+        z-index: 9;
+        position: absolute;
+        line-height: 15px;
+        font-weight: bold;
+        background: #444;
+        padding: 0px 5px;
+        left: -1px;
+        top: -16px;
+        border: 1px rgba(244, 244, 244, 0.86) solid;
+        border-top-right-radius: 13px;
+        border-bottom: 0px;
+    }
+    .icon-item-place-number:after{
+        content: "";
+        width: 20px;
+        height: 20px;
+        background: #444;
+    }
+.infor-about-place .iti-att-time{
+    position: absolute;
+    background: #E8E8E8;
+    width: 100px;
+    font-weight: bold;
+    color: #000;
+    text-align: right;
+    padding: 2px 5px;
+    font-size: 17px;
+}
+/*CSS ADD NEW PLAN*/

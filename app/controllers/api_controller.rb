@@ -1,6 +1,9 @@
 class ApiController < ApplicationController
 	skip_before_action :verify_authenticity_token
 
+	def error
+		
+	end
 	def index
 	end
 	def record
@@ -13,11 +16,17 @@ class ApiController < ApplicationController
 		}
 	end
 	def createTrip3sPlan
-		session[:plan] = {
-				:dayNumber 			=> "2",
-		        :userNumber			=> "1",
-		        :planStart			=> "",
-		        :moneyNumber		=> "1",
+		if session[:plan].blank?
+
+			date = 7.days.from_now
+			session[:plan] = {
+				:tripName 			=> 'Du lịch trip3s',
+				:dayNumber 			=> 1,
+		        :userNumber			=> 1,
+		        :planStart			=> date.strftime("%d/%m/%G"),
+		        :timeStart			=> 7.5,
+		        :timeEnd			=> 24,
+		        :moneyNumber		=> 0,
 		        :planEnd 			=> "",
 		        :placeBegin 		=> "",
 		        :placeEnd 			=> "",
@@ -25,12 +34,36 @@ class ApiController < ApplicationController
 		        :placeIds 			=> Array.new,
 		        :placeLists			=> Array.new,
 		        :vectorDistances	=> {},
-		        :placeNotSchedule	=> Array.new,
-		        :schedules 			=> Array.new
+		        :schedules 			=> Array.new,
+		        :userList 			=> Array.new
 			}
+			
+		session[:plan]["planStart"] = date.strftime("%d/%m/%G")
+		end
+
+		return session[:plan]
 	end
 	def trip3sReset
-		createTrip3sPlan
+		date = 7.days.from_now
+		session[:plan] = {
+				:tripName 			=> 'Du lịch trip3s',
+				:dayNumber 			=> 1,
+		        :userNumber			=> 1,
+		        :timeStart			=> 7.5,
+		        :planStart			=> 2,
+		        :timeEnd			=> 24,
+		        :moneyNumber		=> 0,
+		        :planEnd 			=> "",
+		        :placeBegin 		=> "",
+		        :placeEnd 			=> "",
+		        :planStart 			=> "",
+		        :placeIds 			=> Array.new,
+		        :placeLists			=> Array.new,
+		        :vectorDistances	=> {},
+		        :schedules 			=> Array.new,
+		        :userList 			=> Array.new
+			}
+		session[:plan]["planStart"] = date.strftime("%d/%m/%G")
 		render json: {
 			'status' =>status,
 			'plan'   =>session[:plan]
@@ -62,13 +95,25 @@ class ApiController < ApplicationController
 									posts.post_url,
 									posts.post_point,
 									posts.post_review,
-									posts.post_view")
+									posts.post_view,places.place_choice")
 						.distinct
 						.joins(:place,:post_category =>{:type=>:category})
 						.order('post_view desc')
 		#Check condition filter
 		check_filter 	= false
 		location_arr 	= Array.new
+
+		#Check city
+		if params[:userId].to_i != 0
+			check_filter =true
+			_temp 	= Post.select("posts.id")
+						.distinct
+						.joins(:place,:user_post)
+						.where(:user_posts => {:user_id=> params[:userId]})
+			places = places.where("posts.id in (?)",_temp	)
+		end
+
+
 		#Check city in filter
 		if params[:cityIds].present? && params[:cityIds] !=''
 			#places = places.where(:types => {:category_id=> params[:cityIds]})
@@ -162,7 +207,23 @@ class ApiController < ApplicationController
 		if check_filter ==false
 			places = places.where(:types => {:type_name=> 'type_category_place'})
 		end
+		if params[:keyword].present?
+			_like  = params[:keyword]
+			_like  = _like.gsub(/[ \'']/, '%') 
+			_temp  = Post.select("posts.id")
+							.distinct
+							.joins(:place,:post_category =>{:type=>:category})
+							.where(" post_title LIKE '%#{_like}%' ")
+			places = places.where("posts.id IN (?)",_temp	)
+		end
+		if session[:plan].present?
+			if session[:plan]["placeIds"].present?
+				places = places.where("places.id NOT IN (?)",session[:plan]["placeIds"]	)
+			end
+		end
+		places = places.reorder("places.place_choice desc")
 
+		
 		_count = 1
 
 		offset = 0;
@@ -321,30 +382,34 @@ class ApiController < ApplicationController
 	#add extra plan to day in schedule
 	def add_place_to_plan
 		#session.delete(:plan)
-		create_schedule
+		createTrip3sPlan
 		day_of_schedule	=	params[:schedule_day].nil? ? '1' : params[:schedule_day].to_i
 
 		action2 			=   'add_place'
 		action2 			=	'remove_place' if params[:action2].present? && params[:action2] != 'add_place' 
-		puts action2
+
 		if action2 == 'add_place'
-			if session[:plan][:schedule][day_of_schedule].blank?
-				schedule 		= { :place_ids => Array.new, :day	=> day_of_schedule}
-				session[:plan][:schedule][day_of_schedule] =  schedule
-				(session[:plan][:schedule][day_of_schedule][:place_ids] ||=[]) << params[:place_id].to_i
+			puts session[:plan][:schedules]
+			if session[:plan][:schedules]["Day_#{day_of_schedule}"].blank?
+				schedule 		= { :placeIds => Array.new,:placeLists => Array.new, :currentDay	=> day_of_schedule}
+
+				session[:plan][:schedules]["Day_#{day_of_schedule}"] =  schedule
+				(session[:plan][:schedules]["Day_#{day_of_schedule}"][:placeIds] ||=[]) << trip3s_places(params[:place_id].to_i)
 				puts ="add first"
-			elsif !session[:plan][:schedule][day_of_schedule][:place_ids].include?params[:place_id].to_i
-				(session[:plan][:schedule][day_of_schedule][:place_ids] ||=[]) << params[:place_id].to_i
+			elsif !session[:plan][:schedules]["Day_#{day_of_schedule}"][:placeIds].include?params[:place_id].to_i
+				(session[:plan][:schedules]["Day_#{day_of_schedule}"][:placeIds] ||=[]) 	<< params[:place_id].to_i
+				(session[:plan][:schedules]["Day_#{day_of_schedule}"][:placeLists] ||=[]) 	<< trip3s_places(params[:place_id].to_i)
 				puts ="add first 2"
 			end
 		else
 			puts "remove";
-			session[:plan][:schedule][day_of_schedule][:place_ids].delete(params[:place_id].to_i);
+			session[:plan][:schedules]["Day_#{day_of_schedule}"][:placeIds].delete(params[:place_id].to_i);
 		end
-		puts session[:plan][:schedule][day_of_schedule][:place_ids]
+
 		render json: {
-				'day'		=>	params[:schedule_day].to_i,
-				'places' 	=>	trip3s_places(session[:plan][:schedule][day_of_schedule][:place_ids])
+				'day'			=>	params[:schedule_day].to_i,
+				'placeIds'		=> 	session[:plan][:schedules]["Day_#{day_of_schedule}"][:placeIds],
+				'placeLists' 	=>	session[:plan][:schedules]["Day_#{day_of_schedule}"][:placeLists]
 				}
 	end
 
@@ -539,6 +604,12 @@ class ApiController < ApplicationController
 		return arr
 	end
 
+	def detail_by_schedule_id
+		schedule_id  = params[:schedule_id]
+		schedule 	 = ScheduleDetail.where({:schedule_id => schedule_id})
+
+		render json: schedule
+	end
 	def trip3s_place_by_id
 
 		if params[:post_id].blank?
@@ -577,7 +648,52 @@ class ApiController < ApplicationController
 				
 		render json: {'s'=>'s'}
 	end
+	def response_user
+		userText = params[:username]
+		status   = false
+		users    = nil
+		if userText.present?
+			status = true
+			users = User.select("id,user_name,user_display")
+						.distinct
+						.where(" user_name LIKE '%#{userText}%' or user_display  LIKE '%#{userText}%'")
+		end
 
+		render json:{
+			status: status,
+			users:users
+		}
+	end
+	def add_friend
+		status = true
+		user_1  = params[:user_1]
+		user_2  = params[:user_2]
+		if user_1 == user_2
+			status = false
+		else 
+			userExpand = UserExpand.new
+			userExpand.user_id 		= user_1
+			userExpand.expand_name 	= 'user_friend'
+			userExpand.expand_value = user_2
+			check = UserExpand.where({:user_id=>user_1,:expand_name => 'user_friend',:expand_value =>user_2}).last
+			if check.nil?
+				if !userExpand.save
+					status = false
+				else
+					userExpand = UserExpand.new
+					userExpand.user_id 		= user_2
+					userExpand.expand_name 	= 'user_friend'
+					userExpand.expand_value = user_1
+					userExpand.save
+				end
+			end
+		end
+
+		render json: {
+			:status => status
+		}
+
+	end
 	def filter_category (post_id ,type_name)
 		postCategories 	=	PostCategory.select("*")
 										 .joins(:type=>:category)

@@ -1,34 +1,1246 @@
-<p id="notice"><%= notice %></p>
+<link rel="stylesheet" id="plan-css" href="/assets/css/plan.css" type="text/css" media="screen">
+<style type="text/css">
+  .iti-att-next-route-detail{
+    display: none;
+    width: 100%;
+  }
+    .adp-summary,.adp-placemark{display: none;}
+  .adp-directions{
+    width: 100%;
+  }
+  .trans-detail{
+        padding: 0px 5px;
+    cursor: pointer;
+  }
+   .trans-detail:hover{
+    opacity: 0.7
+   }
+</style>
 
-<p>
-  <strong>Post:</strong>
-  <%= @plan.post %>
-</p>
+  <script src="/assets/js/canvas2image.js"></script>
+  <script src="/assets/js/jquery.gauge.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+<div class="container">
+  <div class="cover-fui-row-full">
+    <div class="container text-left">
+      <ul class="breadcrumb fleft">
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+          <a href="/guide" itemprop="url">
+            <span itemprop="title">Trang chủ</span>
+          </a>
+        </li>
+        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" class="hidden-sm hidden-xs">
+          <a href="/plan/a-wonderful-trip-to-davao-16386" itemprop="url">
+            <span itemprop="title"><%=@plan.post.post_title%></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div id="itinerary-body">
+  <div class="container">
+    <div class="row">
+      <div id="itinerary-detail" class="col-md-9">
+      <div class="panel panel-default fleft fui-row-full panel-hide-print">
+        <div class="panel-heading">
+          <a href="/users/<%=@user.id%>" class="tipB pull-left user-avatar" title="" data-original-title="<%=@user.user_display%>">
+            <img src="<%=@plan.post.post_thumbnail%>" alt="<%=@user.user_display%>" class="user-avatar img-circle">
+          </a>
+          <h1 class="main-title"><%=@plan.post.post_title%></h1>
+          <ul class="list-inline fui-gray main-subtitle">
+            <li>by <a href="/users/<%=@user.id%>"><%=@user.user_display%></a></li>
+            <li><%=@plan.post.created_at.strftime('%c')%></li>
+            <li> <a href="/users/<%=@user.id%>/plans"><i class="icomoon-icon-list-view-2"></i>Xem thêm kế hoạch khác</a></li>
+          </ul>
+        </div>
+      <div class="panel-body row panel-body-nopadding">
+        <div class="col-sm-4 hidden-print" itemscope="" itemtype="http://schema.org/ImageObject">
+          <div class="photo ">
+            <a href="<%=@plan.post.post_url%>" class="image" data-lightbox="attraction-photos-16386" data-title="<%=@plan.post.post_title%>">
+              <img src="<%=@plan.post.post_thumbnail%>" alt="<%=@plan.post.post_title%>">
+            </a>
+            <div class="credit">
+              <i class="glyphicon glyphicon-camera pull-left"></i>
+              <p class="text-left">
+                <a href="" class="user">by <%=@user.user_display%></a>
+                <span class="btn-social-bottom btn-vote tipB  btn-vote-media pull-right" title="" data-short-title="" data-count="0" data-value="1" data-vtype="vote" data-object="58019" data-type="photo" data-original-title="I like it">
+                  <i class="icomoon-icon-thumbs-up"></i><span></span>
+                </span>
+             </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="text-left quote fleft">
+            <div class="quote-content fui-gray">
+              <%=@plan.post.post_content%>
+            </div>
+          </div>
+          <ul class="iti-attributes nav-links fui-row-full list-unstyled">
+            <li><span class="fleft">Tổng thời gian:</span><span class="fright plan-value"><b><%=@plan.plan_day%></b> <small> Ngày</small></span></li>
 
-<p>
-  <strong>Plan day:</strong>
-  <%= @plan.plan_day %>
-</p>
+            <li><span class="fleft">Tổng chi phí:</span><span class="fright plan-value"><b><%=@schedules.sum(:schedule_spend)%></b> <small> Vnđ</small></span></li>
 
-<p>
-  <strong>Plan start:</strong>
-  <%= @plan.plan_start %>
-</p>
+            <li><span class="fleft">Tổng khoảng cách:</span><span class="fright plan-value"><b><%=@schedules.sum(:schedule_distance)%></b> <small> km</small></span></li>
 
-<p>
-  <strong>Plan end:</strong>
-  <%= @plan.plan_end %>
-</p>
+            <li> <span class="fleft">Tổng địa điểm</span> <span class="fright plan-value"><b><%=@details.count%></b> <small> địa điểm</small></span></li>
 
-<p>
-  <strong>Plan money:</strong>
-  <%= @plan.plan_money %>
-</p>
+            
+            <li class=" first">
+              <span class="fleft">Nhãn liên quan</span>
+              <span class="fright plan-value ">
+                <%@categories.each do |cate|%>
+                  <span class="label label-info" title="<%=cate.cate_name%>" itemprop="category" style="float:none"><%=cate.cate_name%></span>
+                <%end%>
+              </span>
+            </li>
 
-<p>
-  <strong>Plan spend:</strong>
-  <%= @plan.plan_spend %>
-</p>
+            <li class="first" itemprop="aggregateRating" itemscope="" itemtype="http://data-vocabulary.org/Review-aggregate">
+              <span class="fleft">Bình chọn</span>
+              <div class="fright plan-value obj-rating fui-orange">
+                <div class="rating ">
+                  <i class="fui-orange icomoon-icon-star-6"></i>
+                  <i class="fui-orange icomoon-icon-star-6"></i>
+                  <i class="fui-orange icomoon-icon-star-6"></i>
+                  <i class="fui-orange icomoon-icon-star-6"></i>
+                  <i class="fui-orange icomoon-icon-star-4"></i>
+                </div>
+                <meta itemprop="count" content="0">
+                <meta itemprop="itemreviewed" content="36 Hours in Davao City">
+                <div itemprop="rating" itemscope="" itemtype="http://data-vocabulary.org/Rating">
+                  <meta itemprop="average" content="8">
+                  <meta itemprop="best" content="10">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+            
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+            <div class="hidden-xs text-right btn-group pull-right">
+              <div class="btn-group">
+                <a id="btn-plan-clone" class="btn btn-default btn-plan-clone tipB" title="" data-id="16386" href="#" data-original-title="Copy this itinerary to customize by yourself">
+                <span class="icomoon-icon-copy"></span> Sao chép
+                </a>
+                <a href="#" title="" class="tipT btn btn-plan-messages btn-default dropdown-toggle" data-toggle="dropdown" data-original-title="In hoặc tải dạng PDF">
+                <span class="glyphicon glyphicon-download"></span>
+                <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                  <a id="btn-plan-print" href="#"><span class="glyphicon glyphicon-print"></span> Tải PDF</a>
+                  </li>
+                  <li>
+                  <a id="btn-plan-pdf" href="#"><span class="glyphicon glyphicon-download"></span> Tải với chỉ dường</a>
+                  </li>
+                </ul>
+              </div>
+              <a href="#set-1" id="btn-email-itinerary" title="" class="tipT btn btn-default" data-original-title="Gửi cho bạn bè">
+              <span class="glyphicon glyphicon-envelope"></span>
+              </a>
+              <button class="btn btn-reporterror tipB btn-default"  onClick="javascript:this.style.display='none';window.print();this.style.display='';" title="" data-object="16386" data-type="plan" data-original-title="Báo cáo với quản trị về kế hoạch">
+              <i class="glyphicon glyphicon-flag"></i>
+              </button>
+            </div>
+            <div class="hidden-xs fright text-right btn-group">
+              <button class="btn btn-vote tipB  btn-default" title="" data-short-title="Up" data-count="0" data-value="1" data-vtype="vote" data-object="16386" data-type="plan" data-original-title="I like it">
+              <i class="fa fa-thumbs-o-down"></i><span> Không thích</span>
+              </button>
+              <button class="btn btn-vote tipB  btn-default" title="" data-short-title="" data-count="0" data-value="-1" data-vtype="vote" data-object="16386" data-type="plan" data-original-title="I dislike it">
+              <i class="fa fa-thumbs-o-up"></i><span> Thích</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fui-row-full icons-container-white fleft">
 
-<%= link_to 'Edit', edit_plan_path(@plan) %> |
-<%= link_to 'Back', plans_path %>
+      
+      <div class="collapsed fleft" style="padding-bottom:50px;width:100%">
+        <%@schedules.each do |schedule|%>
+        <!--Detail Information of day <%=schedule.schedule_day%>-->
+        <div id="results-day-<%=schedule.schedule_day%>" class="day-one results-day panel panel-default">
+          <div id="nav-day-<%=schedule.schedule_day%>" class="panel-heading"><i class="day-icon fa fa-calendar"></i>
+            <strong>Thông tin ngày <%=schedule.schedule_day%></strong>
+            <span class="badge fright fui-bg-orange hidden-xs"><%=@details.where(:schedule_id => schedule.id).select(:place_id).distinct.count%>  địa điểm</span>
+          </div>
+          <div class="list-item panel-body">
+          <div class="map-in-plan panel-hide-print" data-day="<%=schedule.schedule_day%>" data-scheduleid="<%=schedule.id%>" id="map-schedule-<%=schedule.schedule_day%>">
+            
+          </div>
+          <%@details.where(:schedule_id => schedule.id).each do |detail|%>
+          <!--Start a place in schedule of day 1-->
+          <div class="fui-row-full att-item Attraction border-dotted" id="place-no-1-1" style="" data-application="1">
+            <section class="iti-att-content">
+              <div class="iti-att-header">
+                <div class="col-xs-4 col-sm-2 iti-att-left infor-about-place">
+                  <div class="iti-att-time"><%=detail.place_in%><div class="ampm"></div></div>
+                  <div class="iti-att-image">
+                    <img width="100" height="100" src="<%=detail.place_img%>" alt="<%=detail.place_name%>">
+                  </div>
+                </div>
+                <div class="col-xs-8 col-sm-10">
+                  <div class="iti-att-title">
+                    <i class="icon-box cat-attraction icomoon-icon-library"></i>
+                    <strong><a class="title" target="_blank" href="/a/philippine-eagle-centre-320865"><%=detail.place_name%></a></strong>
+                    <span class="btn-group hidden-xs fright">
+                    <a class="btn btn-default btn-xs view-detail" href="/a/philippine-eagle-centre-320865"><i class="icomoon-icon-list-view-2"></i>Detail</a>
+                    <a class="btn btn-default btn-xs view-on-map anchor-scroll" href="#results-day-1" data-day="1" data-index="1"><i class="icomoon-icon-location-3"></i>Map</a>
+                    </span>
+                    <span class="pull-right label hidden-xs tipB" title="" data-original-title="Highly Recommended"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+                  </div>
+                  <div class="fui-row-full">
+                    <span class="iti-att-address">
+                    <i class="fa fa-paper-plane-o"></i> <%=Place.find(detail.place_id).place_address%>
+                    </span>
+                    <span class="pull-right iti-att-price"><strong><%=detail.place_spend%></strong> <span> vnđ</span></span>
+                  </div>
+                  <div class="fui-row-full">
+                    <%=detail.place_note%>
+                  </div>
+                  <!--show image of place-->
+                  <div class="fui-row-full">
+                    <%@images.where({:post_images=>{:post_id => Place.find(detail.place_id).post_id}}).order("RAND()").limit(5).each do|img|%>
+                      <img src="<%=img.image_url%>" alt="<%=img.image_alt%>" title="<%=img.image_title%>" class='img-in-schedule avatar' width="100" height="100">
+                    <%end%>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div class="iti-att-next-route fui-row-full row">
+              <div class="col-xs-4 col-sm-2"></div>
+              <div class="col-xs-8 col-sm-10 route-content">
+              <div class="pull-left trans-mode">
+              <i class="trans-icon icomoon-icon-bus"></i>
+              <%
+                if detail.next.nil?
+                  place_name = @details.first.place_name
+                else
+                  place_name = detail.next.place_name  
+                end
+
+
+              %>
+              <span class="hidden-xs title">Đi đến <a target="_blank" href="#"><%=place_name%></a></span>
+              </div>
+
+              <div class="pull-right trans-detail" data-idDetail="<%=detail.place_id%>-<%=schedule.schedule_day%>">
+              Chi tiết
+              </div>
+              <div class="pull-right trans-time">&nbsp; <i class="glyphicon glyphicon-time"></i>
+                <%=detail.next_time%> giờ
+              </div>  
+              <div class="pull-right trans-distance">
+              <i class="glyphicon glyphicon-arrow-down"></i> <%=detail.next_distance%><span class="trans-unit"> km</span>
+              </div>
+
+              </div>
+            </div>
+            <div class="next-route-detail-<%=detail.place_id%>-<%=schedule.schedule_day%> iti-att-next-route-detail" id="next-route-detail-<%=detail.place_id%>-<%=schedule.schedule_day%>">
+
+             </div>
+          </div>
+          <!--End a place in schedule of day 1-->
+          <%end%>
+        </div>
+      </div>
+      <!--/End detail Information of day 1-->
+      <%end%>
+      <!--Information of auhtor-->
+      <div class="panel panel-default panel-hide-print" id="iti-author-box">
+        <div class="panel-heading text-left">
+        <h2 class="fui-gray">Thông tin tác giả</h2>
+        </div>
+        <div class="panel-body">
+          <div class="pull-left">
+          <a href="/u/<%=@user.user_display%>/plans" title="<%=@user.user_display%>">
+          <img width="120" height="120" alt="<%=@user.user_display%>" class="fleft img-circle" src="<%=@user.user_thumbnail%>">
+          </a>
+          </div>
+          <div class="media-body text-left">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  <h3 class="font18"><a href="/u/<%=@user.user_display%>/plans" title="<%=@user.user_display%>"><%=@user.user_display%></a></h3>
+                </div>
+                <div class="col-sm-6 user-social-menu">
+                <%if @current_user.present?%>
+                  <%if !@user.id_friends(@current_user.id,@user.id)%>
+                    <a href="#" class="add-friend" data-userid="<%=@user.id%>"> <span class="glyphicon glyphicon-user"></span> Thêm bạn</a>
+
+                  <%end%>
+                <%else%>
+                   <a href="#" class="add-friend" data-userid="<%=@user.id%>"> <span class="glyphicon glyphicon-user"></span> Thêm bạn</a>
+                <%end%>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 text-left fui-gray">
+            <%=@user.location%>
+            
+            <span class="attr"> - <%=@user.friends.count%> Bạn bè</span>
+            </div>
+            <p class="col-sm-12 text-left"><%=@user.feeling%></p>
+          </div>
+        </div>
+      </div>
+      <!--Comments about plan-->
+      <section class="panel panel-default fleft fui-row-full panel-hide-print" id="box_comment">
+        <div class="panel-heading">
+          <h2 data-count="0" class="panel-title text-left font18">0 Comment </h2>
+        </div>
+        <div class="panel-body">
+          <div id="itinerary-social" class="fui-row-full text-left fleft">
+            <div id="itinerary-discussion" class="fui-row-full">
+              <div class="fleft fui-listcomments fui-row-full">
+              <ul class="list-comments media-list list-unstyled">
+                <li>
+                <p class="text-muted no-comment">There are no comments at this time.</p>
+                </li>
+              </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="media fui-comment-new">
+            <div class="fui-row-full input-box hidden">
+            <a class="pull-left user-avatar" href="">
+            <img class="media-object img-circle" width="48" height="48" src="">
+            </a>
+            <div class="media-body">
+            <textarea tabindex="11" class="fui-comment-input form-control" id="comment-text" placeholder="Write your comment"></textarea>
+            <p></p><div class="clearfix"></div><a tabindex="12" class="btn btn-primary btn-submit pull-right"><i class="icomoon-icon-pencil-4"></i><span>Post your comment</span></a><p></p>
+            </div>
+            </div>
+            <div class="text-left alert-box ">
+            <p>
+            You need to <a href="#" onclick="fiuzu.common.decorator.loginRequired(function(){location.reload();})">Sign in</a> or <a href="#" onclick="fiuzu.common.decorator.loginRequired(function(){location.reload();})">Register</a> new account for leaving comments.
+            </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<div class="sidebar-right col-md-3 hidden-xs hidden-sm">
+  <div class="iti-day-nav fui-row-full pos-fixed">
+    <div class="iti-day-nav-list fui-box">
+    <ul class="nav nav-pills nav-stacked list-unstyled">
+      <li class="bottom-border active">
+        <a href="#page-itinerary">
+        <i class="icomoon-icon-map-2"></i>Chi tiết kế hoạch
+        </a>
+      </li>
+      <%@schedules.each do |schedule|%>
+      <li class="">
+        <a data-day="<%=schedule.schedule_day%>" href="#nav-day-<%=schedule.schedule_day%>">
+        <i class="icomoon-icon-calendar-2"></i>Ngày <%=schedule.schedule_day%>
+        <span class="badge fright"><%=@details.where({:schedule_id => schedule.id}).count%> địa điểm</span>
+        </a>
+      </li>
+      <%end%>
+    </ul>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+    <link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+
+
+    <script type="text/javascript" src="http://gc.kis.scr.kaspersky-labs.com/1B74BD89-2A22-4B93-B451-1C9E1052A0EC/main.js" charset="UTF-8"></script><script language="JavaScript" src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script> 
+    <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/routeboxer/src/RouteBoxer.js" type="text/javascript"></script> 
+
+    
+<style type="text/css">
+  .full{width: 100% !important;display: block;}
+  @media print {  .gm-style .gmnoprint, .gmnoprint ,.iti-att-next-route-detail {    display:none  }} 
+  @media screen {  .gm-style .gmnoscreen, .gmnoscreen {    display:none  }}
+</style>
+  <script language="javascript">
+        var contents = window.opener.document.getElementById("itinerary-detail  ");
+        document.write(contents.innerHTML);
+        window.print();        
+  </script>  
+
+<script type="text/javascript">
+  jQuery(function($){
+      $(document).on('click','.trans-detail',function(){
+        var data = $(this).data('iddetail');
+          $('#next-route-detail-'+data).toggle();
+      });
+      $(document).on('click','#btn-plan-pdf',function(){
+       
+        $("#itinerary-detail").find('.iti-att-next-route-detail').show();
+        $("#itinerary-detail").find('.panel-hide-print').hide();
+        
+         var pdf = new jsPDF('p', 'pt', 'a4');
+          var options = {
+                   pagesplit: true,
+                   background: '#FFFFFF'
+              };
+
+          pdf.addHTML($("#itinerary-detail"), options, function()
+          {
+              pdf.save("chi tiet.pdf");
+               $("#itinerary-detail").find('.iti-att-next-route-detail').hide();
+                $("#itinerary-detail").find('.panel-hide-print').show();
+          });
+      });
+
+
+      $('.map-in-plan').each(function(e){
+        $(this).gmap3();
+          var day = $(this).data('day'), schedule_id = $(this).data('scheduleid'); 
+         setTimeout(function(){
+        
+          $.post('/api/detail_by_schedule_id',{schedule_id: schedule_id}).done(function(data){
+
+            var obj     = window.javo_map_box_func;
+            $('#map-schedule-'+day).gmap3(obj.options.map_init);
+            var map = $('#map-schedule-'+day).gmap3( 'get' );
+      
+            obj.drawRoutePreview(data,map,day);
+
+          });
+
+        },500);
+      });
+     
+      window.javo_map_box_func = {
+
+      options:{
+
+        // Javo Configuration
+        config:{
+          items_per: $('[name="javo-box-map-item-count"]').val()
+        }
+
+        // Google Map Parameter Initialize
+        , map_init:{
+          map:{
+            options:{
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+              , mapTypeControl  : true
+              , panControl    : false
+              , scrollwheel   : true
+              , streetViewControl : true
+              , zoomControl   : true
+              , zoomControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
+                , style: google.maps.ZoomControlStyle.SMALL
+               }
+            }
+            , events:{
+              click: function(){
+                var obj = window.javo_map_box_func;
+                obj.close_ib_box();
+              }
+            }
+          }
+          , panel:{
+            options:{
+              content:$('#javo-map-inner-control-template').html()
+            }
+          }
+        }
+
+        // Javo Ajax MAIL
+        , javo_mail:{
+          subject: $("input[name='contact_name']")
+          , from: $("input[name='contact_email']")
+          , content: $("textarea[name='contact_content']")
+          , to_null_msg: "Please, insert recipient's email address."
+          , from_null_msg: "Please, insert sender's email address."
+          , subject_null_msg: "Please, insert your name."
+          , content_null_msg: "Please, insert message content."
+          , successMsg: "Successfully sent!"
+          , failMsg: "Sorry, your message could not be sent."
+          , confirmMsg: "Do you want to send this message?"
+          , url:"http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php"
+        }
+
+        // Google Point Of Item(POI) Option
+        , map_style:[
+          {
+            featureType: "poi",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ],
+        // Google Array polyline option
+      } // End Options,
+      ,variable:{
+        top_offset:
+          parseInt( $('header > nav').outerHeight() || 0 ) +
+          parseInt( $('#wpadminbar').outerHeight() || 0 )
+
+        // Topbar is entered into Header Navigation.
+        // + $('.javo-topbar').outerHeight()
+
+      }
+      
+      , drawRoutePreview:function(schedule,map,day){
+        var myLatlng  = {lat: -25.363, lng: 131.044};
+        var obj     = window.javo_map_box_func, currDay = $("#dropdown-select-days").attr("data-place_id");
+
+        var items     = _SaveArray(schedule);
+        if (items.length < 1) {
+          return; 
+        };
+
+
+        obj.setMarkersPreview(items,true,true,$('#map-schedule-'+day));
+   
+        var lengthItems  = items.length;
+        var arrRequest   = [],strHtml ='';
+
+        for (var i = 0; i < lengthItems; i++) {
+          if (i < lengthItems -1) {
+            obj.drawRoutePointPreview(items[i],items[i+1],day,map);
+          }else{
+            obj.drawRoutePointPreview(items[i],items[0],day,map);
+          };
+        };
+
+
+      }
+      , drawRoutePointPreview: function(place1,place2,index,map)
+      {
+        var obj     = window.javo_map_box_func;
+        var color     = '#ec'+Math.floor((Math.random() * 10) + 1)+'71f'
+        //Set up options color in road result
+          var polylineOptionsActual = new google.maps.Polyline({
+            strokeColor: color,
+            strokeOpacity: 1,
+            strokeWeight: 5
+          });
+
+          var directionsService = new google.maps.DirectionsService();
+          var directionsDisplay;
+          //remove icon start and end of result
+          var rendererOptions = {
+                map: map,
+                suppressMarkers : true,
+                polylineOptions : polylineOptionsActual
+              }
+          directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
+          var request = {
+              origin: new google.maps.LatLng(place1.place_lat, place1.place_lng),
+              destination: new google.maps.LatLng(place2.place_lat, place2.place_lng),
+              travelMode: google.maps.TravelMode.DRIVING
+          };
+
+          directionsService.route(request, function(result, status) {
+              if (status == google.maps.DirectionsStatus.OK) {
+                  directionsDisplay.setDirections(result);
+                  directionsDisplay.setPanel(document.getElementById("next-route-detail-"+place1.place_id+"-"+index));
+              }
+          });
+      }
+       // End Initialize Function
+      , drawRoute:function(){
+        var myLatlng  = {lat: -25.363, lng: 131.044};
+        var obj     = window.javo_map_box_func, currDay = $("#dropdown-select-days").attr("data-place_id");
+        var _schedule   = tripPlan.schedules["Day_"+currDay]; 
+        var items     = _SaveArray(_schedule.placeLists);
+        if (items.length < 1) {
+          return; 
+        };
+        items.unshift(_schedule.placeBegin);
+        if (_schedule.placeBegin.place_id != _schedule.placeEnd.place_id) { items.push(_schedule.placeEnd);};
+        obj.items  = items;
+        obj.setMarkers( items, true,true );
+        var lengthItems  = items.length;
+        var arrRequest   = [],strHtml ='';
+        tripPlan.schedules["Day_"+currDay].distance  = 0;
+      
+        for (var i = 0; i < lengthItems; i++) {
+          if (i < lengthItems -1) {
+            obj.drawRoutePoint(items[i],items[i+1]);
+          }else{
+            obj.drawRoutePoint(items[i],items[0]);
+          };
+        };
+      }//End draw route
+      , drawRoutePoint: function(place1,place2)
+      {
+        var obj     = window.javo_map_box_func,currDay = $("#dropdown-select-days").attr("data-place_id");
+        var color     = '#ec'+Math.floor((Math.random() * 10) + 1)+'71f'
+        //Set up options color in road result
+          var polylineOptionsActual = new google.maps.Polyline({
+            strokeColor: color,
+            strokeOpacity: 1,
+            strokeWeight: 5
+          });
+          arrPolylineOptions.push(polylineOptionsActual);
+
+          var directionsService = new google.maps.DirectionsService();
+          var directionsDisplay;
+          //remove icon start and end of result
+          var rendererOptions = {
+                map:obj.map,
+                suppressMarkers : true,
+                polylineOptions : polylineOptionsActual
+              }
+          directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+          arrDirectionsDisplay.push(directionsDisplay);
+          var request = {
+              origin: new google.maps.LatLng(place1.place_lat, place1.place_lng),
+              destination: new google.maps.LatLng(place2.place_lat, place2.place_lng),
+              travelMode: google.maps.TravelMode.DRIVING
+          };
+          //distance of 2 position in map
+          var distance    = google.maps.geometry.spherical.computeDistanceBetween(request.origin,request.destination);
+          //tripPlan.schedules[currDay-1].distance +=distance.toFixed(2);;
+          //console.log("Distance: " + distance.toFixed(2) + " m");
+
+          directionsService.route(request, function(result, status) {
+              if (status == google.maps.DirectionsStatus.OK) {
+                  directionsDisplay.setDirections(result);
+                  directionsDisplay.setPanel(document.getElementById("router-panel-"+place1.place_id));
+              }
+          });
+      }
+      , getDistancePoint: function(place1,place2){
+        var directionsService = new google.maps.DirectionsService(),directionsDisplay;
+        var obj     = window.javo_map_box_func;
+        //remove icon start and end of result
+          var rendererOptions = {
+                map:obj.map,
+                suppressMarkers : false
+              }
+          directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
+        var request = {
+              origin: new google.maps.LatLng(place1.place_lat, place1.place_lng),
+              destination: new google.maps.LatLng(place2.place_lat, place2.place_lng),
+              travelMode: google.maps.TravelMode.DRIVING
+          };
+          directionsService.route(request, function(result, status) {
+              if (status == google.maps.DirectionsStatus.OK) {
+                return {
+                  distance: parseFloat((result.routes[0].legs[0].distance.value/1000).toFixed(2)),
+                  duration: parseFloat((result.routes[0].legs[0].duration.value/3600).toFixed(2))
+                };
+              }
+              /*else {    
+                  setTimeout(function() {
+                    tripPlan.vectorDistances["T"+_places[i].place_id.toString()]["T"+_places[j].place_id.toString()] = obj.getDistancePoint(place1,place2);
+                  }, 200);
+              }*/
+              console.log(status);
+          });
+          
+        var d =  parseFloat((google.maps.geometry.spherical.computeDistanceBetween(request.origin,request.destination)/ 1000).toFixed(2));
+        return {
+          distance: d,
+          duration: parseFloat((d/40).toFixed(2))
+        };
+      }
+      , clear_map: function()
+      {
+        //
+        this.el.gmap3({
+          clear:{
+            name:[ 'marker', 'circle' ]
+          }
+        });
+        this.close_ib_box();
+        if (arrPolylineOptions.length > 0 ) {
+          for (var i = 0; i < arrPolylineOptions.length; i++) {
+            arrPolylineOptions[i].setMap(null);
+          };
+        };
+        if (arrDirectionsDisplay.length > 0 ) {
+          for (var i = 0; i < arrDirectionsDisplay.length; i++) {
+            arrDirectionsDisplay[i].setMap(null);
+          };
+        };
+
+      }
+
+      , close_ib_box: function()
+      {
+        if( typeof this.infoWindo != "undefined" ) {
+          this.infoWindo.close();
+        }
+      }
+
+      , filter_trigger: function(e)
+      {
+        var obj = window.javo_map_box_func;
+
+        obj.filter();
+
+      }
+
+
+      , layout: function()
+      {
+
+        var obj = window.javo_map_box_func;
+
+        // Initalize DOC
+        $('body').css('overflow', 'hidden');
+
+        // POI Setup
+        if ( $('[name="javo_google_map_poi"]').val() == "off" )
+        {
+          // Map Style
+          this.map_style = new google.maps.StyledMapType( this.options.map_style, {name:'Javo Box Map'});
+          this.map.mapTypes.set('map_style', this.map_style);
+          this.map.setMapTypeId('map_style');
+        }
+
+        // Show Loading
+
+        this.loading( true );
+
+        $(window).load(function(){
+          /*
+          $('.javo_mhome_sidebar')
+            .removeClass('hidden')
+            .css({
+              marginLeft:  (-$('.javo_mhome_sidebar').outerWidth()) + 'px'
+              , marginTop: obj.variable.top_offset + 'px'
+            });*/
+        });
+
+      } // End Set Layout
+
+      , loading: function( on )
+      {
+        this.login_cover = $('.javo_mhome_wrap > .map_cover');
+        if( on )
+        {
+          this.login_cover.addClass('active');
+        }else{
+          this.login_cover.removeClass('active');
+        }
+
+      } // End Loading View
+
+      , setDistanceBar: function()
+      {
+        var obj     = this;
+        var _unit   = $( "[javo-distance-unit]" ).val() || 'km';
+        var unitcon   = _unit != 'km' ? 1609.344 : 1000;
+        var _max    = $( "[javo-distance-max]" ).val() || 1000 ;
+        var cur, step, max;
+
+        max       = parseInt( _max ) * unitcon;
+        step      = parseInt( max ) / 100;
+        cur       = parseInt( max ) / 2;
+
+        var el    = $( ".javo-geoloc-slider" );
+        var opt   = {
+          start   : cur
+          , step    : step
+          , connect : 'lower'
+          , range   : { 'min': 0, 'max': max }
+          , serialization:{
+            lower:[
+              $.Link({
+                target : '-tooltip-<div class="javo-slider-tooltip"></div>'
+                , method : function(v) {
+                  $(this).html('<span>' + v + '&nbsp;' + _unit + '</span>');
+                }
+                , format : {
+                  decimals  : 0
+                  , thousand  :','
+                  , encoder : function( a ){
+                    return a / unitcon;
+                  }
+                }
+              })
+            ]
+          }
+        };
+        el
+          .noUiSlider( opt )
+          .on( 'set', function( e )
+          {
+            if( ! $( '.javo-my-position' ).hasClass( 'active' ) ) return false;
+
+            var distance  = parseInt( $( this ).val() );
+
+            obj.el.gmap3({
+              getgeoloc:{
+                callback:function(latlng){
+
+                  if( !latlng ){
+                    $.javo_msg({content: ERR_LOC_ACCESS, button: BTN_OK });
+                    return false;
+                  };
+
+                  var result = [];
+                  var data  = obj.items;
+
+                  $.each( obj.items, function( i, k )
+                  {
+                    var c = obj.setCompareDistance( new google.maps.LatLng( k.lat, k.lng ), latlng );
+
+                    if( ( c * unitcon ) <= distance  )
+                    {
+                      result.push( data[i] );
+                    }
+                  } );
+
+                  window.__JAVO_MAP_BOX_TEMP__ = result
+                  obj.filter( result );
+
+                  obj.map_clear( false );
+                  obj.el.gmap3({ clear:{ name: 'circle' } });
+
+                  $(this).gmap3({
+                    circle:{
+                      options:{
+                        center:latlng
+                        , radius    : distance
+                        , fillColor   : '#000000'
+                        , strokeColor : '#1A759C'
+                      }
+                    }
+                  },
+                  {
+                    get:{
+                      name: 'circle'
+                      , callback: function(c){
+                        $(this).gmap3('get').fitBounds( c.getBounds() );
+                      }
+                    }
+                  });
+                }
+              }
+            });
+          }) // End
+
+          .prop( 'disabled', true )
+          .addClass( 'disabled' );
+
+
+      } // End Setup Distance noUISlider
+
+      , setAutoComplete: function()
+      {
+        $('[name^="filter"]').chosen({
+          width       : '100%'
+          , search_contains : 1
+        });
+
+      } // End Setup AutoComplete Chosen Apply
+
+      , map_locker: function( e )
+      {
+        e.preventDefault();
+
+        var obj     = window.javo_map_box_func;
+
+        $( this ).toggleClass('active');
+        if( $( this ).hasClass('active') )
+        {
+          // Allow
+          obj.map.setOptions({ draggable: true, scrollwheel: true });
+          $( this ).find('i').removeClass('fa fa-lock').addClass('fa fa-unlock');
+        }else{
+          // Not Allowed
+          obj.map.setOptions({ draggable:false, scrollwheel: false });
+          $( this ).find('i').removeClass('fa fa-unlock').addClass('fa fa-lock');
+        }
+      }
+
+
+
+      /** GOOGLE MAP TRIGGER        */
+
+      , setInfoBubble: function()
+      {
+        this.infoWindo = new InfoBubble({
+          minWidth:362
+          , minHeight:225
+          , overflow:true
+          , shadowStyle: 1
+          , padding: 5
+          , borderRadius: 10
+          , arrowSize: 20
+          , borderWidth: 1
+          , disableAutoPan: false
+          , hideCloseButton: false
+          , arrowPosition: 50
+          , arrowStyle: 0
+        });
+      } // End Setup InfoBubble
+
+      , trigger_ppp: function( e )
+      {
+        e.preventDefault();
+        var obj     = window.javo_map_box_func;
+        obj       .filter();
+      }
+
+      , search_button: function( e )
+      {
+        e.preventDefault();
+        var obj     = window.javo_map_box_func;
+        obj.filter();
+      }
+
+      , keywordMatchesCallback: function( tags )
+      {
+        return function keywordFindMatches( q, cb )
+        {
+          var matches, substrRegex;
+
+          substrRegex   = new RegExp( q, 'i');
+          matches     = [];
+
+          $.each( tags, function( i, tag ){
+            if( substrRegex.test( tag ) ){
+              matches.push({ value : tag });
+            }
+          });
+          cb( matches );
+        }
+      }
+      , setKeywordAutoComplete: function()
+      {
+        this.el_keyword = $( '#javo-map-box-auto-tag' );
+
+        this.el_keyword.typeahead({
+          hint      : false
+          , highlight   : true
+          , minLength   : 1
+        }, {
+          name      : 'tags'
+          , displayKey  : 'value'
+          , source    : this.keywordMatchesCallback( this.tags )
+        }).closest('span').css({ width: '100%' });
+      }
+      , setMarkersPreview: function( response,clear,icon, element )
+      {
+        var item_markers  = new Array();
+        var obj       = window.javo_map_box_func;
+
+
+        $.each( response, function( i, item ){
+             
+
+          if( item.place_lat != "" && item.place_lng != "" )
+          {
+            var k =1;
+            if (i ==response.length - 1) {k =0}else{k = i +1}; 
+
+            var icon_content ='';
+            if (typeof icon !=='undefined' && icon == true) {
+              icon_content= '<span class="icon-item-place-number" >'+(i+1)+'</span>';
+            };
+
+            item_markers.push( {
+              //latLng    : new google.maps.LatLng( item.lat, item.lng )
+              lat     : item.place_lat
+              , lng   : item.place_lng
+              , thumbnail : item.post_thumbnail
+
+              , options : { icon: item.place_img , content   : icon_content +'<img src="'+item.place_img + '"  width="40" height="40" class="icon-item-place"  />'}
+              , id    : "mid_" + item.place_id
+              , data    : item
+            } );
+          }
+        });
+
+        if( item_markers.length > 0 )
+        {
+
+          var _opt = {
+            marker:{
+              values:item_markers
+              , events:{
+                click: function( m, e, c ){
+
+                  var map = element.gmap3( 'get' );
+                  
+
+                  $.get(
+                    '/api/trip3s_place_by_id'
+                    , {
+                       post_id  : c.data.post_id
+                    }
+                    , function( response )
+                    {
+                      var str = '', nstr = '';
+
+                      if( response.state == "success" )
+                      {
+                        
+                        str = $('#javo-map-box-infobx-content').html();
+                        str = str.replace( /{post_id}/g   , response.post_id );
+                        str = str.replace( /{post_title}/g  , response.post_title );
+                        str = str.replace( /{permalink}/g , response.permalink );
+                        str = str.replace( /{thumbnail}/g , response.thumbnail );
+                        str = str.replace( /{category}/g  , response.category );
+                        str = str.replace( /{location}/g  , response.location );
+                        str = str.replace( /{phone}/g   , response.phone || nstr );
+                        str = str.replace( /{mobile}/g    , response.mobile || nstr );
+                        str = str.replace( /{website}/g   , response.website || nstr );
+                        str = str.replace( /{email}/g   , response.email || nstr );
+                        str = str.replace( /{address}/g   , response.address || nstr );
+                        str = str.replace( /{author_name}/g , response.author_name || nstr );
+
+                      }else{
+                        str = "error";
+                      }
+
+                  obj.infoWindo.setContent( str);
+                  obj.infoWindo.open( map, m);
+                  map.setCenter( m.getPosition() );
+
+                      $( "#javo-map-info-w-content" ).html( str );
+                    }
+                    , "json"
+                  )
+                  .fail( function( response ){
+
+                    $.javo_msg({ content: $( "[javo-server-error]" ).val(), delay: 10000 });
+                    console.log( response.responseText );
+
+                  } );
+                } // End Click
+              } // End Event
+            } // End Marker
+          }
+
+
+            _opt.marker.cluster = {
+              radius: parseInt( $("[javo-cluster-level]").val() ) || 100
+              , 0:{ content:'<div class="javo-map-cluster admin-color-setting">CLUSTER_COUNT</div>', width:52, height:52 }
+              , events:{
+                click: function( c, e, d )
+                {
+                  var $map = $(this).gmap3('get');
+                  var maxZoom = new google.maps.MaxZoomService();
+                  var c_bound = new google.maps.LatLngBounds();
+
+                  // IF Cluster Max Zoom ?
+                  maxZoom.getMaxZoomAtLatLng( d.data.latLng , function( response ){
+                    if( response.zoom <= $map.getZoom() && d.data.markers.length > 0 )
+                    {
+                      var str = '';
+
+                      str += "<ul class='list-group'>";
+
+                      str += "<li class='list-group-item disabled text-center'>";
+                        str += "<strong>";
+                          str += $("[javo-cluster-multiple]").val();
+                        str += "</strong>";
+                      str += "</li>";
+
+                      $.each( d.data.markers, function( i, k ){
+                        str += "<a onclick=\"window.javo_map_box_func.marker_trigger('" + k.id +"');\" ";
+                          str += "class='list-group-item'>";
+                          str += k.data.post_title;
+                        str += "</a>";
+                      });
+
+                      str += "</ul>";
+                      var hMarker   = new google.maps.Marker({
+                        position  : c.main.getPosition()
+                        , map   : $map
+                        , icon    : ''
+                      });
+
+                      obj.infoWindo.setContent( str );
+                      obj.infoWindo.open( $map, hMarker );
+                      hMarker.setMap( null );
+
+                    }else{
+                      $map.setCenter( c.main.getPosition() );
+                      $map.setZoom( $map.getZoom() + 2 );
+                    }
+                  } ); // End Get Max Zoom
+                } // End Click
+              } // End Event
+            } // End Cluster
+
+          element.gmap3( _opt , "autofit" );
+        }
+      }
+
+      , map_clear: function( marker_with )
+      {
+        var elements = new Array( 'rectangle' );
+        if( ! $( '.javo-my-position' ).hasClass( 'active' ) )
+          elements.push( 'circle' );
+
+        if( marker_with )
+          elements.push( 'marker' );
+
+        this.el.gmap3({ clear:{ name:elements } });
+        this.iw_close();
+      }
+
+      , iw_close: function(){
+        if( typeof this.infoWindo != "undefined" )
+        {
+          this.infoWindo.close();
+        }
+      }
+      ,trigger_marker: function( e )
+      {
+        var obj = window.javo_map_box_func;
+        obj.el.gmap3({
+            map:{ options:{ zoom: parseInt( $("[javo-marker-trigger-zoom]").val() ) } }
+          },{
+          get:{
+            name:"marker"
+            ,   id: $( this ).data('id')
+            , callback: function(m){
+              google.maps.event.trigger(m, 'click');
+            }
+          }
+        });
+      }
+
+      , trigger_favorite: function( e )
+      {
+        var obj = window.javo_map_box_func;
+
+        if( $(this).hasClass('active') )
+        {
+          $(this).removeClass('active');
+          obj.side_out();
+        }else{
+          $(this).addClass('active');
+          obj.side_move();
+          obj.ajax_favorite();
+        }
+      }
+      , send_plan: function(_tripPlan){
+        $.post('/api/trip3sPlan',{plan:JSON.stringify(_tripPlan)},function(data){
+          _tripPlan = data.plan;
+        }); 
+        return _tripPlan;
+      }
+      , side_out: function()
+      {
+        var panel = $( ".javo_mhome_sidebar");
+        var btn   = $( ".javo-mhome-sidebar-onoff" );
+        var panel_x =  -( panel.outerWidth() ) + 'px';
+        var btn_x =  0 + 'px';
+
+        panel.animate({ marginLeft: panel_x }, 300);
+        btn.animate({ marginLeft: btn_x }, 300);
+      }
+
+      , side_move: function()
+      {
+        var panel = $( ".javo_mhome_sidebar");
+        var btn   = $( ".javo-mhome-sidebar-onoff" );
+        var panel_x =  0 + 'px';
+        var btn_x =  panel.outerWidth() + 'px';
+        panel.animate({ marginLeft: panel_x }, 300);
+        btn.animate({ marginLeft: btn_x }, 300);
+      }
+
+
+      , marker_on_list: function( e ){
+        e.preventDefault();
+
+        var obj = window.javo_map_box_func;
+
+        obj.marker_trigger( $(this).data('id') );
+        obj.map.setZoom( parseInt( $("[javo-marker-trigger-zoom]").val() ) );
+
+      }
+
+      , marker_trigger: function( marker_id ){
+        this.el.gmap3({
+          get:{
+            name    : "marker"
+            , id    : marker_id
+            , callback  : function(m){
+              google.maps.event.trigger(m, 'click');
+            }
+          }
+        });
+      } // End Cluster Trigger
+
+
+      , latlng_calc: function( s, e, n, w, item ){
+
+        var result = [];
+
+        $.each( item, function( i, k ){
+
+          if(
+            ( s <= parseFloat( k.lat) && e >= parseFloat(k.lat ) ) &&
+            ( n <= parseFloat( k.lng) && w >= parseFloat(k.lng ) )
+          ){
+            result.push( item[i] );
+          }
+        } );
+        return result;
+      }
+
+
+      , setCompareDistance : function ( p1, p2 )
+      {
+        // Google Radius API
+        var R = 6371;
+        var dLat = (p2.lat() - p1.lat()) * Math.PI / 180;
+        var dLon = (p2.lng() - p1.lng()) * Math.PI / 180;
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(p1.lat() * Math.PI / 180) * Math.cos(p2.lat() * Math.PI / 180) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var d = R * c;
+        return d;
+      }
+
+      , getMyPosition : function( e )
+      {
+        var obj     = window.javo_map_box_func;
+        var el_slier  = $( ".javo-geoloc-slider" );
+
+        if( $( this ).hasClass( 'active' ) ) {
+          $( this )
+            .removeClass( 'active' )
+            .find( 'i' ).removeClass( 'fa-spin' );
+          el_slier
+            .trigger( 'set' )
+            .prop( 'disabled', true )
+            .addClass( 'disabled' )
+        }else{
+          $( this )
+            .addClass( 'active' )
+            .find( 'i' ).addClass( 'fa-spin' );
+          el_slier
+            .trigger( 'set' )
+            .prop( 'disabled', false )
+            .removeClass( 'disabled' )
+        }
+        obj.map_clear( false );
+      }
+  }
+
+window.javo_map_box_func.setInfoBubble();
+  });
+</script>
+
+
+<%=render :partial=> 'plans/template'%>

@@ -3,12 +3,12 @@ div.javo_mhome_wrap div.javo_mhome_content{
 	position:relative;
 	padding-left:100px;
 }
+
 .page-template-templatestp-javo-map-box-php footer,
 .page-template-templatestp-javo-map-box-php .footer-bottom,
 .page-template-templatestp-javo-map-box-php .footer-top-banner-row{display:none;}
 .page-template-templatestp-javo-map-box-php .javo_mhome_map_lists .javo_mhome_map_output>div:last-child{padding-bottom:90px !important;}
 div.javo_mhome_wrap div.javo_mhome_sidebar{
-	position:fixed;
 	top:0;
 	left:0;
 	height:100%;
@@ -17,25 +17,106 @@ div.javo_mhome_wrap div.javo_mhome_sidebar{
 
 	width:300px;
 }
+ul.chosen-choices li input {height: 25px !important}
+.content-detail-next-place{display: none;}
+ul.schedule-day-boby li .item-list-day .title-place .label.label-success{
+	display: none;
+}
+div.edit-item-place{
+	padding: 2px 5px;
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	background: transparent;
+	color: #fff;
+	display: none;
+	z-index: 9999
+}
+button.btn-save-detail-advance-plan{
+	display: none;
+}
+div.item-list-day:hover .edit-item-place{
+	display: block ;
+}
+div.schedule-day-boby-detail-fix ul.schedule-day-boby li .item-list-day .title-place .label.label-success{
+	display: block; float: left;
+}
 div.javo_mhome_wrap div.javo_mhome_sidebar div.body-detail-add-plan{
 	overflow: hidden;
 	max-height: 100%; 
 }
+
 div.javo_mhome_sidebar{
 	border-right:solid 1px #aaa;
 	box-shadow:0 5px 5px rgba(45, 45, 45, .5);
 }
+div.javo_mhome_sidebar_wrap .javo_mhome_sidebar{
+    overflow: hidden;
+}
+div#sidebar-setups.javo_mhome_sidebar_wrap .panel-body-nopadding{
+	overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0px
+}
+div#sidebar-desciption.javo_mhome_sidebar_wrap .panel-body-nopadding{
+	overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0px
+}
+div.javo_mhome_sidebar_wrap .javo_mhome_sidebar  form{
+	
+}
+i.remove-place:hover{opacity: 0.9}
+i.remove-place{
+	position: absolute;
+    right: 4px;
+    background: #B90B0B;
+    padding: 5px;
+    bottom: 22px;
+    color: #ffffff;
+    opacity: 1;
+    cursor: pointer;
+}
+/*setup javo_mhome_sidebar_wrap*/
+ul.result-search-friend{
+	max-height: 200px;
+    overflow-y: scroll;
+}
+ul.result-search-friend li.list-group-item{
+    padding: 4px 15px;cursor: pointer;
+}
+div#sidebar-desciption.javo_mhome_sidebar_wrap{
+	z-index: 110;
+
+}
+div#sidebar-setups .form-group{margin-left: 20px;float: left;width: 100%}
+div#sidebar-desciption.javo_mhome_sidebar_wrap{
+	z-index: 110
+}
+div#sidebar-plans.javo_mhome_sidebar_wrap{
+	z-index: 109
+}
+div#sidebar-places.javo_mhome_sidebar_wrap{
+	z-index: 108
+}
+div#sidebar-setups.javo_mhome_sidebar_wrap{
+	z-index: 107
+}
+div#sidebar-user.javo_mhome_sidebar_wrap{
+	z-index: 106
+}
 div.setting-day{float: left;width: 100%}
-div.setting-day h3{width: 112%;float: left;text-align: center;margin-left:-15px;background: #dff0d8;    padding: 10px 5px;font-size: 18px;}
+div.setting-day h3{width: 100%;float: left;text-align: center;margin-left:-20px;background: #dff0d8;    padding: 10px 5px;font-size: 18px;}
 span.open-advance{cursor: pointer;color: blue;text-decoration: underline;}
 div.javo_mhome_map_lists{
 	margin-right: 0px;
-	position:fixed;
+	position:relative;
 	top:0;
 	bottom:0;
 	right:0;
-	width:50%;
-	/* height:100%;*/
+	width:0;
+	display: none;
+	float: right;
 	background:#fff;
 	border-left:1px solid #ccc;
 }
@@ -98,6 +179,29 @@ div.turn-on-off-filter{
     padding: 5px;
 
 }
+.box-wait{
+	    float: left;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+.box-wait img{
+	    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+}
+.active_wait{
+	width: 100%;
+    height: 100%;
+    display: block;
+    background:rgba(251, 247, 247, 0.65);
+    opacity: 1;
+}
 div.javo-mhome-contents{ padding:10px; }
 
 div.javo_mhome_map_area{
@@ -105,7 +209,7 @@ div.javo_mhome_map_area{
 	top:0;
 	left:0;
 	bottom:0;
-	width:55%;
+	width:100%;
 
 }
 a.javo-hmap-marker-trigger{
@@ -186,7 +290,7 @@ div.javo-map-remote-panel div.javo-map-remote-item{
 }
 div.javo-map-remote-panel div.javo-map-remote-item span{ font-size:1.0em; }
 div.javo-map-remote-panel div.javo-map-remote-item .text-center{ font-size:0.8em; }
-div.javo_mhome_sidebar_wrap{ position:relative;}
+div.javo_mhome_sidebar_wrap{ position:fixed;z-index: 99;float: left; margin-bottom: 0px;height: 100%}
 div.javo-mhome-sidebar-onoff{
 	position:fixed;
 	display:table;
@@ -369,6 +473,11 @@ border:0;
 	padding-left:0px;
 	width:35%;
 }
+.detail-plan-html .panel-body section{
+	margin-top: 10px
+}
+.thumbnail-img{width: 100%; max-width: 200px; max-height: 150px}
+.route-content-preview{background: #F5F5F5;}
 .javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-8,
 .javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-8 .col-md-12{padding-right:0px;}
 .javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-8 .col-md-12{
@@ -376,7 +485,7 @@ border:0;
 	overflow:hidden;
 }
 .javo-filter-column-header{    display: inline-block;vertical-align: top;min-width: 32%; width: 100%;margin-bottom:4px;}
-.javo-filter-column-header h3,.javo_mhome_map_output_header h3{ text-align: center; margin: 0px; background: #dff0d8;color: #434446;font-size: 18px;padding: 8px 5px;font-weight: bold;}
+.javo-filter-column-header h3,.javo_mhome_map_output_header h3{ text-align: center; margin: 0px; background: #EEEEEE;color: #434446;font-size: 14px;padding: 8px 5px;font-weight: bold;}
 
 .javo_mhome_map_output .list-group>.item.col-xs-12 .caption>.row>.col-md-4{padding-left:0px;}
 .javo_mhome_map_output .list-group>.item.list-group-item .caption>.row>.col-md-4{float:right; padding-top:10px;}
