@@ -78,14 +78,13 @@
 	</script>
  
 	<script type="text/html" id="loading-place-start-1">
-<div class="form-group">
-			<h3>Cài đặt ngày {{dayNumber}}</h3>
-       		<label class="left" for="tripPlan_placeBegin_{{dayNumber}}"><strong>Điểm bắt đầu:  </strong></label>
-            <select class="tripPlan-placeBegin form-control left"  data-schedule="{{dayNumber}}" name="tripPlan_placeBegin_{{dayNumber}}"  style ="width:150px">
-            	{{places-list-start}}
-            </select>
-
-	    </div>
+			<div class="form-group">
+				<h3>Cài đặt ngày {{dayNumber}}</h3>
+	       		<label class="left" for="tripPlan_placeBegin_{{dayNumber}}"><strong>Điểm bắt đầu:  </strong></label>
+	            <select class="tripPlan-placeBegin form-control left"  data-schedule="{{dayNumber}}" name="tripPlan_placeBegin_{{dayNumber}}"  style ="width:150px">
+	            	{{places-list-start}}
+	            </select>
+		    </div>
 
 	        <div class="form-group">
 	       		<label class="left" for="tripPlan_placeEnd_{{dayNumber}}"><strong>Điểm ở lại:  </strong></label>
@@ -114,7 +113,23 @@
                         <input type="text"  min="1" max="24"  name="tripPlan_timeEnd_{{dayNumber}}" class="form-control left" id="tripPlan_timeEnd_{{dayNumber}}"  required="required" style ="width:150px">
                     </div>
 
+              <div class="form-group"> 
+                <div class="checkbox">
+                  <label><input type="checkbox" id="tripPlan_ignoreFee_{{dayNumber}}" class="tripPlan_ignoreFee_{{dayNumber}}" name="tripPlan_ignoreFee_{{dayNumber}}" >Bỏ qua chi phí ở lại</label>
+                </div>
+              </div>
 		
+	</script>
+	<script type="text/html" id="loading-place-weather-1">
+		<div class="col-sm-12">
+                <div class="form-group">
+                <label style="width:100%"> {{label-location}} </label>
+                  <div class="value-weather icson-weather"> 
+                  	{{weather-location}}
+                  </div>
+                </div>
+              </div>
+
 	</script>
 	<script type="text/html" id="loading-place-start-2">
 			<div class="form-group">
@@ -260,9 +275,6 @@
 				<button class="btn-xs btn-success preview-to-plan save-left" ><i class="fa fa-save"></i>
 					Xem trước
 				</button>
-				<button class="btn-xs btn-danger cancel-to-plan save-left" ><i class="fa fa-remove"></i>
-					Hủy
-				</button>
 			</div>	
 			<div class="row schedule-day-header-control" id="schedule-day-header-control">
 				<div class="col-md-12">
@@ -305,7 +317,10 @@
                 </select>
             </div>
 			<div class="form-group">
-                <label class="left" for="tripPlan[placeBegin]"></label>
+				<input type="checkbox" name="vehicle" value="Bike">I have a bike<br>
+            </div>
+			<div class="form-group">
+                <label class="left" for="tripPlan[button]"></label>
                 <button type="button" class="btn btn-sm btn-success btn-save-detail-plan"><i class="fa fa-save"></i> Lưu</button>
                 <button type="reset" class="reset btn-sm btn btn-danger" ><i class="fa fa-times"></i> Hủy bỏ</button>
             </div>

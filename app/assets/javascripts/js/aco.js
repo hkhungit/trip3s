@@ -69,7 +69,7 @@ var getOptions = function(options){
 		
 		optionsSource.antBestDistance = [];
 		console.log(optionsSource);
-		while(_currentLoop < 2){
+		while(_currentLoop < 5){
 
 			//Loop with all ant
 			for (var ant = 0; ant < _antNumber; ant++) {
@@ -82,7 +82,7 @@ var getOptions = function(options){
 
 
 				var _tmpSchedule 	= {},maxPlaceInDay = _Places.length;
-				maxPlaceInDay = maxPlaceInDay/parseInt(optionsSource.dayNumber)  + 1;
+				maxPlaceInDay = maxPlaceInDay/parseInt(optionsSource.dayNumber)  + 0.5;
 				if (maxPlaceInDay <= parseInt(optionsSource.dayNumber)) {
 					maxPlaceInDay = 1;
 				}
@@ -106,11 +106,12 @@ var getOptions = function(options){
 
 						if (tmpCluster.length > maxPlaceInDay) {
 							if (day ==  parseInt(optionsSource.dayNumber)) {
-
 									break;
 								};
 								continue;
 						};
+						
+
 						var _tmpRs = acoAlgorithm({
 								placeLists: tmpCluster, 
 								check: true,
@@ -123,29 +124,21 @@ var getOptions = function(options){
 							});
 
 						_tmpRs = updatePlaceCome(_tmpRs);
+
+						
 						if ((_tmpRs.money > parseFloat(optionsSource.schedules["Day_"+day].moneyNumber) && parseFloat(optionsSource.schedules["Day_"+day].moneyNumber) > 0) 
 							|| _tmpRs.notPlaceLists.length > 0  
 							|| _tmpRs.placeLists.length < 1 
-							|| parseFloat(_tmpRs.duration) > parseFloat(optionsSource.schedules["Day_"+day].timeEnd)) {
-				
+							|| parseFloat(_tmpRs.timeCurrent) > parseFloat(optionsSource.schedules["Day_"+day].timeEnd)) {
 							if (day ==  parseInt(optionsSource.dayNumber)) {
-									if (_tmpSchedule["Day_Not"].placeIds.indexOf(_Places[optionsSource.antSchedule[i]].place_id) < 0) {
-										notScheudle[optionsSource.antSchedule[i]] = true;
-										notCount++;
-										_tmpSchedule["Day_Not"].placeLists.push(_Places[optionsSource.antSchedule[i]]);
-										_tmpSchedule["Day_Not"].placeIds.push(_Places[optionsSource.antSchedule[i]].place_id);
-										_tmpSchedule["Day_Not"].placeNumber = _tmpSchedule["Day_Not"].placeLists.length;
-									};
 									break;
 								};
 								continue;
 						}
 
 						if (parseFloat(_tmpRs.duration) <= parseFloat(optionsSource.schedules["Day_"+day].timeEnd) ) {
-
 							_tmpSchedule["Day_"+day] = cloneObject(_tmpRs);
 							break;
-							//console.log("OK");
 						};
 					};
 
@@ -155,20 +148,16 @@ var getOptions = function(options){
 
 				for (var day = 1; day <= parseInt(optionsSource.dayNumber); day++) {
 					if (typeof _tmpSchedule["Day_"+day].distance !=='undefined') {
-						_antCurrDistance += _tmpSchedule["Day_"+day].distance;
-						
+						_antCurrDistance += _tmpSchedule["Day_"+day].distance;	
 					};
 				}
-
-				//Save schedule with the best distance
-				if ((_antCurrDistance < optionsSource.antBestDistance[notCount]) ||( optionsSource.antBestDistance[notCount] == 0)||(  typeof optionsSource.antBestDistance[notCount] == 'undefined')) {
-
-					optionsSource.antBestDistance[notCount] = _antCurrDistance;
-					for (var i = 0; i < _Places.length; i++) {
+				for (var i = 0; i < _Places.length; i++) {
 						var exist = false;
 						for (var day = 1; day <= parseInt(optionsSource.dayNumber); day++) {
-							if ( _tmpSchedule["Day_"+day].placeIds.indexOf(_Places[i].place_id) > -1) {
-								exist = true; break;
+							if (_tmpSchedule["Day_"+day].placeIds.length > 0) {
+								if ( _tmpSchedule["Day_"+day].placeIds.indexOf(_Places[i].place_id) > -1) {
+									exist = true; break;
+								};
 							};
 						}
 						if (!exist) {
@@ -181,7 +170,12 @@ var getOptions = function(options){
 									};
 						};
 					}
+
+				//Save schedule with the best distance
+				if ((_antCurrDistance < optionsSource.antBestDistance[notCount]) ||( optionsSource.antBestDistance[notCount] == 0)||(  typeof optionsSource.antBestDistance[notCount] == 'undefined')) {
+					optionsSource.antBestDistance[notCount] = _antCurrDistance;
 					_antBestSchedule[notCount] = _tmpSchedule; 
+
 				};	
 				//Update phemore
 				for (var i = 0; i < _Places.length; i++) {
@@ -196,10 +190,17 @@ var getOptions = function(options){
 			};
 			_currentLoop++;
 		}
+
+
 		console.log("Finish");
 		var antBestSchedule =[]; 
 		var _antCurrMoney  	= 0,_antCurrDistance  	= 0;
+
+			console.log(_antBestSchedule);
+
+
 		for (var i = 0; i < _antBestSchedule.length; i++) {
+		
 			if (typeof _antBestSchedule[i] != 'undefined') {
 				console.log("I: "+i);
 				for (var day = 1; day <= parseInt(optionsSource.dayNumber); day++) {
@@ -309,12 +310,12 @@ var getOptions = function(options){
 		return {
 			duration: 		timeCurrent,
 			distance: 		distance,
-			money: 		_antCurrMoney,
-				moneyNumber: options.moneyNumber,
-			userNumber: 		options.userNumber,
+			money: 			_antCurrMoney,
+			moneyNumber: 	options.moneyNumber,
+			userNumber: 	options.userNumber,
 			notPlaceLists: 	[],
 			placeLists: 	_Places,
-			placeIds: 		_Places,
+			placeIds: 		placeIds,
 			notplaceIds: 	[],
 			timeCurrent: 	timeCurrent,
 			placeBegin: 	options.placeBegin,
@@ -360,13 +361,27 @@ var getOptions = function(options){
 				};
 				_antCurrDistance = 0,_antCurrDuration = 0,_antCurrMoney = 0 ;
 				timeCurrent = options.timeStart
-				var loopBack = []; var notCount = 0;
+				var loopBack = []; var notCount = 0, exxx= false;
+				try{
+					var placeEnd_ticket = parseFloat(options.placeEnd.place_ticket);
+						if (placeEnd_ticket !== NaN) {
+							_antCurrMoney 	   += placeEnd_ticket *  parseFloat(options.userNumber);
+						};
+
+				}catch(e){
+					console.log("Error!");
+				}
+
+
+
+
 				for (var i = 0; i < _Places.length; i++) {
 					options.antSchedule[i] = antLotteryWheel(options,options.antSchedule[i]);
 					if (options.check == true){
 						//console.log("Time Late: " + encryptTime(_Places[options.antSchedule[i]].place_late))
 					
 						if (encryptTime(_Places[options.antSchedule[i]].place_open) > timeCurrent ){
+						
 							for (var tt = 0; tt < _Places.length; tt++) {
 									if(!options.antVisited[tt]){
 										if (encryptTime(_Places[options.antSchedule[i]].place_open) > encryptTime(_Places[tt].place_open)) {
@@ -377,6 +392,7 @@ var getOptions = function(options){
 								
 							if (encryptTime(_Places[options.antSchedule[i]].place_open) > timeCurrent ){
 								timeCurrent = encryptTime(_Places[options.antSchedule[i]].place_open);
+						
 							}
 						}
 
@@ -432,11 +448,12 @@ var getOptions = function(options){
 				};
 				//Save schedule with the best distance
 				if (_antCurrDistance < options.antBestDistance[notCount] || options.antBestDistance[notCount] == 0 || typeof options.antBestDistance[notCount] == 'undefined') {
+					
 					options.antBestDistance[notCount] 	= _antCurrDistance;
 					options.antBestDuration[notCount] 	= _antCurrDuration;
 					options.antBestMoney[notCount] 		= _antCurrMoney;
 					options.antBestSchedule[notCount] 	= _saveArray(options.antSchedule);
-					
+
 					options.bestSchedule[notCount] = {
 						money: _antCurrMoney,
 						moneyNumber: options.moneyNumber,
@@ -474,8 +491,10 @@ var getOptions = function(options){
 
 		for (var i = 0; i < options.bestSchedule.length; i++) {
 			if (typeof options.bestSchedule[i] != 'undefined') {
-				schedule = options.bestSchedule[i].schedule, notSchedule = options.bestSchedule[i].notSchedule,
+				schedule = options.bestSchedule[i].schedule, 
+				notSchedule = options.bestSchedule[i].notSchedule,
 				bestSchedule = options.bestSchedule[i];
+				break;
 			};
 		};
 
@@ -501,13 +520,12 @@ var getOptions = function(options){
 		for (var i = 0; i < places.length; i++) {
 			if (notSchedule[i]) {
 				try{
-					if (notplaceIds.indexOf(places[notSchedule[i]].place_id) > -1) {
-
-						notPlaceLists.push(places[notSchedule[i]]);
-						notplaceIds.push(places[notSchedule[i]].place_id);
+					if (notplaceIds.indexOf(places[i].place_id) > -1) {	
+						notPlaceLists.push(places[i]);
+						notplaceIds.push(places[i].place_id);
 					};
 				}catch(e){
-					//console.log(notSchedule[i] + " - " +i);
+					console.log(notSchedule[i] + " - " +i);
 				}
 			}else{
 				placeLists.push(places[schedule[i]]);
@@ -546,6 +564,7 @@ var getOptions = function(options){
 					console.log(_schPlaces);
 				}
 
+				_money=0;
 				schedule.placeBegin.next_distance = parseFloat(tripPlan.vectorDistances["T"+schedule.placeBegin.place_id]["T"+_schPlaces[0].place_id].distance);
 				_distance 	+= schedule.placeBegin.next_distance;
 				_duration   += schedule.placeBegin.next_distance;
@@ -560,19 +579,31 @@ var getOptions = function(options){
 					};
 					_duration 	+= parseFloat(_schPlaces[i].place_time);
 					_distance 	+= _schPlaces[i].next_distance;
-					_money 		+= (parseFloat(_schPlaces[_schPlaces.length-1].place_ticket) * parseFloat(schedule.userNumber)); 
-				};
-
+					_money 		+= (parseFloat(_schPlaces[i].place_ticket) * parseFloat(schedule.userNumber)); 
+				
+				};  
 				_schPlaces[_schPlaces.length-1].next_time = parseFloat(tripPlan.vectorDistances["T"+_schPlaces[_schPlaces.length-1].place_id]["T"+schedule.placeEnd.place_id].duration);
 				_schPlaces[_schPlaces.length-1].next_distance = parseFloat(tripPlan.vectorDistances["T"+_schPlaces[_schPlaces.length-1].place_id]["T"+schedule.placeEnd.place_id].distance);
 				_duration 	+= _schPlaces[_schPlaces.length-1].next_time;
+
 				if (_duration < encryptTime(_schPlaces[_schPlaces.length-1].place_open) ) {
 					_duration = encryptTime(_schPlaces[_schPlaces.length-1].place_open) ;
 				};
+
 				_money 		+= (parseFloat(_schPlaces[_schPlaces.length-1].place_ticket) * parseFloat(schedule.userNumber)); 
 				_duration 	+= parseFloat(_schPlaces[_schPlaces.length-1].place_time);
 				_distance 	+= _schPlaces[_schPlaces.length-1].next_distance;
-			}
+
+				try{
+					var placeEnd_ticket = parseFloat(schedule.placeEnd.place_ticket);
+						if (placeEnd_ticket !== NaN) {
+							_money 	   += placeEnd_ticket *  parseFloat(schedule.userNumber);
+						};
+
+				}catch(e){
+					console.log("Error!")
+				}
+			} 
 			schedule.duration 	= parseFloat(_duration.toFixed(2));
 			schedule.money 		= parseFloat(_money);
 			schedule.distance 	= parseFloat(_distance.toFixed(2));

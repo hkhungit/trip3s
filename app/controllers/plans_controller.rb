@@ -28,6 +28,7 @@ class PlansController < ApplicationController
   end
   # GET /plans/new
   def new
+    
     @plan = Plan.new
     @places_city      = Category.select("*").joins(:type).where(:types => {:type_name => 'type_city'}) 
     @places_purpose   = Category.select("*").joins(:type).where(:types => {:type_name => 'type_purpose_place'}) 

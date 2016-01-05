@@ -259,7 +259,12 @@ div.javo-mhome-contents .flex-direction-nav .flex-next{
 div.javo-mhome-contents .flex-direction-nav .flex-prev{ position:absolute; top:50%; left:0; background-position: 0px 0px; }
 div.javo-mhome-contents .flex-direction-nav .flex-next{ position:absolute; top:50%; right:0; background-position: -30px 0px; }
 div.javo-hmap-flexslider{ overflow:hidden; }
-div.javo_mhome_map_output .item{ padding:0 5px; }
+div.javo_mhome_map_output .item{ padding:0 5px;    min-height: 240px; }
+div.item-list-page-wrap .thumbnail{margin-bottom: 6px; margin-top: 6px}
+.thumbnail  .thumb-wrap {
+    position: relative;
+    height: 150px;
+}
 div.javo_mhome_map_output .thumbnail{ border:none; max-width: 358px;}
 div.javo_mhome_map_output .list-group-item .thumbnail{max-width:100%;}
 

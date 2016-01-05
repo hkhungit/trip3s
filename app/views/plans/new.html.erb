@@ -10,7 +10,14 @@
 <div id="fb-root"></div>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <style type="text/css"> 
-
+.icon-weather {
+    display: inline-block;
+    width: 61px;
+    height: 34px;
+    margin: 2px 0 -1px 1px;
+    overflow: hidden;
+    background: url('http://l.yimg.com/a/lib/ywc/img/wicons.png') no-repeat 61px 0;
+}
   body{ overflow-y:hidden !important; }
   html header.main nav.navbar{ background-color:rgba( 35, 35, 35, 1); }
   html header.main nav.navbar.affix{ background-color:rgba( 15, 15, 15, 0.3); }
@@ -68,7 +75,7 @@
 
   .full-detail{    float: left;}
 
-    .manage-btn{display: none; position: absolute; top: 75px;right: -75px;transform: rotate(90deg);-moz-transform: rotate(90deg);-ms-transform: rotate(90deg);-webkit-transform: rotate(90deg)}
+    .manage-btn{display: none; position: absolute; top: 50px;right: -53px;transform: rotate(90deg);-moz-transform: rotate(90deg);-ms-transform: rotate(90deg);-webkit-transform: rotate(90deg)}
   .overtime{background: red !important;color: #fff;opacity: 0.6;} 
   .truetime{background: white; opacity: 1}
   .schedule-day-boby-detail{float: left;max-width: 300px; width: 297px;border: 2px rgba(68, 68, 68, 0.25) solid; }
@@ -253,6 +260,16 @@
         <span class="btn-icon"><i class="glyphicon glyphicon-wrench"></i></span>
         <span class="btn-string">Cài đặt</span>
       </li>
+
+      <li class="btn btn-default btn-box-plan">
+        <span class="btn-icon"><i class="glyphicon glyphicon-calendar"></i></span>
+        <span class="btn-string">Kế hoạch</span>
+      </li>
+      <li class="btn btn-default btn-box-reset">
+        <span class="btn-icon"><i class="glyphicon glyphicon-remove-circle"></i></span>
+        <span class="btn-string">Làm lại</span>
+      </li>
+
       <li class="btn btn-default btn-off-on">
         <span class="btn-off-on-control"><i class="fa fa-fast-backward"></i></span>
       </li>
@@ -262,13 +279,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
 
 
-  <div class="javo_mhome_sidebar_wrap" id="sidebar-desciption" style="left: 101px;">
+  <div class="javo_mhome_sidebar_wrap" id="sidebar-desciption" style="left: 101px; display:none">
     <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
      <%= form_for @plan do |f| %>
       <div class="panel-heading">
 
          <strong style="width:100%;float:left">Thông tin kế hoạch</strong> 
-         <button class="btn btn-default submit-to-plan"> <i class="glyphicon glyphicon-floppy-disk"></i>  Tạo lịch</button> <button class="btn btn-default"> <i class="glyphicon glyphicon-remove"></i>  Hủy bỏ lịch</button>
+         <button class="btn btn-xs btn-default submit-to-plan"> <i class="glyphicon glyphicon-floppy-disk"></i>  Tạo lịch</button> <button class="btn btn-xs btn-default"> <i class="glyphicon glyphicon-remove"></i>  Hủy bỏ lịch</button>
 
       </div>
       <div class="panel-body panel-body-nopadding style-3">
@@ -290,7 +307,33 @@
     </div>
     <% end %>
   </div>
-  <div class="javo_mhome_sidebar_wrap" id="sidebar-places"  style="left: 101px; display:none">
+
+  <div class="javo_mhome_sidebar_wrap" id="sidebar-weather"  style="left: 101px; display:none">
+    <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
+            <div class="panel-heading">
+
+              <strong>Thông tin thời tiết</strong>
+            </div>
+            <div class="panel-body row panel-body-nopadding">
+            <div class="col-md-12">
+              <label for="filter[item_city2]">
+                Lựa chọn tỉnh bạn muốn xem
+              </label>
+              <select  data-placeholder="Tỉnh/Thành"  name="filter[item_city2]" style="display: none;">
+                <option value="0" disabled>Tỉnh Thành</option>
+                <%@places_city.each do |cate|%>
+                <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
+                <%end%>
+              </select>
+            </div>
+            <div class="col-sm-12" id="responsive-weather-info">
+                
+            </div>
+
+            </div>
+  </div>  
+  </div>
+  <div class="javo_mhome_sidebar_wrap" id="sidebar-places"  style="left: 101px;">
     <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
     </div>
   </div>
@@ -333,6 +376,11 @@
                         <select class="tripPlan-placeBegin form-control left" name="tripPlan[placeBegin]"  style ="width:150px">
                         </select>
                     </div>
+              <div class="form-group"> 
+                <div class="checkbox">
+                  <label><input type="checkbox" id="tripPlan-ignoreFee"  class="tripPlan-ignoreFee" name="tripPlan[ignoreFee]" >Bỏ qua chi phí ở lại</label>
+                </div>
+              </div>
               <div class="form-group">
                         <label class="left" for="tripPlan[placeBegin]"></label>
                         <Span class="open-advance">Nâng cao</span>
@@ -410,7 +458,7 @@
             <select  multiple="multiple"  data-placeholder="Tỉnh/Thành"  name="filter[item_city]" style="display: none;">
               <option value="0" disabled>Tỉnh Thành</option>
               <%@places_city.each do |cate|%>
-              <option value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
+              <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
               <%end%>
             </select>
           </div>

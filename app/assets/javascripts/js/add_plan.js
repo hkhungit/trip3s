@@ -91,34 +91,42 @@ jQuery( function( $ ){
 		}
 		/*Add the place to places in plan*/
 		$(document).on('click','[btn-add-place-plan]',function(){
-			var itemSelected 	= 	$(this).parent().parent().parent().data('place');
-			if (tripPlan.placeIds.indexOf(itemSelected.place_id) == -1) {
-				tripPlan.placeIds.push(itemSelected.place_id);
-				itemSelected.place_note = '';
-				itemSelected.place_time1 = itemSelected.place_time;
-				tripPlan.placeLists.push(itemSelected);
-			};
+			try{
+				var itemSelected 	= 	$(this).parent().parent().parent().data('place');
+	
+				if (tripPlan.placeIds.indexOf(itemSelected.place_id) == -1) {
+					tripPlan.placeIds.push(itemSelected.place_id);
+					itemSelected.place_note = '';
+					itemSelected.place_time1 = itemSelected.place_time;
+					tripPlan.placeLists.push(itemSelected);
+				};
+				var antVectors = tripPlan.vectorDistances,_places =merge_places(tripPlan);
+
+				tripPlan.vectorDistances = getArrayDistances({placeLists: _saveArray(_places), 
+								placeBegin:tripPlan.placeBegin, 
+								placeEnd: tripPlan.placeEnd},antVectors);
 
 
-			$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){
-			});
+				$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){console.log("added")});
 
-			var obj = window.javo_map_box_func;
-			obj.ajax_favorite(tripPlan.placeLists,2);
-			obj.resize();
-			$("ul#schedule-day-boby").sortable({
-		        update: function(event, ui) {
-		        	$('ul#schedule-day-boby li').each(function(e){
-		        		var place = $(this).data('place');
-		        		$(this).find('.number').text(e + 1);
-		        		tripPlan.placeIds[e] = place.id;
-						tripPlan.placeLists[e] = place;
-		        	});
-		        }
-		    });
-		   
+				var obj = window.javo_map_box_func;
+				obj.ajax_favorite(tripPlan.placeLists,2);
+				obj.resize();
+				$("ul#schedule-day-boby").sortable({
+			        update: function(event, ui) {
+			        	$('ul#schedule-day-boby li').each(function(e){
+			        		var place = $(this).data('place');
+			        		$(this).find('.number').text(e + 1);
+			        		tripPlan.placeIds[e] = place.id;
+							tripPlan.placeLists[e] = place;
+			        	});
+			        }
+			    });
+			   }catch(e){
 
-		    $(this).parent().parent().parent().parent().remove();
+			   }
+
+			    $(this).parent().parent().parent().parent().remove();
 		});
 		/*Add event when set a place number 1 of a day in schedule */
 		$(document).on('click','.select-home',function(){
@@ -511,9 +519,60 @@ jQuery( function( $ ){
 			$('#sidebar-places').toggle();
 
 		});
+
+
+		$(document).on('change',"select[name='filter[item_city2]']",function(e){
+
+			var value_url  = $("select[name='filter[item_city2]'] >option:selected").data('url');
+			value_url = value_url.replace(/dia-diem/g,'');
+			value_url = value_url.replace(/[/-]/g,'');
+			var location = value_url + ',vn';
+		
+							var baseUrl = 'http://query.yahooapis.com/v1/public/yql?q=',
+							q = 'use "http://github.com/yql/yql-tables/raw/master/weather/weather.bylocation.xml" as we;' + 
+								'select * from we where location ="'+location+'" and unit="c"',
+							url = baseUrl + encodeURIComponent(q) + '&lang=vi-VN&format=json&diagnostics=false&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
+
+								$.ajax({
+							        url: url,
+							        dataType: 'jsonp',
+							        cache: true,
+							        jsonpCallback: 'callbackWeather'
+								}); 
+
+		});
 		$(document).on('click','.btn-box-weather',function(e){
 			$('.javo_mhome_sidebar_wrap').fadeOut();
+			$('#sidebar-weather').toggle();
+			if ($('#sidebar-weather').is(":visible")) {
+				$("select[name='filter[item_city2]']").trigger('change');
+			};
 		});
+
+		window['callbackWeather'] =	function(data){
+				var strHtml = $('#loading-place-weather-1').html();
+				$('#responsive-weather-info').html('');
+				try{
+					var info = data.query.results.weather.rss.channel.item.condition;
+					var channel = data.query.results.weather.rss.channel;
+
+			       var channel = data.query.results.weather.rss.channel,
+
+					img = channel.item.description.match(/http:\/\/[^"']*/),
+					html = '<img style="vertical-align:bottom" height="52" width="52" src="' + img + '" /> <span style="font-size:44px">' + channel.item.condition.temp + '&deg;C</span><br />' + 
+					'<strong>Độ ẩm:</strong> ' + channel.atmosphere.humidity + '%<br />' + 
+					'<strong>Tốc độ gió:</strong> ' + channel.wind.speed + ' km/h<br />';
+
+
+			        strHtml = strHtml.replace(/{{label-location}}/g, channel.location.city ||'');
+			        strHtml = strHtml.replace(/{{weather-location}}/g, html||'');
+
+			        $('#responsive-weather-info').html(strHtml);
+		    	}catch(e){
+		    		$('#responsive-weather-info').html("Error!");
+		    	}
+		  
+			}
 
 		$(document).on('click','.btn-box-seting',function(e){
 			$('.javo_mhome_sidebar_wrap').fadeOut();
@@ -549,7 +608,7 @@ jQuery( function( $ ){
 				});
 			};
 		});
-			 // init the FB JS SDK
+			 // init the FB JS SDK 689577704510810
 		    FB.init({
 		      appId      : '689577704510810',                           // App ID from the app dashboard
 		      channelUrl : '/auth/facebook/',    // Channel file for x-domain comms
@@ -578,15 +637,16 @@ jQuery( function( $ ){
 				    FB.login(function(response) {
 				    	var accesstoken = response.authResponse.accessToken;
 				        if (response.authResponse) {
-				            FB.api('/me?fields=name,email', function(response) {
-							 var im =  "http://graph.facebook.com/" + response.id + "/pciture?type=normal";
+				            FB.api('/me?fields=name,email,picture', function(response) {
+						
 							  var users  = {
 							  	id: response.id,
 							  	name: response.name,
 							  	email: response.email,
-							  	image: im,
+							  	image: response.picture.data.url,
 							  	token: accesstoken
 							  }
+
 							  $.get('/auth/s/callback',{user: users}).done(function(data){
 							  	user  = data;
 							  	user.id = data.id;
@@ -594,15 +654,17 @@ jQuery( function( $ ){
 							  	$('#login_panel').modal('hide');
 							  	$('#register_waiting_create').removeClass('active_wait');
 							  });
+
 							});
 				        } else {
 				            $('#register_waiting_create').removeClass('active_wait');
 				        }
-				    }, {scope: 'email,user_likes'});
+				    }, {scope: 'email,user_likes,user_photos,publish_actions'});
 				}
 		$(document).on('click','.btn-box-users',function(e){
 			$('.javo_mhome_sidebar_wrap').fadeOut();
 			$('#sidebar-users').toggle();
+			
 		});
 		$(document).on('click','.btn-box-cancel',function(e){
 			$('.javo_mhome_sidebar_wrap').fadeOut();
@@ -842,10 +904,6 @@ jQuery( function( $ ){
 			if (typeof tripPlan.schedules["Day_"+day] == 'object') {
 				var tmpCluster = _saveArray(tripPlan.schedules["Day_"+day].placeLists);
 				var _tmpSchedule = cloneObject(tripPlan.schedules["Day_"+day] );
-
-		
-
-				console.log(_tmpSchedule);
 				var _tmpRs = acoAlgorithm({
 								placeLists: tmpCluster, 
 								check: true,
@@ -858,7 +916,6 @@ jQuery( function( $ ){
 							});
 
 				_tmpRs = updatePlaceCome(_tmpRs);
-				console.log(_tmpRs);
 
 				tripPlan.schedules["Day_"+day] = _tmpRs;
 
@@ -1020,7 +1077,6 @@ jQuery( function( $ ){
 			return str;
  		}
  		function update_sidebar_boby(tripPlan,choice){
-
  			if (typeof choice == 'undefined' || !$.isNumeric(choice)) {
  				choice =0;
  			}
@@ -1254,10 +1310,15 @@ jQuery( function( $ ){
 		}
 		$(document).on('click','i.remove-place',function(e){
 			var place_id = $(this).data('place_id');
+			var schedule_id = $(this).parent().parent().parent().data('index'); 
 			var indexPlace = tripPlan.placeIds.indexOf(place_id);
 			if (indexPlace > -1) {
 				tripPlan.placeIds.splice(indexPlace,1);
 				tripPlan.placeLists.splice(indexPlace,1);
+				if (typeof schedule_id != 'undefined') {
+					tripPlan.schedules["Day_"+schedule_id].placeIds.splice(indexPlace,1);
+					tripPlan.schedules["Day_"+schedule_id].placeLists.splice(indexPlace,1);
+				};
 			}else{
 				var indexPlace = tripPlan.placeIds.indexOf(null);
 				if (indexPlace > -1) {
@@ -1287,6 +1348,32 @@ jQuery( function( $ ){
 			$('#body-detail-create-plan').hide();
 			console.log("Hide");
 		}
+		$(document).on('click','.btn-box-plan',function(e){
+			$('.btn-box-place').trigger('click');
+			for (var i = 1; i <= tripPlan.dayNumber; i++) {
+				if (typeof tripPlan.schedules["Day_"+i] !== 'undefined') {
+					console.log("d");
+					if (tripPlan.schedules["Day_"+i].placeLists.length > 0) {
+						update_time_comings(tripPlan.schedules,7.5);
+						update_sidebar_plan(tripPlan,i);
+						break;
+					};
+				}
+			};
+			var obj = window.javo_map_box_func;
+			obj.resize();
+		});
+		$(document).on('click','.btn-box-reset',function(e){
+			$.post('/api/trip3sReset',{ },function(data){
+				console.log("Reset trip");
+				tripPlan = data.plan;
+					var obj = window.javo_map_box_func;
+					obj.ajax_favorite(tripPlan.placeLists,2);
+					
+					obj.resize();
+			});
+		});
+
 		$(document).on('click','.view-trip-down',function(e){
 			hide_setting();
 			for (var i = 1; i <= tripPlan.dayNumber; i++) {
@@ -1427,7 +1514,8 @@ jQuery( function( $ ){
 				planStart 		= ($('#tripPlan-planStart').val() =='')? timeCurrent :$('#tripPlan-planStart').val(),
 				timeStart 		= ($('#tripPlan-timeStart').val() =='')? timeCurrent :$('#tripPlan-timeStart').val(),
 				timeEnd  		= ($('#tripPlan-timeEnd').val() =='')? timeCurrent :$('#tripPlan-timeEnd').val(),
-				moneyNumbers 	= ($('#tripPlan-moneyNumbers').val() =='')? 1:$('#tripPlan-moneyNumbers').val();
+				moneyNumbers 	= ($('#tripPlan-moneyNumbers').val() =='')? 1:$('#tripPlan-moneyNumbers').val(),
+				ignoreFee 	 	= ($('#tripPlan-ignoreFee').is(":checked"))? true : false;
 
 			tripPlan.dayNumber 		= parseFloat(dayNumbers),
 			tripPlan.moneyNumber 	= parseFloat(moneyNumbers),
@@ -1435,6 +1523,7 @@ jQuery( function( $ ){
 			tripPlan.tripName		= nameTrip;
 			tripPlan.timeStart		= timeStart;
 			tripPlan.timeEnd		= timeEnd;
+			tripPlan.ignoreFee		= ignoreFee;
 			tripPlan.planStart 		= planStart;
 
 			var _placeBegin = $('select[name="tripPlan[placeBegin]"]').val();
@@ -1451,6 +1540,7 @@ jQuery( function( $ ){
 					timeStart: timeStart,
 					userNumber: parseFloat(userNumbers),
 					timeEnd: timeEnd,
+					ignoreFee:ignoreFee,
 					moneyNumber:( parseFloat(moneyNumbers)/tripPlan.dayNumber).toFixed(2),
 					currentNumber:i,
 					placeBegin: tripPlan.placeBegin,
@@ -1473,7 +1563,10 @@ jQuery( function( $ ){
 				console.log(tripPlan);
 
 				$('#register_waiting_create').removeClass('active_wait');
+				$('.btn-box-place').trigger('click');
 			});
+
+
 		});
 		$(document).on('click','.btn-save-detail-advance-plan',function(e){
 			$('#register_waiting_create').addClass('active_wait');
@@ -1506,6 +1599,8 @@ jQuery( function( $ ){
 					timeEnd 		= ($('input[name="tripPlan_timeEnd_'+i+'"]').val() =='')?   tripPlan.timeEnd : $('input[name="tripPlan_timeEnd_'+i+'"]').val(),
 					moneyNumber 	= ($('input[name="tripPlan_placeMoney_'+i+'"]').val() =='')? 0: $('input[name="tripPlan_placeMoney_'+i+'"]').val(),
 
+					ignoreFee 		= ($('#tripPlan_ignoreFee_'+i).is(":checked"))? true : false;
+
 					_placeBegin = $('select[name="tripPlan_placeBegin_'+i+'"]').val(),	
 					_placeEnd 	= $('select[name="tripPlan_placeEnd_'+i+'"]').val();
 
@@ -1521,6 +1616,7 @@ jQuery( function( $ ){
 					userNumber: userNumbers,
 					moneyNumber:moneyNumber,
 					currentNumber:i,
+					ignoreFee:ignoreFee,
 					placeBegin: load_place_selected(_places,_placeBegin),
 					placeEnd: load_place_selected(_places,_placeEnd),
 					placeLists:[],
@@ -1550,6 +1646,7 @@ jQuery( function( $ ){
 				tripPlan = data.plan;
 				console.log(tripPlan);
 				$('#register_waiting_create').removeClass('active_wait');
+				$('.btn-box-place').trigger('click');
 			});
 		});
 
@@ -2721,10 +2818,12 @@ function removePlace(places,element){
 
 							$.each( response, function( index, data ){
 								var str = "";
+								var dataStr   = JSON.stringify(data);
+								dataStr = dataStr.replace(/[']/g, '');
 
 								str = $('#javo-map-box-panel-content').html();
 								str = str.replace(/{{day_in_place}}/g	, update_day_in_place(tripPlan,data.place_id));
-								str = str.replace(/{place_full}/g		, JSON.stringify(data));
+								str = str.replace(/{place_full}/g		, dataStr);
 								str = str.replace(/{post_id}/g			, data.post_id );
 								str = str.replace(/{place_id}/g			, data.place_id );
 								str = str.replace(/{post_title}/g		, data.post_title || '');
