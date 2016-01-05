@@ -1599,7 +1599,7 @@ jQuery( function( $ ){
 					timeEnd 		= ($('input[name="tripPlan_timeEnd_'+i+'"]').val() =='')?   tripPlan.timeEnd : $('input[name="tripPlan_timeEnd_'+i+'"]').val(),
 					moneyNumber 	= ($('input[name="tripPlan_placeMoney_'+i+'"]').val() =='')? 0: $('input[name="tripPlan_placeMoney_'+i+'"]').val(),
 
-					ignoreFee 		= ($('#tripPlan_ignoreFee_'+i).is(":checked"))? true : false;
+					ignoreFee 		= ($('#tripPlan_ignoreFee_'+i).is(":checked"))? true : false,
 
 					_placeBegin = $('select[name="tripPlan_placeBegin_'+i+'"]').val(),	
 					_placeEnd 	= $('select[name="tripPlan_placeEnd_'+i+'"]').val();
