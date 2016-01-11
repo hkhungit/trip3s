@@ -1,10 +1,19 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  layout :resolve_layout
+  def resolve_layout
+    "trip3s"
+  end
+
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if @current_user.nil?
+      redirect_to login_path
+    end
+    @user = User.where(:id => @current_user).last
+    
   end
 
   # GET /users/1
@@ -41,7 +50,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update( params.require(:user).permit(:user_thumbnail))
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else

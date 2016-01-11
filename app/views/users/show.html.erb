@@ -1,44 +1,147 @@
-<p id="notice"><%= notice %></p>
+<link rel="stylesheet" id="plan-css" href="/assets/css/plan.css" type="text/css" media="screen">
+<style type="text/css">
+  .iti-att-next-route-detail{
+    display: none;
+    width: 100%;
+  }
+    .adp-summary,.adp-placemark{display: none;}
+  .adp-directions{
+    width: 100%;
+  }
+  .trans-detail{
+        padding: 0px 5px;
+    cursor: pointer;
+  }
+   .trans-detail:hover{
+    opacity: 0.7
+   }
+   .item-title{
+    text-align: center;
+   }
+   .friend-list,.item-list{padding: 2px}
+   .list-square{list-style-type: square}
+</style>
 
-<p>
-  <strong>User name:</strong>
-  <%= @user.user_name %>
-</p>
+<div class="container">
+  <div class="cover-fui-row-full">
+    <div class="container text-left">
+      
+    </div>
+  </div>
+<div id="itinerary-body">
+  <div class="container">
+    <div class="row ">
+      <div id="itinerary-detail" class="col-md-9">
+      <div class="panel panel-default">
+       
+        <div class="panel-heading">
+          
+          <strong>Kế hoạch nổi bật của <%=@user.name_display%></strong>
+        </div>
+        <div class="panel-body row panel-body-nopadding">
+          
+        <ul class="list-unstyled">
+          <%@user.plans.each do |plan|%>
+            <li class="item-list">
+              <a href="<%=plan.post_url%>">
+                <img src="<%=plan.post_thumbnail%>" width="50" height="50" class="list-item-img">
+                <strong class="list-item-title"><%=plan.post_title%></strong>
+              </a>
+            </li>
+            <%end%>
+          </ul>
+        </div>
+    </div>
+    <div class="panel panel-default">
+       
+        <div class="panel-heading">
+          
+          <strong>Đia điểm nổi bật của <%=@user.name_display%></strong>
+        </div>
+        <div class="panel-body panel-body-nopadding">
+          <ul class="list-unstyled">
+          <%@user.places.each do |place|%>
+            <li class="item-list">
+              <a href="<%=place.post_url%>">
+                <img src="<%=place.post_thumbnail%>" width="50" height="50" class="list-item-img">
+                <strong class="list-item-title"><%=place.post_title%></strong>
+              </a>
+            </li>
+            <%end%>
+          </ul>
+        
+        </div>
+    </div>
+    <div class="panel panel-default">
+       
+        <div class="panel-heading">
+          
+          <strong>Bộ sưu tập nổi bật của <%=@user.name_display%></strong>
+        </div>
+        <div class="panel-body panel-body-nopadding">
+          <ul class="list-unstyled">
+          <%@user.collections.each do |collection|%>
+            <li class="item-list">
+              <a href="<%=collection.post_url%>">
+                <img src="<%=collection.post_thumbnail%>" width="50" height="50" class="list-item-img">
+                <strong class="list-item-title"><%=collection.post_title%></strong>
+              </a>
+            </li>
+            <%end%>
+          </ul>
+        
+        </div>
+    </div>
+  </div>
+<div class="sidebar-right col-md-3">
+  <div class="panel panel-default fleft fui-row-full">
+    <div class="panel-heading">
+      <strong>Thông tin người dùng</strong>
+    </div>
+    <div class="panel-body">
+      <div class="image-user">
+        <img src="<%=@user.user_thumbnail%>" width="150" height="150" style="    width: 100%;">
+      </div>
+      <div class="name-user item-title">
+        <strong><%=@user.name_display%></strong>
+      </div>
+      <ul class="name-user list-unstyled">
+       <li> <strong><i class="fa fa-users"></i> Bạn bè: <%=@user.countFriends%></strong></li>
+       <li> <strong><i class="glyphicon glyphicon-calendar"></i> Lịch trình: <%=@user.countPlans%></strong></li>
+       <li> <strong><i class="glyphicon glyphicon-map-marker"></i> Địa điểm: <%=@user.countPlaces%></strong></li>
+       <li> <strong><i class="glyphicon glyphicon-list"></i> Bộ sưu tập: <%=@user.countCollections%></strong></li>
+      </ul>
+    </div>
+     <div class="panel-footer">
+       <%if @current_user.present?%>
+          <%if !@user.id_friends(@current_user.id)%>
+                    <a href="#" class="add-friend" data-userid="<%=@user.id%>"> <span class="glyphicon glyphicon-user"></span> Thêm bạn</a>
+                      <button class="btn btn-xs btn-info add-friend"  data-userid="<%=@user.id%>">Thêm bạn</button>      
+                  <%end%>
+        <%else%>
+                   
+                    <button class="btn btn-xs btn-danger remove-friend" data-userid="<%=@user.id%>">Hủy bạn</button>
+           
+        <%end%>
+     </div>
+  </div>
 
-<p>
-  <strong>User pass:</strong>
-  <%= @user.user_pass %>
-</p>
-
-<p>
-  <strong>User email:</strong>
-  <%= @user.user_email %>
-</p>
-
-<p>
-  <strong>User register:</strong>
-  <%= @user.user_register %>
-</p>
-
-<p>
-  <strong>User activation:</strong>
-  <%= @user.user_activation %>
-</p>
-
-<p>
-  <strong>User status:</strong>
-  <%= @user.user_status %>
-</p>
-
-<p>
-  <strong>User display:</strong>
-  <%= @user.user_display %>
-</p>
-
-<p>
-  <strong>User thumbnail:</strong>
-  <%= @user.user_thumbnail %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+  <div class="panel panel-default fleft fui-row-full">
+    <div class="panel-heading item-title">
+      <strong>Danh sách bạn bè</strong>
+    </div>
+    <div class="panel-body">
+      <ul class="name-user list-unstyled">
+      <%@user.Friends.each do |friend|%>
+        <li class="item-list friend-list">
+         <a href="/users/<%=friend.id%>"> <img class="list-item-img" src="<%=friend.user_thumbnail%>" width="50" height="50"> <span class="list-item-title"> <%=friend.name_display%></span></a>
+        </li>
+        <%end%>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>

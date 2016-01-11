@@ -85,18 +85,18 @@ ActiveRecord::Schema.define(version: 20151104092548) do
 
   create_table "places", force: true do |t|
     t.integer  "post_id"
-    t.decimal  "place_lat",                 precision: 10, scale: 6
-    t.decimal  "place_lng",                 precision: 10, scale: 6
-    t.decimal  "place_ticket",              precision: 10, scale: 2, default: 0.0
-    t.string   "place_open",    limit: 200,                          default: "07:00:00"
-    t.string   "place_close",   limit: 200,                          default: "17:59:59"
-    t.string   "place_late",    limit: 200,                          default: "17:30:00"
-    t.float    "place_choice",  limit: 24,                           default: 0.1
-    t.decimal  "place_min",                 precision: 10, scale: 2, default: 0.0
-    t.decimal  "place_max",                 precision: 10, scale: 2, default: 0.0
-    t.float    "place_time",    limit: 24,                           default: 0.0
-    t.text     "place_address"
-    t.string   "place_phone",   limit: 20
+    t.string   "place_lat"
+    t.string   "place_lng"
+    t.string   "place_ticket"
+    t.string   "place_open"
+    t.string   "place_close"
+    t.string   "place_late"
+    t.string   "place_choice"
+    t.string   "place_min"
+    t.string   "place_max"
+    t.string   "place_time"
+    t.string   "place_address"
+    t.string   "place_phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -107,9 +107,8 @@ ActiveRecord::Schema.define(version: 20151104092548) do
     t.integer  "post_id"
     t.integer  "plan_day"
     t.datetime "plan_start"
-    t.datetime "plan_end"
-    t.decimal  "plan_money", precision: 10, scale: 2, default: 0.0
-    t.decimal  "plan_spend", precision: 10, scale: 2, default: 0.0
+    t.string   "plan_end"
+    t.string   "plan_money"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -148,8 +147,8 @@ ActiveRecord::Schema.define(version: 20151104092548) do
 
   create_table "posts", force: true do |t|
     t.string   "post_title"
-    t.text     "post_excerpt",   limit: 16777215
-    t.text     "post_content",   limit: 2147483647
+    t.string   "post_excerpt"
+    t.string   "post_content"
     t.string   "post_status"
     t.string   "post_password"
     t.string   "post_parent"
@@ -158,7 +157,7 @@ ActiveRecord::Schema.define(version: 20151104092548) do
     t.string   "post_view"
     t.string   "post_review"
     t.string   "post_point"
-    t.text     "post_thumbnail"
+    t.string   "post_thumbnail"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -204,26 +203,20 @@ ActiveRecord::Schema.define(version: 20151104092548) do
   add_index "query_posts", ["post_id"], name: "index_query_posts_on_post_id", using: :btree
   add_index "query_posts", ["query_id"], name: "index_query_posts_on_query_id", using: :btree
 
-  create_table "record", force: true do |t|
-    t.text    "name",    null: false
-    t.integer "current", null: false
-    t.integer "max",     null: false
-  end
-
   create_table "schedule_details", force: true do |t|
     t.integer  "place_id"
     t.integer  "schedule_id"
-    t.text     "place_name"
-    t.decimal  "place_spend",                      precision: 10, scale: 2
-    t.string   "place_in",      limit: 200,                                 default: "00:00:00"
-    t.string   "place_out",     limit: 200
-    t.text     "place_img"
-    t.text     "place_note",    limit: 2147483647
-    t.decimal  "place_lat",                        precision: 10, scale: 6
-    t.decimal  "place_lng",                        precision: 10, scale: 6
-    t.integer  "place_type",                                                                     null: false
-    t.decimal  "next_time",                        precision: 10, scale: 2
-    t.decimal  "next_distance",                    precision: 10, scale: 2
+    t.string   "place_name"
+    t.string   "place_spend"
+    t.string   "place_note"
+    t.string   "place_img"
+    t.string   "place_in"
+    t.string   "place_lat"
+    t.string   "place_lng"
+    t.integer  "place_type"
+    t.string   "place_out"
+    t.string   "next_time"
+    t.string   "next_distance"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -235,10 +228,10 @@ ActiveRecord::Schema.define(version: 20151104092548) do
     t.integer  "plan_id"
     t.integer  "schedule_day"
     t.integer  "schedule_action"
-    t.decimal  "schedule_spend",               precision: 10, scale: 2
-    t.decimal  "schedule_distance",            precision: 10, scale: 2
-    t.float    "schedule_start",    limit: 24
-    t.float    "schedule_end",      limit: 24
+    t.string   "schedule_spend"
+    t.string   "schedule_distance"
+    t.datetime "schedule_start"
+    t.datetime "schedule_end"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -246,8 +239,8 @@ ActiveRecord::Schema.define(version: 20151104092548) do
   add_index "schedules", ["plan_id"], name: "index_schedules_on_plan_id", using: :btree
 
   create_table "sessions", force: true do |t|
-    t.string   "session_id",                    null: false
-    t.text     "data",       limit: 2147483647
+    t.string   "session_id", null: false
+    t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -290,13 +283,13 @@ ActiveRecord::Schema.define(version: 20151104092548) do
 
   create_table "users", force: true do |t|
     t.string   "user_name"
-    t.text     "user_pass"
+    t.string   "user_pass"
     t.string   "user_email"
     t.datetime "user_register"
-    t.text     "user_activation"
+    t.string   "user_activation"
     t.string   "user_status"
     t.string   "user_display"
-    t.text     "user_thumbnail"
+    t.string   "user_thumbnail"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

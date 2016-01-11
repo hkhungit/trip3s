@@ -1,23 +1,22 @@
 
 <style>
-.html2canvasreset{
+  .html2canvasreset{
     overflow: visible !important;
     width: auto !important;
     height: auto !important;
     max-height: auto !important;
-}
+  }
 </style>
 <div id="fb-root"></div>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
 <style type="text/css"> 
-.icon-weather {
+  .icon-weather {
     display: inline-block;
     width: 61px;
     height: 34px;
     margin: 2px 0 -1px 1px;
     overflow: hidden;
     background: url('http://l.yimg.com/a/lib/ywc/img/wicons.png') no-repeat 61px 0;
-}
+  }
   body{ overflow-y:hidden !important; }
   html header.main nav.navbar{ background-color:rgba( 35, 35, 35, 1); }
   html header.main nav.navbar.affix{ background-color:rgba( 15, 15, 15, 0.3); }
@@ -63,102 +62,102 @@
     min-width: auto;
   }
   .dropdown-menu.plan-day:before{
-      border-bottom: 10px solid #fff;
-      border-right: 10px solid transparent;
-      border-left: 10px solid transparent;
-      position: absolute;
-      top: -10px;
-      left: 20px;
-      right: auto;
-      z-index: 10;
+    border-bottom: 10px solid #fff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    right: auto;
+    z-index: 10;
   }
 
   .full-detail{    float: left;}
 
-    .manage-btn{display: none; position: absolute; top: 50px;right: -53px;transform: rotate(90deg);-moz-transform: rotate(90deg);-ms-transform: rotate(90deg);-webkit-transform: rotate(90deg)}
-  .overtime{background: red !important;color: #fff;opacity: 0.6;} 
+  .manage-btn{display: none; position: absolute; top: 50px;right: -53px;transform: rotate(90deg);-moz-transform: rotate(90deg);-ms-transform: rotate(90deg);-webkit-transform: rotate(90deg)}
+  .overtime{background: red !important;color: #000;opacity: 0.6;} 
   .truetime{background: white; opacity: 1}
   .schedule-day-boby-detail{float: left;max-width: 300px; width: 297px;border: 2px rgba(68, 68, 68, 0.25) solid; }
   .schedule-day-header-bar{    border-bottom: 2px rgba(68, 68, 68, 0.25) solid;
     border-top: 2px rgba(68, 68, 68, 0.25) solid;padding: 5px 0px;    margin-top: -1px; float: left;width: 100%}
 
-  .schedule-day-header-bar .title-information{width: 100%;float: left;border-bottom: 2px rgba(68, 68, 68, 0.25) solid; text-align: center;}
-  .header-detail-add-plan{border: 0px;border-top-left-radius: 0px;border-top-right-radius: 0px;z-index: 10;width: 100%;padding-bottom: 0px;height: 50px}
-  .body-detail-add-plan{padding-top: 0px}
-  .schedule-day-boby-detail-fix{overflow-y: scroll;min-height: 1px;width: 100%;}
-  .schedule-day-boby-fixed{float: left;width: 100%;}
-  .attribute-schedule div{float:left;}
-  .day-in-plan{float: left;width: 100%; background-color: #fff;border: 1px solid #ddd;padding: 4px;cursor: pointer;}
-  .day-in-plan .thumbnail .number{position: absolute;left: -5px;top: -5px;width: 35px;height: 35px;background-color: #a88e4b;border-radius: 30px;padding: 6px 10px;font-weight: bold;color: #fff;border: 2px rgba(189, 180, 180, 0.85) solid;}
-  .day-in-plan .thumbnail{float: left;width: 100%; border: 0px;position: relative;margin-bottom: 5px;}
-  .day-in-plan .thumbnail img{float: left;width: 100%; max-height: 130px;    margin-right: 5px;}
-  .day-in-plan >div{border-bottom: 1px #444 solid;}
-  .day-in-plan >div:last-child{border-bottom: 0px}
-  .icon-item-place{
-    z-index: 10;
-    border: 3px #717171 solid;
-  }
-  .result-added-friend{
-    overflow: hidden;
-    overflow-y: scroll;
-    max-height: 200px;
-  }
-  ul.result-added-friend li.list-group-item
-  .money-number{padding-left: 5px}
-  .adp-summary{display: none;}
-  .adp-directions{
-    width: 100%;
-  }
-  ul.schedule-day-boby{
-    padding: 0px 0px 0px 0px;
-    max-width: 300px;
-    float: left;
-    list-style: none;
-    min-height: 100px;
+    .schedule-day-header-bar .title-information{width: 100%;float: left;border-bottom: 2px rgba(68, 68, 68, 0.25) solid; text-align: center;}
+    .header-detail-add-plan{border: 0px;border-top-left-radius: 0px;border-top-right-radius: 0px;z-index: 10;width: 100%;padding-bottom: 0px;height: 50px}
+    .body-detail-add-plan{padding-top: 0px}
+    .schedule-day-boby-detail-fix{overflow-y: scroll;min-height: 1px;width: 100%;}
+    .schedule-day-boby-fixed{float: left;width: 100%;}
+    .attribute-schedule div{float:left;}
+    .day-in-plan{float: left;width: 100%; background-color: #fff;border: 1px solid #ddd;padding: 4px;cursor: pointer;}
+    .day-in-plan .thumbnail .number{position: absolute;left: -5px;top: -5px;width: 35px;height: 35px;background-color: #a88e4b;border-radius: 30px;padding: 6px 10px;font-weight: bold;color: #fff;border: 2px rgba(189, 180, 180, 0.85) solid;}
+    .day-in-plan .thumbnail{float: left;width: 100%; border: 0px;position: relative;margin-bottom: 5px;}
+    .day-in-plan .thumbnail img{float: left;width: 100%; max-height: 130px;    margin-right: 5px;}
+    .day-in-plan >div{border-bottom: 1px #444 solid;}
+    .day-in-plan >div:last-child{border-bottom: 0px}
+    .icon-item-place{
+      z-index: 10;
+      border: 3px #717171 solid;
+    }
+    .result-added-friend{
+      overflow: hidden;
+      overflow-y: scroll;
+      max-height: 200px;
+    }
+    ul.result-added-friend li.list-group-item
+    .money-number{padding-left: 5px}
+    .adp-summary{display: none;}
+    .adp-directions{
+      width: 100%;
+    }
+    ul.schedule-day-boby{
+      padding: 0px 0px 0px 0px;
+      max-width: 300px;
+      float: left;
+      list-style: none;
+      min-height: 100px;
       width: 100%;
       background: rgba(142, 142, 142, 0.35);
-  }
-  ul.schedule-day-boby-bk {
-    padding: 0px 0px 0px 0px;
-    max-width: 300px;
-    float: left;
-    list-style: none;
-    min-height: 1px;
+    }
+    ul.schedule-day-boby-bk {
+      padding: 0px 0px 0px 0px;
+      max-width: 300px;
+      float: left;
+      list-style: none;
+      min-height: 1px;
       width: 100%;
       background: rgba(142, 142, 142, 0.35);
-  }
-  #result-panel-display{
-    position: fixed;
-    top:70;
-    z-index: 9999;
-    background: #fff;
-    left: 0;
-    max-height: 400px;
-  }
-  #result-panel-display .panel-display{
-    display: none;
-    width: 400px;
-    overflow: scroll;
-  }
-  .place-router-detail{
-    float: left;
-    width: 100%;
-    max-width: 500px;
-    display: none;
-  }
-  .adp-placemark,.asdp-summary{display: none;}
-  .notselect{
-    display: none;
-  }
-  ._selected{display: block;}
-  .all_day{
-    width: 100% !important;
-    overflow: scroll;
-  }
-  .all_day .schedule-day-boby-detail ul{display: block; margin: 0px 0px}
-  .all_day .schedule-day-boby-detail{margin-right: 20px; display: block;}
-  .place-router{background: #232; color: #fff}
-  .icon-item-place-number{
+    }
+    #result-panel-display{
+      position: fixed;
+      top:70;
+      z-index: 9999;
+      background: #fff;
+      left: 0;
+      max-height: 400px;
+    }
+    #result-panel-display .panel-display{
+      display: none;
+      width: 400px;
+      overflow: scroll;
+    }
+    .place-router-detail{
+      float: left;
+      width: 100%;
+      max-width: 500px;
+      display: none;
+    }
+    .adp-placemark,.asdp-summary{display: none;}
+    .notselect{
+      display: none;
+    }
+    ._selected{display: block;}
+    .all_day{
+      width: 100% !important;
+      overflow: scroll;
+    }
+    .all_day .schedule-day-boby-detail ul{display: block; margin: 0px 0px}
+    .all_day .schedule-day-boby-detail{margin-right: 20px; display: block;}
+    .place-router{background: #232; color: #fff}
+    .icon-item-place-number{
       z-index: 9;
       position: absolute;
       line-height: 15px;
@@ -170,15 +169,15 @@
       border: 1px rgba(244, 244, 244, 0.86) solid;
       border-top-right-radius: 13px;
       border-bottom: 0px;
-  }
-  .icon-item-place-number:after{
-    content: "";
-    width: 20px;
-    height: 20px;
-    background: #444;
-  }
-  .select-home:hover{opacity: 0.8}
-  .select-home {
+    }
+    .icon-item-place-number:after{
+      content: "";
+      width: 20px;
+      height: 20px;
+      background: #444;
+    }
+    .select-home:hover{opacity: 0.8}
+    .select-home {
       position: absolute;
       right: -3px;
       top: -4px;
@@ -186,874 +185,798 @@
       color: #fff;
       padding: 5px;
       cursor: pointer;
-  }
-  .open-lists-day{
-    position: absolute;
+    }
+    .open-lists-day{
+      position: absolute;
       top: 4px;
       right: 0px;
       color: #fff;
       padding: 0.2em 7px;opacity: 0.8
-  }
-  #add-to-plan{
-    padding-right: 17px;width: 75px
-  }
-  .open-lists-day:hover{opacity: 1}
-  .javo-right-overlay ul.list-day-in-plan{
-    display: none;
-    padding: 0px;
+    }
+    #add-to-plan{
+      padding-right: 17px;width: 75px
+    }
+    .open-lists-day:hover{opacity: 1}
+    .javo-right-overlay ul.list-day-in-plan{
+      display: none;
+      padding: 0px;
       margin: 0px;
       list-style: none;
       background: #F5F2F2;
       max-height: 100px;
       overflow-y: scroll;
-  }
-  .javo-right-overlay ul.list-day-in-plan li a{
-        padding: 3px 5px;
-        color: #000;
-  }
-  .sidebar_control{
-        float: left;
+    }
+    .javo-right-overlay ul.list-day-in-plan li a{
+      padding: 3px 5px;
+      color: #000;
+    }
+    .sidebar_control{
+      float: left;
       width: 100px;
       height: 100%;
       position: fixed;
       z-index: 99999;
       background: #fff;    
       -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-  }
-  .sidebar_control .btn{width: 100%;    float: left;text-align: left;}
-  .sidebar_control .btn .btn-string{
-    -webkit-transition: width 1s ease-in-out;
-    -moz-transition: width 1s ease-in-out;
-    -o-transition: width 1s ease-in-out;
-    transition: width 1s ease-in-out;}
-  .sidebar_control .btn.btn-off-on{width: 100%;    float: left;text-align: center;}
-  
-</style>
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .sidebar_control .btn{width: 100%;    float: left;text-align: left;}
+    .sidebar_control .btn .btn-string{
+      -webkit-transition: width 1s ease-in-out;
+      -moz-transition: width 1s ease-in-out;
+      -o-transition: width 1s ease-in-out;
+      transition: width 1s ease-in-out;}
+      .sidebar_control .btn.btn-off-on{width: 100%;    float: left;text-align: center;}
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<div class="javo_mhome_wrap">
-  <div class="sidebar_control" id="sidebar_control">
-    <ul class="list-unstyled list-control ">
-      <li class="btn btn-default btn-box-description">
-        <span class="btn-icon"><i class="glyphicon glyphicon-list-alt"></i></span>
-        <span class="btn-string">Mô tả</span>
-      </li>
-      <li class="btn btn-default btn-box-filter">
-        <span class="btn-icon"><i class="glyphicon glyphicon-filter"></i></span>
-        <span class="btn-string">Lọc</span>
-      </li>
-      <li class="btn btn-default btn-box-place">
-        <span class="btn-icon"><i class="glyphicon glyphicon-map-marker"></i></span>
-        <span class="btn-string">Địa điểm</span>
-      </li>
+    </style>
 
-      <li class="btn btn-default btn-box-weather">
-        <span class="btn-icon"><i class="glyphicon glyphicon-cloud"></i></span>
-        <span class="btn-string">Thời tiết</span>
-      </li>
-      <li class="btn btn-default btn-box-users">
-        <span class="btn-icon"><i class="glyphicon glyphicon-user"></i></span>
-        <span class="btn-string">Thêm bạn</span>
-      </li>
-      <li class="btn btn-default btn-box-seting">
-        <span class="btn-icon"><i class="glyphicon glyphicon-wrench"></i></span>
-        <span class="btn-string">Cài đặt</span>
-      </li>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <div class="javo_mhome_wrap">
+      <div class="sidebar_control" id="sidebar_control">
+        <ul class="list-unstyled list-control ">
+          <li class="btn btn-default btn-box-description">
+            <span class="btn-icon"><i class="glyphicon glyphicon-list-alt"></i></span>
+            <span class="btn-string">Mô tả</span>
+          </li>
+          <li class="btn btn-default btn-box-filter">
+            <span class="btn-icon"><i class="glyphicon glyphicon-filter"></i></span>
+            <span class="btn-string">Lọc</span>
+          </li>
+          <li class="btn btn-default btn-box-place">
+            <span class="btn-icon"><i class="glyphicon glyphicon-map-marker"></i></span>
+            <span class="btn-string">Địa điểm</span>
+          </li>
 
-      <li class="btn btn-default btn-box-plan">
-        <span class="btn-icon"><i class="glyphicon glyphicon-calendar"></i></span>
-        <span class="btn-string">Kế hoạch</span>
-      </li>
-      <li class="btn btn-default btn-box-reset">
-        <span class="btn-icon"><i class="glyphicon glyphicon-remove-circle"></i></span>
-        <span class="btn-string">Làm lại</span>
-      </li>
+          <li class="btn btn-default btn-box-weather">
+            <span class="btn-icon"><i class="glyphicon glyphicon-cloud"></i></span>
+            <span class="btn-string">Thời tiết</span>
+          </li>
+          <li class="btn btn-default btn-box-users">
+            <span class="btn-icon"><i class="glyphicon glyphicon-user"></i></span>
+            <span class="btn-string">Thêm bạn</span>
+          </li>
+          <li class="btn btn-default btn-box-seting">
+            <span class="btn-icon"><i class="glyphicon glyphicon-wrench"></i></span>
+            <span class="btn-string">Cài đặt</span>
+          </li>
 
-      <li class="btn btn-default btn-off-on">
-        <span class="btn-off-on-control"><i class="fa fa-fast-backward"></i></span>
-      </li>
-    </ul>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+          <li class="btn btn-default btn-box-plan">
+            <span class="btn-icon"><i class="glyphicon glyphicon-calendar"></i></span>
+            <span class="btn-string">Kế hoạch</span>
+          </li>
+          <li class="btn btn-default btn-box-reset">
+            <span class="btn-icon"><i class="glyphicon glyphicon-remove-circle"></i></span>
+            <span class="btn-string">Làm lại</span>
+          </li>
 
-
-  <div class="javo_mhome_sidebar_wrap" id="sidebar-desciption" style="left: 101px; display:none">
-    <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
-     <%= form_for @plan do |f| %>
-      <div class="panel-heading">
-
-         <strong style="width:100%;float:left">Thông tin kế hoạch</strong> 
-         <button class="btn btn-xs btn-default submit-to-plan"> <i class="glyphicon glyphicon-floppy-disk"></i>  Tạo lịch</button> <button class="btn btn-xs btn-default"> <i class="glyphicon glyphicon-remove"></i>  Hủy bỏ lịch</button>
-
+          <li class="btn btn-default btn-off-on">
+            <span class="btn-off-on-control"><i class="fa fa-fast-backward"></i></span>
+          </li>
+        </ul>
       </div>
-      <div class="panel-body panel-body-nopadding style-3">
-       
-        <div class="col-sm-12">
-          <div class="form-group">
-            <label for="email"><strong>Tên của hành trình:</strong></label>
-            <input type="text" class="form-control" name="plan[plan_title]" id="tripPlan-name" placeholder="Tên của hành trình" required="required"  />
-          </div>
-        </div>
-        <div class="col-sm-12">
-          <div class="form-group">
-            <label for="plan[plan_content]"><strong>Mô tả:</strong></label>
-            <textarea name="plan[plan_content]" rows="10" cols="50" placeholder=""  class="form-control" ></textarea>
-          </div>
-        </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+      <div class="javo_mhome_sidebar_wrap" id="sidebar-desciption" style="left: 101px; display:none">
+        <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
         
-      </div>
-    </div>
-    <% end %>
-  </div>
+         <div class="panel-heading">
 
-  <div class="javo_mhome_sidebar_wrap" id="sidebar-weather"  style="left: 101px; display:none">
-    <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
-            <div class="panel-heading">
+           <strong style="width:100%;float:left">Thông tin kế hoạch</strong> 
+           <button class="btn btn-xs btn-default submit-to-plan"> <i class="glyphicon glyphicon-floppy-disk"></i>  Tạo lịch</button> <button class="btn btn-xs btn-default"> <i class="glyphicon glyphicon-remove"></i>  Hủy bỏ lịch</button>
 
-              <strong>Thông tin thời tiết</strong>
+         </div>
+         <div class="panel-body panel-body-nopadding style-3">
+          <%= form_for @plan do |f| %> 
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="email"><strong>Tên của hành trình:</strong></label>
+              <input type="text" class="form-control" name="plan[plan_title]" id="tripPlan-name" placeholder="Tên của hành trình" required="required"  />
             </div>
-            <div class="panel-body row panel-body-nopadding">
-            <div class="col-md-12">
-              <label for="filter[item_city2]">
-                Lựa chọn tỉnh bạn muốn xem
-              </label>
-              <select  data-placeholder="Tỉnh/Thành"  name="filter[item_city2]" style="display: none;">
-                <option value="0" disabled>Tỉnh Thành</option>
-                <%@places_city.each do |cate|%>
-                <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
-                <%end%>
-              </select>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="plan[plan_content]"><strong>Mô tả:</strong></label>
+              <textarea name="plan[plan_content]" rows="10" cols="50" placeholder=""  class="form-control" ></textarea>
             </div>
-            <div class="col-sm-12" id="responsive-weather-info">
-                
+          </div>
+          <input type="hidden" value="" name="plan[plan_thumbnail]"     id="file-upload-to-responsive">
+          <input type="hidden" value="" name="plan[plan_thumbnail_id]"  id="file-upload-to-responsive-id">
+         <% end %>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="plan[plan_thumbnail]"><strong>Hình ảnh:</strong></label>
+             
+            <%= form_for(:user_form, :url => {:controller => :images, :action => :upload_image}, :remote => true, :html => {:method => :post, :id => 'upload_form', :multipart => true}) do |f| %>
+                        
+                <img src="" width="100" height="100" id="img-responsive" class="uploadimg-responsive"">
+                 <span class="btn btn-default btn-file">
+                     Browse <input type="file" class="file-upload-to-server" name="user_form[user_thumbnail]">
+                </span>
+                              
+            <% end %>
             </div>
-
-            </div>
-  </div>  
-  </div>
-  <div class="javo_mhome_sidebar_wrap" id="sidebar-places"  style="left: 101px;">
-    <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
-    </div>
-  </div>
-  <div class="javo_mhome_sidebar_wrap" id="sidebar-plans"  style="left: 101px;">
-  </div>
-  <div class="javo_mhome_sidebar_wrap"  id="sidebar-setups"  style="left: 101px;display:none">
-    <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
-          <div class="panel-heading">
-
-              <strong>Cài đặt thông số sắp lịch</strong>
-            </div>
-            <div class="panel-body panel-body-nopadding style-3">
-            <form>
-              <div class="form-group">
-                        <label class="left" for="tripPlan[dayNumbers]"><strong>Số ngày:  </strong></label>
-                        <input type="number" name="tripPlan[dayNumbers]" class="form-control left" id="tripPlan-dayNumbers" placeholder="Số ngày" required="required" style ="width:150px">
-                    </div>
-              <div class="form-group">
-                        <label class="left" for="tripPlan[userNumbers]"><strong>Số Người:  </strong></label>
-                        <input type="number" name="tripPlan[userNumbers]" class="form-control left" id="tripPlan-userNumbers" placeholder="Số Người" required="required" style ="width:150px">
-                    </div>
-              <div class="form-group">
-                        <label class="left" for="tripPlan[moneyNumbers]"><strong>Số Tiền:  </strong></label>
-                        <input type="number" name="tripPlan[moneyNumbers]" class="form-control left" id="tripPlan-moneyNumbers" placeholder="Số tiền chuẩn bị" required="required" style ="width:150px">
-                    </div>
-              <div class="form-group">
-                        <label class="left" for="tripPlan[planStart]"><strong>Ngày đi:  </strong></label>
-                        <input type="text" name="tripPlan[planStart]" class="form-control left" id="tripPlan-planStart"  required="required" style ="width:150px">
-                    </div>
-              <div class="form-group">
-                        <label class="left" for="tripPlan[timeStart]"><strong>Thời gian đi:  </strong></label>
-                        <input type="text" min="1" max="24" name="tripPlan[timeStart]" class="form-control left" id="tripPlan-timeStart"  required="required" style ="width:150px">
-                    </div>
-              <div class="form-group">
-                        <label class="left" for="tripPlan[timeEnd]"><strong>Thời gian về:  </strong></label>
-                        <input type="text"  min="1" max="24"  name="tripPlan[timeEnd]" class="form-control left" id="tripPlan-timeEnd"  required="required" style ="width:150px">
-                    </div>
-              <div class="form-group">
-                        <label class="left" for="tripPlan[placeBegin]"><strong>Điểm ở lại:  </strong></label>
-                        <select class="tripPlan-placeBegin form-control left" name="tripPlan[placeBegin]"  style ="width:150px">
-                        </select>
-                    </div>
-              <div class="form-group"> 
-                <div class="checkbox">
-                  <label><input type="checkbox" id="tripPlan-ignoreFee"  class="tripPlan-ignoreFee" name="tripPlan[ignoreFee]" >Bỏ qua chi phí ở lại</label>
-                </div>
-              </div>
-              <div class="form-group">
-                        <label class="left" for="tripPlan[placeBegin]"></label>
-                        <Span class="open-advance">Nâng cao</span>
-                    </div>
-                    <div class="setting-day"></div>
-              <div class="form-group">
-                        <label class="left" for="tripPlan[placeBegin]"></label>
-                        <button type="button" class="btn btn-sm btn-success btn-save-detail-plan"><i class="fa fa-save"></i> Lưu</button>
-                        <button type="button" class="btn btn-sm btn-success btn-save-detail-advance-plan"><i class="fa fa-save"></i> Lưu</button>
-                        <button type="reset" class="reset btn-sm btn btn-danger" ><i class="fa fa-times"></i> Hủy bỏ</button>
-                    </div>
-              </form>
-            </div>
-    </div>
-  </div>
-  <div class="javo_mhome_sidebar_wrap" id="sidebar-users" style="left: 101px;display:none">
-    <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
-          <div class="panel-heading">
-
-              <strong>Thêm bạn bè vào kế hoạch</strong>
-            </div>
-            <div class="panel-body row panel-body-nopadding">
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <label for="email"><strong>Tìm kiếm bạn:</strong></label>
-                  <input type="text" class="form-control" id="tripPlan-user-friend" placeholder="Tìm kiếm bạn"/>
-                  <ul class="list-group result-search-friend style-2">
-                  </ul>
-                </div>
-              </div>
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <label for="plan[plan_content]"><strong>Người dùng trong kế hoạch</strong></label>
-                  <ul class="list-group result-added-friend style-2">
-                    
-                  </ul>
-                </div>
-              </div>
-            </div>
-    </div>
-  </div>
-  <!-- MAP Area -->
-  <div class="javo_mhome_map_area col-md-3" style="height: 335px; position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
-  
-  </div>
-  <div class="category-menu-bar"></div>
-
-  <!-- Right Sidebar Content -->
-  <div class="javo_mhome_map_lists row">
-  <!-- Turn off filter -->
-  <div class="turn-on-off-filter"><i class="fa fa-chevron-circle-left"></i></div>
-    <!-- Right Sidebar Inner -->
-    <!-- Control & Filter Area -->
-    <div class="main-map-search-wrap  col-md-4 style-6 ">
-      <div class="row">
-
-        <div class="col-md-12 text-left">
-          <div class="javo-filter-column-header">
-            <h3>Lọc danh sách địa điểm</h3>
-            <input class="form-control input-filter-text" name="fl_keyword" placeholder="Nhập từ khóa"/>
-            <span>
-              <button class="btn btn-xs btn-success btn-filter-place"> <i class="fa fa-filter"></i>
-                Lọc
-              </button>
-              <button class="btn btn-xs btn-danger btn-filter-remove"> <i class="fa fa-remove"></i>
-                Hủy bỏ
-              </button>
-              <label class="label label-info" style="padding:3.3px 5px">  
-               <input type="checkbox" class="btn-filter-my-location" name="my_location" value="0">Địa điểm của tôi
-              </label>
-            </span>
           </div>
 
-          <div class="javo-filter-column">
-            <select  multiple="multiple"  data-placeholder="Tỉnh/Thành"  name="filter[item_city]" style="display: none;">
+        </div>
+      </div>
+    </div>
+
+    <div class="javo_mhome_sidebar_wrap" id="sidebar-weather"  style="left: 101px; display:none">
+      <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
+        <div class="panel-heading">
+
+          <strong>Thông tin thời tiết</strong>
+        </div>
+        <div class="panel-body row panel-body-nopadding">
+          <div class="col-md-12">
+            <label for="filter[item_city2]">
+              Lựa chọn tỉnh bạn muốn xem
+            </label>
+            <select  data-placeholder="Tỉnh/Thành"  name="filter[item_city2]" style="display: none;">
               <option value="0" disabled>Tỉnh Thành</option>
               <%@places_city.each do |cate|%>
               <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
               <%end%>
             </select>
           </div>
+          <div class="col-sm-12" id="responsive-weather-info">
 
-          <div class="javo-filter-column">
-            <select  multiple="multiple"  data-placeholder="Quận/Huyện"  name="filter[item_district]" style="display: none;">
-              <option value="0" disabled>Quận/Huyện</option>
-              <%@district_category.each do |cate|%>
-              <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
-              <%end%>
-            </select>
           </div>
-          <div class="javo-filter-column">
-            <select  multiple="multiple"  data-placeholder="Khu Vực"  name="filter[item_area]" style="display: none;">
-              <option value="0" disabled>Khu Vực</option>
-              <%@places_area.each do |cate|%>
-              <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
-              <%end%>
-            </select>
-          </div>
-          <div class="javo-filter-column">
-            <select multiple="multiple" data-placeholder="Danh Mục" name="filter[item_category]" style="display: none;" class="chzn-select">
-              <option value="0" disabled>Danh Mục</option>
-              <% @places_category.each do |cate|%>
-              <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
-              <%end%>
-            </select>
-          </div>
-          <div class="javo-filter-column">
-            <select  multiple="multiple"  data-placeholder="Tiện Nghi"  name="filter[item_property]" style="display: none;">
-              <option value="0" disabled>Tiện Nghi</option>
-              <%@places_property.each do |cate|%>
-              <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
-              <%end%>
-            </select>
-          </div>
-          <div class="javo-filter-column">
-            <select  multiple="multiple" data-placeholder="Ẩm Thực" name="filter[item_cuisine]" style="display: none;">
-              <option value="0" disabled>Ẩm Thực</option>
-              <%@places_cuisine.each do |cate|%>
-              <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
-              <%end%>
-            </select>
-          </div>
-          <div class="javo-filter-column">
-            <select  multiple="multiple" data-placeholder="Mục Đích" name="filter[item_purpose]" style="display: none;">
-              <option value="0" disabled>Mục Đích</option>
-              <%@places_purpose.each do |cate|%>
-              <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
-              <%end%>
-            </select>
-          </div>
-          <div class="javo-filter-column">
-            <select  multiple="multiple" data-placeholder="Thích Hợp" name="filter[item_diding]" style="display: none;">
-              <option value="0" disabled>Thích Hợp</option>
-              <%@places_diding.each do |cate|%>
-              <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
-              <%end%>
-            </select>
+
+        </div>
+      </div>  
+    </div>
+    <div class="javo_mhome_sidebar_wrap" id="sidebar-places"  style="left: 101px;">
+      <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
+      </div>
+    </div>
+    <div class="javo_mhome_sidebar_wrap" id="sidebar-plans"  style="left: 101px;">
+    </div>
+    <div class="javo_mhome_sidebar_wrap"  id="sidebar-setups"  style="left: 101px;display:none">
+      <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
+        <div class="panel-heading">
+
+          <strong>Cài đặt thông số sắp lịch</strong>
+        </div>
+        <div class="panel-body panel-body-nopadding style-3">
+          <form>
+            <div class="form-group">
+              <label class="left" for="tripPlan[dayNumbers]"><strong>Số ngày:  </strong></label>
+              <input type="number" name="tripPlan[dayNumbers]" class="form-control left" id="tripPlan-dayNumbers" placeholder="Số ngày" required="required" style ="width:150px">
+            </div>
+            <div class="form-group">
+              <label class="left" for="tripPlan[userNumbers]"><strong>Số Người:  </strong></label>
+              <input type="number" name="tripPlan[userNumbers]" class="form-control left" id="tripPlan-userNumbers" placeholder="Số Người" required="required" style ="width:150px">
+            </div>
+            <div class="form-group">
+              <label class="left" for="tripPlan[moneyNumbers]"><strong>Số Tiền:  </strong></label>
+              <input type="number" name="tripPlan[moneyNumbers]" class="form-control left" id="tripPlan-moneyNumbers" placeholder="Số tiền chuẩn bị" required="required" style ="width:150px">
+            </div>
+            <div class="form-group">
+              <label class="left" for="tripPlan[planStart]"><strong>Ngày đi:  </strong></label>
+              <input type="text" name="tripPlan[planStart]" class="form-control left" id="tripPlan-planStart"  required="required" style ="width:150px">
+            </div>
+            <div class="form-group">
+              <label class="left" for="tripPlan[timeStart]"><strong>Thời gian đi:  </strong></label>
+              <input type="text" min="1" max="24" name="tripPlan[timeStart]" class="form-control left" id="tripPlan-timeStart"  required="required" style ="width:150px">
+            </div>
+            <div class="form-group">
+              <label class="left" for="tripPlan[timeEnd]"><strong>Thời gian về:  </strong></label>
+              <input type="text"  min="1" max="24"  name="tripPlan[timeEnd]" class="form-control left" id="tripPlan-timeEnd"  required="required" style ="width:150px">
+            </div>
+            <div class="form-group">
+              <label class="left" for="tripPlan[placeBegin]"><strong>Điểm ở lại:  </strong></label>
+              <select class="tripPlan-placeBegin form-control left" name="tripPlan[placeBegin]"  style ="width:150px">
+              </select>
+            </div>
+            <div class="form-group"> 
+              <div class="checkbox">
+                <label><input type="checkbox" id="tripPlan-ignoreFee"  class="tripPlan-ignoreFee" name="tripPlan[ignoreFee]" >Bỏ qua chi phí ở lại</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="left" for="tripPlan[placeBegin]"></label>
+              <Span class="open-advance">Nâng cao</span>
+              </div>
+              <div class="setting-day"></div>
+              <div class="form-group">
+                <label class="left" for="tripPlan[placeBegin]"></label>
+                <button type="button" class="btn btn-sm btn-success btn-save-detail-plan"><i class="fa fa-save"></i> Lưu</button>
+                <button type="button" class="btn btn-sm btn-success btn-save-detail-advance-plan"><i class="fa fa-save"></i> Lưu</button>
+                <button type="reset" class="reset btn-sm btn btn-danger" ><i class="fa fa-times"></i> Hủy bỏ</button>
+              </div>
+            </form>
           </div>
         </div>
-      </div><!-- row-->
-    </div> <!-- main-map-search-wrap -->
-    <!-- Control & Filter Area Close -->
+      </div>
+      <div class="javo_mhome_sidebar_wrap" id="sidebar-users" style="left: 101px;display:none">
+        <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
+          <div class="panel-heading">
 
-    <input type="hidden" name="javo_is_search" value="">
+            <strong>Thêm bạn bè vào kế hoạch</strong>
+          </div>
+          <div class="panel-body row panel-body-nopadding">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="email"><strong>Tìm kiếm bạn:</strong></label>
+                <input type="text" class="form-control" id="tripPlan-user-friend" placeholder="Tìm kiếm bạn"/>
+                <ul class="list-group result-search-friend style-2">
+                </ul>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="plan[plan_content]"><strong>Người dùng trong kế hoạch</strong></label>
+                <ul class="list-group result-added-friend style-2">
 
-    <!-- Ajax Results Output Element-->
-
-    <div class="javo_mhome_map_output item-list-page-wrap  col-md-8 style-6 ">
-      <div class="body-content">
-        <div class="col-md-12 javo_mhome_map_output_header">
-          <h3>Danh sách địa điểm</h3>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-12">
-          <div id="products" class="list-group">
-          </div><!-- /#prodicts -->
-        </div><!-- /.col-md-12 -->
-      </div><!-- /.body-content -->
-      <button type="button" class="btn btn-default btn-block javo-map-box-morebutton" data-javo-map-load-more="0">
-        <i class="fa fa-refresh"></i>
-        Tải thêm</button>
-      
+      </div>
+      <!-- MAP Area -->
+      <div class="javo_mhome_map_area col-md-3" style="height: 335px; position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
+
+      </div>
+      <div class="category-menu-bar"></div>
+
+      <!-- Right Sidebar Content -->
+      <div class="javo_mhome_map_lists row">
+        <!-- Turn off filter -->
+        <div class="turn-on-off-filter"><i class="fa fa-chevron-circle-left"></i></div>
+        <!-- Right Sidebar Inner -->
+        <!-- Control & Filter Area -->
+        <div class="main-map-search-wrap  col-md-4 style-6 ">
+          <div class="row">
+
+            <div class="col-md-12 text-left">
+              <div class="javo-filter-column-header">
+                <h3>Lọc danh sách địa điểm</h3>
+                <input class="form-control input-filter-text" name="fl_keyword" placeholder="Nhập từ khóa"/>
+                <span>
+                  <button class="btn btn-xs btn-success btn-filter-place"> <i class="fa fa-filter"></i>
+                    Lọc
+                  </button>
+                  <button class="btn btn-xs btn-danger btn-filter-remove"> <i class="fa fa-remove"></i>
+                    Hủy bỏ
+                  </button>
+                  <label class="label label-info" style="padding:3.3px 5px">  
+                   <input type="checkbox" class="btn-filter-my-location" name="my_location" value="0">Địa điểm của tôi
+                 </label>
+               </span>
+             </div>
+
+             <div class="javo-filter-column" >
+              <select  multiple="multiple"  data-placeholder="Tỉnh/Thành"  name="filter[item_city]" >
+                <option value="0" disabled>Tỉnh Thành * </option>
+                <%@places_city.each do |cate|%>
+                <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
+                <%end%>
+              </select>
+            </div>
+
+            <div class="javo-filter-column">
+              <select  multiple="multiple"  data-placeholder="Quận/Huyện"  name="filter[item_district]" >
+                <option value="0" disabled>Quận/Huyện</option>
+                <%@district_category.each do |cate|%>
+                <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                <%end%>
+              </select>
+            </div>
+            <div class="javo-filter-column" style="display: none;">
+              <select  multiple="multiple"  data-placeholder="Khu Vực"  name="filter[item_area]"  >
+                <option value="0" disabled>Khu Vực</option>
+                <%@places_area.each do |cate|%>
+                <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                <%end%>
+              </select>
+            </div>
+            <div class="javo-filter-column">
+              <select multiple="multiple" data-placeholder="Danh Mục" name="filter[item_category]" style="display: none;" class="chzn-select">
+                <option value="0" disabled>Danh Mục</option>
+                <% @places_category.each do |cate|%>
+                <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                <%end%>
+              </select>
+            </div>
+            <div class="javo-filter-column">
+              <select  multiple="multiple"  data-placeholder="Tiện Nghi"  name="filter[item_property]" style="display: none;">
+                <option value="0" disabled>Tiện Nghi</option>
+                <%@places_property.each do |cate|%>
+                <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                <%end%>
+              </select>
+            </div>
+            <div class="javo-filter-column">
+              <select  multiple="multiple" data-placeholder="Ẩm Thực" name="filter[item_cuisine]" style="display: none;">
+                <option value="0" disabled>Ẩm Thực</option>
+                <%@places_cuisine.each do |cate|%>
+                <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                <%end%>
+              </select>
+            </div>
+            <div class="javo-filter-column">
+              <select  multiple="multiple" data-placeholder="Mục Đích" name="filter[item_purpose]" style="display: none;">
+                <option value="0" disabled>Mục Đích</option>
+                <%@places_purpose.each do |cate|%>
+                <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                <%end%>
+              </select>
+            </div>
+            <div class="javo-filter-column">
+              <select  multiple="multiple" data-placeholder="Thích Hợp" name="filter[item_diding]" style="display: none;">
+                <option value="0" disabled>Thích Hợp</option>
+                <%@places_diding.each do |cate|%>
+                <option value="<%=cate.id%>"> <%=cate.cate_name%></option>    
+                <%end%>
+              </select>
+            </div>
+          </div>
+        </div><!-- row-->
+      </div> <!-- main-map-search-wrap -->
+      <!-- Control & Filter Area Close -->
+
+      <input type="hidden" name="javo_is_search" value="">
+
+      <!-- Ajax Results Output Element-->
+
+      <div class="javo_mhome_map_output item-list-page-wrap  col-md-8 style-6 ">
+        <div class="body-content">
+          <div class="col-md-12 javo_mhome_map_output_header">
+            <h3>Danh sách địa điểm</h3>
+          </div>
+          <div class="col-md-12">
+            <div id="products" class="list-group">
+            </div><!-- /#prodicts -->
+          </div><!-- /.col-md-12 -->
+        </div><!-- /.body-content -->
+        <button type="button" class="btn btn-default btn-block javo-map-box-morebutton" data-javo-map-load-more="0">
+          <i class="fa fa-refresh"></i>
+          Tải thêm</button>
+
+        </div>
+
+        <div class="mobile-map">
+          <a class="go-under-map">Di chuyến đến tìm kiếm</a>
+        </div> <!-- mobile-map-->
+      </div><!-- Right Sidebar Content Close -->
     </div>
 
-    <div class="mobile-map">
-    <a class="go-under-map">Di chuyến đến tìm kiếm</a>
-  </div> <!-- mobile-map-->
-  </div><!-- Right Sidebar Content Close -->
-</div>
 
+    <%=render :partial=> 'plans/template'%>
 
-<%=render :partial=> 'plans/template'%>
+    <fieldset>
 
-<fieldset>
-  
-  <!--# Variables -->
-  <input type="hidden" javo-ajax-url="" value="http://localhost:3000/api">
-  <input type="hidden" javo-map-all-items="" value="/api/load_place_filter">
-  <input type="hidden" javo-map-all-tags="" value="Academy|Albert Park|Australia|Blackburn|cafe|Camping|Cheltenham|Fashion|Frankston|Furniture|Hotel|IT Machine|Japanese food|Leisure|Manningham|melbourne|Restaurant|South Melbourne|sunshine west|West Melbourne|Williams Town">
-  <input type="hidden" javo-is-geoloc="" value="">
+      <!--# Variables -->
+      <input type="hidden" javo-ajax-url="" value="http://localhost:3000/api">
+      <input type="hidden" javo-map-all-items="" value="/api/load_place_filter">
+      <input type="hidden" javo-map-all-tags="" value="Academy|Albert Park|Australia|Blackburn|cafe|Camping|Cheltenham|Fashion|Frankston|Furniture|Hotel|IT Machine|Japanese food|Leisure|Manningham|melbourne|Restaurant|South Melbourne|sunshine west|West Melbourne|Williams Town">
+      <input type="hidden" javo-is-geoloc="" value="">
 
-  <!--# Comments -->
-  <input type="hidden" javo-cluster-multiple="" value="This place contains multiple places. please select one.">
-  <input type="hidden" javo-server-error="" value="Server Error">
-  <input type="hidden" javo-map-item-not-found="" value="Không có địa điểm nào">
-  <input type="hidden" javo-location-access-fail="" value="Your position access failed.">
+      <!--# Comments -->
+      <input type="hidden" javo-cluster-multiple="" value="This place contains multiple places. please select one.">
+      <input type="hidden" javo-server-error="" value="Server Error">
+      <input type="hidden" javo-map-item-not-found="" value="Không có địa điểm nào">
+      <input type="hidden" javo-location-access-fail="" value="Your position access failed.">
 
-  <!--# Settings -->
-  <input type="hidden" javo-cross-domain="" value="">
-  <input type="hidden" name="javo_google_map_poi" value="off">
-  <input type="hidden" javo-marker-trigger-zoom="" value="18">
-  <input type="hidden" javo-cluster-onoff="" value="">
-  <input type="hidden" javo-cluster-level="" value="25">
-  <input type="hidden" javo-distance-unit="" value="km">
-  <input type="hidden" javo-current-distance="" value="0">
-  <input type="hidden" javo-current-day="" value="2">
-  <input type="hidden" javo-current-people="" value="2">
-</fieldset>
+      <!--# Settings -->
+      <input type="hidden" javo-cross-domain="" value="">
+      <input type="hidden" name="javo_google_map_poi" value="off">
+      <input type="hidden" javo-marker-trigger-zoom="" value="18">
+      <input type="hidden" javo-cluster-onoff="" value="">
+      <input type="hidden" javo-cluster-level="" value="25">
+      <input type="hidden" javo-distance-unit="" value="km">
+      <input type="hidden" javo-current-distance="" value="0">
+      <input type="hidden" javo-current-day="" value="2">
+      <input type="hidden" javo-current-people="" value="2">
+    </fieldset>
 
 
 
-<script type="text/javascript" src="/assets/js/add_plan.js">
-  
-</script>
-  <div class="footer-bottom hidden-xs hidden-sm">
-    <div class="container">
-      <p></p>
-    </div> <!-- container -->
-  </div> <!-- footer-bottom -->
+    <script type="text/javascript" src="/assets/js/add_plan.js">
+
+    </script>
+    <div class="footer-bottom hidden-xs hidden-sm">
+      <div class="container">
+        <p></p>
+      </div> <!-- container -->
+    </div> <!-- footer-bottom -->
     <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top javo-dark admin-color-setting" role="button" title="Go to top">
-    <span class="fa fa-arrow-up"></span>
-  </a>
-        <a class="btn btn-primary btn-lg javo-quick-contact-us javo-dark admin-color-setting">
+      <span class="fa fa-arrow-up"></span>
+    </a>
+    <a class="btn btn-primary btn-lg javo-quick-contact-us javo-dark admin-color-setting">
       <span class="fa fa-envelope-o"></span>
     </a>
     <div class="javo-quick-contact-us-content">
       <div class="wpcf7" id="wpcf7-f53-o1" lang="en-US" dir="ltr">
-<div class="screen-reader-response"></div>
-<form name="" action="/directory/demo2/map-box/#wpcf7-f53-o1" method="post" class="wpcf7-form" novalidate="novalidate">
-<div style="display: none;">
-<input type="hidden" name="_wpcf7" value="53">
-<input type="hidden" name="_wpcf7_version" value="4.0.3">
-<input type="hidden" name="_wpcf7_locale" value="en_US">
-<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f53-o1">
-<input type="hidden" name="_wpnonce" value="ee08a95b88">
-</div>
-<div class="row">
-<div class="col-md-6 form-group"><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required form-control" aria-required="true" aria-invalid="false" placeholder="Full Name"></span></div>
-<div class="col-md-6 form-group"><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email form-control" aria-required="true" aria-invalid="false" placeholder="Email Address"></span></div>
-</div>
-<div class="form-group"><span class="wpcf7-form-control-wrap your-subject"><input type="text" name="your-subject" value="" size="40" class="wpcf7-form-control wpcf7-text form-control" aria-invalid="false" placeholder="Subject"></span></div>
-<div class="form-group"><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="5" class="wpcf7-form-control wpcf7-textarea form-control" aria-invalid="false" placeholder="message"></textarea></span></div>
-<div class="form-group"><input type="submit" value="Send Message" class="wpcf7-form-control wpcf7-submit btn btn-primary"><img class="ajax-loader" src="http://javothemes.com/directory/demo2/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden;"></div>
-<div class="wpcf7-response-output wpcf7-display-none"></div></form></div>   </div>
-  <div class="modal fade" id="author_contact" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Contact <span class="javo-contact-user-name"></span></h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label for="contact_name" class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-10">
-              <input name="contact_name" id="contact_name" class="form-control" placeholder="Insert your name" type="text">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="contact_email" class="col-sm-2 control-label">Email</label>
-            <div class="col-sm-10">
-              <input name="contact_email" id="contact_email" class="form-control" placeholder="Insert your E-mail address." type="email">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-md-12">
-              <textarea name="contact_content" id="contact_content" class="form-control" rows="5"></textarea>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-12">
-              <input id="contact_submit" class="btn btn-primary col-md-12" value="Send a message" type="button">
-            </div>
-          </div>
-          <input type="hidden" name="contact_this_from">
-          <input type="hidden" name="contact_item_name">
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div><!-- Modal -->
-<div class="modal fade" id="map_breif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <div class="row">
-          <div class="col-md-12 javo_map_breif_modal_content"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- Post share link send to mail -->
-<div class="modal fade" id="emailme-reveal" tabindex="-1" role="dialog" aria-labelledby="emailme-revealLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form method="post" id="javo_frm_send_link_mail" class="custom">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="emailme-revealLabel">Email This post</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-xs-6 col-lg-4"><div class="well well-sm">Sender Email Address</div></div>
-            <div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="to_emailme_email" placeholder="Please type email address" value=""></div>
+        <div class="screen-reader-response"></div>
+        <form name="" action="/directory/demo2/map-box/#wpcf7-f53-o1" method="post" class="wpcf7-form" novalidate="novalidate">
+          <div style="display: none;">
+            <input type="hidden" name="_wpcf7" value="53">
+            <input type="hidden" name="_wpcf7_version" value="4.0.3">
+            <input type="hidden" name="_wpcf7_locale" value="en_US">
+            <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f53-o1">
+            <input type="hidden" name="_wpnonce" value="ee08a95b88">
           </div>
           <div class="row">
-            <div class="col-xs-6 col-lg-4"><div class="well well-sm">Reception Email Address</div></div>
-            <div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="from_emailme_email" placeholder="Please type email address to send" value=""></div>
+            <div class="col-md-6 form-group"><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required form-control" aria-required="true" aria-invalid="false" placeholder="Full Name"></span></div>
+            <div class="col-md-6 form-group"><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email form-control" aria-required="true" aria-invalid="false" placeholder="Email Address"></span></div>
           </div>
-          <div class="row">
-            <div class="col-xs-6 col-lg-4"><div class="well well-sm"><i class="fa fa-link"></i>&nbsp;Link</div></div>
-            <div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="emailme_link" readonly="" value="http://javothemes.com/directory/demo2/map-box/"></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-lg-12"><textarea class="form-control" rows="10" cols="5" name="emailme_memo" placeholder="Please add some memo, if you need"></textarea></div>
-          </div>
-        </div><!-- Modal body -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="javo_send_link_mail(this);">Send</button>
-          <input name="action" value="emailme" type="hidden">
-          <input name="action_mode" value="emailme" type="hidden">
-        </div>
-      </form>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<script type="text/javascript">
-  function javo_send_link_mail(t){
-    (function($){
-      "use strict";
-      var f = t.form;
-      var param = $("#javo_frm_send_link_mail").serialize();
-      var option = {
-        url:'http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php',
-        type:'post', dataType:'json', data:param, success:function(data){
-          if( data['result'] == true ){
-            alert("");
-          }else{
-            alert("");
-          };
-          $(t).text("Send").attr("disabled", false);
-        }, error:function(e){
-          alert("" + e.state());}};
-      if( !f.to_emailme_email.value ){
-        alert("");
-        f.to_emailme_email.focus();
-        return false;
-      };
-      if( !f.from_emailme_email.value ){
-        alert("");
-        f.from_emailme_email.focus();
-        return false;
-      };
-      $(t).text("Processing..").attr("disabled", true);
-      $.ajax(option);
-
-    })(jQuery);
-  }
-</script>
-<!-- Close Post share link send to mail --><!-- Post share link send to mail -->
-<div class="modal fade" id="jv-claim-reveal" tabindex="-1" role="dialog" aria-labelledby="jv-claim-revealLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-
-
-      <form method="post" id="javo_frm_send_link_claim" class="custom">
-
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="jv-claim-revealLabel">Claim This Business</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-xs-6 col-lg-6">
-              <div class="form-group"><input type="text" class="form-control" name="jv-claim-name" required="" placeholder="Your Name" value=""></div>
-            </div>
-
-            <div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-email" placeholder="Your email" value=""></div></div>
-          </div><!-- row -->
-          <div class="row">
-            <div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-username" placeholder="Username" value=""></div></div>
-            <div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-phone" placeholder="Phone Number" value=""></div></div>
-          </div><!-- row -->
-          <div class="row">
-            <div class="col-xs-12 col-lg-12"><textarea class="form-control" rows="5" cols="3" name="jv-claim-memo" placeholder="Please add some memo, if you need"></textarea></div>
-          </div>
-          <input type="hidden" cla="form-control" name="jv-claim-item" value="695">
-        </div><!-- Modal body -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="javo_send_link_claim(this);">Send</button>
-          <input name="action" value="send_claim" type="hidden">
-        </div>
-      </form>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<script type="text/javascript">
-  function javo_send_link_claim(t){
-    (function($){
-      "use strict";
-      var f = t.form;
-      var param = $("#javo_frm_send_link_claim").serialize();
-      var option = {
-        url:'http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php',
-        type:'post'
-        , dataType:'json'
-        , data:param
-        , success:function(data){
-          if( data.result == true ){
-            $.javo_msg({content:"Your claim request has been successfully sent!<br/>We will review it and get you back soon."}, function(){
-              $("#jv-claim-reveal").modal('hide');
-            });
-          }else{
-            $.javo_msg({content:"Sorry, Email send failed. Please check your email address"});
-          };
-          $(t).button('reset');
-        }, error:function(e){
-          alert("" + e.state());
-          console.log( e.responseText );
-        }
-      };
-
-      var on_errors = 0;
-
-      $(f).find('input').each(function(){
-        $(this).removeClass('isNull');
-        if( $(this).val() == "" ){
-          $(this).addClass('isNull');
-          on_errors++;
-        }
-      });
-
-      if( on_errors > 0 ){
-
-        $.javo_msg({ content:'Please fill them out'});
-        return false;
-      }
-
-      $(t).button('loading');
-
-      $.ajax(option);
-    })(jQuery);
-  }
-</script>
-<!-- Close Post share link send to mail -->
-<!-- Modal -->
-<div class="modal fade login-type2" id="login_panel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-middle">
-    <div class="modal-content no-padding">
-
-      <!-- Modal Header -->
-      <div class="modal-header text-center">
-        <h4 class="modal-title" id="myModalLabel">
-          <img src="/assets/images/icon/icon-user.png">
-          SIGN INTO YOUR ACCOUNT        </h4><!-- /.modal-title -->
-      </div><!-- /.modal-header -->
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <form action="http://javothemes.com/directory/demo2/wp-login.php" id="login_form" name="login_form" method="post" role="form">
-
-                      <!-- Facebook Login -->
-            <div class="form-group">
-              <button type="button" class="btn btn-block btn-navy facebook_connect">
-                <i class="fa fa-facebook"></i> &nbsp;
-                <strong>Login with Facebook</strong>
-              </button>
-            </div><!-- /.form-group -->
-
-            <div class="form-group separator-text text-center">
-              <span>OR</span>
-            </div>
-          
-          <!-- User Name -->
-          <div class="form-group">
-            <input type="text" name="log" id="username" value="" class="form-control" placeholder="Username" required="">
-          </div>
-
-          <!-- User Password -->
-          <div class="form-group">
-            <input type="password" name="pwd" id="password" value="" class="form-control" placeholder="Password" required="">
-          </div>
-
-          <!-- Descriptions -->
-          <div class="form-group remember-and-forgot">
-            <div class="row">
-              <!-- Remember Me -->
-              <div class="pull-left">
-                <label class="control-label">
-                  <input name="rememberme" value="forever" type="checkbox">
-                  <small>Remember Me</small>
-                </label><!-- /.control-label -->
-              </div><!-- /.pull-left -->
-              <!-- Forgot Password -->
-              <div class="pull-right">
-                <a href="http://javothemes.com/directory/wp-login.php?action=lostpassword">
-                  <small class="required">Forgot Your Password?</small>
-                </a>
-              </div><!-- /.pull-right -->
-
-            </div><!-- /.inline-block -->
-
-          </div><!-- /.form-group -->
-
-          <!-- Login Button -->
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-12">
-                <span class="description">Your privacy is important to us and we will never rent or sell your information.</span>
-              </div><!-- /.col-md-12 -->
-            </div><!-- /.row -->
-            <div class="row">
-              <div class="col-md-12">
-                <input type="hidden" name="redirect_to" value="/directory/demo2/map-box/">
-                <button type="submit" class="btn btn-block btn-danger">
-                  <strong>Login</strong>
-                </button>
-              </div><!-- /.col-md-12 -->
-            </div><!-- /.row -->
-          </div>
-
-          <hr class="padding-5px">
-
-          <!-- Sign up Button -->
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-12">
-
-                              <div class="well well-sm">
-                  <small>This site is not allowed new members. please contact administrator.</small>
+          <div class="form-group"><span class="wpcf7-form-control-wrap your-subject"><input type="text" name="your-subject" value="" size="40" class="wpcf7-form-control wpcf7-text form-control" aria-invalid="false" placeholder="Subject"></span></div>
+          <div class="form-group"><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="5" class="wpcf7-form-control wpcf7-textarea form-control" aria-invalid="false" placeholder="message"></textarea></span></div>
+          <div class="form-group"><input type="submit" value="Send Message" class="wpcf7-form-control wpcf7-submit btn btn-primary"><img class="ajax-loader" src="http://javothemes.com/directory/demo2/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden;"></div>
+          <div class="wpcf7-response-output wpcf7-display-none"></div></form></div>   </div>
+          <div class="modal fade" id="author_contact" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title">Contact <span class="javo-contact-user-name"></span></h4>
                 </div>
-                            </div><!-- /.col-md-12 -->
-            </div><!-- /.row -->
-          </div>
-
-        </form>
-      </div><!-- /.modal-body -->
-
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!-- Modal -->
-<div class="modal fade" id="register_waiting_create" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="box-wait">
-    <img src="/assets/icon/PleaseWait.gif" >
-  </div>
-</div>
-
-<!-- /.modal -->
-
-<!-- Modal Place detail-->
-<div class="modal fade " id="place_detail_panel" tabindex="-1" role="dialog" aria-hidden="true">
-
-</div>
-<!-- Modal -->
-<div class="modal fade" id="register_panel" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form data-javo-modal-register-form="">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="myModalLabel">
-            <img src="/assets/images/icon/icon-user.png">
-            Create Account          </h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="" for="reg-username">Username</label>
-                <input type="text" id="reg-username" name="user_login" class="form-control" required="" placeholder="Username">
+                <div class="modal-body">
+                  <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                      <label for="contact_name" class="col-sm-2 control-label">Name</label>
+                      <div class="col-sm-10">
+                        <input name="contact_name" id="contact_name" class="form-control" placeholder="Insert your name" type="text">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="contact_email" class="col-sm-2 control-label">Email</label>
+                      <div class="col-sm-10">
+                        <input name="contact_email" id="contact_email" class="form-control" placeholder="Insert your E-mail address." type="email">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-12">
+                        <textarea name="contact_content" id="contact_content" class="form-control" rows="5"></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-12">
+                        <input id="contact_submit" class="btn btn-primary col-md-12" value="Send a message" type="button">
+                      </div>
+                    </div>
+                    <input type="hidden" name="contact_this_from">
+                    <input type="hidden" name="contact_item_name">
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
               </div>
-            </div><!-- /.col-md-6 -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="" for="reg-email">Email Address</label>
-                <input type="text" id="reg-email" name="user_email" class="form-control" required="" placeholder="Your email">
-              </div>
-            </div><!-- /.col-md-6 -->
-          </div><!-- /.row -->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="" for="firstname">First Name</label>
-                <input type="text" id="firstname" name="first_name" class="form-control" required="" placeholder="Your first name">
+            </div>
+          </div><!-- Modal -->
+          <div class="modal fade" id="map_breif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <div class="row">
+                    <div class="col-md-12 javo_map_breif_modal_content"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 text-center">
+                      <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+          <!-- Post share link send to mail -->
+          <div class="modal fade" id="emailme-reveal" tabindex="-1" role="dialog" aria-labelledby="emailme-revealLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <form method="post" id="javo_frm_send_link_mail" class="custom">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="emailme-revealLabel">Email This post</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-xs-6 col-lg-4"><div class="well well-sm">Sender Email Address</div></div>
+                      <div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="to_emailme_email" placeholder="Please type email address" value=""></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 col-lg-4"><div class="well well-sm">Reception Email Address</div></div>
+                      <div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="from_emailme_email" placeholder="Please type email address to send" value=""></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 col-lg-4"><div class="well well-sm"><i class="fa fa-link"></i>&nbsp;Link</div></div>
+                      <div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="emailme_link" readonly="" value="http://javothemes.com/directory/demo2/map-box/"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-lg-12"><textarea class="form-control" rows="10" cols="5" name="emailme_memo" placeholder="Please add some memo, if you need"></textarea></div>
+                    </div>
+                  </div><!-- Modal body -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="javo_send_link_mail(this);">Send</button>
+                    <input name="action" value="emailme" type="hidden">
+                    <input name="action_mode" value="emailme" type="hidden">
+                  </div>
+                </form>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+          <script type="text/javascript">
+            function javo_send_link_mail(t){
+              (function($){
+                "use strict";
+                var f = t.form;
+                var param = $("#javo_frm_send_link_mail").serialize();
+                var option = {
+                  url:'http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php',
+                  type:'post', dataType:'json', data:param, success:function(data){
+                    if( data['result'] == true ){
+                      alert("");
+                    }else{
+                      alert("");
+                    };
+                    $(t).text("Send").attr("disabled", false);
+                  }, error:function(e){
+                    alert("" + e.state());}};
+                    if( !f.to_emailme_email.value ){
+                      alert("");
+                      f.to_emailme_email.focus();
+                      return false;
+                    };
+                    if( !f.from_emailme_email.value ){
+                      alert("");
+                      f.from_emailme_email.focus();
+                      return false;
+                    };
+                    $(t).text("Processing..").attr("disabled", true);
+                    $.ajax(option);
 
-              </div>
-            </div><!-- /.col-md-6 -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="" for="lastname">Last Name</label>
-                <input type="text" id="lastname" name="last_name" class="form-control" required="" placeholder="Your last name">
-
-              </div>
-            </div><!-- /.col-md-6 -->
-          </div><!-- /.row -->
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="" for="reg-password">Password</label>
-                <input type="password" id="reg-password" name="user_pass" class="form-control" required="" placeholder="Desired Password">
-
-              </div>
-            </div><!-- /.col-md-6 -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="" for="reg-con-password">Confirm Password</label>
-                <input type="password" id="reg-con-password" name="user_con_pass" class="form-control" required="" placeholder="Confirm Password">
-
-              </div>
-            </div><!-- /.col-md-6 -->
-          </div><!-- /.row -->
-        </div>
-
-        <div class="modal-footer">
-
-          
-          <div class="row">
-            <div class="col-md-4 text-left">
-              <a href="#" data-toggle="modal" data-target="#login_panel" class="btn btn-default javo-tooltip" title="" data-original-title="Log-In">LOG IN</a>
-
-            </div><!-- /.col-md-4 -->
-            <div class="col-md-8 text-right">
-              <input type="hidden" name="action" value="register_login_add_user">
-              <button type="submit" id="signup" name="submit" class="btn btn-primary"><i class="icon-heart"></i> &nbsp;Create My Account</button> &nbsp;
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-            </div><!-- /.col-md-8 -->
-          </div><!-- /.row -->
-
-        </div>
-      </form>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<fieldset>
-  <input type="hidden" name="javo_str_disagree" value="You need to read and agree the terms and conditions to register.">
-</fieldset>
-<div id="result-panel-display">
-  
-</div>
-    <script type="text/javascript" src="/assets/js/jquery.javo.msg.js"></script>
-
-<script type="text/javascript" src="/assets/js/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="/assets/js/k_means.js"></script>
-<script type="text/javascript" src="/assets/js/aco.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.favorite.js"></script>
-<script type="text/javascript" src="/assets/js/pace.min.js"></script>
-<script type="text/javascript" src="/assets/js/common.js"></script>
-<script type="text/javascript" src="/assets/js/javo-footer.js"></script>
-<script type="text/javascript" src="/assets/js/jasny-bootstrap.min.js"></script>
-<script type="text/javascript" src="/assets/js/smoothscroll.js"></script>
-<script type="text/javascript" src="/assets/js/navigation.js"></script>
-<script type="text/javascript" src="/assets/js/google.map.infobubble.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.typehead.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.raty.min.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.nouislider.min.js"></script>
-<script type="text/javascript" src="/assets/js/jquery.javo.mail.js"></script>
-<script type="text/javascript" src="/assets/js/jquery-ui.js"></script>
+                  })(jQuery);
+                }
+              </script>
+              <!-- Close Post share link send to mail --><!-- Post share link send to mail -->
+              <div class="modal fade" id="jv-claim-reveal" tabindex="-1" role="dialog" aria-labelledby="jv-claim-revealLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
 
 
-<script type="text/javascript" src="/assets/js/datepicker.js"></script>
-<link rel='stylesheet' id='datepicker-css'  href='/assets/css/datepicker.css' type='text/css' media='screen' />
+
+                    <form method="post" id="javo_frm_send_link_claim" class="custom">
+
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="jv-claim-revealLabel">Claim This Business</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-xs-6 col-lg-6">
+                            <div class="form-group"><input type="text" class="form-control" name="jv-claim-name" required="" placeholder="Your Name" value=""></div>
+                          </div>
+
+                          <div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-email" placeholder="Your email" value=""></div></div>
+                        </div><!-- row -->
+                        <div class="row">
+                          <div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-username" placeholder="Username" value=""></div></div>
+                          <div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-phone" placeholder="Phone Number" value=""></div></div>
+                        </div><!-- row -->
+                        <div class="row">
+                          <div class="col-xs-12 col-lg-12"><textarea class="form-control" rows="5" cols="3" name="jv-claim-memo" placeholder="Please add some memo, if you need"></textarea></div>
+                        </div>
+                        <input type="hidden" cla="form-control" name="jv-claim-item" value="695">
+                      </div><!-- Modal body -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="javo_send_link_claim(this);">Send</button>
+                        <input name="action" value="send_claim" type="hidden">
+                      </div>
+                    </form>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
+              <script type="text/javascript">
+                function javo_send_link_claim(t){
+                  (function($){
+                    "use strict";
+                    var f = t.form;
+                    var param = $("#javo_frm_send_link_claim").serialize();
+                    var option = {
+                      url:'http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php',
+                      type:'post'
+                      , dataType:'json'
+                      , data:param
+                      , success:function(data){
+                        if( data.result == true ){
+                          $.javo_msg({content:"Your claim request has been successfully sent!<br/>We will review it and get you back soon."}, function(){
+                            $("#jv-claim-reveal").modal('hide');
+                          });
+                        }else{
+                          $.javo_msg({content:"Sorry, Email send failed. Please check your email address"});
+                        };
+                        $(t).button('reset');
+                      }, error:function(e){
+                        alert("" + e.state());
+                        console.log( e.responseText );
+                      }
+                    };
+
+                    var on_errors = 0;
+
+                    $(f).find('input').each(function(){
+                      $(this).removeClass('isNull');
+                      if( $(this).val() == "" ){
+                        $(this).addClass('isNull');
+                        on_errors++;
+                      }
+                    });
+
+                    if( on_errors > 0 ){
+
+                      $.javo_msg({ content:'Please fill them out'});
+                      return false;
+                    }
+
+                    $(t).button('loading');
+
+                    $.ajax(option);
+                  })(jQuery);
+                }
+              </script>
+              <!-- Close Post share link send to mail -->
+              
+
+                <!-- Modal -->
+                <div class="modal fade" id="register_waiting_create" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="box-wait">
+                    <img src="/assets/icon/PleaseWait.gif" >
+                  </div>
+                </div>
+
+                <!-- /.modal -->
+
+                <!-- Modal Place detail-->
+                <div class="modal fade " id="place_detail_panel" tabindex="-1" role="dialog" aria-hidden="true">
+
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="register_panel" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form data-javo-modal-register-form="">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                          <h4 class="modal-title" id="myModalLabel">
+                            <img src="/assets/images/icon/icon-user.png">
+                            Create Account          </h4>
+                          </div>
+                          <div class="modal-body">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="" for="reg-username">Username</label>
+                                  <input type="text" id="reg-username" name="user_login" class="form-control" required="" placeholder="Username">
+                                </div>
+                              </div><!-- /.col-md-6 -->
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="" for="reg-email">Email Address</label>
+                                  <input type="text" id="reg-email" name="user_email" class="form-control" required="" placeholder="Your email">
+                                </div>
+                              </div><!-- /.col-md-6 -->
+                            </div><!-- /.row -->
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="" for="firstname">First Name</label>
+                                  <input type="text" id="firstname" name="first_name" class="form-control" required="" placeholder="Your first name">
+
+                                </div>
+                              </div><!-- /.col-md-6 -->
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="" for="lastname">Last Name</label>
+                                  <input type="text" id="lastname" name="last_name" class="form-control" required="" placeholder="Your last name">
+
+                                </div>
+                              </div><!-- /.col-md-6 -->
+                            </div><!-- /.row -->
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="" for="reg-password">Password</label>
+                                  <input type="password" id="reg-password" name="user_pass" class="form-control" required="" placeholder="Desired Password">
+
+                                </div>
+                              </div><!-- /.col-md-6 -->
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="" for="reg-con-password">Confirm Password</label>
+                                  <input type="password" id="reg-con-password" name="user_con_pass" class="form-control" required="" placeholder="Confirm Password">
+
+                                </div>
+                              </div><!-- /.col-md-6 -->
+                            </div><!-- /.row -->
+                          </div>
+
+                          <div class="modal-footer">
 
 
-</div>
+                            <div class="row">
+                              <div class="col-md-4 text-left">
+                                <a href="#" data-toggle="modal" data-target="#login_panel" class="btn btn-default javo-tooltip" title="" data-original-title="Log-In">LOG IN</a>
 
-<!-- Modal Plan Preview-->
-<div class="modal fade" id="preview_detail_panel" tabindex="-1" role="dialog" aria-hidden="true">
- 
-</div>
-</body></html>
+                              </div><!-- /.col-md-4 -->
+                              <div class="col-md-8 text-right">
+                                <input type="hidden" name="action" value="register_login_add_user">
+                                <button type="submit" id="signup" name="submit" class="btn btn-primary"><i class="icon-heart"></i> &nbsp;Create My Account</button> &nbsp;
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                              </div><!-- /.col-md-8 -->
+                            </div><!-- /.row -->
+
+                          </div>
+                        </form>
+                      </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                  </div><!-- /.modal -->
+                  <fieldset>
+                    <input type="hidden" name="javo_str_disagree" value="You need to read and agree the terms and conditions to register.">
+                  </fieldset>
+                  <div id="result-panel-display">
+
+                  </div>
+                  <script type="text/javascript" src="/assets/js/login.js"></script>
+                  <script type="text/javascript" src="/assets/js/jquery.javo.msg.js"></script>
+
+                  <script type="text/javascript" src="/assets/js/chosen.jquery.min.js"></script>
+                  <script type="text/javascript" src="/assets/js/k_means.js"></script>
+                  <script type="text/javascript" src="/assets/js/aco.js"></script>
+                  <script type="text/javascript" src="/assets/js/jquery.favorite.js"></script>
+                  <script type="text/javascript" src="/assets/js/pace.min.js"></script>
+                  <script type="text/javascript" src="/assets/js/common.js"></script>
+                  <script type="text/javascript" src="/assets/js/javo-footer.js"></script>
+                  <script type="text/javascript" src="/assets/js/jasny-bootstrap.min.js"></script>
+                  <script type="text/javascript" src="/assets/js/smoothscroll.js"></script>
+                  <script type="text/javascript" src="/assets/js/navigation.js"></script>
+                  <script type="text/javascript" src="/assets/js/google.map.infobubble.js"></script>
+                  <script type="text/javascript" src="/assets/js/jquery.typehead.js"></script>
+                  <script type="text/javascript" src="/assets/js/jquery.raty.min.js"></script>
+                  <script type="text/javascript" src="/assets/js/jquery.nouislider.min.js"></script>
+                  <script type="text/javascript" src="/assets/js/jquery.javo.mail.js"></script>
+                  <script type="text/javascript" src="/assets/js/jquery-ui.js"></script>
+
+
+                  <script type="text/javascript" src="/assets/js/datepicker.js"></script>
+                  <link rel='stylesheet' id='datepicker-css'  href='/assets/css/datepicker.css' type='text/css' media='screen' />
+
+
+                </div>
+
+                <!-- Modal Plan Preview-->
+                <div class="modal fade" id="preview_detail_panel" tabindex="-1" role="dialog" aria-hidden="true">
+
+                </div>
+              </body>
+              </html>

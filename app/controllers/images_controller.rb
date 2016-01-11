@@ -1,10 +1,37 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy]
 
+skip_before_action :verify_authenticity_token
   # GET /images
   # GET /images.json
   def index
     @images = Image.all
+  end
+
+  def upload_image
+    begin
+      blog_image = Image.new
+      url = params[:user_form][:user_thumbnail]
+      blog_image.image_url = url
+      blog_image.save!
+       
+        # TODO: store blog_image.id in session OR pass ID back to form for storage in a hidden field
+        # OR if your main resource already exists, mount the uploader to it directly and go sip on a 
+        # pina colada instead of worrying about this
+       
+        render json: {
+          status: true,
+          image: blog_image  
+          } 
+
+          return;
+      rescue Exception => e
+      render json: {
+          status: false 
+          } 
+           return;
+    end
+    
   end
 
   # GET /images/1

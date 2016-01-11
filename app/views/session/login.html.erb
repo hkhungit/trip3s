@@ -1,35 +1,87 @@
-<link rel='stylesheet' id='login-css'  href='/assets/css/login.css' type='text/css' media='screen' />
-    <div class="container" style="padding-top: 30px">
-            <form class="form-signin"> 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h1 class="panel-title"><strong><i class="glyphicon glyphicon-home"></i>   Đăng nhập</strong></h1>
-                    </div>
-                    <div class="panel-body">
-                        
-                            <div class="form-group">
-                                <label for="email"><strong>Tài khoản</strong></label>
-                                <input type="text" class="form-control" id="account" placeholder="Tài khoản" required="required"
-                                oninvalid="this.setCustomValidity('Nhập tài khoản của bạn')"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <label for="pwd"><strong>Mật khẩu </strong><a href="/session/forgot_password" class="reser_a">(Quên mật khẩu)</a></label>
-                                <input type="password" class="form-control" id="pwd" placeholder="Mật khẩu" required="required"
-                                oninvalid="this.setCustomValidity('Nhập mật khẩu của bạn')"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-refresh"></i> Đăng nhập</button>
-                                <button class="btn btn-danger" type="submit"><i class="glyphicon glyphicon-remove"></i> Hủy bỏ</button>
-                            </div>
 
-                            <div class="form-group">
-                                <%= link_to "-  Đăng nhập qua Facebook", "/auth/facebook", id: "sign_in", class: "sign_in" %><br/>
-                                 <%= link_to "-  Đăng ký tài khoản", "/signin", id: "sign_in", class: "sign_in" %>
-                            </div>
-                    </div>
+<div class="modal fade login-type2 in" id="login_panel2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: block; padding-left: 17px;"> 
+                <div class="modal-dialog modal-middle">
+                  <div class="modal-content no-padding">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header text-center">
+                      <h4 class="modal-title" id="myModalLabel">
+                        <img src="/assets/images/icon/icon-user.png">
+                       Đăng nhập tài khoản của bạn       </h4><!-- /.modal-title -->
+                      </div><!-- /.modal-header -->
+
+                      <!-- Modal body -->
+                      <div class="modal-body">
+                        <form action="#" id="login_form" name="login_form" method="post" role="form">
+
+                          <!-- Facebook Login -->
+                          <div class="form-group">
+                            <button type="button" class="btn btn-block btn-navy facebook_connect">
+                              <i class="fa fa-facebook"></i> &nbsp;
+                              <strong>Đăng nhập qua Facebook</strong>
+                            </button>
+                          </div><!-- /.form-group -->
+
+                          <div class="form-group separator-text text-center">
+                            <span>Hoặc</span>
+                          </div>
+
+                          <!-- User Name -->
+                          <div class="form-group">
+                            <input type="text" name="log" id="username" value="" class="form-control" placeholder="Tài khoản" required=""  >
+                          </div>
+
+                          <!-- User Password -->
+                          <div class="form-group">
+                            <input type="password" name="pwd" id="password" value="" class="form-control" placeholder="Mật khẩu" required=""  >
+                          </div>
+
+                          <!-- Descriptions -->
+                          <div class="form-group remember-and-forgot">
+                            <div class="row">
+                              <!-- Remember Me -->
+                              <div class="pull-left">
+                                <label class="control-label">
+                                  <input name="rememberme" value="forever" type="checkbox">
+                                  <small>Ghi nhớ</small>
+                                </label><!-- /.control-label -->
+                              </div><!-- /.pull-left -->
+                              <!-- Forgot Password -->
+                              <div class="pull-right">
+                                <a href="/user/forget">
+                                  <small class="required">Bạn quên mật khẩu?</small>
+                                </a>
+                              </div><!-- /.pull-right -->
+
+                            </div><!-- /.inline-block -->
+
+                          </div><!-- /.form-group -->
+
+                          <!-- Login Button -->
+                          <div class="form-group">
+                             
+                            <div class="row">
+                              <div class="col-md-12">
+                                <input type="hidden" name="redirect_to" value="/directory/demo2/map-box/">
+                                <button type="submit" class="btn btn-block btn-danger">
+                                  <strong>Đăng nhập</strong>
+                                </button>
+                              </div><!-- /.col-md-12 -->
+                            </div><!-- /.row -->
+                          </div>
+
+                          <hr class="padding-5px">
+
+                          <!-- Sign up Button -->
+                          
+
+                        </form>
+                      </div><!-- /.modal-body -->
+
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
                 </div>
-            </form>
-        </div> <!-- /container -->
+<script src="http://connect.facebook.net/en_US/all.js"></script>
 
+<script type='text/javascript' src='/assets/js/jquery/jquery.js'></script>
+                  <script type="text/javascript" src="/assets/js/login.js"></script>

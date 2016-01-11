@@ -25,7 +25,7 @@ test:
   encoding: utf8
   database: trip3s_test
   pool: 5
-  username: root
+  username: root 
   password:
   host: localhost
 

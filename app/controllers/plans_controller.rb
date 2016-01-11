@@ -21,6 +21,7 @@ class PlansController < ApplicationController
   # GET /plans/1
   # GET /plans/1.json
   def show
+   
   end
 
   def k_mean
@@ -39,6 +40,8 @@ class PlansController < ApplicationController
     @places_category  = Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_place'}) 
     @district_category= Category.select("*").joins(:type).where(:types => {:type_name => 'type_district',:type_parent => '123'}) 
     @places  = Post.select("*").joins(:place).order('post_view desc')
+    @uploader = ImageUploader.new
+
   end
 
   # GET /plans/1/edit
@@ -56,13 +59,21 @@ class PlansController < ApplicationController
 
     status = true
     post_id = ''
-    if session[:plan].present?
+    if session[:plan].present? 
       _post = {
-        :post_title   => params[:plan][:plan_title],
-        :post_content => params[:plan][:plan_content],
+        :post_title     => params[:plan][:plan_title],
+        :post_content   => params[:plan][:plan_content], 
+        :post_type =>  'type_plan',
       }
       post_id = savePostInPlan(_post)
       if post_id !=false
+        if params[:plan][:plan_thumbnail].present? 
+          _thumbnail = PostExpand.new({:post_id=> post_id, :expand_name =>'post_thumbnail2', :expand_value => params[:plan][:plan_thumbnail]})
+          _thumbnail.save
+        else
+          _thumbnail = PostExpand.new({:post_id=> post_id, :expand_name =>'post_thumbnail2', :expand_value => 'default.png'})
+          _thumbnail.save 
+        end
         _plan = {
           :post_id    => post_id,
           :plan_day   => session[:plan]["dayNumber"].to_i,

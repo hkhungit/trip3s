@@ -645,7 +645,7 @@
 		<li class="day-in-plan col-md-12 {{truetime}} place-num-{{place_id}}"  remote ="true" data-schedule_id="{{schedule_id}}" data-place_id="{{place_id}}" data-place='{{current_place}}'>
 			<div class="thumbnail item-list-day"> 
 				<img src="{{post_thumbnail}}" /><i class="number">{{sort_thumbnail}}</i>
-				<i class="remove-place fa fa-trash-o" data-place_id="{{place_id}}"></i>	
+				<i class="remove-place fa fa-trash-o  {{class_begin}}" data-place_id="{{place_id}}"></i>	
 				<div class="excerpt-place">
 					{{post_excerpt}}
 				</div>
@@ -658,7 +658,7 @@
 					<b>{{post_title}}</b>
 				</div>
 			</div>
-			<div class="place-attribute">
+			<div class="place-attribute {{class_begin}}">
 				<span><i class="fa fa-clock-o icon"></i><i class="value place_time" place_time data-value="{{place_time}}">{{place_time}}</i> giờ</span>
 				<span><i class="fa fa-money icon"></i><i class="value place_ticket" place_ticket data-value="{{place_ticket}}">{{place_ticket}}</i></span>
 				<span><i class="fa fa-sticky-note-o icon"></i><i class="value" place_note >Ghi chú</i></span>

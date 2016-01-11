@@ -1,41 +1,420 @@
-<h1>Listing users</h1>
+<link rel="stylesheet" id="plan-css" href="/assets/css/plan.css" type="text/css" media="screen">
+<style type="text/css">
+  .iti-att-next-route-detail{
+    display: none;
+    width: 100%;
+  }
+    .adp-summary,.adp-placemark{display: none;}
+  .adp-directions{
+    width: 100%;
+  }
+  .trans-detail{
+        padding: 0px 5px;
+    cursor: pointer;
+  }
+   .trans-detail:hover{
+    opacity: 0.7
+   }
+   .item-title{
+    text-align: center;
+   }
+   .friend-list,.item-list{padding: 2px}
+   .list-square{list-style-type: square}
+   .nopadding {
+     padding: 0 !important;
+     margin: 0 !important;
+  }
+  .target-button-input{display: none;}
+  .right-panel-default{display: none;}
+  .right-panel-default:first-child{
+    display: block;
+  }
+</style>
 
-<table>
-  <thead>
-    <tr>
-      <th>User name</th>
-      <th>User pass</th>
-      <th>User email</th>
-      <th>User register</th>
-      <th>User activation</th>
-      <th>User status</th>
-      <th>User display</th>
-      <th>User thumbnail</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="container">
+  <div class="cover-fui-row-full">
+    <div class="container text-left">
+      
+    </div>
+  </div>
+  <div id="itinerary-body">
+    <div class="container">
+      <div class="row ">
+        <div id="itinerary-detail" class="col-md-3 nopadding">
+          <div class="panel panel-default">
+           
+            <div class="panel-heading">
+              
+              <strong>Cài đặt</strong>
+            </div>
+            <div class="panel-body nopadding panel-body-nopadding">
+              <ul class="setting-menu">
+                <li><a href="#setting-info" data-toggle="setting-info">Thông tin chung</a></li>
+                <li><a href="#setting-password" data-toggle="setting-password">Cài đặt mật khẩu</a></li>
+                <li><a href="#setting-friends" data-toggle="setting-friends">Danh sách bạn bè</a></li>
+                <li><a href="#setting-confirm" data-toggle="setting-confirm">Xác nhận kết bạn</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+          <div class="sidebar-right col-md-9 nopadding">
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.user_name %></td>
-        <td><%= user.user_pass %></td>
-        <td><%= user.user_email %></td>
-        <td><%= user.user_register %></td>
-        <td><%= user.user_activation %></td>
-        <td><%= user.user_status %></td>
-        <td><%= user.user_display %></td>
-        <td><%= user.user_thumbnail %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            <div class="panel panel-default right-panel-default fui-row-full" id="setting-info">
+              <div class="panel-heading">
+                <strong class="title-setting">Thông tin chung</strong>
+              </div>
+              <div class="panel-body"> 
+                <div class="row">
+                  <div class="col-md-3">  
+                        <%= form_for(:user_form, :url => {:controller => :images, :action => :upload_image}, :remote => true, :html => {:method => :post, :id => 'upload_form', :multipart => true}) do |f| %>
+                        
 
-<br>
 
-<%= link_to 'New User', new_user_path %>
+                              <img class="list-item-img user_thumbnail1212" src="<%=@user.user_thumbnail%>" width="150" height="150">
+
+                              <input type="hidden" value="<%=@user.user_thumbnail%>" name="user[user_thumbnail]"  id="user_thumbnail12121">
+                               <%= f.file_field :user_thumbnail %>
+                 
+                        <% end %>
+                        </div> 
+                  <div class="col-md-9">
+                    <table class="table">
+                      <tr class="row">
+                        <td class="col-md-3"> Tài khoản: </td>
+                        <td class="col-md-9"> <%=@user.user_name%></td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Tên hiển thị: </td>
+                        <td class="col-md-9"> 
+                          <span class="toggle-button-input">
+                            <%=@user.name_display%>
+                          </span>
+                          <span class="target-button-input">
+                            <input type="text" value="<%=@user.name_display%>" name="user[user_display]"   class="form-control">
+                          </span>
+                        </td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Địa chỉ: </td>
+                        <td class="col-md-9"> 
+                          <span class="toggle-button-input">
+                            <%if @user.user_address.blank? %>
+                              chưa có
+                            <%else%>
+                              <%=@user.user_address%>
+                            <%end%>
+                          </span>
+                          <span class="target-button-input">
+                            <input type="text" value="<%=@user.user_address%>"  name="user[user_address]"   class="form-control">
+                          </span>
+                        </td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Địa chỉ email: </td>
+                        <td class="col-md-9"> 
+                           <span class="toggle-button-input">
+                            <%=@user.user_email%>
+                          </span>
+                          <span class="target-button-input">
+                            <input type="text" value="<%=@user.user_email%>"  name="user[user_email]"  class="form-control">
+                          </span>
+                        </td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Số điện thoại: </td>
+                        <td class="col-md-9"> 
+                          <span class="toggle-button-input">
+                            <%if @user.user_phone.blank? %>
+                              chưa có
+                            <%else%>
+                              <%= @user.user_phone %>
+                            <%end%>
+                          </span>
+                          <span class="target-button-input">
+                            <input type="text" value="<%=@user.user_phone%>"   name="user[user_phone]" class="form-control">
+                          </span>
+                        </td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Vị trí tọa độ: </td>
+                        <td class="col-md-9"> <span class="user-latlng"> <%=@user.location%>
+                        
+                        </span>
+                          <input type="hidden" value="<%=@user.location%>" class="user_latlng" id="user_latlng" name="user[latlng]" >
+                         <button class="btn btn-xs btn-warm btn-getlocation"> lấy tọa độ</button></td>
+                      </tr>
+
+                      <tr class="row">
+                        <td class="col-md-3"> Ngày đăng ký: </td>
+                        <td class="col-md-9"> <%=@user.created_at%></td>
+                      </tr> 
+                      <tr class="row">
+                        <td class="col-md-3"> Nguồn: </td>
+                        <td class="col-md-9"> <%=@user.user_activation%></td>
+                      </tr> 
+                      <tr class="row">
+                        <td class="col-md-3">  </td>
+                        <td class="col-md-9"> <button class="btn btn-xs btn-success btn-update-user-info">Cập nhật</button></td>
+                      </tr> 
+                    </table>
+                  </div>
+                </div> 
+              </div>
+            </div>
+            <div class="panel panel-default right-panel-default fui-row-full" id="setting-password">
+              <div class="panel-heading">
+                <strong class="title-setting"> Đổi mật khẩu</strong>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="user[user_password]">Mật khẩu cũ *:</label>
+                      <input class="form-control" name="user[user_password]" placeholder="Mật khẩu cũ *" />
+                    </div>
+                    <div class="form-group">
+                      <label for="user[user_password]">Mật khẩu mới *:</label>
+                      <input class="form-control" name="user[user_newpass]" placeholder="Mật khẩu mới *" />
+                    </div>
+                    <div class="form-group">
+                      <label for="user[user_password]">Xác nhận lại*:</label>
+                      <input class="form-control" name="user[user_confirm]" placeholder="Xác nhận lại*" />
+                    </div>
+                    <div class="form-group">
+                      <button class="btn btn-xs btn-success">Đổi mật khẩu</button>
+                      <button class="btn btn-xs btn-danger">Hủy bỏ</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default right-panel-default fui-row-full" id="setting-friends">
+              <div class="panel-heading">
+                <strong class="title-setting"> Danh sách bạn bè</strong>
+              </div>
+              <div class="panel-body">
+
+                <div class="row"> 
+                        <table class="table">
+                        <tr class="row ">
+                              <th class="col-md-3"> Hình ảnh</th>
+                              <th class="col-md-3"> Tên hiển thị </th> 
+                              <th class="col-md-3"> Địa chỉ email </th> 
+                              <th class="col-md-3"> Hoạt động</th> 
+                            </tr>
+                          <%@user.Friends.each do |friend|%>
+                            <tr class="row user-friend-<%=friend.id%>">
+                              <td class="col-md-3"><img class="list-item-img" src="<%=friend.user_thumbnail%>" width="50" height="50"></td>
+                              <td class="col-md-3"><%=friend.name_display%></td>
+                              <td class="col-md-3"><%=friend.user_email%></td> 
+                              <td class="col-md-3">
+                               <button class="btn btn-xs btn-danger btn-delete-user" data-id="<%=friend.id%>">Xóa</button>
+                              <%=link_to "Xem thông tin", friend, id: "go-to-user", class: "btn btn-xs btn-info"%>
+                              </td>
+                            </tr>
+                          <%end%>
+                        </table>
+                     
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default right-panel-default fui-row-full" id="setting-confirm">
+              <div class="panel-heading">
+                <strong class="title-setting">Xác nhận kết bạn</strong>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                 <table class="table">
+                        <tr class="row">
+                              <th class="col-md-3"> Hình ảnh</th>
+                              <th class="col-md-3"> Tên hiển thị </th> 
+                              <th class="col-md-3"> Địa chỉ email </th> 
+                              <th class="col-md-3"> Hoạt động</th> 
+                            </tr>
+                          <%@user.Confirms.each do |friend|%>
+                            <tr class="row user-confirm-<%=friend.id%>">
+                              <td class="col-md-3"><img class="list-item-img" src="<%=friend.user_thumbnail%>" width="50" height="50"></td>
+                              <td class="col-md-3"><%=friend.name_display%></td>
+                              <td class="col-md-3"><%=friend.user_email%></td> 
+                              <td class="col-md-3"><button class="btn btn-xs btn-danger btn-delete-user " data-id="<%=friend.id%>">Xóa</button>
+                                <button class="btn btn-xs btn-success btn-confirm-user" data-id="<%=friend.id%>">Xác nhận</button>
+                                <%=link_to "Xem thông tin", friend, id: "go-to-user", class: "btn btn-xs btn-info"%>
+                                </td> 
+                            </tr>
+                          <%end%>
+                        </table>
+                </div>
+              </div>
+            </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script type="text/javascript">
+  jQuery(function($){
+    $('#user_form_user_thumbnail').change(function(){
+
+      console.log("Change");
+
+
+     $(this).closest('form').ajaxSubmit({
+      beforeSubmit: function(a,f,o) {
+       o.dataType = 'json';
+      },
+      complete: function(data) {
+          console.log(data);
+          data = data.responseJSON;
+          if (data.status == true) {
+            $('.user_thumbnail1212').attr('src',data.url.image_url)
+            $('#user_thumbnail12121').attr('value',data.url.image_url)
+          };  
+      },
+     });
+});
+
+    var   markers = [];
+    // Adds a marker to the map and push to the array.
+    function addMarker(latlng,map) {
+      for (var i = 0; i < markers.length; i++) {
+               markers[i].setMap(null);
+             };
+             markers = [];
+            var marker = new google.maps.Marker({
+                  position: latlng,
+                  map: map,
+                });
+               markers.push(marker);
+      markers.push(marker);
+    }
+
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+      }
+    }
+
+    $(document).on('blur','.target-button-input',function(e){
+      $(this).parent().find('.toggle-button-input').show();
+      $(this).hide();
+    });
+
+    $(document).on('click','.btn-update-user-info',function(e){
+      //Update latlng
+      var latlng        = $('input[name="user[latlng]"]').val();
+      var user_display  = $('input[name="user[user_display]"]').val();
+      var user_address  = $('input[name="user[user_address]"]').val();
+      var user_email    = $('input[name="user[user_email]"]').val(); 
+      var user_phone    = $('input[name="user[user_phone]"]').val(); 
+
+      var user ={
+        latlng:latlng,
+        user_address: user_address,
+        user_display: user_display,
+        user_email:user_email,
+        user_phone:user_phone
+      }
+      $.post('/api/update_infor',{user:user}).done(function(data){
+          if (data.status == true) {
+            alert("Cập nhật thành công");
+          }else{
+             alert("Cập nhật lỗi");
+          };
+      }).fail(function(error){
+
+      });
+    });
+
+    $(document).on('click','.btn-confirm-user',function(e){
+      var dataid = $(this).data('id');
+      var params = {
+        actions: 'confirm',
+        user_id: dataid
+      }
+      $.post('/api/friends',params).done(function(data){
+         $('.user-confirm-'+ dataid).remove();
+      })
+    })
+    $(document).on('click','.btn-delete-user',function(e){
+      var dataid = $(this).data('id');
+      var params = {
+        actions: 'remove',
+        user_id: dataid
+      }
+      $.post('/api/friends',params).done(function(data){
+         $('.user-confirm-'+ dataid).remove();
+         $('.user-friend-'+ dataid).remove();
+      })
+    })
+    $(document).on('keypress','.target-button-input > input',function(e){
+      $(this).parent().parent().find('.toggle-button-input').text($(this).val());
+    })
+    $(document).on('dblclick','.toggle-button-input',function(e){
+      $(this).parent().find('.target-button-input').show();
+      $(this).hide();
+    });
+
+    $(document).on('click','.btn-getlocation',function(e){
+      $('#modal-getlocation').modal();
+        var obj     = window.javo_map_box_func;
+        $('#modal-map').gmap3(obj.options.map_init);  
+          var map = $('#modal-map').gmap3('get');
+           
+            google.maps.event.addListener(map, "click", function(event) {
+              var latlng = event.latLng;
+              var strLatLng = "Tọa độ: (Vĩ độ, Kinh độ): (" + latlng.lat() + ", " + latlng.lng() + ")";
+              $('.show-LatLng').html(strLatLng);
+              $('.user-latlng').html("(" + latlng.lat() + ", " + latlng.lng() + ")");
+                addMarker(latlng,map);
+            });
+    });
+    $(document).on('click','ul.setting-menu li a',function(e){
+      var dataid = $(this).data('toggle');
+      if (!$('#'+dataid).is(":visible")) {
+        $('.right-panel-default').hide();
+        $('#'+dataid).show();
+      };
+      return false;
+    });
+    $(document).on('click','.btn-getcurrentgeo',function(e){
+      var obj     = window.javo_map_box_func;
+
+          obj.getmygeoloc($('#modal-map'),function(latlng){
+          $('.user-latlng').html("(" + latlng.lat + ", " + latlng.lng + ")");
+          $('.user_latlng').val(JSON.stringify(latlng));
+         var strLatLng = "Tọa độ: (Vĩ độ, Kinh độ): (" + latlng.lat + ", " + latlng.lng + ")";
+         $('.show-LatLng').html(strLatLng);
+      });
+    });
+
+  })
+</script>
+
+
+
+<!--Modal Get Geo Location of User-->
+<div class="modal fade" role="dialog" id="modal-getlocation">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Cập nhật vị trí tọa độ</h4>
+      </div>
+      <div class="modal-body row">
+        <div id="modal-map" class="col-md-12" style="min-height:300px">
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+      <label class="show-LatLng"></label>
+        <button type="button" class="btn btn-default btn-getcurrentgeo" >Vị trí của tôi</button>
+      </div>
+    </div>      
+    <!-- End Modal content-->
+  </div>
+</div>

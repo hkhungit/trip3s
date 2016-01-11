@@ -1,4 +1,4 @@
-class ApiController < ApplicationController
+	class ApiController < ApplicationController
 	skip_before_action :verify_authenticity_token
 
 	def error
@@ -6,6 +6,7 @@ class ApiController < ApplicationController
 	end
 	def index
 	end
+	
 	def record
 		posts 	= Post.all
 		places 	= Place.all
@@ -95,7 +96,7 @@ class ApiController < ApplicationController
 									posts.post_url,
 									posts.post_point,
 									posts.post_review,
-									posts.post_view,places.place_choice")
+									posts.post_view, places.place_choice")
 						.distinct
 						.joins(:place,:post_category =>{:type=>:category})
 						.order('post_view desc')
@@ -106,10 +107,9 @@ class ApiController < ApplicationController
 		#Check city
 		if params[:userId].to_i != 0
 			check_filter =true
-			_temp 	= Post.select("posts.id")
-						.distinct
+			_temp 	= places
 						.joins(:place,:user_post)
-						.where(:user_posts => {:user_id=> params[:userId]})
+						.where(:user_posts => {:user_id=> params[:userId]}).pluck(:id)
 			places = places.where("posts.id in (?)",_temp	)
 		end
 
@@ -119,6 +119,11 @@ class ApiController < ApplicationController
 			#places = places.where(:types => {:category_id=> params[:cityIds]})
 			location_arr = {
 				:ids 	=> params[:cityIds],
+				:name 	=> 'type_city'}
+			check_filter =true
+		else
+			location_arr = {
+				:ids 	=> 123,
 				:name 	=> 'type_city'}
 			check_filter =true
 		end
@@ -145,10 +150,9 @@ class ApiController < ApplicationController
 		#Get all place of location
 		if location_arr.present?
 			check_filter =true
-			_temp 	= Post.select("posts.id")
-						.distinct
+			_temp 	= places
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> location_arr[:ids],:type_name=> location_arr[:name]})
+						.where(:types => {:category_id=> location_arr[:ids],:type_name=> location_arr[:name]}).pluck(:id)
 			places = places.where("posts.id in (?)",_temp	)
 		end
 
@@ -156,50 +160,45 @@ class ApiController < ApplicationController
 		#Check city
 		if params[:cateIds].present?
 			check_filter =true
-			_temp 	= Post.select("posts.id")
-						.distinct
+			_temp 	=  places
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:cateIds],:type_name=> 'type_category_place'})
+						.where(:types => {:category_id=> params[:cateIds],:type_name=> 'type_category_place'}).pluck(:id)
 			places = places.where("posts.id in (?)",_temp	)
 		end
 
 		#Check city
 		if params[:proIds].present?
 			check_filter =true
-			_temp 	= Post.select("posts.id")
-						.distinct
+			_temp 	=  places
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:proIds],:type_name=> 'type_property_place'})
+						.where(:types => {:category_id=> params[:proIds],:type_name=> 'type_property_place'}).pluck(:id)
 			places = places.where("posts.id in (?)",_temp	)
 		end
 
 		#Check city
 		if params[:cuiIds].present?
 
-			_temp 	= Post.select("posts.id")
-						.distinct
+			_temp 	=  places
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:cuiIds],:type_name=> 'type_cuisine_place'})	
+						.where(:types => {:category_id=> params[:cuiIds],:type_name=> 'type_cuisine_place'}).pluck(:id)	
 			places = places.where("posts.id in (?)",_temp	)
 			check_filter =true
 		end
 
 		#Check city
 		if params[:didIds].present?
-			_temp 	= Post.select("posts.id")
-						.distinct
+			_temp 	=  places
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:didIds],:type_name=> 'type_diding_place'})	
+						.where(:types => {:category_id=> params[:didIds],:type_name=> 'type_diding_place'}).pluck(:id)	
 			places = places.where("posts.id in (?)",_temp	)
 			check_filter =true
 		end
 
 		#Check city
 		if params[:purIds].present?
-			_temp 	= Post.select("posts.id")
-						.distinct
+			_temp 	=  places
 						.joins(:place,:post_category =>{:type=>:category})
-						.where(:types => {:category_id=> params[:purIds],:type_name=> 'type_purpose_place'})
+						.where(:types => {:category_id=> params[:purIds],:type_name=> 'type_purpose_place'}).pluck(:id)
 			places = places.where("posts.id in (?)",_temp	)
 			check_filter =true
 		end
@@ -210,10 +209,9 @@ class ApiController < ApplicationController
 		if params[:keyword].present?
 			_like  = params[:keyword]
 			_like  = _like.gsub(/[ \'']/, '%') 
-			_temp  = Post.select("posts.id")
-							.distinct
-							.joins(:place,:post_category =>{:type=>:category})
-							.where(" post_title LIKE '%#{_like}%' ")
+			_temp  =  places
+						.joins(:place,:post_category =>{:type=>:category})
+						.where(" post_title LIKE '%#{_like}%' ").pluck(:id)
 			places = places.where("posts.id IN (?)",_temp	)
 		end
 		if session[:plan].present?
@@ -258,9 +256,9 @@ class ApiController < ApplicationController
 				'post_id' 		=>	place.id	,
 				'post_title' 	=> 	place.post_title	,
 				'post_content' 	=> 	place.post_content	,
-				'post_thumbnail'=> 	place.post_thumbnail	,
+				'post_thumbnail'=> 	place.post_thumbnail_identifier	,
 				'permalink' 	=> 	place.post_url,
-				'avatar' 		=> 	place.post_thumbnail	,
+				'avatar' 		=> 	place.post_thumbnail_identifier	,
 				'rating' 		=> 	place.post_view	,
 				'post_view' 	=> 	place.post_view	,
 				'post_review' 	=> 	place.post_review	,
@@ -603,7 +601,7 @@ class ApiController < ApplicationController
 
 		return arr
 	end
-
+	
 	def detail_by_schedule_id
 		schedule_id  = params[:schedule_id]
 		schedule 	 = ScheduleDetail.where({:schedule_id => schedule_id})
@@ -664,6 +662,108 @@ class ApiController < ApplicationController
 			users:users
 		}
 	end
+	#Update infor for user
+	def friends
+
+	    id1 = session[:user_id]
+	    id2 = params[:userID]
+	    if id2.blank?
+	    	
+		    render json:{
+		    	status: false
+		    }
+		    return
+	    end
+	    status = false
+		case params[:actions]
+	    when "remove"
+	    	expand = UserExpand.where('(user_id = "?" and expand_value = ?) or (user_id = ? and expand_value = "?") ',id1,id2,id2,id1).first_or_create do |friend|
+	    		friend.expand_name = 'user_confirm'
+	    		friend.user_id = id1
+	    		friend.expand_value = id2
+	    		friend.save
+	    	end
+		    	if expand.delete
+		    		status  = true
+		    	end
+
+	    when "add"
+	     expand = UserExpand.where('expand_name = "user_confirm" and ((user_id = "?" and expand_value = ?) or (user_id = ? and expand_value = "?")) ',id1,id2,id2,id1).first_or_create do |friend|
+	    		friend.expand_name = 'user_confirm'
+	    		friend.user_id = id1
+	    		friend.expand_value = id2
+	    		friend.save
+	    	end 
+	    	status  = true
+	    when "confirm"
+	    	expand = UserExpand.where('expand_name = "user_confirm" and ((user_id = "?" and expand_value = ?) or (user_id = ? and expand_value = "?")) ',id1,id2,id2,id1).first_or_create do |friend|
+	    		friend.expand_name = 'user_confirm'
+	    		friend.user_id = id1
+	    		friend.expand_value = id2
+	    		friend.save
+	    	end
+		    	if expand.update({:expand_name => 'user_friend'})
+		    		status  = true
+		    	end
+		    
+	    end
+
+	    render json:{
+	    	status: status
+	    }
+	end
+
+	def update_infor
+		user = params[:user] 
+
+		status = true
+		if user[:latlng].present?
+			#Update location of user
+			expand1 = UserExpand.where({expand_name: 'user_latlng', user_id: session[:user_id]}).first_or_create do |expand|
+		      expand.expand_name 	= 'user_latlng'
+		      expand.user_id 		= session[:user_id]
+		      expand.expand_value 	= user[:latlng]
+		      expand.save!
+		    end   
+		     expand1.update({:expand_value => user[:latlng]})
+		end
+
+		if user[:user_phone].present?
+			#Update location of user
+			expand1 = UserExpand.where({expand_name: 'user_phone', user_id: session[:user_id]}).first_or_create do |expand|
+		      expand.expand_name 	= 'user_phone'
+		      expand.user_id 		= session[:user_id]
+		      expand.expand_value 	= user[:user_phone]
+		      expand.save!
+		    end   
+		     expand1.update({:expand_value => user[:user_phone]})
+		end
+		if user[:user_address].present?
+			#Update location of user
+			expand1 = UserExpand.where({expand_name: 'user_address', user_id: session[:user_id]}).first_or_create do |expand|
+		      expand.expand_name 	= 'user_address'
+		      expand.user_id 		= session[:user_id]
+		      expand.expand_value 	= user[:user_address]
+		      expand.save!
+		    end   
+		     expand1.update({:expand_value => user[:user_address]})
+		end
+
+		user2 = User.where(id: session[:user_id]).last
+		if user2[:user_display].present?
+			user2.update({:user_display => user[:user_display]})
+		end
+		if user[:user_email].present?
+			user2.update({:user_email => user[:user_email]})
+		end
+	
+		
+
+		render json: {
+			:status => status
+		}
+	end
+
 	def add_friend
 		status = true
 		user_1  = params[:user_1]
@@ -694,6 +794,7 @@ class ApiController < ApplicationController
 		}
 
 	end
+
 	def filter_category (post_id ,type_name)
 		postCategories 	=	PostCategory.select("*")
 										 .joins(:type=>:category)
@@ -704,5 +805,35 @@ class ApiController < ApplicationController
 	def get_create_plan
 		create_schedule
 		render json: {:status =>'OK', :params => params[:clusters], :plan => session[:plan]}
+	end
+
+	#get information district
+	def item_district
+		cityIds = params[:cityIds]
+		if cityIds.blank?
+			cityIds = '123'
+		end
+
+		cate = Category.joins(:type).where({:types => {:type_name => 'type_district', :type_parent => cityIds}})
+
+		render json: {
+			cate: cate
+		}
+	end
+	#get information area
+	def item_area
+		districtIds = params[:districtIds]
+		if districtIds.blank?
+			render json: {
+				cate: []
+			}
+			return
+		else
+			cate = Category.joins(:type).where({:types => {:type_name => 'type_area', :type_parent => districtIds}})
+
+			render json: {
+				cate: cate
+			}
+		end 
 	end
 end
