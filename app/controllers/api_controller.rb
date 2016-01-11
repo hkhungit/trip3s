@@ -85,7 +85,7 @@
 			'plan'   =>session[:plan]
 		}
 	end
-
+ 
 	#action load places filter by city, district,area, cate,cuisine, property,dide, purpose
 	def load_place_filter
 		#All place none filter
