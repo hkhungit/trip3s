@@ -667,6 +667,9 @@
 
 	    id1 = session[:user_id]
 	    id2 = params[:userID]
+	    
+	    		puts "ffffffffffff"
+	    puts params[:actions]
 	    if id2.blank?
 	    	
 		    render json:{
@@ -677,34 +680,48 @@
 	    status = false
 		case params[:actions]
 	    when "remove"
-	    	expand = UserExpand.where('(user_id = "?" and expand_value = ?) or (user_id = ? and expand_value = "?") ',id1,id2,id2,id1).first_or_create do |friend|
-	    		friend.expand_name = 'user_confirm'
-	    		friend.user_id = id1
-	    		friend.expand_value = id2
-	    		friend.save
-	    	end
+	    	begin
+	    		expand = UserExpand.where('(user_id = "?" and expand_value = ?) or (user_id = ? and expand_value = "?") ',id1,id2,id2,id1).first_or_create do |friend|
+		    		friend.expand_name = 'user_confirm'
+		    		friend.user_id = id1
+		    		friend.expand_value = id2
+		    		friend.save
+	    		end
 		    	if expand.delete
 		    		status  = true
 		    	end
+	    	rescue Exception => e
+	    		
+	    	end
+	    	
 
 	    when "add"
-	     expand = UserExpand.where('expand_name = "user_confirm" and ((user_id = "?" and expand_value = ?) or (user_id = ? and expand_value = "?")) ',id1,id2,id2,id1).first_or_create do |friend|
+	     begin
+	     	expand = UserExpand.where('expand_name = "user_confirm" and ((user_id = "?" and expand_value = ?) or (user_id = ? and expand_value = "?")) ',id1,id2,id2,id1).first_or_create do |friend|
+	    		friend.expand_name = 'user_confirm'
+	    		friend.user_id = id2
+	    		friend.expand_value = id1
+	    		friend.save
+	    	end 
+	    	status  = true
+	     rescue Exception => e
+	     	
+	     end
+	    when "confirm"
+
+	    	begin
+	    	expand = UserExpand.where('expand_name = "user_confirm" and (user_id = "?" and expand_value = ?) ',id1,id2).first_or_create do |friend|
 	    		friend.expand_name = 'user_confirm'
 	    		friend.user_id = id1
 	    		friend.expand_value = id2
 	    		friend.save
 	    	end 
-	    	status  = true
-	    when "confirm"
-	    	expand = UserExpand.where('expand_name = "user_confirm" and ((user_id = "?" and expand_value = ?) or (user_id = ? and expand_value = "?")) ',id1,id2,id2,id1).first_or_create do |friend|
-	    		friend.expand_name = 'user_confirm'
-	    		friend.user_id = id1
-	    		friend.expand_value = id2
-	    		friend.save
-	    	end
 		    	if expand.update({:expand_name => 'user_friend'})
 		    		status  = true
-		    	end
+		    	end 
+	    	rescue Exception => e
+	    		
+	    	end
 		    
 	    end
 
@@ -794,6 +811,57 @@
 		}
 
 	end
+
+
+
+	def showVote
+		status = false
+		if params[:idPost].blank?
+			render json: {
+				:status => status
+			}
+			return
+		end
+
+		idPost 	= params[:idPost]
+		liked = PostExpand.where("post_id = ? and expand_name like '%_vote' and expand_value = '1'", idPost).count
+    	disliked = PostExpand.where("post_id = ? and expand_name like '%_vote' and expand_value = '0'", idPost).count
+
+    	render json: {
+				:status => true,
+				liked: liked,
+				disliked: disliked
+			}
+			return
+	end
+	def vote
+		status = false
+		if session[:user_id].blank?
+			render json: {
+				:status => status
+			}
+			return
+		end
+
+		idPost 	= params[:idPost]
+		value 	= params[:value]
+		text 	= params[:textVote]
+
+		expand 	= PostExpand.where(" post_id = ? and expand_name = ?",idPost,text).first_or_create do |ex|
+			ex.post_id 		= idPost
+			ex.expand_name 	= text
+			ex.expand_value = value
+			ex.save
+			status = true
+		end
+		if expand.update({:expand_value => value})
+			status = true
+		end
+		render json: {
+			:status => status
+		}
+	end
+
 
 	def filter_category (post_id ,type_name)
 		postCategories 	=	PostCategory.select("*")

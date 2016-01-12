@@ -311,7 +311,7 @@
              
             <%= form_for(:user_form, :url => {:controller => :images, :action => :upload_image}, :remote => true, :html => {:method => :post, :id => 'upload_form', :multipart => true}) do |f| %>
                         
-                <img src="" width="100" height="100" id="img-responsive" class="uploadimg-responsive"">
+                <img src="" width="100" height="100" id="img-responsive" class="uploadimg-responsive">
                  <span class="btn btn-default btn-file">
                      Browse <input type="file" class="file-upload-to-server" name="user_form[user_thumbnail]">
                 </span>

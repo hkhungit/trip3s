@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
 	def name_display
 		if user_display.blank?
 			return user_name
+		elsif  user_display == ''
+			return user_name
 		else
 			return user_display
 		end
@@ -98,7 +100,7 @@ class User < ActiveRecord::Base
 		limit = 5
 		page = page * limit
 		begin
-			places  = Post.joins(:user_post).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_place'}}).limit(limit).offset(page)
+			places  = Post.joins(:user_post,:places).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_place'}}).limit(limit).offset(page)
 			return places
 		rescue Exception => e
 			return 0
@@ -108,7 +110,7 @@ class User < ActiveRecord::Base
 		limit = 5
 		page = page * limit
 		begin
-			places  = Post.joins(:user_post).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_plan'}}).limit(limit).offset(page)
+			places  = Post.joins(:user_post,:plans).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_plan'}}).limit(limit).offset(page)
 			return places
 		rescue Exception => e
 			return 0
@@ -150,11 +152,7 @@ class User < ActiveRecord::Base
 
 	def Confirms
 		begin
-			filter1 = UserExpand.select("user_expands.expand_value").where("user_expands.expand_name = 'user_confirm' and user_expands.user_id='?'",id)
-			filter2 = UserExpand.select("user_expands.user_id").where("user_expands.expand_name = 'user_friend' and user_expands.expand_value='?'",id)
-			filter1 << filter2
-
-			puts filter1
+			filter1 = UserExpand.select("user_expands.expand_value").where("user_expands.expand_name = 'user_confirm' and user_expands.user_id='?'",id) 
 			expands = User.where("users.id in (?)",filter1)
 			return expands
 		rescue Exception => e

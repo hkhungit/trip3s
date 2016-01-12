@@ -19,4 +19,19 @@ class Plan < ActiveRecord::Base
      end
      return 'default.png'
   end
+
+  def voteLike
+    liked = PostExpand.where("post_id = '?' and expand_name like '%_vote' and expand_value = '1'", post_id).count
+
+    return liked
+  end
+  def voteDislike
+    liked = PostExpand.where("post_id = '?' and expand_name like '%_vote' and expand_value = '0'", post_id).count
+
+    return liked
+  end 
+  def user
+    user = User.joins(:user_post).where({:user_posts=>{:post_id => id, :permission => 1}}).first
+    return user
+  end
 end

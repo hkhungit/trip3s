@@ -43,8 +43,8 @@
         <ul class="list-unstyled">
           <%@user.plans.each do |plan|%>
             <li class="item-list">
-               <a href="/plans/<%=plan.plans[0].id%>">
-                <img src="<%=plan.post_thumbnail%>" width="50" height="50" class="list-item-img">
+              <a href="/plans/<%=plan.plans[0].id%>">
+                <img src="<%=plan.thumbnail%>" width="50" height="50" class="list-item-img">
                 <strong class="list-item-title"><%=plan.post_title%></strong>
               </a>
             </li>
@@ -52,46 +52,7 @@
           </ul>
         </div>
     </div>
-    <div class="panel panel-default">
-       
-        <div class="panel-heading">
-          
-          <strong>Đia điểm nổi bật của <%=@user.name_display%></strong>
-        </div>
-        <div class="panel-body panel-body-nopadding">
-          <ul class="list-unstyled">
-          <%@user.places.each do |place|%>
-            <li class="item-list">
-               <a href="/places/<%=place.places[0].id%>">
-                <img src="<%=place.thumbnail%>" width="50" height="50" class="list-item-img">
-                <strong class="list-item-title"><%=place.post_title%></strong>
-              </a>
-            </li>
-            <%end%>
-          </ul>
-        
-        </div>
-    </div>
-    <div class="panel panel-default">
-       
-        <div class="panel-heading">
-          
-          <strong>Bộ sưu tập nổi bật của <%=@user.name_display%></strong>
-        </div>
-        <div class="panel-body panel-body-nopadding">
-          <ul class="list-unstyled">
-          <%@user.collections.each do |collection|%>
-            <li class="item-list">
-              <a href="<%=collection.post_url%>">
-                <img src="<%=collection.post_thumbnail%>" width="50" height="50" class="list-item-img">
-                <strong class="list-item-title"><%=collection.post_title%></strong>
-              </a>
-            </li>
-            <%end%>
-          </ul>
-        
-        </div>
-    </div>
+  
   </div>
 <div class="sidebar-right col-md-3">
   <div class="panel panel-default fleft fui-row-full">

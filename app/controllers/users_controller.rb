@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :plans]
 
   layout :resolve_layout
   def resolve_layout
@@ -13,6 +13,10 @@ class UsersController < ApplicationController
       redirect_to login_path
     end
     @user = User.where(:id => @current_user).last
+    
+  end
+
+  def plans
     
   end
 

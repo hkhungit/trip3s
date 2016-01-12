@@ -85,7 +85,7 @@
   html body header#header-one-line #javo-doc-top-level-menu a{ color:#000; }
   html body.single header#header-one-line.main{ position:absolute; }
   html body.single header#header-one-line.main{ left:0; right:0; }
-
+.navbar-form .form-group{display: block;}
 </style>
 <style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1433407634411{margin-bottom: 0px !important;padding-top: 0px !important;padding-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1421145263677{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421145271530{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421199064113{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421145294024{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421150391084{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 50px !important;}.vc_custom_1421199081615{margin-bottom: 0px !important;padding-top: 50px !important;padding-bottom: 50px !important;}.vc_custom_1421199362654{padding-top: 50px !important;padding-bottom: 50px !important;}</style><noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>
     <div class="row">
@@ -99,319 +99,104 @@
     <div id="javo-slide-search" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators list-unstyled">
-        <li data-target="#javo-slide-search" data-slide-to="0" class=""></li><li data-target="#javo-slide-search" data-slide-to="1" class="active"></li><li data-target="#javo-slide-search" data-slide-to="2" class=""></li><li data-target="#javo-slide-search" data-slide-to="3" class=""></li><li data-target="#javo-slide-search" data-slide-to="4" class=""></li><li data-target="#javo-slide-search" data-slide-to="5" class=""></li><li data-target="#javo-slide-search" data-slide-to="6" class=""></li><li data-target="#javo-slide-search" data-slide-to="7" class=""></li>      </ol>
+        <li data-target="#javo-slide-search" data-slide-to="0" class="active"></li>
+        <li data-target="#javo-slide-search" data-slide-to="1" class=""></li>
+        <li data-target="#javo-slide-search" data-slide-to="2" class=""></li>
+        <li data-target="#javo-slide-search" data-slide-to="3" class=""></li>
+        <li data-target="#javo-slide-search" data-slide-to="4" class=""></li>
+        <li data-target="#javo-slide-search" data-slide-to="5" class=""></li>
+        <li data-target="#javo-slide-search" data-slide-to="6" class=""></li>
+        <li data-target="#javo-slide-search" data-slide-to="7" class=""></li>      
+      </ol>
       <div class="slider-search-box">
         <div class="inner">
           <div class="inner_wrap">
-                                <form class="navbar-form navbar-left" role="search" method="post" action="#">
-                      <div class="slider-search-part-wrap">
+                        <form class="navbar-form navbar-left" role="search" method="post" action="#">
+                          <div class="slider-search-part-wrap">
 
-                                                  <div class="form-group">
+                          <div class="form-group">
                             <input type="text" class="form-control input-large" placeholder="Keyword" name="keyword">
                           </div>
-                        
-                                                  <div class="form-group">
-                            <select name="category" style="display: none;">
-                              <option value="">Category</option>
-                              <option value="4"> airport</option><option value="23"> cafe</option><option value="19"> car rent</option><option value="20"> education</option><option value="8"> hotel</option><option value="21"> IT business</option><option value="22"> leisure</option><option value="12"> restaurant</option><option value="24"> store</option>                           </select>
-
+                          
+                          <div class="form-group">
+                            <input type="number" min="1"   class="form-control input-large" placeholder="Số người" name="keyuser">
+                          </div><!-- form-Group --> 
+                          <div class="form-group">
+                            <input type="number" min="1"  class="form-control input-large" placeholder="Số tiền" name="keymoney">
                           </div><!-- form-Group -->
                         
-                                                  <div class="form-group">
-                            <select name="location" style="display: none;">
-                              <option value="">Location</option>
-                              <option value="10"> Brooklyn</option><option value="5"> Manhattan</option><option value="11"> Queens</option><option value="13">- Sub Location</option><option value="14">-- sub sub Location</option>                            </select>
+                          <div class="form-group">
+                            <select  multiple="multiple"  name="location" style="display: none;"  placeholder="Thành phố/ tỉnh">
+                               <option value="0" disabled>Tỉnh Thành</option>
+                              <%@places_city.each do |cate|%>
+                              <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
+                              <%end%>
+                            </select>
                           </div><!-- form-Group -->
                         
-                        <button type="submit" class="btn btn-primary admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i> Search on Map</button>
-                      </div><!-- slider-search-part-wrap -->
+                        <button type="submit" class="btn btn-primary admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i> Xem lịch trình</button>
+                        </div><!-- slider-search-part-wrap -->
                     </form>
-                              </div> <!-- inner_wrap -->
+            </div> <!-- inner_wrap -->
         </div> <!-- inner -->
       </div><!-- slider-search-box -->
       <div class="slide-search-bottom-shadow"></div>
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-      
-          <div class="item" style="height:450px;">
-                          <div class="slide-bg-images" style="background-image:url(&quot;assets/sites/2/2014/08/hotel6.jpg&quot;); background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
-              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url('../wp-content/themes/javo-directory/assets/images/pattern-dots-single.png'); background-repeat: repeat; z-index: 1;"></div>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner"> 
+
+        <%
+        count = -1
+        @planLastest.each do |item| %>
+        <%count = count + 1%>
+          <% if count < 1%>
+          <div class="item active " style="height:450px;">
+          <% else %>
+
+          <div class="item " style="height:450px;">
+          <% end %>
+            <div class="slide-bg-images" style="background-image:url('<%=item.thumbnail%>'); 
+                  background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
+
               <a href="../item/javo-hotel-in-downtown/index.html">
                 <div class="carousel-caption">
                   <h4 class="javo-slider-search-meta hidden-sm hidden-xs" style="font-size:20px;">
-                    Brooklyn / hotel                  </h4>
+                   <%=item.post_title%>                </h4>
                   <div class="search-slider-title-wrap">
-                    <h2 style="font-size:25px;">JAVO HOTEL IN DOWNTOWN</h2>
+                    <h2 style="font-size:25px;"></h2>
                   </div>
                 </div><!-- carousel-caption -->
               </a>
 
               <div class="row item-author-info horizontal">
-                                  <div class="col-md-4"><a href="../item/javo-hotel-in-downtown/.html#item-events">
-                                          <div class="event_info">
-                        <div class="item-author-info-circle-border"><div class="javo-offer-area-content">
-      <div>20%OFF</div>
-    </div></div>
+                <div class="col-md-4">
+                  <a href="#" title="<%=item.plans[0].plan_day%> Ngày">
+                    <div class="event_info">
+                      <div class="item-author-info-circle-border">
+                        <div class="javo-offer-area-content">
+                          <div><%=item.plans[0].plan_day%> <br> Ngày</div>
+                        </div>
                       </div>
-                                      </a></div>
-                
-                                  <div class="col-md-4">
-                    <a href="../item/javo-hotel-in-downtown/index.html"><img src="assets/sites/2/2014/08/backyard-with-swimming-pool-house-80x80.jpg">
-                    <div class="item-author-info-circle-border"></div></a>
-                  </div>
-                
-                                <div class="col-md-4">
-                                    <a href="../item/javo-hotel-in-downtown/.html#item-ratings">
-                    <div class="rating_score text-center">
-                      5.0                   </div>
-                    <div class="item-author-info-circle-border"></div>
+                    </div>
                   </a>
-                                  </div>
-                              </div><!-- item-author-info -->
-            </div> <!-- slide-bg-images -->
-                        </div><!-- item -->
-          
-          <div class="item active" style="height:450px;">
-                          <div class="slide-bg-images" style="background-image:url(&quot;assets/sites/2/2014/08/image311.jpg&quot;); background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
-              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url('../wp-content/themes/javo-directory/assets/images/pattern-dots-single.png'); background-repeat: repeat; z-index: 1;"></div>
-              <a href="../item/edge-service/index.html">
-                <div class="carousel-caption">
-                  <h4 class="javo-slider-search-meta hidden-sm hidden-xs" style="font-size:20px;">
-                    Brooklyn / cafe                 </h4>
-                  <div class="search-slider-title-wrap">
-                    <h2 style="font-size:25px;">EDGE SERVICE</h2>
-                  </div>
-                </div><!-- carousel-caption -->
-              </a>
-
-              <div class="row item-author-info horizontal">
-                                  <div class="col-md-4"><a href="../item/edge-service/.html#item-events">
-                    <div>&nbsp;</div>                 </a></div>
-                
-                                  <div class="col-md-4">
-                    <a href="../item/edge-service/index.html"><img src="assets/sites/2/2014/12/JAVO_6424-80x80.jpg">
-                    <div class="item-author-info-circle-border"></div></a>
-                  </div>
-                
-                                <div class="col-md-4">
-                                    <a href="../item/edge-service/.html#item-ratings">
-                    <div class="rating_score text-center">
-                      0.0                   </div>
-                    <div class="item-author-info-circle-border"></div>
+                </div>
+                <%if item.user.present?%>
+                <div class="col-md-4">
+                  <a href="/users/<%=item.user.id%>" title="<%=item.user.name_display%>">
+                    <img src="<%=item.user.user_thumbnail%>"> 
                   </a>
-                                  </div>
-                              </div><!-- item-author-info -->
-            </div> <!-- slide-bg-images -->
-                        </div><!-- item -->
-          
-          <div class="item" style="height:450px;">
-                          <div class="slide-bg-images" style="background-image:url(&quot;assets/sites/2/2014/08/car2-111.jpg&quot;); background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
-              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url('../wp-content/themes/javo-directory/assets/images/pattern-dots-single.png'); background-repeat: repeat; z-index: 1;"></div>
-              <a href="../item/super-car-rental/index.html">
-                <div class="carousel-caption">
-                  <h4 class="javo-slider-search-meta hidden-sm hidden-xs" style="font-size:20px;">
-                    Brooklyn / airport                  </h4>
-                  <div class="search-slider-title-wrap">
-                    <h2 style="font-size:25px;">SUPER CAR RENTAL</h2>
-                  </div>
-                </div><!-- carousel-caption -->
-              </a>
-
-              <div class="row item-author-info horizontal">
-                                  <div class="col-md-4"><a href="../item/super-car-rental/.html#item-events">
-                                          <div class="event_info">
-                        <div class="item-author-info-circle-border"><div class="javo-offer-area-content">
-      <div>10%OFF</div>
-    </div></div>
-                      </div>
-                                      </a></div>
-                
-                                  <div class="col-md-4">
-                    <a href="../item/super-car-rental/index.html"><img src="assets/sites/2/2015/01/javo_airport-80x80.jpg">
-                    <div class="item-author-info-circle-border"></div></a>
-                  </div>
-                
-                                <div class="col-md-4">
-                                    <a href="../item/super-car-rental/.html#item-ratings">
-                    <div class="rating_score text-center">
-                      4.5                   </div>
+                </div>
+                <%end%>
+                <div class="col-md-4">
+                  <a href="../item/javo-hotel-in-downtown/.html#item-ratings">
+                    <div class="rating_score text-center"><%=item.voteLike%> <i class="fa fa-thumbs-o-up"></i> </div>
                     <div class="item-author-info-circle-border"></div>
-                  </a>
-                                  </div>
-                              </div><!-- item-author-info -->
+                  </a> 
+                </div>
+              </div><!-- item-author-info -->
             </div> <!-- slide-bg-images -->
-                        </div><!-- item -->
-          
-          <div class="item" style="height:450px;">
-                          <div class="slide-bg-images" style="background-image:url(&quot;assets/sites/2/2014/08/bus1.jpg&quot;); background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
-              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url('../wp-content/themes/javo-directory/assets/images/pattern-dots-single.png'); background-repeat: repeat; z-index: 1;"></div>
-              <a href="../item/natus-car-rent/index.html">
-                <div class="carousel-caption">
-                  <h4 class="javo-slider-search-meta hidden-sm hidden-xs" style="font-size:20px;">
-                    Queens / cafe                 </h4>
-                  <div class="search-slider-title-wrap">
-                    <h2 style="font-size:25px;">NATUS CAR RENT</h2>
-                  </div>
-                </div><!-- carousel-caption -->
-              </a>
-
-              <div class="row item-author-info horizontal">
-                                  <div class="col-md-4"><a href="../item/natus-car-rent/.html#item-events">
-                    <div>&nbsp;</div>                 </a></div>
-                
-                                  <div class="col-md-4">
-                    <a href="../item/natus-car-rent/index.html"><img src="assets/sites/2/2014/12/JAVO_6424-80x80.jpg">
-                    <div class="item-author-info-circle-border"></div></a>
-                  </div>
-                
-                                <div class="col-md-4">
-                                    <a href="../item/natus-car-rent/.html#item-ratings">
-                    <div class="rating_score text-center">
-                      0.0                   </div>
-                    <div class="item-author-info-circle-border"></div>
-                  </a>
-                                  </div>
-                              </div><!-- item-author-info -->
-            </div> <!-- slide-bg-images -->
-                        </div><!-- item -->
-          
-          <div class="item" style="height:450px;">
-                          <div class="slide-bg-images" style="background-image:url(&quot;assets/sites/2/2014/08/JAVO_7111.jpg&quot;); background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
-              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url('../wp-content/themes/javo-directory/assets/images/pattern-dots-single.png'); background-repeat: repeat; z-index: 1;"></div>
-              <a href="../item/espresso-cafe/index.html">
-                <div class="carousel-caption">
-                  <h4 class="javo-slider-search-meta hidden-sm hidden-xs" style="font-size:20px;">
-                    Queens / cafe                 </h4>
-                  <div class="search-slider-title-wrap">
-                    <h2 style="font-size:25px;">Espresso Cafe</h2>
-                  </div>
-                </div><!-- carousel-caption -->
-              </a>
-
-              <div class="row item-author-info horizontal">
-                                  <div class="col-md-4"><a href="../item/espresso-cafe/.html#item-events">
-                                          <div class="event_info">
-                        <div class="item-author-info-circle-border"><div class="javo-offer-area-content">
-      <div>30%OFF</div>
-    </div></div>
-                      </div>
-                                      </a></div>
-                
-                                  <div class="col-md-4">
-                    <a href="../item/espresso-cafe/index.html"><img src="assets/sites/2/2014/12/JAVO_6424-80x80.jpg">
-                    <div class="item-author-info-circle-border"></div></a>
-                  </div>
-                
-                                <div class="col-md-4">
-                                    <a href="../item/espresso-cafe/.html#item-ratings">
-                    <div class="rating_score text-center">
-                      0.0                   </div>
-                    <div class="item-author-info-circle-border"></div>
-                  </a>
-                                  </div>
-                              </div><!-- item-author-info -->
-            </div> <!-- slide-bg-images -->
-                        </div><!-- item -->
-          
-          <div class="item" style="height:450px;">
-                          <div class="slide-bg-images" style="background-image:url(&quot;assets/sites/2/2014/12/JAVO_6424.jpg&quot;); background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
-              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url('../wp-content/themes/javo-directory/assets/images/pattern-dots-single.png'); background-repeat: repeat; z-index: 1;"></div>
-              <a href="../item/dessert-cafe/index.html">
-                <div class="carousel-caption">
-                  <h4 class="javo-slider-search-meta hidden-sm hidden-xs" style="font-size:20px;">
-                    Queens / airport                  </h4>
-                  <div class="search-slider-title-wrap">
-                    <h2 style="font-size:25px;">Dessert cafe</h2>
-                  </div>
-                </div><!-- carousel-caption -->
-              </a>
-
-              <div class="row item-author-info horizontal">
-                                  <div class="col-md-4"><a href="../item/dessert-cafe/.html#item-events">
-                    <div>&nbsp;</div>                 </a></div>
-                
-                                  <div class="col-md-4">
-                    <a href="../item/dessert-cafe/index.html"><img src="assets/sites/2/2015/01/javo_airport-80x80.jpg">
-                    <div class="item-author-info-circle-border"></div></a>
-                  </div>
-                
-                                <div class="col-md-4">
-                                    <a href="../item/dessert-cafe/.html#item-ratings">
-                    <div class="rating_score text-center">
-                      4.0                   </div>
-                    <div class="item-author-info-circle-border"></div>
-                  </a>
-                                  </div>
-                              </div><!-- item-author-info -->
-            </div> <!-- slide-bg-images -->
-                        </div><!-- item -->
-          
-          <div class="item" style="height:450px;">
-                          <div class="slide-bg-images" style="background-image:url(&quot;assets/sites/2/2014/07/JAVO_1876.jpg&quot;); background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
-              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url('../wp-content/themes/javo-directory/assets/images/pattern-dots-single.png'); background-repeat: repeat; z-index: 1;"></div>
-              <a href="../item/windsol-restaurant/index.html">
-                <div class="carousel-caption">
-                  <h4 class="javo-slider-search-meta hidden-sm hidden-xs" style="font-size:20px;">
-                    Brooklyn / restaurant                 </h4>
-                  <div class="search-slider-title-wrap">
-                    <h2 style="font-size:25px;">Windsol Restaurant</h2>
-                  </div>
-                </div><!-- carousel-caption -->
-              </a>
-
-              <div class="row item-author-info horizontal">
-                                  <div class="col-md-4"><a href="../item/windsol-restaurant/.html#item-events">
-                    <div>&nbsp;</div>                 </a></div>
-                
-                                  <div class="col-md-4">
-                    <a href="../item/windsol-restaurant/index.html"><img src="assets/sites/2/2014/07/JAVO_1876-80x80.jpg">
-                    <div class="item-author-info-circle-border"></div></a>
-                  </div>
-                
-                                <div class="col-md-4">
-                                    <a href="../item/windsol-restaurant/.html#item-ratings">
-                    <div class="rating_score text-center">
-                      4.8                   </div>
-                    <div class="item-author-info-circle-border"></div>
-                  </a>
-                                  </div>
-                              </div><!-- item-author-info -->
-            </div> <!-- slide-bg-images -->
-                        </div><!-- item -->
-          
-          <div class="item" style="height:450px;">
-                          <div class="slide-bg-images" style="background-image:url(&quot;assets/sites/2/2014/07/JAVO_2999.jpg&quot;); background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
-              <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-image: url('../wp-content/themes/javo-directory/assets/images/pattern-dots-single.png'); background-repeat: repeat; z-index: 1;"></div>
-              <a href="../item/river-restaurant/index.html">
-                <div class="carousel-caption">
-                  <h4 class="javo-slider-search-meta hidden-sm hidden-xs" style="font-size:20px;">
-                    Brooklyn / cafe                 </h4>
-                  <div class="search-slider-title-wrap">
-                    <h2 style="font-size:25px;">River Restaurant</h2>
-                  </div>
-                </div><!-- carousel-caption -->
-              </a>
-
-              <div class="row item-author-info horizontal">
-                                  <div class="col-md-4"><a href="../item/river-restaurant/.html#item-events">
-                    <div>&nbsp;</div>                 </a></div>
-                
-                                  <div class="col-md-4">
-                    <a href="../item/river-restaurant/index.html"><img src="assets/sites/2/2014/12/JAVO_6424-80x80.jpg">
-                    <div class="item-author-info-circle-border"></div></a>
-                  </div>
-                
-                                <div class="col-md-4">
-                                    <a href="../item/river-restaurant/.html#item-ratings">
-                    <div class="rating_score text-center">
-                      4.8                   </div>
-                    <div class="item-author-info-circle-border"></div>
-                  </a>
-                                  </div>
-                              </div><!-- item-author-info -->
-            </div> <!-- slide-bg-images -->
-                        </div><!-- item -->
-                </div><!-- carousel-inner -->
+          </div><!-- item -->
+        <%end%>
+      </div><!-- carousel-inner -->
 
       <!-- Controls -->
       <a class="left carousel-control" href="#javo-slide-search" role="button" data-slide="prev">
@@ -460,32 +245,36 @@
     
     </div> 
   </div> 
-</div><div class="vc_row-full-width"></div><!-- Row Backgrounds --> <div class="vc_row wpb_row vc_row-fluid vc_custom_1421145263677" row-effect-mobile-disable="true" style="position: relative;">
+</div><div class="vc_row-full-width"></div><!-- Row Backgrounds --> 
+
+<div class="vc_row wpb_row vc_row-fluid vc_custom_1421145263677" row-effect-mobile-disable="true" style="position: relative;">
   <div class="vc_col-sm-12 wpb_column vc_column_container ">
     <div class="wpb_wrapper">
-      <div id="ultimate-heading55acf238cda7a" class="uvc-heading ultimate-heading55acf238cda7a uvc-7889 " data-hspacer="line_only" data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238cda7a h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:24px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}"><h2 style="font-weight:bold;color:#454545;">FEATURED ITEMS</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;"><span class="uvc-headings-line" style="border-style: solid; border-bottom-width: 2px; border-color: rgb(69, 69, 69); width: 22px; margin: 0px auto;"></span></div><div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238cda7a .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:15px;&quot;,&quot;line-height&quot;:&quot;desktop:20px;&quot;}" style="font-weight:normal;color:#818181;margin-bottom:50px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div></div>       <div id="javo-featured-items-wrap" class="row">
-      <div class="col-md-6 left-big-img">
-                  <div class="item-container">
-            <a href="../item/javo-hotel-in-downtown/index.html">
-              <div class="feature-item-bottom-title">JAVO HOTEL IN DOWNTOWN</div>
-              <img width="500" height="400" src="assets/sites/2/2014/08/hotel6-500x400.jpg" class="attachment-javo-large" alt="hotel6">              <div class="item-cover">
+      <div id="ultimate-heading55acf238cda7a" class="uvc-heading ultimate-heading55acf238cda7a uvc-7889 " data-hspacer="line_only" data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238cda7a h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:24px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}"><h2 style="font-weight:bold;color:#454545;">KẾ hoach được xem nhiều</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;"><span class="uvc-headings-line" style="border-style: solid; border-bottom-width: 2px; border-color: rgb(69, 69, 69); width: 22px; margin: 0px auto;"></span></div><div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238cda7a .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:15px;&quot;,&quot;line-height&quot;:&quot;desktop:20px;&quot;}" style="font-weight:normal;color:#818181;margin-bottom:50px;">Những kế hoạch, lịch trình được nhiều quan tâm nhất từ hệ thống.</div></div>       
+
+      <div id="javo-featured-items-wrap" class="row">
+        <div class="col-md-6 left-big-img">
+          <div class="item-container">
+            <a href="/plans/<%=@planViewest.first.plans.first.id%>">
+              <div class="feature-item-bottom-title"><%=@planViewest.first.post_title%></div>
+              <img width="500" height="400" src="<%=@planViewest.first.thumbnail%>" class="attachment-javo-large" alt="<%=@planViewest.first.post_title%>" title="<%=@planViewest.first.post_title%>">              <div class="item-cover">
                 <div class="item-cover-inner">
                   <div class="item-captions">
-                    <div class="item-title">JAVO HOTEL IN DOWNTOWN</div>
-                    <div class="item-description">Brooklyn / hotel </div>
+                    <div class="item-title"><%=@planViewest.first.post_title%></div>
+                    <div class="item-description"><%=@planViewest.first.plans.first.plan_day%> Ngày</div>
                   </div><!-- /.item-captions -->
                 </div><!-- /.item-cover-inner -->
               </div><!-- /.item-cover -->
             </a>
           </div><!-- /.item-container -->
-              </div><!-- /.col-md-6 -->
+        </div><!-- /.col-md-6 -->
       <div class="col-md-6 right-small-img">
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
-                          <div class="item-container">
-                <a href="../item/edge-service/index.html">
-                  <div class="feature-item-bottom-title">EDGE SERVICE</div>
-                  <img width="500" height="400" src="assets/sites/2/2014/08/image311-500x400.jpg" class="attachment-javo-large" alt="image31">                 <div class="item-cover">
+            <div class="item-container">
+            <a href="/plans/<%=@planViewest.first.plans.first.id%>">
+                  <div class="feature-item-bottom-title"><%=@planViewest.first.post_title%></div>
+                  <img width="500" height="400" src="<%=@planViewest.first.thumbnail%>" class="attachment-javo-large" alt="image31">                 <div class="item-cover">
                     <div class="item-cover-inner">
                       <div class="item-captions">
                         <div class="item-title">EDGE SERVICE</div>
@@ -494,10 +283,10 @@
                     </div><!-- /.item-cover-inner -->
                   </div><!-- /.item-cover -->
                 </a>
-              </div><!-- /.item-container -->
-                      </div><!-- /.col-md-6 -->
+            </div><!-- /.item-container -->
+          </div><!-- /.col-md-6 -->
           <div class="col-md-6 col-sm-6 col-xs-6">
-                          <div class="item-container">
+            <div class="item-container">
                 <a href="../item/super-car-rental/index.html">
                   <div class="feature-item-bottom-title">SUPER CAR RENTAL</div>
                   <img width="500" height="400" src="assets/sites/2/2014/08/car2-111-500x400.jpg" class="attachment-javo-large" alt="car2-11">                 <div class="item-cover">
@@ -510,7 +299,7 @@
                   </div><!-- /.item-cover -->
                 </a>
               </div><!-- /.item-container -->
-                      </div><!-- /.col-md-6 -->
+          </div><!-- /.col-md-6 -->
         </div><!-- /.row -->
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
@@ -549,7 +338,9 @@
     
     </div> 
   </div> 
-</div><!-- Row Backgrounds -->  <div class="vc_row wpb_row vc_row-fluid" row-effect-mobile-disable="true" style="position: relative;">
+</div><!-- Row Backgrounds -->  
+
+<div class="vc_row wpb_row vc_row-fluid" row-effect-mobile-disable="true" style="position: relative;">
   <div class="vc_col-sm-12 wpb_column vc_column_container ">
     <div class="wpb_wrapper">
       
@@ -1207,10 +998,6 @@
 
             </div><!-- /.form-group -->
           </div>
-
-
-
-
           <fieldset>
             <input type="hidden" name="javo_mailchimp_security" value="60a2fa8354">
             <input type="hidden" name="cm_list" value="94da6b00d5">

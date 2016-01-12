@@ -268,9 +268,9 @@
       complete: function(data) {
           console.log(data);
           data = data.responseJSON;
-          if (data.status == true) {
-            $('.user_thumbnail1212').attr('src',data.url.image_url)
-            $('#user_thumbnail12121').attr('value',data.url.image_url)
+          if (data.status == true) { 
+            $('.user_thumbnail1212').attr('src',data.image.image_url.url)
+            $('#user_thumbnail12121').attr('value',data.image.image_url.url)
           };  
       },
      });
@@ -333,9 +333,11 @@
       var dataid = $(this).data('id');
       var params = {
         actions: 'confirm',
-        user_id: dataid
+        userID: dataid
       }
       $.post('/api/friends',params).done(function(data){
+
+        console.log(data);
          $('.user-confirm-'+ dataid).remove();
       })
     })
@@ -343,7 +345,7 @@
       var dataid = $(this).data('id');
       var params = {
         actions: 'remove',
-        user_id: dataid
+        userID: dataid
       }
       $.post('/api/friends',params).done(function(data){
          $('.user-confirm-'+ dataid).remove();

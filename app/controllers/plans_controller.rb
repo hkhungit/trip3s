@@ -15,7 +15,11 @@ class PlansController < ApplicationController
   # GET /plans
   # GET /plans.json
   def index
-    @plans = Plan.all
+ 
+    @plans        = Post.joins(:plans).all.limit(10)
+    @planLastest  = Post.joins(:plans).order("id desc").limit(10)
+    @planViewest  = Post.joins(:plans).order("post_view desc").limit(5)
+    @places_city      = Category.select("*").joins(:type).where(:types => {:type_name => 'type_city'}) 
   end
 
   # GET /plans/1

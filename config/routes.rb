@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'auth/:provider/callback', to: 'session#create'
   
+  get 'users/:id/plans', to: 'users#plans'
+
   get 'auth/failure', to: redirect('/')
   get 'signout',      to: 'session#destroy', as: 'signout'
   get 'login',        to: 'session#login',   as: 'login'
@@ -37,6 +39,8 @@ Rails.application.routes.draw do
       get 'return_day'
     end
     collection do
+      get 'showVote'
+      post 'vote'
       get 'upload_image'
       post 'upload_image'
       post 'friends'
