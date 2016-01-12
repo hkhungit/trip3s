@@ -64,10 +64,12 @@ jQuery( function( $ ){
 		function removeDuplicate(arr){
 			var resultsaa = [],arrbk  =[];
 			for (var i = 0; i < arr.length; i++) {
-			    if (resultsaa.indexOf(arr[i].place_id) < 0 ) {
-			        resultsaa.push(arr[i].place_id);
-			        arrbk.push(arr[i]);
-			    }
+				if (typeof arr[i] !== 'undefined') {
+				    if (resultsaa.indexOf(arr[i].place_id) < 0 ) {
+				        resultsaa.push(arr[i].place_id);
+				        arrbk.push(arr[i]);
+				    }
+				};
 			}
 			return arrbk;
 		}
@@ -1302,14 +1304,16 @@ jQuery( function( $ ){
 			if (data[0] =='') {
 				return strFull;
 			};
+			console.log(data);
 			for (var i = 0; i < data.length; i++) {
-
-				if (typeof selected =="undefined")
-					strFull+="<option value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
-				else if (data[i].place_id === selected.place_id) 
-					strFull+="<option selected value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
-				else
-					strFull+="<option value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
+				if ( data[i] !=="") {
+					if (typeof selected =="undefined")
+						strFull+="<option value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
+					else if (data[i].place_id === selected.place_id) 
+						strFull+="<option selected value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
+					else
+						strFull+="<option value='"+data[i].place_id+"'>"+data[i].post_title+"</option>";
+				};
 			};
 			return strFull;
 		}
@@ -1415,6 +1419,7 @@ jQuery( function( $ ){
 				console.log("Reset trip");
 				tripPlan = data.plan;
 					var obj = window.javo_map_box_func;
+					$('.btn-box-place').trigger('click');
 					obj.ajax_favorite(tripPlan.placeLists,2);
 					
 					obj.resize();
@@ -1459,7 +1464,7 @@ jQuery( function( $ ){
 		}
 		function devide_places(tripPlan,_places){
 			for (var i = 0; i < _places.length; i++) {
-				if (_places[i] =="" && typeof _places[i] =="string") {
+				if (_places[i] =="" && typeof _places[i] =="string" && typeof _places[i] =="undefined") {
 					_places.splice(i,1)
 				};
 			}
@@ -1875,26 +1880,6 @@ function removePlace(places,element){
 				; $( window )
 					.on( 'resize', this.resize );
 
-				// DATA
-				$.getJSON( parse_json_url, function( response )
-				{
-					obj.items		= response.places;
-					$.each( response.places, function( index, key ){
-						obj.tags.push( key.post_title );
-					} );
-
-					obj.setKeywordAutoComplete();
-
-					if( $( "#javo-map-box-location-ac" ).val() ) {
-						obj.setGetLocationKeyword( { keyCode:13, preventDefault: function(){} } );
-					}else{
-						if( $( "[javo-is-geoloc]" ).val() ){
-							$( ".javo-my-position" ).trigger( 'click' );
-						}else{
-							obj.filter();
-						}
-					}
-				});
 
 			} // End Initialize Function
 			, drawRoutePreview:function(schedule,map){
