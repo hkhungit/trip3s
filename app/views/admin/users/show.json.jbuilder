@@ -1,0 +1,1 @@
+json.extract! @user, :published, :created_at, :updated_at

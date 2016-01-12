@@ -28,11 +28,13 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'coffee-script-source', '1.8.0'
+#admin
 
+gem 'rails-admin-scaffold', '~> 0.1.0'
 
 gem 'activerecord-session_store'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
-
+#rails g admin:scaffold_controller Posts
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

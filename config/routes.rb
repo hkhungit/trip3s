@@ -1,6 +1,34 @@
 
 Rails.application.routes.draw do
   
+  namespace :admin do
+    resources :comments
+  end
+
+  namespace :admin do
+    resources :categories
+  end
+
+  namespace :admin do
+    resources :plans
+  end
+
+  namespace :admin do
+    resources :dashboards
+  end
+
+  namespace :admin do
+    resources :users
+  end
+
+  namespace :admin do
+    resources :posts
+  end
+
+  namespace :admin do
+    resources :places
+  end
+
   get 'list/index'
 
   get 'auth/:provider/callback', to: 'session#create'
