@@ -34,6 +34,7 @@ gem 'rails-admin-scaffold', '~> 0.1.0'
 
 gem 'activerecord-session_store'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+gem 'carrierwave', '~> 0.10.0'
 #rails g admin:scaffold_controller Posts
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
