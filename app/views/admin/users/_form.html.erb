@@ -1,0 +1,30 @@
+<%= form_for([:admin, @user], html: { class: 'form-horizontal user' }) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation" class="panel panel-danger">
+      <div class="panel-heading">
+        <h2 class="panel-title"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= f.label :published, for: nil do %>
+        <%= f.check_box :published %>
+        <%= User.human_attribute_name(:published) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= f.submit nil, class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
