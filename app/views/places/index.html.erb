@@ -7,7 +7,7 @@
   <div class="vc_col-sm-12 wpb_column vc_column_container ">
     <div class="wpb_wrapper">
       <div id="ultimate-heading55acf20a3ec94" class="uvc-heading ultimate-heading55acf20a3ec94 uvc-5418 " data-hspacer="no_spacer"  data-halign="center" style="text-align:center"><div class="uvc-heading-spacer no_spacer" style=""></div><div class="uvc-main-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a3ec94 h2'  data-responsive-json-new='{"font-size":"desktop:50px;","line-height":"desktop:60px;"}' ><h2 style="font-weight:bold;color:#ffffff;margin-bottom:30px;">Welcome to Trip3s</h2></div><div class="uvc-sub-heading ult-responsive"  data-ultimate-target='.uvc-heading.ultimate-heading55acf20a3ec94 .uvc-sub-heading '  data-responsive-json-new='{"font-size":"desktop:18px;","line-height":"desktop:30px;"}'  style="font-weight:normal;color:#818181;"></p>
-<p style="text-align: center;">Giúp bạn xây dựng và lên kế hoạch du lịch trong 3s<br/>.
+<p style="text-align: center;color:#fff !important;">Giúp bạn xây dựng và lên kế hoạch du lịch trong 3s<br/>.
 Bạn cũng có thể tìm kiếm và tham khảo những chia sẻ các chuyến đi từ trip3s
 </p>
 <p></div></div><div class="ult-spacer spacer-55acf20a3edbf" data-id="55acf20a3edbf" data-height="50" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
@@ -17,6 +17,8 @@ Bạn cũng có thể tìm kiếm và tham khảo những chia sẻ các chuyế
         <div class="search-type-a-inner">
 
 <style type="text/css">
+html header.main nav.navbar {
+    background-color: rgba(0, 0, 0, 0);}
 #search{border: 0px;}
 #btn-search{    width: 20% !important;
     height: 55px !important;
@@ -57,7 +59,7 @@ jQuery(function ($) {
           $("#products").html(
             '<table class="table" id="pretty"><tr><td></td><td><a href="http://google">View All</a></td></tr>' 
             + result.map(function(row) {
-              return '<tr><td><img src="'+row.post_thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+row.place_choice + '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
+              return '<tr><td><img src="'+row.thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+row.place_choice + '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
             }).join(''))
             + '</table>'
         }
@@ -67,7 +69,7 @@ jQuery(function ($) {
           $("#places").html(
             '<table class="table" id="pretty" style="margin-top:-20px">' 
             + result.map(function(row) {
-              return '<tr><td><img src="'+row.post_thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+ '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
+              return '<tr><td><img src="'+row.thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+ '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
             }).join(''))
             + '</table>'
         }
@@ -119,7 +121,7 @@ jQuery(function ($) {
     <div class="ult-spacer spacer-55acf20a3f31b" data-id="55acf20a3f31b" data-height="100" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
     </div> 
   </div> 
-</div><!-- Row Backgrounds --><div class="upb_bg_img" data-ultimate-bg="url(/assets/sites/2/2015/01/image841.jpg)" data-image-id="4443" data-ultimate-bg-style="vcpb-default" data-bg-img-repeat="repeat" data-bg-img-size="cover" data-bg-img-position="" data-parallx_sense="30" data-bg-override="browser_size" data-bg_img_attach="scroll" data-upb-overlay-color="" data-upb-bg-animation="" data-fadeout="" data-bg-animation="left-animation" data-bg-animation-type="h" data-animation-repeat="repeat" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="false" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""   data-overlay="false" data-overlay-color="" data-overlay-pattern="" data-overlay-pattern-opacity="" data-overlay-pattern-size=""    ></div> <div  class="vc_row wpb_row vc_row-fluid vc_custom_1421227195453">
+</div><!-- Row Backgrounds --><div class="upb_bg_img" data-ultimate-bg="url(/assets/sites/2/2015/01/bangioc.png)" data-image-id="4443" data-ultimate-bg-style="vcpb-default" data-bg-img-repeat="repeat" data-bg-img-size="cover" data-bg-img-position="" data-parallx_sense="30" data-bg-override="browser_size" data-bg_img_attach="scroll" data-upb-overlay-color="" data-upb-bg-animation="" data-fadeout="" data-bg-animation="left-animation" data-bg-animation-type="h" data-animation-repeat="repeat" data-fadeout-percentage="30" data-parallax-content="" data-parallax-content-sense="30" data-row-effect-mobile-disable="true" data-img-parallax-mobile-disable="false" data-rtl="false"  data-custom-vc-row=""  data-vc="4.5.2"  data-theme-support=""   data-overlay="false" data-overlay-color="" data-overlay-pattern="" data-overlay-pattern-opacity="" data-overlay-pattern-size=""    ></div> <div  class="vc_row wpb_row vc_row-fluid vc_custom_1421227195453">
   <div class="vc_col-sm-12 wpb_column vc_column_container ">
     <div class="wpb_wrapper">
       
@@ -152,7 +154,7 @@ jQuery(function ($) {
             </a>  
           </div>
         <%end%>
-          </div>
+                  </div>
         <div class="customNavigation">
           <a class="btn prev" style="color:#818181;"><i class="fa fa-angle-left"></i></a>
           <a class="btn next" style="color:#818181;"><i class="fa fa-angle-right"></i></a>

@@ -110,9 +110,9 @@ jQuery(function ($) {
 			<table class="result">
   				<% for place in @places_two_limit_one %>
   					<tr>
-  						<td><img src="<%= place.post_thumbnail %>"></td>
+  						<td><img src="<%= place.thumbnail %>"></td>
     					<td>
-    						<a href="/places/<%=place.id%>" class="places-title"><%= place.post_title %></a><br>
+    						<a href="/places/<%=place.place.first.id%>" class="places-title"><%= place.post_title %></a><br>
     						<%= place.place_address %>
     						<div class="row">
     							<div class="col-xs-6 col-sm-4"><i class="fa fa-heart"></i>123</div>
