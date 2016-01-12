@@ -10,4 +10,13 @@ class Plan < ActiveRecord::Base
   def self.loadPlan(id)
   	joins(:schedule).where(id: id).last
   end
+
+
+  def thumbnail
+     _thumbnail = PostExpand.where("post_id = ? and expand_name = 'post_thumbnail2'", post_id).last
+     if _thumbnail.present?
+       return _thumbnail.expand_value
+     end
+     return 'default.png'
+  end
 end

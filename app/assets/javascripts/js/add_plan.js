@@ -89,6 +89,23 @@ jQuery( function( $ ){
 				placeIds:resultsaa
 			};
 		}
+
+		$(document).on('change', '.btn-file :file', function() {
+			     $('#upload_form').ajaxSubmit({
+				      beforeSubmit: function(a,f,o) {
+				       o.dataType = 'json';
+				      },
+				      complete: function(data) { 
+				          data = data.responseJSON;
+				          if (data.status == true) {  
+				          	$('.uploadimg-responsive').attr('src',data.image.image_url.url)
+				          	$('#file-upload-to-responsive').val(data.image.image_url.url); 
+				          	$('#file-upload-to-responsive-id').val(data.image.id); 
+				          };  
+				      }
+			     });
+		});
+		
 		/*Add the place to places in plan*/
 		$(document).on('click','[btn-add-place-plan]',function(){
 			try{
@@ -380,7 +397,9 @@ jQuery( function( $ ){
 			//$('.place-num-'+place_id).find('.place_time').attr('data-value',place_time).text(place_time);
 			$('.place-num-'+place_id).find('.place_time').attr('data-value',place_time).text(place_time);
 
-			if (schedule_id =='{{schedule_id}}') {
+
+			console.log(schedule_id);
+			if (schedule_id =='{{schedule_id}}' || schedule_id == undefined) {
 
 				for (var i = 0; i < tripPlan.placeLists.length; i++) {
 					if (tripPlan.placeLists[i].place_id == place_id) {
@@ -391,15 +410,38 @@ jQuery( function( $ ){
 						$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){	console.log("updated !!");});
 					};
 				};
+			}else{
+				if (!isNaN(schedule_id)) {
+
+					for (var i = 0; i < tripPlan.schedules["Day_"+schedule_id].placeLists.length; i++) {
+						if (tripPlan.schedules["Day_"+schedule_id].placeLists[i].place_id == place_id) {
+							tripPlan.schedules["Day_"+schedule_id].placeLists[i].place_time 	= place_time;
+							tripPlan.schedules["Day_"+schedule_id].placeLists[i].place_time1 = place_time;
+							tripPlan.schedules["Day_"+schedule_id].placeLists[i].place_note 	= place_note;
+						
+						};
+					}; 
+
+					update_sidebar_boby(tripPlan,parseInt(schedule_id));
+
+					tripPlan.schedules["Day_"+schedule_id] = updatePlaceCome(tripPlan.schedules["Day_"+schedule_id]);
+
+					console.log(tripPlan.schedules["Day_"+schedule_id]);
+					$.post('/api/trip3sPlan',{plan:JSON.stringify(tripPlan)},function(data){	console.log("updated !!");});
+						
+				}; 
 			};
 
+			
 		});
 
 		$(document).on('click','.edit-item-place',function(e){
 
 
 			var strFull = $('#load-model-edit-place').html();
-			var data = $(this).parent().parent().data('place');
+			var data 	= $(this).parent().parent().data('place'),
+			schedule_id = $(this).parent().parent().parent().data('index');
+			strFull = strFull.replace(/{{schedule_id}}/g, schedule_id);
 			strFull = strFull.replace(/{{place_id}}/g, data.place_id||'');
 			strFull = strFull.replace(/{{place_name}}/g, data.post_title||'');
 			strFull = strFull.replace(/{{place_expert}}/g, data.post_content||'');
@@ -468,6 +510,7 @@ jQuery( function( $ ){
 			//$('.content-detail-next-place').slideUp();
 			$(this).parent().parent().find('.content-detail-next-place').stop().toggle();
 		});
+		
 		$(document).on('click','.add-friend-to-plan',function(e){
 			var userID 		= $(this).data('userid');
 			var userName 	= $(this).data('username');
@@ -520,7 +563,56 @@ jQuery( function( $ ){
 
 		});
 
+		/*Add the place to places in plan*/
 
+		$(document).on('change',"select[name='filter[item_city]']",function(e){
+			var cityIds = $(this).val();
+			if (cityIds == null) {
+				$("select[name='filter[item_city]']  option[value='123']").prop("selected",true);
+				$('select[name="filter[item_city]"').trigger("chosen:updated");
+			}else{ 
+				$('select[name="filter[item_district]"').parent().hide();
+				$('select[name="filter[item_area]"').parent().hide();
+				$('select[name="filter[item_district]"').html('');
+				$.post('/api/item_district',{cityIds:cityIds}).done(function(data){
+					var cate = data.cate;
+					if (cate.length > 0) {
+						var strOptions = '<option value="0" disabled>Quận/Huyện</option>';
+                  
+						for (var i = 0; i < cate.length; i++) {
+							strOptions += ' <option value="'+cate[i].id+'"> '+cate[i].cate_name+' </option> ';
+						};
+						$('select[name="filter[item_district]"').html(strOptions);
+						$('select[name="filter[item_district]"').trigger("chosen:updated");
+						$('select[name="filter[item_district]"').parent().show();
+					};
+				});
+
+			};
+		});	
+		$(document).on('change',"select[name='filter[item_district]']",function(e){
+			var districtIds = $(this).val();
+			if (districtIds == null) {
+
+			}else{ 
+				$('select[name="filter[item_area]"').parent().hide();
+				$('select[name="filter[item_area]"').html('');
+				$.post('/api/item_area',{districtIds:districtIds}).done(function(data){
+					var cate = data.cate;
+					if (cate.length > 0) {
+						var strOptions = '<option value="0" disabled>Quận/Huyện</option>';
+                  
+						for (var i = 0; i < cate.length; i++) {
+							strOptions += ' <option value="'+cate[i].id+'"> '+cate[i].cate_name+' </option> ';
+						};
+						$('select[name="filter[item_area]"').html(strOptions);
+						$('select[name="filter[item_area]"').trigger("chosen:updated");
+						$('select[name="filter[item_area]"').parent().show();
+					};
+				});
+
+			};
+		});
 		$(document).on('change',"select[name='filter[item_city2]']",function(e){
 
 			var value_url  = $("select[name='filter[item_city2]'] >option:selected").data('url');
@@ -608,59 +700,7 @@ jQuery( function( $ ){
 				});
 			};
 		});
-			 // init the FB JS SDK 689577704510810
-		    FB.init({
-		      appId      : '689577704510810',                           // App ID from the app dashboard
-		      channelUrl : '/auth/facebook/',    // Channel file for x-domain comms
-		      status     : true,                               // Check Facebook Login status
-		      cookie     : true,
-		      xfbml      : true                                // Look for social plugins on the page
-		    });
 
-		$(document).on('click','.facebook_connect',function(e){
-			FB.getLoginStatus(function(response) {
-				  if (response.status === 'connected') {
-				
-				 LoginFb();
-
-				  } else if (response.status === 'not_authorized') {
-				 	 LoginFb();
-
-				  } else {
-				     LoginFb();
-				  }
-				 });
-		});
-
-			function LoginFb(){
-				$('#register_waiting_create').addClass('active_wait');
-				    FB.login(function(response) {
-				    	var accesstoken = response.authResponse.accessToken;
-				        if (response.authResponse) {
-				            FB.api('/me?fields=name,email,picture', function(response) {
-						
-							  var users  = {
-							  	id: response.id,
-							  	name: response.name,
-							  	email: response.email,
-							  	image: response.picture.data.url,
-							  	token: accesstoken
-							  }
-
-							  $.get('/auth/s/callback',{user: users}).done(function(data){
-							  	user  = data;
-							  	user.id = data.id;
-							  	console.log(user.id);
-							  	$('#login_panel').modal('hide');
-							  	$('#register_waiting_create').removeClass('active_wait');
-							  });
-
-							});
-				        } else {
-				            $('#register_waiting_create').removeClass('active_wait');
-				        }
-				    }, {scope: 'email,user_likes,user_photos,publish_actions'});
-				}
 		$(document).on('click','.btn-box-users',function(e){
 			$('.javo_mhome_sidebar_wrap').fadeOut();
 			$('#sidebar-users').toggle();
@@ -823,7 +863,7 @@ jQuery( function( $ ){
 				$('#login_panel').modal();
 				return false;
 			};
-			
+			$('#new_plan').submit();
 		})
 		$(document).on('click','.save-to-plan',function(){
 			if (user.id < 1) {
@@ -1052,7 +1092,7 @@ jQuery( function( $ ){
 				strAttr 	= strAttr.replace(/{{data-money}}/g,	data.money || strNull);
 			$('#attribute-schedule-'+index).html(strAttr);
  		}
- 		function string_placelist(place,i){
+ 		function string_placelist(place,i,ik){
  			var str = '',nstr="";
 			str = $("#trip3s-place-in-schedule").html();
 
@@ -1060,6 +1100,11 @@ jQuery( function( $ ){
 				str = str.replace( /{{truetime}}/g , "overtime" );
 			}else{
 				str = str.replace( /{{truetime}}/g , "truetime" );
+			};
+			if (ik ==0 || ik =='0') { 
+				str = str.replace( /{{schedule_id}}/g , ik );
+				str = str.replace( /{{class_begin}}/g , ' none' );
+
 			};
 			str = str.replace( /{{post_thumbnail}}/g , place.post_thumbnail || nstr );
 			str = str.replace( /{{place_id}}/g , place.place_id || nstr );
@@ -1104,20 +1149,22 @@ jQuery( function( $ ){
 		 		update_sidebar_header_bar(tripPlan.schedules["Day_"+ik],ik);
 		 	}
 		 	enable_sortable("ul.schedule-day-boby","ul.schedule-day-boby-bk");
+		 	var obj = window.javo_map_box_func; 
+			obj.resize();
 
  		}
  		function html_body(_schedule,cls,ik){
  			var strFull ="<div class=\"row schedule-day-boby-detail "+cls+" \">",places  = _SaveArray(_schedule.placeLists);
 	 			strFull +="<div class=\"schedule-day-header-bar attribute-schedule\" id=\"attribute-schedule-"+ik+"\"  data-index=\""+ik+"\"></div> ";
 	 			strFull +="<div class=\"schedule-day-boby-detail-fix  scrollbar style-3\">";
-	 			strFull +="<div class=\"schedule-day-boby-fixed\">"+string_placelist(_schedule.placeBegin,1)+"</div> ";
+	 			strFull +="<div class=\"schedule-day-boby-fixed\">"+string_placelist(_schedule.placeBegin,1,0)+"</div> ";
 	 			strFull +="<ul class=\"schedule-day-boby\" data-index=\""+ik+"\" id=\"schedule-day-boby-"+ik+"\" >";
 				for (var i = 0; i < places.length; i++) {
-			 		strFull +=string_placelist(places[i],(i+2));
+			 		strFull +=string_placelist(places[i],(i+2),ik);
 			 	};
 			 	strFull +="</ul>";
 
-	 			strFull +="<div class=\"schedule-day-boby-fixed\">"+string_placelist(_schedule.placeEnd,places.length +2)+"</div> ";
+	 			strFull +="<div class=\"schedule-day-boby-fixed\">"+string_placelist(_schedule.placeEnd,places.length +2,0)+"</div> ";
 			 	strFull +="</div></div>";
 
 			 	return strFull;

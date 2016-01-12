@@ -65,6 +65,9 @@ Rails.application.routes.draw do
       get 'return_day'
     end
     collection do
+      get 'upload_image'
+      post 'upload_image'
+      post 'friends'
       post 'response_user'
       post 'detail_by_schedule_id'
       post 'add_friend'
@@ -88,7 +91,11 @@ Rails.application.routes.draw do
       get 'trip3s_place_by_id'
       get 'index'
       post 'index'
-
+      post 'update_infor'
+      get 'item_district'
+      post 'item_district'
+      get 'item_area'
+      post 'item_area'
     end
   end
 
@@ -118,7 +125,12 @@ Rails.application.routes.draw do
 
   resources :image_categories
 
-  resources :images
+  resources :images do
+    collection do 
+      get 'upload_image'
+      post 'upload_image'
+    end
+  end
 
   resources :user_posts
 
@@ -126,8 +138,12 @@ Rails.application.routes.draw do
 
   resources :user_expands
 
-  resources :users
-
+  resources :users do
+    collection do
+      get 'setting'
+      post 'setting'
+    end
+  end
   resources :post_categories
 
   resources :posts
@@ -135,5 +151,5 @@ Rails.application.routes.draw do
   resources :types
 
   resources :categories
-  root 'home#index' 
+  root 'places#index' 
 end
