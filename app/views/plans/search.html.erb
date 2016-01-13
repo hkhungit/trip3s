@@ -1,0 +1,40 @@
+
+<div class="search-tk">
+<div class="ult-spacer spacer-55acf20a3edbf" data-id="55acf20a3edbf" data-height="100" data-height-mobile="50" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
+    <div class="container javo-single-search-form" id="javo-single-search-form">
+     <!--  <form role="form" data-javo-search-form class="search-form-type"> -->
+
+        <div class="search-type-a-inner">
+
+          <div class="search-box-inline search-box-inline-position">
+ 
+          </div>
+        </div>
+    </div>
+
+    <div class="ult-spacer spacer-55acf20a3f31b" data-id="55acf20a3f31b" data-height="100" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
+    </div>
+<div class="container">
+<div class="search-content">
+	<div class="row"> 
+    <div class="widgettitle_wrap col-md-12"><h2 class="widgettitle"><span><br>Kết quả tìm kiếm</span></h2></div>
+		<div class="col-md-12 widgets-wraps">
+  				<div class="categories-imgs">
+    <div class="text-center">
+      <%@results.each do |rs|%>
+            <a style="color:#000000;" data-javo-category="4" href="/plans/<%=rs.plans.first.id%>">
+              <img src="<%=rs.thumbnail%>" style="width:325px; height:178px;">
+              <span style="font-size:18px;"><%=rs.post_title%></span>
+              <div class="categories-wrap-shadow"></div>
+              <div class="inner-meta ">
+                <div><%=rs.post_title%></div>
+                <small>1 Ngày</small>
+              </div>
+            </a>
+      <%end%>
+    </div>
+  </div>
+		</div> 
+	</div>
+</div>
+</div>

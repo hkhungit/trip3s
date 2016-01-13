@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
 	has_many :user_post
 	has_many :place
 	has_many :plans
+	has_many :comments
 	mount_uploader :post_thumbnail, ImageUploader
 
 

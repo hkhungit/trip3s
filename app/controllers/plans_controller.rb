@@ -16,8 +16,11 @@ class PlansController < ApplicationController
   # GET /plans.json
   def index
  
+    
+    @plan_cate    = Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_plan'}) 
     @plans        = Post.joins(:plans).all.limit(10)
     @planLastest  = Post.joins(:plans).order("id desc").limit(10)
+    @planRandom   = Post.joins(:plans).offset(rand()).first
     @planViewest  = Post.joins(:plans).order("post_view desc").limit(5)
     @places_city      = Category.select("*").joins(:type).where(:types => {:type_name => 'type_city'}) 
   end
@@ -25,9 +28,46 @@ class PlansController < ApplicationController
   # GET /plans/1
   # GET /plans/1.json
   def show
-   
+    @post = Post.where(:id=>@plan.post_id).first
+    @comments = @post.comments
+    @new_comment = @post.comments.new
+
+    #viewCount = @post.post_view + 1
+    #@post.update({:post_view => (@post.post_view + 1)})
   end
 
+  def search
+    #All place none filter
+    @results    = Post.select("posts.id,
+                  posts.post_title,
+                  posts.post_content,
+                  posts.post_thumbnail,
+                  posts.post_url,
+                  posts.post_point,
+                  posts.post_review,
+                  posts.post_view")
+            .distinct
+            .where(:posts => {:post_type=> 'type_plan' }) 
+            .order('post_view desc')
+
+    if params[:k].present?
+      _like  = params[:k]
+      _like  = _like.gsub(/[ \'']/, '%') 
+      _temp  =  @results 
+            .where(" posts.post_title LIKE '%#{_like}%' ").pluck(:id)
+      @results = @results.where("posts.id IN (?)",_temp )
+    end
+    #Check city in filter
+    if params[:city].present?
+      #places = places.where(:types => {:category_id=> params[:cityIds]})
+    #  _temp   = @plans
+    #        .joins(:plan,:post_category =>{:type=>:category})
+    #        .where(:types => {:category_id=> params[:city]}).pluck(:id)
+    #  @plans = @plans.where("posts.id in (?)",_temp )
+    end 
+
+    @results = @results.limit(12)
+  end
   def k_mean
     
   end

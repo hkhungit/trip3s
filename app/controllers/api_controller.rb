@@ -608,6 +608,26 @@
 
 		render json: schedule
 	end
+	def trip3s_user_by_id
+		if params[:user_id].blank?
+		elsif params[:user_id] == 0
+		else
+			user = User.find_by_sql(" select u.id,
+					u.id,
+					u.user_name,
+					u.user_thumbnail,
+					u.user_display,
+					(select user_expands.expand_value
+						from user_expands
+						where user_expands.expand_name = 'user_address' and user_expands.user_id = u.id) as address
+					 from  users as u where id = '#{params[:user_id]}'
+				").first;
+		end
+		render json: {
+			state: 'success',
+			user:user
+		}	
+	end
 	def trip3s_place_by_id
 
 		if params[:post_id].blank?
@@ -652,14 +672,22 @@
 		users    = nil
 		if userText.present?
 			status = true
-			users = User.select("id,user_name,user_display")
-						.distinct
-						.where(" user_name LIKE '%#{userText}%' or user_display  LIKE '%#{userText}%'")
-		end
-
+			users = User.find_by_sql("
+				select u.id,
+					u.id,
+					u.user_name,
+					u.user_thumbnail,
+					u.user_display,
+					(select user_expands.expand_value
+						from user_expands
+						where user_expands.expand_name = 'location' and user_expands.user_id = u.id) as location
+					 from  users as u where  user_name LIKE '%#{userText}%' or user_display  LIKE '%#{userText}%'
+				");
+		end 
+ 
 		render json:{
 			status: status,
-			users:users
+			users: users
 		}
 	end
 	#Update infor for user

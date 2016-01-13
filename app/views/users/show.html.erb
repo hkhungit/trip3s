@@ -60,11 +60,11 @@
         </div>
         <div class="panel-body panel-body-nopadding">
           <ul class="list-unstyled">
-          <%@user.places.each do |place|%>
+          <%@user.places.each do |plac|%>
             <li class="item-list">
-               <a href="/places/<%=place.places[0].id%>">
-                <img src="<%=place.thumbnail%>" width="50" height="50" class="list-item-img">
-                <strong class="list-item-title"><%=place.post_title%></strong>
+               <a href="/places/<%=plac.place.first.id%>">
+                <img src="<%=plac.thumbnail%>" width="50" height="50" class="list-item-img">
+                <strong class="list-item-title"><%=plac.post_title%></strong>
               </a>
             </li>
             <%end%>

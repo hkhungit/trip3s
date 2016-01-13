@@ -77,7 +77,7 @@
   .manage-btn{display: none; position: absolute; top: 50px;right: -53px;transform: rotate(90deg);-moz-transform: rotate(90deg);-ms-transform: rotate(90deg);-webkit-transform: rotate(90deg)}
   .overtime{background: red !important;color: #000;opacity: 0.6;} 
   .truetime{background: white; opacity: 1}
-  .schedule-day-boby-detail{float: left;max-width: 300px; width: 297px;border: 2px rgba(68, 68, 68, 0.25) solid; }
+  .schedule-day-boby-detail{float: left;max-width: 310px; width: 308px;border: 2px rgba(68, 68, 68, 0.25) solid; }
   .schedule-day-header-bar{    border-bottom: 2px rgba(68, 68, 68, 0.25) solid;
     border-top: 2px rgba(68, 68, 68, 0.25) solid;padding: 5px 0px;    margin-top: -1px; float: left;width: 100%}
 
@@ -110,7 +110,7 @@
     }
     ul.schedule-day-boby{
       padding: 0px 0px 0px 0px;
-      max-width: 300px;
+      max-width: 310px;
       float: left;
       list-style: none;
       min-height: 100px;
@@ -119,7 +119,7 @@
     }
     ul.schedule-day-boby-bk {
       padding: 0px 0px 0px 0px;
-      max-width: 300px;
+      max-width: 310px;
       float: left;
       list-style: none;
       min-height: 1px;
@@ -227,66 +227,32 @@
       -o-transition: width 1s ease-in-out;
       transition: width 1s ease-in-out;}
       .sidebar_control .btn.btn-off-on{width: 100%;    float: left;text-align: center;}
-
+      div.javo_mhome_wrap div.javo_mhome_sidebar{width: 310px}
     </style>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <div class="javo_mhome_wrap">
-      <div class="sidebar_control" id="sidebar_control">
-        <ul class="list-unstyled list-control ">
-          <li class="btn btn-default btn-box-description">
-            <span class="btn-icon"><i class="glyphicon glyphicon-list-alt"></i></span>
-            <span class="btn-string">Mô tả</span>
-          </li>
-          <li class="btn btn-default btn-box-filter">
-            <span class="btn-icon"><i class="glyphicon glyphicon-filter"></i></span>
-            <span class="btn-string">Lọc</span>
-          </li>
-          <li class="btn btn-default btn-box-place">
-            <span class="btn-icon"><i class="glyphicon glyphicon-map-marker"></i></span>
-            <span class="btn-string">Địa điểm</span>
-          </li>
-
-          <li class="btn btn-default btn-box-weather">
-            <span class="btn-icon"><i class="glyphicon glyphicon-cloud"></i></span>
-            <span class="btn-string">Thời tiết</span>
-          </li>
-          <li class="btn btn-default btn-box-users">
-            <span class="btn-icon"><i class="glyphicon glyphicon-user"></i></span>
-            <span class="btn-string">Thêm bạn</span>
-          </li>
-          <li class="btn btn-default btn-box-seting">
-            <span class="btn-icon"><i class="glyphicon glyphicon-wrench"></i></span>
-            <span class="btn-string">Cài đặt</span>
-          </li>
-
-          <li class="btn btn-default btn-box-plan">
-            <span class="btn-icon"><i class="glyphicon glyphicon-calendar"></i></span>
-            <span class="btn-string">Kế hoạch</span>
-          </li>
-          <li class="btn btn-default btn-box-reset">
-            <span class="btn-icon"><i class="glyphicon glyphicon-remove-circle"></i></span>
-            <span class="btn-string">Làm lại</span>
-          </li>
-
-          <li class="btn btn-default btn-off-on">
-            <span class="btn-off-on-control"><i class="fa fa-fast-backward"></i></span>
-          </li>
-        </ul>
-      </div>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
 
 <script src="http://malsup.github.com/jquery.form.js"></script>
 
-      <div class="javo_mhome_sidebar_wrap" id="sidebar-desciption" style="left: 101px; display:none">
+      <div class="javo_mhome_sidebar_wrap" id="sidebar-desciption" style=" display:none">
         <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
         
          <div class="panel-heading">
+         <div class="row">
+              <div class="col-md-12"> 
+               <strong style="width:100%;float:left">Thông tin kế hoạch</strong> 
+              </div>
+              <div class="col-md-12">
+                <button class="btn btn-xs pull-left btn-danger btn-box-users"><i class="fa fa-hand-o-left"></i> Quay lại</button>
+                 <button class="btn btn-xs pull-right btn-success submit-to-plan"> <i class="glyphicon glyphicon-floppy-disk"></i>  Tạo lịch</button> 
+                 <button class="btn btn-xs  pull-right btn-default"> <i class="glyphicon glyphicon-remove"></i>  Hủy bỏ lịch</button>
 
-           <strong style="width:100%;float:left">Thông tin kế hoạch</strong> 
-           <button class="btn btn-xs btn-default submit-to-plan"> <i class="glyphicon glyphicon-floppy-disk"></i>  Tạo lịch</button> <button class="btn btn-xs btn-default"> <i class="glyphicon glyphicon-remove"></i>  Hủy bỏ lịch</button>
-
+              </div>
+            </div>
+          
          </div>
          <div class="panel-body panel-body-nopadding style-3">
           <%= form_for @plan do |f| %> 
@@ -318,13 +284,12 @@
                               
             <% end %>
             </div>
-          </div>
-
+          </div> 
         </div>
       </div>
     </div>
 
-    <div class="javo_mhome_sidebar_wrap" id="sidebar-weather"  style="left: 101px; display:none">
+    <div class="javo_mhome_sidebar_wrap" id="sidebar-weather"  style=" display:none">
       <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
         <div class="panel-heading">
 
@@ -349,17 +314,45 @@
         </div>
       </div>  
     </div>
-    <div class="javo_mhome_sidebar_wrap" id="sidebar-places"  style="left: 101px;">
+    <div class="javo_mhome_sidebar_wrap" id="sidebar-places"  style="">
       <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
       </div>
     </div>
-    <div class="javo_mhome_sidebar_wrap" id="sidebar-plans"  style="left: 101px;">
-    </div>
-    <div class="javo_mhome_sidebar_wrap"  id="sidebar-setups"  style="left: 101px;display:none">
+    <div class="javo_mhome_sidebar_wrap" id="sidebar-plans"  style=" display:none">
       <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
-        <div class="panel-heading">
-
-          <strong>Cài đặt thông số sắp lịch</strong>
+        <div class="well-default panel-heading header-detail-add-plan">
+          <div class="row schedule-day-header-control" id="schedule-day-header-control-2">
+            <div class="col-md-12">
+              <h4>Danh sách địa điểm</h4>
+            </div>
+            <div class="col-md-12">
+               <button class="btn btn-xs pull-left btn-danger btn-box-seting"><i class="fa fa-hand-o-left"></i> Quay lại</button>
+            
+               <button class="btn btn-xs pull-left btn-info create-trip"><i class="fa fa-pie-chart"></i> Sắp lịch</button>
+                <span class="trigger-create" ></span>
+                
+                <button class="btn btn-xs pull-right btn-primary btn-box-all">Tiếp theo <i class="fa fa-hand-o-right"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class=" well-default panel-body body-detail-add-plan" id="body-detail-review-plan">
+         
+        </div>
+      </div>
+    </div>
+    <div class="javo_mhome_sidebar_wrap"  id="sidebar-setups"  style="display:none">
+      <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
+        <div class="panel-heading"> 
+          <div class="row">
+              <div class="col-md-12">
+                <h4>Cài đặt thông số sắp lịch</h4>
+              </div>
+              <div class="col-md-12">
+                <button class="btn btn-xs pull-left btn-danger btn-box-place"><i class="fa fa-hand-o-left"></i> Quay lại</button>
+          
+                <button class="btn btn-xs pull-right btn-primary btn-box-plan">Tiếp theo <i class="fa fa-hand-o-right"></i></button>
+              </div>
+          </div>
         </div>
         <div class="panel-body panel-body-nopadding style-3">
           <form>
@@ -404,19 +397,29 @@
               <div class="setting-day"></div>
               <div class="form-group">
                 <label class="left" for="tripPlan[placeBegin]"></label>
-                <button type="button" class="btn btn-sm btn-success btn-save-detail-plan"><i class="fa fa-save"></i> Lưu</button>
-                <button type="button" class="btn btn-sm btn-success btn-save-detail-advance-plan"><i class="fa fa-save"></i> Lưu</button>
+                <button type="button" class="btn btn-sm btn-success btn-save-detail-plan"><i class="fa fa-save"></i> Cập nhật</button>
+                <button type="button" class="btn btn-sm btn-success btn-save-detail-advance-plan"><i class="fa fa-save"></i> Cập nhật</button>
                 <button type="reset" class="reset btn-sm btn btn-danger" ><i class="fa fa-times"></i> Hủy bỏ</button>
               </div>
             </form>
           </div>
         </div>
       </div>
-      <div class="javo_mhome_sidebar_wrap" id="sidebar-users" style="left: 101px;display:none">
+      <div class="javo_mhome_sidebar_wrap" id="sidebar-users" style="display:none">
         <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
           <div class="panel-heading">
 
-            <strong>Thêm bạn bè vào kế hoạch</strong>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <strong>Thêm bạn bè vào kế hoạch</strong>
+              </div>
+              <div class="col-md-12">
+                <button class="btn btn-xs pull-left btn-danger btn-box-plan"><i class="fa fa-hand-o-left"></i> Quay lại</button>
+          
+                <button class="btn btn-xs pull-right btn-primary btn-box-description">Tiếp theo <i class="fa fa-hand-o-right"></i></button>
+              </div>
+            </div> 
           </div>
           <div class="panel-body row panel-body-nopadding">
             <div class="col-sm-12">
@@ -429,7 +432,7 @@
             </div>
             <div class="col-sm-12">
               <div class="form-group">
-                <label for="plan[plan_content]"><strong>Người dùng trong kế hoạch</strong></label>
+                <label for="plan[plan_content]"><strong>Người dùng trong kế hoạch</strong> <button class="btn btn-xs btn-default btn-view-location">Xem vị trí</button></label>
                 <ul class="list-group result-added-friend style-2">
 
                 </ul>
@@ -455,7 +458,7 @@
 
             <div class="col-md-12 text-left">
               <div class="javo-filter-column-header">
-                <h3>Lọc danh sách địa điểm</h3>
+                <h3> Tìm kiếm địa điểm</h3>
                 <input class="form-control input-filter-text" name="fl_keyword" placeholder="Nhập từ khóa"/>
                 <span>
                   <button class="btn btn-xs btn-success btn-filter-place"> <i class="fa fa-filter"></i>

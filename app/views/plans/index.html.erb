@@ -86,6 +86,9 @@
   html body.single header#header-one-line.main{ position:absolute; }
   html body.single header#header-one-line.main{ left:0; right:0; }
 .navbar-form .form-group{display: block;}
+.item-author-info .col-md-4 .item-author-info-circle-border{
+      background: rgba(0, 0, 0, 0.75);
+}
 </style>
 <style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1433407634411{margin-bottom: 0px !important;padding-top: 0px !important;padding-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1421145263677{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421145271530{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421199064113{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421145294024{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421150391084{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 50px !important;}.vc_custom_1421199081615{margin-bottom: 0px !important;padding-top: 50px !important;padding-bottom: 50px !important;}.vc_custom_1421199362654{padding-top: 50px !important;padding-bottom: 50px !important;}</style><noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>
     <div class="row">
@@ -111,22 +114,22 @@
       <div class="slider-search-box">
         <div class="inner">
           <div class="inner_wrap">
-                        <form class="navbar-form navbar-left" role="search" method="post" action="#">
+                        <form class="navbar-form navbar-left" role="search" method="get" action="/plans/search">
                           <div class="slider-search-part-wrap">
 
                           <div class="form-group">
-                            <input type="text" class="form-control input-large" placeholder="Keyword" name="keyword">
+                            <input type="text" class="form-control input-large" placeholder="Keyword" name="k">
                           </div>
                           
                           <div class="form-group">
-                            <input type="number" min="1"   class="form-control input-large" placeholder="Số người" name="keyuser">
+                            <input type="number" min="1"   class="form-control input-large" placeholder="Số người" name="u">
                           </div><!-- form-Group --> 
                           <div class="form-group">
-                            <input type="number" min="1"  class="form-control input-large" placeholder="Số tiền" name="keymoney">
+                            <input type="number" min="1"  class="form-control input-large" placeholder="Số tiền" name="m">
                           </div><!-- form-Group -->
                         
                           <div class="form-group">
-                            <select  multiple="multiple"  name="location" style="display: none;"  placeholder="Thành phố/ tỉnh">
+                            <select  multiple="multiple"  name="city" style="display: none;"  placeholder="Thành phố/ tỉnh">
                                <option value="0" disabled>Tỉnh Thành</option>
                               <%@places_city.each do |cate|%>
                               <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
@@ -270,14 +273,15 @@
         </div><!-- /.col-md-6 -->
       <div class="col-md-6 right-small-img">
         <div class="row">
+        <%@planViewest.offset(2).limit(4).each do |item| %>
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="item-container">
-            <a href="/plans/<%=@planViewest.first.plans.first.id%>">
-                  <div class="feature-item-bottom-title"><%=@planViewest.first.post_title%></div>
+            <a href="/plans/<%=item.plans.first.id%>">
+                  <div class="feature-item-bottom-title"><%=item.post_title%></div>
                   <img width="500" height="400" src="<%=@planViewest.first.thumbnail%>" class="attachment-javo-large" alt="image31">                 <div class="item-cover">
                     <div class="item-cover-inner">
                       <div class="item-captions">
-                        <div class="item-title">EDGE SERVICE</div>
+                        <div class="item-title"><%=item.post_title%></div>
                         <div class="item-description">Brooklyn / cafe </div>
                       </div><!-- /.item-captions -->
                     </div><!-- /.item-cover-inner -->
@@ -285,53 +289,7 @@
                 </a>
             </div><!-- /.item-container -->
           </div><!-- /.col-md-6 -->
-          <div class="col-md-6 col-sm-6 col-xs-6">
-            <div class="item-container">
-                <a href="../item/super-car-rental/index.html">
-                  <div class="feature-item-bottom-title">SUPER CAR RENTAL</div>
-                  <img width="500" height="400" src="assets/sites/2/2014/08/car2-111-500x400.jpg" class="attachment-javo-large" alt="car2-11">                 <div class="item-cover">
-                    <div class="item-cover-inner">
-                      <div class="item-captions">
-                        <div class="item-title">SUPER CAR RENTAL</div>
-                        <div class="item-description">Brooklyn / airport </div>
-                      </div><!-- /.item-captions -->
-                    </div><!-- /.item-cover-inner -->
-                  </div><!-- /.item-cover -->
-                </a>
-              </div><!-- /.item-container -->
-          </div><!-- /.col-md-6 -->
-        </div><!-- /.row -->
-        <div class="row">
-          <div class="col-md-6 col-sm-6 col-xs-6">
-                          <div class="item-container">
-                <a href="../item/natus-car-rent/index.html">
-                  <div class="feature-item-bottom-title">NATUS CAR RENT</div>
-                  <img width="500" height="400" src="assets/sites/2/2014/08/bus1-500x400.jpg" class="attachment-javo-large" alt="bus">                 <div class="item-cover">
-                    <div class="item-cover-inner">
-                      <div class="item-captions">
-                        <div class="item-title">NATUS CAR RENT</div>
-                        <div class="item-description">Queens / cafe </div>
-                      </div><!-- /.item-captions -->
-                    </div><!-- /.item-cover-inner -->
-                  </div><!-- /.item-cover -->
-                </a>
-              </div><!-- /.item-container -->
-                      </div><!-- /.col-md-6 -->
-          <div class="col-md-6 col-sm-6 col-xs-6">
-                          <div class="item-container">
-                <a href="../item/espresso-cafe/index.html">
-                  <div class="feature-item-bottom-title">Espresso Cafe</div>
-                  <img width="500" height="400" src="assets/sites/2/2014/08/JAVO_7111-500x400.jpg" class="attachment-javo-large" alt="JAVO_7111">                  <div class="item-cover">
-                    <div class="item-cover-inner">
-                      <div class="item-captions">
-                        <div class="item-title">Espresso Cafe</div>
-                        <div class="item-description">Queens / cafe </div>
-                      </div><!-- /.item-captions -->
-                    </div><!-- /.item-cover-inner -->
-                  </div><!-- /.item-cover -->
-                </a>
-              </div><!-- /.item-container -->
-                      </div><!-- /.col-md-6 -->
+          <%end%> 
         </div><!-- /.row -->
       </div><!-- /.col-md-6 -->
     </div><!-- /#javo-featured-items-wrap -->
@@ -355,91 +313,29 @@
 </div><!-- Row Backgrounds -->  <div class="vc_row wpb_row vc_row-fluid vc_custom_1421145271530 ult-vc-hide-row" data-rtl="false" data-row-effect-mobile-disable="true" style="position: relative;"><div class="upb_row_bg" data-bg-override="full" style="min-width: 1349px; left: -89.5px; width: 1349px; background: rgb(244, 244, 244);"></div>
   <div class="vc_col-sm-12 wpb_column vc_column_container ">
     <div class="wpb_wrapper">
-      <div id="ultimate-heading55acf238d2a1c" class="uvc-heading ultimate-heading55acf238d2a1c uvc-4791 " data-hspacer="line_only" data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238d2a1c h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:24px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}"><h2 style="font-weight:bold;color:#454545;">CATEGORIES</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;"><span class="uvc-headings-line" style="border-style: solid; border-bottom-width: 2px; border-color: rgb(69, 69, 69); width: 22px; margin: 0px auto;"></span></div><div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238d2a1c .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:15px;&quot;,&quot;line-height&quot;:&quot;desktop:20px;&quot;}" style="font-weight:normal;color:#818181;margin-bottom:50px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div></div> 
+      <div id="ultimate-heading55acf238d2a1c" class="uvc-heading ultimate-heading55acf238d2a1c uvc-4791 " data-hspacer="line_only" data-halign="center" style="text-align:center">
+        <div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238d2a1c h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:24px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}"><h2 style="font-weight:bold;color:#454545;">Danh mục</h2></div>
+        <div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;">
+          <span class="uvc-headings-line" style="border-style: solid; border-bottom-width: 2px; border-color: rgb(69, 69, 69); width: 22px; margin: 0px auto;"></span>
+        </div>
+
+        <div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238d2a1c .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:15px;&quot;,&quot;line-height&quot;:&quot;desktop:20px;&quot;}" style="font-weight:normal;color:#818181;margin-bottom:50px;">Danh mục và nhãn du lịch được nhiều người quan tâm.</div>
+
+      </div> 
   <div class="categories-imgs">
     <div class="text-center">
-      
+      <%@plan_cate.each do |item|%>
             <a style="color:#000000;" data-javo-category="4">
-              <img src="assets/sites/2/2015/01/javo_airport-400x219.jpg" style="width:325px; height:178px;">
-              <span style="font-size:18px;">airport</span>
+              <img src="<%=item.cate_thumbnail%>" style="width:325px; height:178px;">
+              <span style="font-size:18px;"><%=item.cate_name%></span>
               <div class="categories-wrap-shadow"></div>
               <div class="inner-meta ">
-                <div>airport</div>
-                <small>(2)</small>
+                <div><%=item.cate_name%></div>
+                <small><%=item.planCount%></small>
               </div>
             </a>
-            <a style="color:#000000;" data-javo-category="23">
-              <img src="assets/sites/2/2014/12/JAVO_6424-400x219.jpg" style="width:325px; height:178px;">
-              <span style="font-size:18px;">cafe</span>
-              <div class="categories-wrap-shadow"></div>
-              <div class="inner-meta ">
-                <div>cafe</div>
-                <small>(6)</small>
-              </div>
-            </a>
-            <a style="color:#000000;" data-javo-category="19">
-              <img src="assets/sites/2/2014/08/JAVO_car-400x219.jpg" style="width:325px; height:178px;">
-              <span style="font-size:18px;">car rent</span>
-              <div class="categories-wrap-shadow"></div>
-              <div class="inner-meta ">
-                <div>car rent</div>
-                <small>(2)</small>
-              </div>
-            </a>
-            <a style="color:#000000;" data-javo-category="20">
-              <img src="assets/sites/2/2014/12/JAVO_13-400x219.jpg" style="width:325px; height:178px;">
-              <span style="font-size:18px;">education</span>
-              <div class="categories-wrap-shadow"></div>
-              <div class="inner-meta ">
-                <div>education</div>
-                <small>(3)</small>
-              </div>
-            </a>
-            <a style="color:#000000;" data-javo-category="8">
-              <img src="assets/sites/2/2014/08/backyard-with-swimming-pool-house-400x219.jpg" style="width:325px; height:178px;">
-              <span style="font-size:18px;">hotel</span>
-              <div class="categories-wrap-shadow"></div>
-              <div class="inner-meta ">
-                <div>hotel</div>
-                <small>(5)</small>
-              </div>
-            </a>
-            <a style="color:#000000;" data-javo-category="21">
-              <img src="assets/sites/2/2014/12/JAVO_42-400x219.jpg" style="width:325px; height:178px;">
-              <span style="font-size:18px;">IT business</span>
-              <div class="categories-wrap-shadow"></div>
-              <div class="inner-meta ">
-                <div>IT business</div>
-                <small>(4)</small>
-              </div>
-            </a>
-            <a style="color:#000000;" data-javo-category="22">
-              <img src="assets/sites/2/2014/12/JAVO_9120-400x219.jpg" style="width:325px; height:178px;">
-              <span style="font-size:18px;">leisure</span>
-              <div class="categories-wrap-shadow"></div>
-              <div class="inner-meta ">
-                <div>leisure</div>
-                <small>(4)</small>
-              </div>
-            </a>
-            <a style="color:#000000;" data-javo-category="12">
-              <img src="assets/sites/2/2014/07/JAVO_1876-400x219.jpg" style="width:325px; height:178px;">
-              <span style="font-size:18px;">restaurant</span>
-              <div class="categories-wrap-shadow"></div>
-              <div class="inner-meta ">
-                <div>restaurant</div>
-                <small>(4)</small>
-              </div>
-            </a>
-            <a style="color:#000000;" data-javo-category="24">
-              <img src="assets/sites/2/2014/12/store13-400x219.jpg" style="width:325px; height:178px;">
-              <span style="font-size:18px;">store</span>
-              <div class="categories-wrap-shadow"></div>
-              <div class="inner-meta ">
-                <div>store</div>
-                <small>(1)</small>
-              </div>
-            </a>    </div>
+        <%end%>
+    </div>
   </div><!-- categories-imgs -->
 
 
@@ -462,7 +358,18 @@
 </div><!-- Row Backgrounds -->  <div class="vc_row wpb_row vc_row-fluid vc_custom_1421199064113" row-effect-mobile-disable="true" style="position: relative;">
   <div class="vc_col-sm-12 wpb_column vc_column_container ">
     <div class="wpb_wrapper">
-      <div id="ultimate-heading55acf238e2c27" class="uvc-heading ultimate-heading55acf238e2c27 uvc-2761 " data-hspacer="line_only" data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238e2c27 h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:24px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}"><h2 style="font-weight:bold;color:#454545;">EVENT / SPECIAL OFFERS</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;"><span class="uvc-headings-line" style="border-style: solid; border-bottom-width: 2px; border-color: rgb(129, 129, 129); width: 22px; margin: 0px auto;"></span></div><div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238e2c27 .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:15px;&quot;,&quot;line-height&quot;:&quot;desktop:20px;&quot;}" style="font-weight:normal;color:#818181;margin-bottom:50px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div></div>    <div class="sc-wrap" id="javo-sc-events-listing">
+      <div id="ultimate-heading55acf238e2c27" class="uvc-heading ultimate-heading55acf238e2c27 uvc-2761 " data-hspacer="line_only" data-halign="center" style="text-align:center">
+        <div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238e2c27 h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:24px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}">
+          <h2 style="font-weight:bold;color:#454545;">Chuyến đi tốt nhất</h2>
+        </div>
+        <div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;">
+          <span class="uvc-headings-line" style="border-style: solid; border-bottom-width: 2px; border-color: rgb(129, 129, 129); width: 22px; margin: 0px auto;"></span>
+        </div>
+
+        <div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238e2c27 .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:15px;&quot;,&quot;line-height&quot;:&quot;desktop:20px;&quot;}" style="font-weight:normal;color:#818181;margin-bottom:50px;">Những chuyến đi phù hợp và được nhiều người quan tâm và tốt nhất với mọi người.</div>
+      </div>    
+
+      <div class="sc-wrap" id="javo-sc-events-listing">
       <div class="sc-items sc-item-long-line-box">
         <div class="row">
                         <div class="javo-event-item-slider">
@@ -633,14 +540,18 @@
     
     </div> 
   </div> 
-</div><!-- Row Backgrounds -->  <div class="vc_row wpb_row vc_row-fluid vc_custom_1421145294024 ult-vc-hide-row" data-rtl="false" data-row-effect-mobile-disable="true" style="position: relative;"><div class="upb_row_bg" data-bg-override="full" style="min-width: 1349px; left: -89.5px; width: 1349px; background: rgb(244, 244, 244);"></div>
+</div><!-- Row Backgrounds -->  
+ 
+<div class="vc_row wpb_row vc_row-fluid vc_custom_1421145294024 ult-vc-hide-row" data-rtl="false" data-row-effect-mobile-disable="true" style="position: relative;">
+
+<div class="upb_row_bg" data-bg-override="full" style="min-width: 1349px; left: -89.5px; width: 1349px; background: rgb(244, 244, 244);"></div>
   <div class="vc_col-sm-6 wpb_column vc_column_container ">
     <div class="wpb_wrapper">
       
   <div class="wpb_single_image wpb_content_element javo-animation x3 javo-left-to-right-100 vc_align_center loaded">
     <div class="wpb_wrapper">
       
-      <div class="vc_single_image-wrapper   vc_box_border_grey"><img width="700" height="427" src="assets/sites/2/2014/06/preview_page1.png" class="vc_single_image-img attachment-full" alt="preview_page"></div>
+      <div class="vc_single_image-wrapper   vc_box_border_grey"><img width="500" height="427" src="<%=@planRandom.thumbnail%>" class="vc_single_image-img attachment-full" title="<%=@planRandom.post_title%>" alt="<%=@planRandom.post_title%>" style="max-height:500px"></div>
     </div> 
   </div> 
     </div> 
@@ -648,373 +559,24 @@
 
   <div class="vc_col-sm-6 wpb_column vc_column_container ">
     <div class="wpb_wrapper">
-      <div class="ult-spacer spacer-55acf238ebdbd" data-id="55acf238ebdbd" data-height="50" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div><div id="ultimate-heading55acf238ebf79" class="uvc-heading ultimate-heading55acf238ebf79 uvc-7036 " data-hspacer="no_spacer" data-halign="left" style="text-align:left"><div class="uvc-heading-spacer no_spacer" style=""></div><div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238ebf79 h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:24px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}"><h2 style="font-weight:bold;color:#454545;margin-bottom:30px;">Many Themes Page</h2></div><div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238ebf79 .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:15px;&quot;,&quot;line-height&quot;:&quot;desktop:25px;&quot;}" style="font-weight:normal;color:#818181;margin-bottom:30px;">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine.</div></div><button type="button" class="ubtn ubtn-small ubtn-no-hover-bg  none  ubtn-left   tooltip-55acf238ec135" data-hover="#ffffff" data-border-color="#454545" data-hover-bg="#00aef0" data-border-hover="#00aef0" data-shadow-hover="" data-shadow-click="none" data-shadow="" data-shd-shadow="5" style="font-family:'Open Sans';font-weight:bold;font-size:14px;border-radius:3px;border-width:2px;border-color:#454545;border-style:solid;color: #454545;"><span class="ubtn-hover"></span><span class="ubtn-data ubtn-text">Read More</span></button>
-    </div> 
-  </div> 
-</div><!-- Row Backgrounds -->  <div class="vc_row wpb_row vc_row-fluid vc_custom_1421150391084" row-effect-mobile-disable="true" style="position: relative;">
-  <div class="vc_col-sm-12 wpb_column vc_column_container ">
-    <div class="wpb_wrapper">
-          <div id="javo-gall">
-      <div class="javo-gallery-navi">
-        <button class="javo-gall-filter" data-filter="all">ALL</button>
-        <button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-4">AIRPORT</button><button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-23">CAFE</button><button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-19">CAR RENT</button><button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-20">EDUCATION</button><button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-8">HOTEL</button><button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-21">IT BUSINESS</button><button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-22">LEISURE</button><button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-12">RESTAURANT</button><button class="javo-gall-filter gallery-terms-btn active" data-filter=".javo-gallery-term-24">STORE</button>     </div>
-      <div class="javo-gallery" id="MixItUpFA7E84">
-                    <div class="javo-gall-mix javo-gallery-term-8 javo-gallery-term-21 javo-gallery-term-22 javo-gallery-term-24" style="display: inline-block;">
 
-            <div class="javo-gallery-wrap">
-              <a href="../item/javo-hotel-in-downtown/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/08/hotel6-288x266.jpg" class="img-responsive wp-post-image" alt="hotel6">
-                <div class="javo-gallery-term-content-title">
-                  JAVO HOTEL IN DOWNTOWN                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    hotel                 </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="5.0" title="gorgeous"><img src="assets/star-on-s.png" alt="1" title="gorgeous">&nbsp;<img src="assets/star-on-s.png" alt="2" title="gorgeous">&nbsp;<img src="assets/star-on-s.png" alt="3" title="gorgeous">&nbsp;<img src="assets/star-on-s.png" alt="4" title="gorgeous">&nbsp;<img src="assets/star-on-s.png" alt="5" title="gorgeous"><input type="hidden" name="score" value="5" readonly="readonly"></div>                 </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Brooklyn</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-23 javo-gallery-term-8 javo-gallery-term-22 javo-gallery-term-12">
+      <div class="ult-spacer spacer-55acf238ebdbd" data-id="55acf238ebdbd" data-height="50" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
 
-            <div class="javo-gallery-wrap">
-              <a href="../item/edge-service/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/08/image311-288x266.jpg" class="img-responsive wp-post-image" alt="image31">
-                <div class="javo-gallery-term-content-title">
-                  EDGE SERVICE                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    cafe                  </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="0.0" title="Not rated yet!"><img src="assets/star-off-s.png" alt="1" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="2" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="3" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="4" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="5" title="Not rated yet!"><input type="hidden" name="score" readonly="readonly"></div>                  </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Brooklyn</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-4">
+      <div id="ultimate-heading55acf238ebf79" class="uvc-heading ultimate-heading55acf238ebf79 uvc-7036 " data-hspacer="no_spacer" data-halign="left" style="text-align:left">
+        <div class="uvc-heading-spacer no_spacer" style=""></div>
+        <div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238ebf79 h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:24px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}">
+          <h2 style="font-weight:bold;color:#454545;margin-bottom:30px;"><%=@planRandom.post_title%></h2>
+        </div>
+        <div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238ebf79 .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:15px;&quot;,&quot;line-height&quot;:&quot;desktop:25px;&quot;}" style="font-weight:normal;color:#818181;margin-bottom:30px;"><%=@planRandom.post_content%>.</div>
+        </div>
 
-            <div class="javo-gallery-wrap">
-              <a href="../item/super-car-rental/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/08/car2-111-288x266.jpg" class="img-responsive wp-post-image" alt="car2-11">
-                <div class="javo-gallery-term-content-title">
-                  SUPER CAR RENTAL                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    airport                 </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="4.5" title="good"><img src="assets/star-on-s.png" alt="1" title="good">&nbsp;<img src="assets/star-on-s.png" alt="2" title="good">&nbsp;<img src="assets/star-on-s.png" alt="3" title="good">&nbsp;<img src="assets/star-on-s.png" alt="4" title="good">&nbsp;<img src="http://javothemes.com/directory/demo1/wp-content/themes/javo-directory/assets/images/star-half-s.png" alt="5" title="good"><input type="hidden" name="score" value="4.5" readonly="readonly"></div>                 </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Brooklyn</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-23 javo-gallery-term-19 javo-gallery-term-20 javo-gallery-term-21">
-
-            <div class="javo-gallery-wrap">
-              <a href="../item/natus-car-rent/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/08/bus1-288x266.jpg" class="img-responsive wp-post-image" alt="bus">
-                <div class="javo-gallery-term-content-title">
-                  NATUS CAR RENT                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    cafe                  </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="0.0" title="Not rated yet!"><img src="assets/star-off-s.png" alt="1" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="2" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="3" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="4" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="5" title="Not rated yet!"><input type="hidden" name="score" readonly="readonly"></div>                  </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Queens</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-19 javo-gallery-term-20 javo-gallery-term-8 javo-gallery-term-21">
-
-            <div class="javo-gallery-wrap">
-              <a href="../item/hotel-ballagio/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/08/JAVO_1704-288x266.jpg" class="img-responsive wp-post-image" alt="JAVO_1704">
-                <div class="javo-gallery-term-content-title">
-                  Hotel Ballagio                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    car rent                  </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="4.0" title="good"><img src="assets/star-on-s.png" alt="1" title="good">&nbsp;<img src="assets/star-on-s.png" alt="2" title="good">&nbsp;<img src="assets/star-on-s.png" alt="3" title="good">&nbsp;<img src="assets/star-on-s.png" alt="4" title="good">&nbsp;<img src="assets/star-off-s.png" alt="5" title="good"><input type="hidden" name="score" value="4" readonly="readonly"></div>                  </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Manhattan</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-23">
-
-            <div class="javo-gallery-wrap">
-              <a href="../item/espresso-cafe/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/08/JAVO_7111-288x266.jpg" class="img-responsive wp-post-image" alt="JAVO_7111">
-                <div class="javo-gallery-term-content-title">
-                  Espresso Cafe                 <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    cafe                  </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="0.0" title="Not rated yet!"><img src="assets/star-off-s.png" alt="1" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="2" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="3" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="4" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="5" title="Not rated yet!"><input type="hidden" name="score" readonly="readonly"></div>                  </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Queens</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-4">
-
-            <div class="javo-gallery-wrap">
-              <a href="../item/dessert-cafe/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/12/JAVO_6424-288x266.jpg" class="img-responsive wp-post-image" alt="JAVO_6424">
-                <div class="javo-gallery-term-content-title">
-                  Dessert cafe                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    airport                 </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="4.0" title="good"><img src="assets/star-on-s.png" alt="1" title="good">&nbsp;<img src="assets/star-on-s.png" alt="2" title="good">&nbsp;<img src="assets/star-on-s.png" alt="3" title="good">&nbsp;<img src="assets/star-on-s.png" alt="4" title="good">&nbsp;<img src="assets/star-off-s.png" alt="5" title="good"><input type="hidden" name="score" value="4" readonly="readonly"></div>                  </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Queens</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-23 javo-gallery-term-12">
-
-            <div class="javo-gallery-wrap">
-              <a href="../item/queens-airport-2/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/08/image53-288x266.jpg" class="img-responsive wp-post-image" alt="image53">
-                <div class="javo-gallery-term-content-title">
-                  high food                 <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    cafe                  </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="0.0" title="Not rated yet!"><img src="assets/star-off-s.png" alt="1" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="2" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="3" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="4" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="5" title="Not rated yet!"><input type="hidden" name="score" readonly="readonly"></div>                  </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Brooklyn</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-23 javo-gallery-term-20 javo-gallery-term-8 javo-gallery-term-21 javo-gallery-term-22">
-
-            <div class="javo-gallery-wrap">
-              <a href="../item/hotel-venetian/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/12/JAVO_9120-288x266.jpg" class="img-responsive wp-post-image" alt="JAVO_9120">
-                <div class="javo-gallery-term-content-title">
-                  Hotel Venetian                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    cafe                  </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="4.9" title="good"><img src="assets/star-on-s.png" alt="1" title="good">&nbsp;<img src="assets/star-on-s.png" alt="2" title="good">&nbsp;<img src="assets/star-on-s.png" alt="3" title="good">&nbsp;<img src="assets/star-on-s.png" alt="4" title="good">&nbsp;<img src="assets/star-on-s.png" alt="5" title="good"><input type="hidden" name="score" value="4.9" readonly="readonly"></div>                 </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Brooklyn</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-8">
-
-            <div class="javo-gallery-wrap">
-              <a href="../item/hotel-venetian-2/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/08/JAVO_0480-288x266.jpg" class="img-responsive wp-post-image" alt="JAVO_0480">
-                <div class="javo-gallery-term-content-title">
-                  Hotel Venetian                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    hotel                 </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="0.0" title="Not rated yet!"><img src="assets/star-off-s.png" alt="1" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="2" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="3" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="4" title="Not rated yet!">&nbsp;<img src="assets/star-off-s.png" alt="5" title="Not rated yet!"><input type="hidden" name="score" readonly="readonly"></div>                  </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Brooklyn</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-12">
-
-            <div class="javo-gallery-wrap">
-              <a href="../item/windsol-restaurant/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/07/JAVO_1876-288x266.jpg" class="img-responsive wp-post-image" alt="JAVO_1876">
-                <div class="javo-gallery-term-content-title">
-                  Windsol Restaurant                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    restaurant                  </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="4.8" title="good"><img src="assets/star-on-s.png" alt="1" title="good">&nbsp;<img src="assets/star-on-s.png" alt="2" title="good">&nbsp;<img src="assets/star-on-s.png" alt="3" title="good">&nbsp;<img src="assets/star-on-s.png" alt="4" title="good">&nbsp;<img src="assets/star-on-s.png" alt="5" title="good"><input type="hidden" name="score" value="4.8" readonly="readonly"></div>                 </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Brooklyn</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                        <div class="javo-gall-mix javo-gallery-term-23 javo-gallery-term-22 javo-gallery-term-12">
-
-            <div class="javo-gallery-wrap">
-              <a href="../item/river-restaurant/index.html">
-                <div class="javo-gallery-shadow"></div>
-                <img width="288" height="266" src="assets/sites/2/2014/07/JAVO_2999-288x266.jpg" class="img-responsive wp-post-image" alt="JAVO_2999">
-                <div class="javo-gallery-term-content-title">
-                  River Restaurant                  <!-- <span class="glyphicon glyphicon-th-list"></span> -->
-                </div>
-                <div class="javo-gallery-term-content-inform">
-                  <div class="javo-gallery-term-content-category">
-                    cafe                  </div><!-- javo-gallery-term-content-category -->
-                                    <div class="javo-gallery-term-content-rating">
-                    <div class="javo-gallery-on-hover-rating" data-score="4.8" title="good"><img src="assets/star-on-s.png" alt="1" title="good">&nbsp;<img src="assets/star-on-s.png" alt="2" title="good">&nbsp;<img src="assets/star-on-s.png" alt="3" title="good">&nbsp;<img src="assets/star-on-s.png" alt="4" title="good">&nbsp;<img src="assets/star-on-s.png" alt="5" title="good"><input type="hidden" name="score" value="4.8" readonly="readonly"></div>                 </div> <!-- javo-gallery-term-content-rating -->
-                                  </div> <!-- javo-gallery-trem-content-inform -->
-              </a>
-            </div><!-- wrap -->
-            <div class="javo-left-overlay bg-red">
-              <div class="javo-txt-meta-area admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Brooklyn</div> <!-- javo-txt-meta-area -->
-              <div class="corner-wrap">
-                <div class="corner admin-color-setting"></div>
-                <div class="corner-background admin-color-setting"></div>
-              </div> <!-- corner-wrap -->
-            </div>
-            </div> <!-- javo-gallery-term -->
-                  </div>
-    </div>
-    
+          <a type="button" class="ubtn ubtn-small ubtn-no-hover-bg  none  ubtn-left   tooltip-55acf238ec135" data-hover="#ffffff" data-border-color="#454545" data-hover-bg="#00aef0" data-border-hover="#00aef0" data-shadow-hover="" data-shadow-click="none" data-shadow="" data-shd-shadow="5" style="font-family:'Open Sans';font-weight:bold;font-size:14px;border-radius:3px;border-width:2px;border-color:#454545;border-style:solid;color: #454545;" href="/plans/<%=@planRandom.plans.first.id%>">
+            <span class="ubtn-data ubtn-text">Xem thêm</span></a>
     </div> 
   </div> 
 </div><!-- Row Backgrounds -->  
-
-<div class="vc_row wpb_row vc_row-fluid vc_custom_1421332047927 ult-vc-hide-row" data-rtl="false" data-row-effect-mobile-disable="true" style="position: relative;"><div class="upb_row_bg" data-bg-override="full" style="min-width: 1349px; left: -89.5px; width: 1349px; background: rgb(76, 159, 205);"></div>
-  <div class="vc_col-sm-12 wpb_column vc_column_container ">
-    <div class="wpb_wrapper">
-      <div id="ultimate-heading55acf20a686fa" class="uvc-heading ultimate-heading55acf20a686fa uvc-3392 " data-hspacer="line_only" data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf20a686fa h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:46px;&quot;,&quot;line-height&quot;:&quot;desktop:50px;&quot;}"><h2 style="font-weight:bold;color:#ffffff;margin-top:54px;">Đăng ký nhận bài mới</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:22px;margin-bottom:22px;height:1px;"><span class="uvc-headings-line" style="border-style: solid; border-bottom-width: 1px; border-color: rgb(255, 255, 255); width: 22px; margin: 0px auto;"></span></div><div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf20a686fa .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:14px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}" style="font-weight:normal;color:#ffffff;margin-bottom:58px;"><p></p>
-<p style="text-align: center;">Đăng ký để không bỏ lỡ thông báo về địa điểm mới qua email</p>
-<p></p></div></div>     <div id="javo_mailchimp" class="javo-mailchimp-container">
-        <form id="newsletter-form" name="newsletter-form" data-url="#" method="post" role="form">
-
-          <div class="javo-mailchimp-wrap">
-            <div class="form-group javo-mailchimp-inner">
-
-              <div class="input-group input-group-sm javo-mailchimp-inner-name">
-                <!--<label class="input-group-addon" for="javo_cmp_name">
-                  <span class="glyphicon glyphicon-envelope"></span>
-                </label>-->
-                <input type="text" name="yname" id="javo_cmp_name" class="javo-mailchimp-inner-name-input" placeholder="Tên của bạn" required="">
-              </div><!-- /.input-group -->
-
-              <div class="input-group input-group-sm javo-mailchimp-inner-mail">
-                <input type="email" name="mc_email" id="javo_cmp_email" class="javo-mailchimp-inner-mail-input" placeholder="Email của bạn" required="">
-                <div class="form-group javo-mailchimp-inner-sand">
-
-                  <button type="submit" class="btn btn-primary javo-mailchimp-inner-sand-icon">
-                    <span><i class="fa fa-location-arrow"></i></span>
-                  </button>
-
-                </div><!--javo-mailchimp-inner-sand-->
-              </div><!-- /.input-group -->
-
-
-            </div><!-- /.form-group -->
-          </div>
-          <fieldset>
-            <input type="hidden" name="javo_mailchimp_security" value="60a2fa8354">
-            <input type="hidden" name="cm_list" value="94da6b00d5">
-            <input type="hidden" name="ajaxurl" value="wp-admin/admin-ajax.html">
-            <input type="hidden" name="no_msg" value="Failed to register">
-          </fieldset>
-        </form>
-
-      </div>
-      
-    </div> 
-  </div> 
-</div><!-- Row Backgrounds -->
-
-
-
-      </div><!-- .entry-content -->
+ 
+</div><!-- .entry-content -->
   <footer class="entry-meta">
       </footer><!-- .entry-meta -->
 </article><!-- #post -->      </div>

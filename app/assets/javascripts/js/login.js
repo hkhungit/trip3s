@@ -1,6 +1,6 @@
 				 // init the FB JS SDK 689577704510810 446637915526164
 		    FB.init({
-		      appId      : '689577704510810',                           // App ID from the app dashboard
+		      appId      : '446637915526164',                           // App ID from the app dashboard
 		      channelUrl : '/auth/facebook/',    // Channel file for x-domain comms
 		      status     : true,                               // Check Facebook Login status
 		      cookie     : true,
@@ -85,7 +85,6 @@
 							  		$('#register_waiting_create').removeClass('active_wait');
 
 							  	} 
-							  	window.location.href = _url;
 							  });
 
 							});

@@ -1,0 +1,25 @@
+<h3>What do <span class="you">you</span> think?</h3>
+
+<%= form_for [@post, @new_comment], remote: true do |f| %>
+ 
+    <div class="form-group">
+    <% if @current_user.nil? %>
+
+          <%= f.text_field :comment_author, readonly: true, value: @current_user.name_display, class: 'form-control' %>
+
+	  <% else %>
+	      <%= f.text_field :comment_author, class: 'form-control', placeholder: 'Name (Required)' %>
+
+	  <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.text_field :comment_author_email, class: 'form-control', placeholder: 'Email (optional)' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.text_area :comment_content, rows: '5', class: 'form-control' %>
+    </div>
+
+    <%= f.submit 'Bình luận', class: 'btn btn-default' %>
+<% end %>

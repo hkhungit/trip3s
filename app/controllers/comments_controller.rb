@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
+  skip_before_filter :verify_authenticity_token  
   # GET /comments
   # GET /comments.json
   def index
@@ -24,40 +24,39 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @comment }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
+   
+    if @comment.save
+      @new_comment = @post.comments.new
+      respond_to do |format|
+        format.html do
+          flash[:success] = 'Your comment has been posted.'
+          redirect_to @post
+        end
+        format.js
+      end
+    else
+      @new_comment = @comment
+      respond_to do |format|
+        format.html { render @post }
+        format.js { render action: 'failed_save' }
       end
     end
-  end
-
-  # PATCH/PUT /comments/1
-  # PATCH/PUT /comments/1.json
-  def update
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  end 
 
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
+    @comment = Comment.find(params[:id])
+    @post = @comment.post
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url }
-      format.json { head :no_content }
+      format.html do
+        flash[:success] = 'Comment deleted.'
+        redirect_to @post
+      end
+      format.js
     end
   end
 

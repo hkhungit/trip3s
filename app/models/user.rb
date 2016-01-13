@@ -100,17 +100,18 @@ class User < ActiveRecord::Base
 		limit = 5
 		page = page * limit
 		begin
-			places  = Post.joins(:user_post,:places).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_place'}}).limit(limit).offset(page)
+			places  = Post.joins(:user_post,:place).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_place'}}).order("id desc").limit(limit).offset(page)
 			return places
 		rescue Exception => e
 			return 0
 		end
 	end
+
 	def plans(page = 0)
 		limit = 5
 		page = page * limit
 		begin
-			places  = Post.joins(:user_post,:plans).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_plan'}}).limit(limit).offset(page)
+			places  = Post.joins(:user_post,:plans).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_plan'}}).order("id desc").limit(limit).offset(page)
 			return places
 		rescue Exception => e
 			return 0
@@ -120,7 +121,7 @@ class User < ActiveRecord::Base
 		limit = 5
 		page = page * limit
 		begin
-			places  = Post.joins(:user_post).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_collection'}}).limit(limit).offset(page)
+			places  = Post.joins(:user_post).where({:user_posts =>{ :user_id => id}, :posts => {:post_type => 'type_collection'}}).order("id desc").limit(limit).offset(page)
 			return places
 		rescue Exception => e
 			return 0

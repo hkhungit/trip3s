@@ -20,22 +20,22 @@
 		</div>
 	</script>
 	<script type="text/html" id="load-added-friend">
-		<li class="list-group-item" data-userid="{{user-id}}">
+		<li class="list-group-item" data-userid="{{user-id}}" data-user="{{user-user}}">
 			{{user-name}}
-			<button class="btn-xs btn-default pull-right remove-friend-to-plan" data-userid="{{user-id}}"><i class="glyphicon glyphicon-remove"></i></button>
+			<button class="btn-xs btn-default pull-right remove-friend-to-plan" data-userid="{{user-id}}" ><i class="glyphicon glyphicon-remove"></i></button>
 		</li>            
 	</script>
 	<script type="text/html" id="load-item-friend">
 		<li class="list-group-item">
 			{{user-namea}}
-			<button class="btn-xs btn-default pull-right add-friend-to-plan"  data-username="{{user-name}}" data-userid="{{user-id}}"><i class="glyphicon glyphicon-plus-sign"></i></button>
+			<button class="btn-xs btn-default pull-right add-friend-to-plan"  data-username="{{user-name}}"  data-user="{{data-user}}" data-userid="{{user-id}}"><i class="glyphicon glyphicon-plus-sign"></i></button>
 		</li>            
 	</script>
 
 	<script type="text/html" id="load-schedule-day-header-control-3">
 		<div class="col-md-12">
-		    <button class="btn btn-xs btn-danger"    id="back-to-day"><i class="fa fa-arrow-circle-left"></i> Quay lại</button>
-		    <button class="btn btn-xs btn-success"    id="save-to-plan"><i class="fa fa-save"></i> Xem trước</button>
+		    <button class="btn btn-xs btn-danger pull-left"    id="back-to-day"><i class="fa fa-arrow-circle-left"></i> Quay lại</button>
+		    <button class="btn btn-xs btn-success preview-to-plan  pull-left"    id="preview-to-plan"><i class="fa fa-eye"></i> Xem trước</button> 
 		</div>
 	</script>
 	<script type="text/html" id="load-schedule-day-header-control-2">
@@ -48,9 +48,9 @@
 			</ul>
 		</div>
 		<div class="col-md-9">
-		   	<button class="btn btn-xs btn-danger" id="showMap-plan"><i class="glyphicon glyphicon-globe"></i> Lộ trình</button>
+		   	<button class="btn btn-xs btn-danger btn-box-seting" ><i class="fa fa-hand-o-left"></i>Quay lại</button>
 		    <button class="btn btn-xs btn-info"    id="all-to-plan"><i class="glyphicon glyphicon-th-list"></i> Tất cả</button>
-		    <button class="btn btn-xs btn-primary"    id="back-to-plan"><i class="glyphicon glyphicon-th-list"></i> Địa điểm</button>
+		    <button class="btn btn-xs btn-primary btn-box-users"    id="btn-box-users">Tiếp theo<i class="fa fa-hand-o-right"></i></button>
 		</div>
 	</script>
 	<script type="text/html" id="load-schedule-day-header-control-1">
@@ -272,35 +272,50 @@
 		  </div><!-- /.modal-dialog -->
 	</script>
 
-	<script type="text/html" id="loading-list-place-plan">
-	<button class="btn-xs javo-mhome-onoff-sidebar" ><i class="fa fa-chevron-circle-left"></i></button>	
-	
+	<script type="text/html" id="loading-list-place-plan"> 
 		<div class="well-default panel-heading header-detail-add-plan">
-			<div class="manage-btn">
-				<button class="btn-xs btn-success preview-to-plan save-left" ><i class="fa fa-save"></i>
-					Xem trước
-				</button>
-			</div>	
+ 	
 			<div class="row schedule-day-header-control" id="schedule-day-header-control">
 				<div class="col-md-12">
 					<h4>Danh sách địa điểm đã chọn</h4>
 				</div>
 				<div class="col-md-12">
-					<button class="btn btn-xs btn-danger  showMap-place"><i class="glyphicon glyphicon-globe"></i> Xem bản đồ</button>
-					<button class="btn btn-xs btn-info create-trip">
-					
-						<i class="fa fa-pie-chart"></i> Sắp lịch
-					<span class="trigger-create">
-					</span>
+					<button class="btn btn-xs pull-left btn-danger  showMap-place"><i class="glyphicon glyphicon-globe"></i> Xem bản đồ</button>
+					<button class="btn btn-xs pull-left btn-info btn-box-filter"> 
+						<i class="fa fa-search-plus"></i> Tìm kiếm địa điểm
 					</button>
 			
-					<button class="btn btn-xs btn-primary view-trip-down"><i class="fa fa-list-alt"></i> Kế hoạch đã sắp</button>
+					<button class="btn btn-xs pull-left btn-primary btn-box-seting" data-next="1"><i class="fa fa-hand-o-right"></i>Tiếp theo</button>
 				</div>
 			</div>
 		</div>
 		<div class=" well-default panel-body body-detail-add-plan" id="body-detail-add-plan">
 			<img src="http://javothemes.com/directory/demo2/wp-content/themes/javo-directory/assets/images/loading.gif" width="150">
 		</div>
+	</script>
+	<script type="text/html" id="loading-list-review-plan"> 
+	  <div class="javo_mhome_sidebar panel panel-default style-3"  style="margin-bottom:0px">
+        <div class="well-default panel-heading header-detail-add-plan">
+          <div class="row schedule-day-header-control" id="schedule-day-header-control-2">
+            <div class="col-md-12">
+              <h4>Danh sách địa điểm</h4>
+            </div>
+            <div class="col-md-12">
+               <button class="btn btn-xs pull-left btn-danger btn-box-seting"><i class="fa fa-hand-o-left"></i> Quay lại</button>
+            
+               <button class="btn btn-xs pull-left btn-info create-trip"><i class="fa fa-pie-chart"></i> Sắp lịch
+
+               </button>
+            
+                <span class="trigger-create" ></span>
+                <button class="btn btn-xs pull-right btn-primary btn-box-all">Tiếp theo <i class="fa fa-hand-o-right"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class=" well-default panel-body body-detail-add-plan" id="body-detail-review-plan">
+         
+        </div>
+      </div>
 	</script>
 	<script type="text/html" id="load-body-detail-create-plan">
 		<form>
@@ -332,7 +347,6 @@
         </form>
 	</script>
 	<script type="text/html" id="loading-detail-plan">
-	<button class="btn-xs javo-mhome-onoff-sidebar" ><i class="fa fa-chevron-circle-left"></i></button>	
 	<button class="btn-xs save-to-plan save-left" ><i class="fa fa-chevron-circle-left"></i>
 	Lưu kế hoạch
 	</button>	
@@ -381,10 +395,25 @@
 	<script type="text/template" id="trip3s-attribute-schedule-3">
 		<div class="title-information" ><b><i class="fa  fa-map-marker icon"></i> {{data-index}} - Địa điểm chưa sắp lịch </b></div>
 	</script>
+
+	<script type="text/template" id="trip3s-attribute-schedule-4">
+		<div> &nbsp; <b data-place="{{data-place}}" id="place-of-{{data-place}}" class="place-number"> {{data-place}}</b> Địa điểm  |
+		</div>
+		<div> <b data-time="{{data-time}}" id="time-of-{{data-time}}" class="time-number">{{data-time}}</b> Ngày  |
+		</div>
+		<div> <b data-user="{{data-user}}" id="user-of-{{data-user}}" class="user-number">{{data-user}}</b> Người   |
+		</div>
+		<div> <b data-user="{{data-money}}" id="user-of-{{data-money}}" class="money-number">{{data-money}} đ</b> 
+		</div>
+	</script>
+
 	<script type="text/template" id="trip3s-attribute-schedule-1">
 		<div class="title-information" ><b>Thông tin ngày thứ {{data-index}}</b>
-		<button class="btn-xs btn-default pull-right btn-optimize" data-day="{{data-index}}">Tối ưu</button>
+		
+		<button class="btn-xs btn-success pull-right " id="showMap-plan" data-day="{{data-index}}"><i class="glyphicon glyphicon-globe"></i> Lộ trình</button>
 		</div>
+
+
 		<div><i class="fa  fa-map-marker icon"></i
 			<b data-place="{{data-place}}" id="place-of-{{data-place}}" class="place-number">{{data-place}}</b>  | 
 		</div>
@@ -802,6 +831,29 @@
 					 </div><!-- btn-group -->
 				</div> <!-- col-md-12 -->
 			</div> <!-- row -->
+		</div> <!-- javo_somw_info -->
+	</script>
+	<script type="text/template" id="javo-map-box-infobx-content-2">
+
+		<div class="javo_somw_info panel" style="min-height:220px;" data-userid="{{user-id}}">
+			<div class="des">
+				<ul class="list-unstyled">
+					<li><div class="prp-meta"><h4><strong>{{user-display}}</h4></strong></div></li> 
+										<li>
+						<div class="prp-meta">{{user-address}}
+						</div>
+					</li>
+				</ul>
+			</div> <!-- des -->
+
+			<div class="pics">
+				<div class="thumb">
+					<a href="#" target="_blank">
+					
+					<img width="150" height="165" src="{{user-thumbnail}}" class="attachment-javo-map-thumbnail wp-post-image" alt="image10" />
+					</a>
+				</div> <!-- thumb -->
+			</div> <!-- pic -->
 		</div> <!-- javo_somw_info -->
 	</script>
 	<script type="text/template" id="javo-map-box-content-loading">

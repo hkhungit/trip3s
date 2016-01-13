@@ -238,8 +238,8 @@
         </div>
         <div class="panel-body">
           <div class="pull-left">
-          <a href="/u/<%=@user.user_display%>/plans" title="<%=@user.user_display%>">
-          <img width="120" height="120" alt="<%=@user.user_display%>" class="fleft img-circle" src="<%=@user.user_thumbnail%>">
+          <a href="/u/<%=@user.id%>/plans" title="<%=@user.user_display%>">
+          <img width="120" height="120" alt="<%=@user.user_display%>"  title="<%=@user.user_display%>" class="fleft img-circle" src="<%=@user.user_thumbnail%>">
           </a>
           </div>
           <div class="media-body text-left">
@@ -273,6 +273,14 @@
       </div>
       <!--Comments about plan-->
       <section class="panel panel-default fleft fui-row-full panel-hide-print" id="box_comment">
+      <div id="comments-list">
+        
+      </div>
+
+      <div id="comment-form">
+        <%= render 'comments/comment_form' %>
+      </div>
+
         <div class="panel-heading">
           <h2 data-count="0" class="panel-title text-left font18">0 Comment </h2>
         </div>

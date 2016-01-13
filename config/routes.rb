@@ -67,11 +67,13 @@ Rails.application.routes.draw do
       get 'return_day'
     end
     collection do
+      get 'trip3s_user_by_id'
       get 'showVote'
       post 'vote'
       get 'upload_image'
       post 'upload_image'
       post 'friends'
+      get 'response_user'
       post 'response_user'
       post 'detail_by_schedule_id'
       post 'add_friend'
@@ -120,6 +122,7 @@ Rails.application.routes.draw do
   resources :plans do
     collection do
       get 'k_mean'
+      get 'search'
       post 'createPlan'
       get 'createPlan'
     end
@@ -138,8 +141,7 @@ Rails.application.routes.draw do
 
   resources :user_posts
 
-  resources :comments
-
+ 
   resources :user_expands
 
   resources :users do
@@ -150,8 +152,10 @@ Rails.application.routes.draw do
   end
   resources :post_categories
 
-  resources :posts
-
+ 
+  resources :posts do
+    resources :comments
+  end
   resources :types
 
   resources :categories
