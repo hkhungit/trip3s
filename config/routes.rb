@@ -2,6 +2,14 @@
 Rails.application.routes.draw do
   
   namespace :admin do
+  get 'baocao/diadiem'
+  end
+
+  namespace :admin do
+  get 'baocao/kehoach'
+  end
+
+  namespace :admin do
   get 'homeadmin/index'
   end
 
