@@ -62,6 +62,10 @@ jQuery(function($) {
                 }
             });
         });
+    $('[name^="plan[plan_cate]"]').chosen({
+        width: '100%',
+        search_contains: 1
+    });
 
     function removeDuplicate(arr) {
         var resultsaa = [],

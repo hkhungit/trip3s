@@ -29,7 +29,7 @@ class PlansController < ApplicationController
   # GET /plans/1.json
   def show
     @post = Post.where(:id=>@plan.post_id).first
-    @comments = @post.comments
+    @comments     = Comment.where(:post_id => @plan.post_id).order("id desc").limit(5);
     @new_comment = @post.comments.new
 
     #viewCount = @post.post_view + 1
@@ -75,6 +75,7 @@ class PlansController < ApplicationController
   def new
     
     @plan = Plan.new
+    @plan_cate    = Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_plan'}) 
     @places_city      = Category.select("*").joins(:type).where(:types => {:type_name => 'type_city'}) 
     @places_purpose   = Category.select("*").joins(:type).where(:types => {:type_name => 'type_purpose_place'}) 
     @places_cuisine   = Category.select("*").joins(:type).where(:types => {:type_name => 'type_cuisine_place'}) 
@@ -155,7 +156,7 @@ class PlansController < ApplicationController
                     :place_id     => crrPlace["place_id"],
                     :schedule_id  => schedule_id,
                     :place_name   => crrPlace["post_title"],
-                    :place_spend  => crrPlace["place_money"],
+                    :place_spend  => crrPlace["place_ticket"],
                     :place_lat    => crrPlace["place_lat"],
                     :place_lng    => crrPlace["place_lng"],
                     :place_note   => crrPlace["place_note"],
@@ -332,6 +333,20 @@ class PlansController < ApplicationController
           user_postLi.save
         end
       end
+
+      plan_cates = params[:plan][:plan_cate]
+      plan_cates.each do |cate|
+        type = Type.where(:category_id => cate).last
+        if type.id.present?
+           planCate = PostCategory.new
+          planCate.post_id = post_id
+          planCate.type_id = type.id
+          planCate.save
+        end
+      end
+     
+     
+
       session[:plan] = nil
     end
     redirect_to @plan
@@ -708,6 +723,7 @@ class PlansController < ApplicationController
         @plan         = Plan.find(params[:id])
 
         @categories   = filter_category  @plan.post_id, 'type_category_plan'
+        @comments     = Comment.where(:post_id => @plan.post_id).order("id desc").limit(5);
         #@user = @plan.post.user_post.where(permission: 1).last.user
         @user       = User.joins(:user_post).where({:user_posts => {post_id: @plan.post.id, permission: 1 }}).first
         if @user.nil?

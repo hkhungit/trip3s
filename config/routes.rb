@@ -67,6 +67,8 @@ Rails.application.routes.draw do
       get 'return_day'
     end
     collection do
+      get 'getComment'
+      post 'comment'
       get 'trip3s_user_by_id'
       get 'showVote'
       post 'vote'

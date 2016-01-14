@@ -602,6 +602,40 @@
 		return arr
 	end
 	
+	def getComment
+		status  = false
+		if params[:post_id]
+			
+		end
+
+		render json: {
+			status: status
+		}
+	end
+	def comment
+		status = false
+		if current_user.present?
+			comment = Comment.new
+			comment.user_id = current_user.id
+			comment.comment_author = current_user.name_display
+			comment.comment_author_email = current_user.user_email
+			comment.comment_author_url = "/users/#{current_user.id}"
+			comment.comment_content = params[:comment][:comment_content]
+			comment.post_id = params[:comment][:post_id]
+			if comment.save
+				status = true 
+				render json: {
+					status:status,
+					comment: comment
+				}
+				return
+			end
+		end
+
+		render json: {
+			status:status	
+		}
+	end
 	def detail_by_schedule_id
 		schedule_id  = params[:schedule_id]
 		schedule 	 = ScheduleDetail.where({:schedule_id => schedule_id})

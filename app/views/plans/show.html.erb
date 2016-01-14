@@ -67,7 +67,7 @@
 
             <li><span class="fleft">Tổng khoảng cách:</span><span class="fright plan-value"><b><%=@schedules.sum(:schedule_distance)%></b> <small> km</small></span></li>
 
-            <li> <span class="fleft">Tổng địa điểm</span> <span class="fright plan-value"><b><%=@details.count%></b> <small> địa điểm</small></span></li>
+            <li> <span class="fleft">Tổng địa điểm</span> <span class="fright plan-value"><b><%=@details.distinct.select(:place_id).count%></b> <small> địa điểm</small></span></li>
 
             
             <li class=" first">
@@ -102,29 +102,18 @@
           </div>
           <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
             <div class="hidden-xs text-right btn-group pull-right">
-              <div class="btn-group">
-                <a id="btn-plan-clone" class="btn btn-default btn-plan-clone tipB" title="" data-id="16386" href="#" data-original-title="Copy this itinerary to customize by yourself">
-                <span class="icomoon-icon-copy"></span> Sao chép
-                </a>
+              <div class="btn-group"> 
                 <a href="#" title="" class="tipT btn btn-plan-messages btn-default dropdown-toggle" data-toggle="dropdown" data-original-title="In hoặc tải dạng PDF">
                 <span class="glyphicon glyphicon-download"></span>
                 <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu" role="menu">
-                  <li>
-                  <a id="btn-plan-print" href="#"><span class="glyphicon glyphicon-print"></span> Tải PDF</a>
-                  </li>
+                <ul class="dropdown-menu" role="menu"> 
                   <li>
                   <a id="btn-plan-pdf" href="#"><span class="glyphicon glyphicon-download"></span> Tải với chỉ dường</a>
                   </li>
                 </ul>
-              </div>
-              <a href="#set-1" id="btn-email-itinerary" title="" class="tipT btn btn-default" data-original-title="Gửi cho bạn bè">
-              <span class="glyphicon glyphicon-envelope"></span>
+              </div>  
               </a>
-              <button class="btn btn-reporterror tipB btn-default"  onClick="javascript:this.style.display='none';window.print();this.style.display='';" title="" data-object="16386" data-type="plan" data-original-title="Báo cáo với quản trị về kế hoạch">
-              <i class="glyphicon glyphicon-flag"></i>
-              </button>
             </div>
             <div class="hidden-xs fright text-right btn-group">
               <button class="btn btn-vote tipB  btn-default" title="" data-short-title="Up" data-count="0" data-value="0" data-vtype="vote" data-object="<%=@plan.post_id%>" data-type="plan" data-original-title="I dislike it">
@@ -167,10 +156,9 @@
                 <div class="col-xs-8 col-sm-10">
                   <div class="iti-att-title">
                     <i class="icon-box cat-attraction icomoon-icon-library"></i>
-                    <strong><a class="title" target="_blank" href="/a/philippine-eagle-centre-320865"><%=detail.place_name%></a></strong>
+                    <strong><a class="title" target="_blank" href="<%=detail.place_id%>"><%=detail.place_name%></a></strong>
                     <span class="btn-group hidden-xs fright">
-                    <a class="btn btn-default btn-xs view-detail" href="/a/philippine-eagle-centre-320865"><i class="icomoon-icon-list-view-2"></i>Detail</a>
-                    <a class="btn btn-default btn-xs view-on-map anchor-scroll" href="#results-day-1" data-day="1" data-index="1"><i class="icomoon-icon-location-3"></i>Map</a>
+                    <a class="btn btn-default btn-xs view-detail" href="/places/<%=detail.place_id%>"><i class="icomoon-icon-list-view-2"></i>Detail</a> 
                     </span>
                     <span class="pull-right label hidden-xs tipB" title="" data-original-title="Highly Recommended"><i class="glyphicon glyphicon-thumbs-up"></i></span>
                   </div>
@@ -273,25 +261,33 @@
       </div>
       <!--Comments about plan-->
       <section class="panel panel-default fleft fui-row-full panel-hide-print" id="box_comment">
-      <div id="comments-list">
-        
-      </div>
-
-      <div id="comment-form">
-        <%= render 'comments/comment_form' %>
-      </div>
 
         <div class="panel-heading">
-          <h2 data-count="0" class="panel-title text-left font18">0 Comment </h2>
+          <h2 data-count="<%=@comments.count%>" class="panel-title text-left font18"><%=@comments.count%> Bình luận </h2>
         </div>
         <div class="panel-body">
           <div id="itinerary-social" class="fui-row-full text-left fleft">
             <div id="itinerary-discussion" class="fui-row-full">
               <div class="fleft fui-listcomments fui-row-full">
               <ul class="list-comments media-list list-unstyled">
-                <li>
-                <p class="text-muted no-comment">There are no comments at this time.</p>
-                </li>
+              <%if @comments.count > 1%>
+               <%@comments.each do |cmt|%>
+                  <li>
+                    <div class="item-comment row">
+                      <p class="item-img col-md-12">
+                        <a href="<%=cmt.comment_author_url%>"><%=cmt.comment_author%></a>
+                      </p>
+                      <p class="item-content  col-md-12">
+                        <%=cmt.comment_content%>
+                      </p>
+                    </div>
+                  </li> 
+               <%end%>
+              <%else%>
+                 <li>
+                  <p class="text-muted no-comment">Kế hoạch chưa có bình luận nào.</p> 
+                  </li> 
+              <%end%>
               </ul>
               </div>
             </div>
@@ -299,20 +295,26 @@
         </div>
         <div class="panel-footer">
           <div class="media fui-comment-new">
-            <div class="fui-row-full input-box hidden">
-            <a class="pull-left item-thumnail-1" href="">
-            <img class="media-object img-circle" width="48" height="48" src="">
-            </a>
-            <div class="media-body">
-            <textarea tabindex="11" class="fui-comment-input form-control" id="comment-text" placeholder="Write your comment"></textarea>
-            <p></p><div class="clearfix"></div><a tabindex="12" class="btn btn-primary btn-submit pull-right"><i class="icomoon-icon-pencil-4"></i><span>Post your comment</span></a><p></p>
+          <%if current_user.present?%>
+            <div class="fui-row-full input-box">
+            <%= form_for(:comment_form, :url => {:controller => :api, :action => :comment}, :remote => true, :html => {:method => :post, :id => 'form-comment-new', :multipart => true}) do |f| %>
+              <a class="pull-left item-thumnail-1" title="<%=current_user.name_display%>" href="/users/<%=current_user.id%>">
+              <img class="media-object img-circle" width="48" height="48" alt="<%=current_user.name_display%>" src="<%=current_user.user_thumbnail%>">
+              </a>
+              <div class="media-body">
+              <textarea tabindex="11" name="comment[comment_content]" class="fui-comment-input form-control" id="comment-text" placeholder="Write your comment"></textarea>
+              <p></p><div class="clearfix"></div><a tabindex="12" class="btn btn-primary btn-comment pull-right"><i class="icomoon-icon-pencil-4"></i><span>Đăng bình luận</span></a><p></p>
+              </div> 
+              <input type="hidden" value="<%=@plan.post.id%>" name="comment[post_id]"> 
+              <%end%>
             </div>
-            </div>
+          <%else%>
             <div class="text-left alert-box ">
             <p>
-            You need to <a href="#" onclick="fiuzu.common.decorator.loginRequired(function(){location.reload();})">Sign in</a> or <a href="#" onclick="fiuzu.common.decorator.loginRequired(function(){location.reload();})">Register</a> new account for leaving comments.
+            Bạn cần <a href="#">Đăng nhập</a>  để bình luận
             </p>
             </div>
+          <%end%>
           </div>
         </div>
       </section>
@@ -332,7 +334,7 @@
       <li class="">
         <a data-day="<%=schedule.schedule_day%>" href="#nav-day-<%=schedule.schedule_day%>">
         <i class="icomoon-icon-calendar-2"></i>Ngày <%=schedule.schedule_day%>
-        <span class="badge fright"><%=@details.where({:schedule_id => schedule.id}).count%> địa điểm</span>
+        <span class="badge fright"><%=@details.where(:schedule_id => schedule.id).select(:place_id).distinct.count%>  địa điểm</span>
         </a>
       </li>
       <%end%>

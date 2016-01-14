@@ -270,6 +270,18 @@
           </div>
           <input type="hidden" value="" name="plan[plan_thumbnail]"     id="file-upload-to-responsive">
           <input type="hidden" value="" name="plan[plan_thumbnail_id]"  id="file-upload-to-responsive-id">
+           <div class="col-sm-12">
+            <div class="form-group">
+              <label for="label-category"><strong>Gán nhãn:</strong></label>
+              <select multiple="multiple"  data-placeholder="Dạnh mục du lịch"  name="plan[plan_cate][]"  >
+              <option value="0" disabled>Dạnh mục du lịch</option>
+              <%@plan_cate.each do |cate|%>
+              <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>"> <%=cate.cate_name%></option>   
+              <%end%>
+            </select>
+            </div>
+          </div>
+
          <% end %>
           <div class="col-sm-12">
             <div class="form-group">
@@ -328,10 +340,9 @@
             <div class="col-md-12">
                <button class="btn btn-xs pull-left btn-danger btn-box-seting"><i class="fa fa-hand-o-left"></i> Quay lại</button>
             
-               <button class="btn btn-xs pull-left btn-info create-trip"><i class="fa fa-pie-chart"></i> Sắp lịch</button>
+               <button class="btn btn-xs  pull-right btn-info create-trip"><i class="fa fa-pie-chart"></i> Sắp lịch</button>
                 <span class="trigger-create" ></span>
                 
-                <button class="btn btn-xs pull-right btn-primary btn-box-all">Tiếp theo <i class="fa fa-hand-o-right"></i></button>
             </div>
           </div>
         </div>
@@ -633,317 +644,10 @@
           <div class="form-group"><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="5" class="wpcf7-form-control wpcf7-textarea form-control" aria-invalid="false" placeholder="message"></textarea></span></div>
           <div class="form-group"><input type="submit" value="Send Message" class="wpcf7-form-control wpcf7-submit btn btn-primary"><img class="ajax-loader" src="http://javothemes.com/directory/demo2/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden;"></div>
           <div class="wpcf7-response-output wpcf7-display-none"></div></form></div>   </div>
-          <div class="modal fade" id="author_contact" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h4 class="modal-title">Contact <span class="javo-contact-user-name"></span></h4>
-                </div>
-                <div class="modal-body">
-                  <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                      <label for="contact_name" class="col-sm-2 control-label">Name</label>
-                      <div class="col-sm-10">
-                        <input name="contact_name" id="contact_name" class="form-control" placeholder="Insert your name" type="text">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="contact_email" class="col-sm-2 control-label">Email</label>
-                      <div class="col-sm-10">
-                        <input name="contact_email" id="contact_email" class="form-control" placeholder="Insert your E-mail address." type="email">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-md-12">
-                        <textarea name="contact_content" id="contact_content" class="form-control" rows="5"></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-12">
-                        <input id="contact_submit" class="btn btn-primary col-md-12" value="Send a message" type="button">
-                      </div>
-                    </div>
-                    <input type="hidden" name="contact_this_from">
-                    <input type="hidden" name="contact_item_name">
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div><!-- Modal -->
-          <div class="modal fade" id="map_breif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <div class="row">
-                    <div class="col-md-12 javo_map_breif_modal_content"></div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12 text-center">
-                      <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
-          <!-- Post share link send to mail -->
-          <div class="modal fade" id="emailme-reveal" tabindex="-1" role="dialog" aria-labelledby="emailme-revealLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <form method="post" id="javo_frm_send_link_mail" class="custom">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="emailme-revealLabel">Email This post</h4>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row">
-                      <div class="col-xs-6 col-lg-4"><div class="well well-sm">Sender Email Address</div></div>
-                      <div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="to_emailme_email" placeholder="Please type email address" value=""></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-6 col-lg-4"><div class="well well-sm">Reception Email Address</div></div>
-                      <div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="from_emailme_email" placeholder="Please type email address to send" value=""></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-6 col-lg-4"><div class="well well-sm"><i class="fa fa-link"></i>&nbsp;Link</div></div>
-                      <div class="col-xs-6 col-lg-8"><input type="text" class="form-control" name="emailme_link" readonly="" value="http://javothemes.com/directory/demo2/map-box/"></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12 col-lg-12"><textarea class="form-control" rows="10" cols="5" name="emailme_memo" placeholder="Please add some memo, if you need"></textarea></div>
-                    </div>
-                  </div><!-- Modal body -->
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="javo_send_link_mail(this);">Send</button>
-                    <input name="action" value="emailme" type="hidden">
-                    <input name="action_mode" value="emailme" type="hidden">
-                  </div>
-                </form>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
-          <script type="text/javascript">
-            function javo_send_link_mail(t){
-              (function($){
-                "use strict";
-                var f = t.form;
-                var param = $("#javo_frm_send_link_mail").serialize();
-                var option = {
-                  url:'http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php',
-                  type:'post', dataType:'json', data:param, success:function(data){
-                    if( data['result'] == true ){
-                      alert("");
-                    }else{
-                      alert("");
-                    };
-                    $(t).text("Send").attr("disabled", false);
-                  }, error:function(e){
-                    alert("" + e.state());}};
-                    if( !f.to_emailme_email.value ){
-                      alert("");
-                      f.to_emailme_email.focus();
-                      return false;
-                    };
-                    if( !f.from_emailme_email.value ){
-                      alert("");
-                      f.from_emailme_email.focus();
-                      return false;
-                    };
-                    $(t).text("Processing..").attr("disabled", true);
-                    $.ajax(option);
-
-                  })(jQuery);
-                }
-              </script>
-              <!-- Close Post share link send to mail --><!-- Post share link send to mail -->
-              <div class="modal fade" id="jv-claim-reveal" tabindex="-1" role="dialog" aria-labelledby="jv-claim-revealLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-
-
-
-                    <form method="post" id="javo_frm_send_link_claim" class="custom">
-
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="jv-claim-revealLabel">Claim This Business</h4>
-                      </div>
-                      <div class="modal-body">
-                        <div class="row">
-                          <div class="col-xs-6 col-lg-6">
-                            <div class="form-group"><input type="text" class="form-control" name="jv-claim-name" required="" placeholder="Your Name" value=""></div>
-                          </div>
-
-                          <div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-email" placeholder="Your email" value=""></div></div>
-                        </div><!-- row -->
-                        <div class="row">
-                          <div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-username" placeholder="Username" value=""></div></div>
-                          <div class="col-xs-6 col-lg-6"><div class="form-group"><input type="text" class="form-control" name="jv-claim-phone" placeholder="Phone Number" value=""></div></div>
-                        </div><!-- row -->
-                        <div class="row">
-                          <div class="col-xs-12 col-lg-12"><textarea class="form-control" rows="5" cols="3" name="jv-claim-memo" placeholder="Please add some memo, if you need"></textarea></div>
-                        </div>
-                        <input type="hidden" cla="form-control" name="jv-claim-item" value="695">
-                      </div><!-- Modal body -->
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="javo_send_link_claim(this);">Send</button>
-                        <input name="action" value="send_claim" type="hidden">
-                      </div>
-                    </form>
-                  </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-              </div><!-- /.modal -->
-              <script type="text/javascript">
-                function javo_send_link_claim(t){
-                  (function($){
-                    "use strict";
-                    var f = t.form;
-                    var param = $("#javo_frm_send_link_claim").serialize();
-                    var option = {
-                      url:'http://javothemes.com/directory/demo2/wp-admin/admin-ajax.php',
-                      type:'post'
-                      , dataType:'json'
-                      , data:param
-                      , success:function(data){
-                        if( data.result == true ){
-                          $.javo_msg({content:"Your claim request has been successfully sent!<br/>We will review it and get you back soon."}, function(){
-                            $("#jv-claim-reveal").modal('hide');
-                          });
-                        }else{
-                          $.javo_msg({content:"Sorry, Email send failed. Please check your email address"});
-                        };
-                        $(t).button('reset');
-                      }, error:function(e){
-                        alert("" + e.state());
-                        console.log( e.responseText );
-                      }
-                    };
-
-                    var on_errors = 0;
-
-                    $(f).find('input').each(function(){
-                      $(this).removeClass('isNull');
-                      if( $(this).val() == "" ){
-                        $(this).addClass('isNull');
-                        on_errors++;
-                      }
-                    });
-
-                    if( on_errors > 0 ){
-
-                      $.javo_msg({ content:'Please fill them out'});
-                      return false;
-                    }
-
-                    $(t).button('loading');
-
-                    $.ajax(option);
-                  })(jQuery);
-                }
-              </script>
+  
+           
               <!-- Close Post share link send to mail -->
-              
-
-                <!-- Modal -->
-                <div class="modal fade" id="register_waiting_create" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="box-wait">
-                    <img src="/assets/icon/PleaseWait.gif" >
-                  </div>
-                </div>
-
-                <!-- /.modal -->
-
-                <!-- Modal Place detail-->
-                <div class="modal fade " id="place_detail_panel" tabindex="-1" role="dialog" aria-hidden="true">
-
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="register_panel" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <form data-javo-modal-register-form="">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                          <h4 class="modal-title" id="myModalLabel">
-                            <img src="/assets/images/icon/icon-user.png">
-                            Create Account          </h4>
-                          </div>
-                          <div class="modal-body">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="" for="reg-username">Username</label>
-                                  <input type="text" id="reg-username" name="user_login" class="form-control" required="" placeholder="Username">
-                                </div>
-                              </div><!-- /.col-md-6 -->
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="" for="reg-email">Email Address</label>
-                                  <input type="text" id="reg-email" name="user_email" class="form-control" required="" placeholder="Your email">
-                                </div>
-                              </div><!-- /.col-md-6 -->
-                            </div><!-- /.row -->
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="" for="firstname">First Name</label>
-                                  <input type="text" id="firstname" name="first_name" class="form-control" required="" placeholder="Your first name">
-
-                                </div>
-                              </div><!-- /.col-md-6 -->
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="" for="lastname">Last Name</label>
-                                  <input type="text" id="lastname" name="last_name" class="form-control" required="" placeholder="Your last name">
-
-                                </div>
-                              </div><!-- /.col-md-6 -->
-                            </div><!-- /.row -->
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="" for="reg-password">Password</label>
-                                  <input type="password" id="reg-password" name="user_pass" class="form-control" required="" placeholder="Desired Password">
-
-                                </div>
-                              </div><!-- /.col-md-6 -->
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <label class="" for="reg-con-password">Confirm Password</label>
-                                  <input type="password" id="reg-con-password" name="user_con_pass" class="form-control" required="" placeholder="Confirm Password">
-
-                                </div>
-                              </div><!-- /.col-md-6 -->
-                            </div><!-- /.row -->
-                          </div>
-
-                          <div class="modal-footer">
-
-
-                            <div class="row">
-                              <div class="col-md-4 text-left">
-                                <a href="#" data-toggle="modal" data-target="#login_panel" class="btn btn-default javo-tooltip" title="" data-original-title="Log-In">LOG IN</a>
-
-                              </div><!-- /.col-md-4 -->
-                              <div class="col-md-8 text-right">
-                                <input type="hidden" name="action" value="register_login_add_user">
-                                <button type="submit" id="signup" name="submit" class="btn btn-primary"><i class="icon-heart"></i> &nbsp;Create My Account</button> &nbsp;
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                              </div><!-- /.col-md-8 -->
-                            </div><!-- /.row -->
-
-                          </div>
-                        </form>
-                      </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                  </div><!-- /.modal -->
+ 
                   <fieldset>
                     <input type="hidden" name="javo_str_disagree" value="You need to read and agree the terms and conditions to register.">
                   </fieldset>
