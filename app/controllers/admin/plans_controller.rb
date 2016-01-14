@@ -4,7 +4,7 @@ class Admin::PlansController < ApplicationController
   # GET /admin/plans
   # GET /admin/plans.json
   def index
-    @plans = Plan.all
+    @plans = Plan.all.paginate(page: params[:page])
   end
 
   # GET /admin/plans/1
@@ -68,7 +68,7 @@ class Admin::PlansController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def plan_params
-      params[:plan]
+     def plan_params
+      params.require(:plan).permit(:post_id, :plan_day, :plan_start, :plan_end, :plan_money, :plan_spend)
     end
 end
