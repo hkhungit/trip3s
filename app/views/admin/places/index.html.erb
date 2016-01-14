@@ -1,26 +1,36 @@
-<h1>Listing places</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @places.each do |place| %>
-      <tr>
-        <td></td>
-        <td><%= link_to 'Show', [:admin, place] %></td>
-        <td><%= link_to 'Edit', edit_admin_place_path(place) %></td>
-        <td><%= link_to 'Destroy', [:admin, place], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<section id="main-content">
+<div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              <h2>Danh Sách Địa Điểm</h2>
+                               <button type="button" class="btn btn-success pull-right"><%= link_to '+ Thêm mới địa điểm', new_admin_place_path %></button>
+                          </header>
+                          
+                          <table class="table table-striped table-advance table-hover">
+                           <tbody>
+                              <tr>
+                                 <th><i class="icon_profile"></i> Tên Địa Điểm</th>
+                                 <th><i class="icon_calendar"></i> Địa Chỉ</th>
+                                 <th><i class="icon_cogs"></i> Hành Động</th>
+                              </tr>
+                              <% @places_all.each do |place| %>
+                              <tr>
+                                  <td><%= place.post.post_title %></td>
+                                  <td><%= place.place_address %></td>
+                                   <td>
+                                  <div class="btn-group">
+                                      <%= link_to 'Xem', [:admin, place] %>
+                                      ||<%= link_to 'Sửa', edit_admin_place_path(place) %>
+                                      ||<%= link_to 'Xóa', [:admin, place], method: :delete, data: { confirm: 'Are you sure?' } %>
+                                  </div>
+                                  </td>
+                                </tr>
+                              <% end %>
+                           </tbody>
+                        </table>
+                        <%= will_paginate @places_all %>
+                      </section>
+ 
 <br>
-
-<%= link_to 'New Place', new_admin_place_path %>
+</section>

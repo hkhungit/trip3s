@@ -1,25 +1,34 @@
-<h1>Listing categories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= link_to 'Show', [:admin, category] %></td>
-        <td><%= link_to 'Edit', edit_admin_category_path(category) %></td>
-        <td><%= link_to 'Destroy', [:admin, category], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<section id="main-content">
+<div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              <h2>Danh Sách Loại Địa Điểm</h2>
+                               <button type="button" class="btn btn-success pull-right"><%= link_to '+ Thêm mới loại địa điểm', new_admin_category_path %></button>
+                          </header>
+                          
+                          <table class="table table-striped table-advance table-hover">
+                           <tbody>
+                              <tr>
+                                 <th><i class="icon_profile"></i> Tên Loại Địa Điểm</th>
+                                 <th><i class="icon_cogs"></i> Hành Động</th>
+                              </tr>
+                              <% @categories.each do |category| %>
+                              <tr>
+                                  <td><%= category.cate_name %></td>
+                                   <td>
+                                  <div class="btn-group">
+                                      <%= link_to 'Xem', [:admin, category] %>
+                                      ||<%= link_to 'Sửa', edit_admin_category_path(category) %>
+                                      ||<%= link_to 'Xóa', [:admin, category], method: :delete, data: { confirm: 'Are you sure?' } %>
+                                  </div>
+                                  </td>
+                                </tr>
+                              <% end %>
+                           </tbody>
+                        </table>
+                        <%= will_paginate @categories %>
+                      </section>
+ 
 <br>
-
-<%= link_to 'New Category', new_admin_category_path %>
+</section>

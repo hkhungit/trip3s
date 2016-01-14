@@ -1,10 +1,11 @@
 class Admin::PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
-
+  layout "admin"
   # GET /admin/places
   # GET /admin/places.json
   def index
     @places = Place.all
+    @places_all=Place.all.paginate(page: params[:page])
   end
 
   # GET /admin/places/1
@@ -68,7 +69,7 @@ class Admin::PlacesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def place_params
-      params[:place]
+   def place_params
+      params.require(:place).permit(:post_id, :place_lat, :place_lng, :place_ticket, :place_open, :place_close, :place_late, :place_choice)
     end
 end

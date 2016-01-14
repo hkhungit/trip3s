@@ -1,6 +1,6 @@
 class Admin::PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-
+  layout "admin"
   # GET /admin/posts
   # GET /admin/posts.json
   def index

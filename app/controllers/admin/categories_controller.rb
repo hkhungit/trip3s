@@ -1,10 +1,11 @@
 class Admin::CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-
+  layout "admin"
   # GET /admin/categories
   # GET /admin/categories.json
   def index
-    @categories = Category.all
+    @categories = Category.all.paginate(page: params[:page])
+    @categories_all=Category.all.paginate(page: params[:page])
   end
 
   # GET /admin/categories/1
@@ -68,7 +69,7 @@ class Admin::CategoriesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def category_params
-      params[:category]
+   def category_params
+      params.require(:category).permit(:cate_name, :cate_url, :cate_group, :cate_thumbnail)
     end
 end

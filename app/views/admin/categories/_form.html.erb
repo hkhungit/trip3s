@@ -1,3 +1,5 @@
+<section id="main-content">
+  <h1>Sửa Loại Địa Điểm</h1>
 <%= form_for([:admin, @category]) do |f| %>
   <% if @category.errors.any? %>
     <div id="error_explanation">
@@ -10,8 +12,12 @@
       </ul>
     </div>
   <% end %>
-
+ <div class="field">
+  <label>Tên Loại Địa Điểm</label><br>
+    <%= f.text_field :cate_name %>
+  </div><br>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+</section>
