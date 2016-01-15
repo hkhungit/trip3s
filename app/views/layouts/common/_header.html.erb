@@ -337,7 +337,7 @@ document.ajaxurl="wp-admin/admin-ajax.html";
 			<!-- Modal Header -->
 			<div class="modal-header text-center">
 				<h4 class="modal-title" id="myModalLabel">
-					<img src="assets/icon/icon-user.png">
+					<img src="/assets/icon/icon-user.png">
 					Đăng nhập tài khoản				</h4><!-- /.modal-title -->
 			</div><!-- /.modal-header -->
 
@@ -466,18 +466,19 @@ document.ajaxurl="wp-admin/admin-ajax.html";
 					<ul id="menu-primary-menu" class="nav navbar-nav navbar-left">
 						
 						<li id="menu-item-4087" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4087 dropdown">
-							<%=link_to "Trang Chủ", root_path%>
-
-							
+							<%=link_to "Trang Chủ", root_path%> 
 						</li>	
 						<li id="menu-item-4088" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4087 dropdown">
 							<%=link_to "Địa điểm", places_path%>
 						</li>					
 						<li id="menu-item-4089" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4087 dropdown">
-							<%=link_to "Kế hoạch", plans_path%>
+							<%=link_to "Tour du lịch", plans_path%>
 						</li>					
 						<li id="menu-item-4190" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4087 dropdown">
-							<%=link_to "Mẹo nhỏ", posts_path%>
+							<%=link_to "Bài viết", posts_path%>
+						</li>				
+						<li id="menu-item-4190" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-4087 dropdown">
+							<%=link_to "Tạo mới tour", new_plan_path%>
 						</li>		
 </ul>
 					<ul class="nav navbar-nav navbar-right" id="javo-header-featured-menu">

@@ -1,0 +1,105 @@
+<div class="sidebar-right col-md-9 nopadding">
+
+            <div class="panel panel-default right-panel-default fui-row-full" id="setting-info">
+              <div class="panel-heading">
+                <strong class="title-setting">Thông tin chung</strong>
+              </div>
+              <div class="panel-body"> 
+                <div class="row">
+                  <div class="col-md-3">  
+                        <%= form_for(:user_form, :url => {:controller => :images, :action => :upload_image}, :remote => true, :html => {:method => :post, :id => 'upload_form', :multipart => true}) do |f| %>
+                        
+
+
+                              <img class="list-item-img user_thumbnail1212" src="<%=@user.user_thumbnail%>" width="150" height="150">
+
+                              <input type="hidden" value="<%=@user.user_thumbnail%>" name="user[user_thumbnail]"  id="user_thumbnail12121">
+                               <%= f.file_field :user_thumbnail %>
+                 
+                        <% end %>
+                        </div> 
+                  <div class="col-md-9">
+                    <table class="table">
+                      <tr class="row">
+                        <td class="col-md-3"> Tài khoản: </td>
+                        <td class="col-md-9"> <%=@user.user_name%></td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Tên hiển thị: </td>
+                        <td class="col-md-9"> 
+                          <span class="toggle-button-input">
+                            <%=@user.name_display%>
+                          </span>
+                          <span class="target-button-input">
+                            <input type="text" value="<%=@user.name_display%>" name="user[user_display]"   class="form-control">
+                          </span>
+                        </td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Địa chỉ: </td>
+                        <td class="col-md-9"> 
+                          <span class="toggle-button-input">
+                            <%if @user.user_address.blank? %>
+                              chưa có
+                            <%else%>
+                              <%=@user.user_address%>
+                            <%end%>
+                          </span>
+                          <span class="target-button-input">
+                            <input type="text" value="<%=@user.user_address%>"  name="user[user_address]"   class="form-control">
+                          </span>
+                        </td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Địa chỉ email: </td>
+                        <td class="col-md-9"> 
+                           <span class="toggle-button-input">
+                            <%=@user.user_email%>
+                          </span>
+                          <span class="target-button-input">
+                            <input type="text" value="<%=@user.user_email%>"  name="user[user_email]"  class="form-control">
+                          </span>
+                        </td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Số điện thoại: </td>
+                        <td class="col-md-9"> 
+                          <span class="toggle-button-input">
+                            <%if @user.user_phone.blank? %>
+                              chưa có
+                            <%else%>
+                              <%= @user.user_phone %>
+                            <%end%>
+                          </span>
+                          <span class="target-button-input">
+                            <input type="text" value="<%=@user.user_phone%>"   name="user[user_phone]" class="form-control">
+                          </span>
+                        </td>
+                      </tr>
+                      <tr class="row">
+                        <td class="col-md-3"> Vị trí tọa độ: </td>
+                        <td class="col-md-9"> <span class="user-latlng"> <%=@user.location%>
+                        
+                        </span>
+                          <input type="hidden" value="<%=@user.location%>" class="user_latlng" id="user_latlng" name="user[latlng]" >
+                         <button class="btn btn-xs btn-warm btn-getlocation"> lấy tọa độ</button></td>
+                      </tr>
+
+                      <tr class="row">
+                        <td class="col-md-3"> Ngày đăng ký: </td>
+                        <td class="col-md-9"> <%=@user.created_at%></td>
+                      </tr> 
+                      <tr class="row">
+                        <td class="col-md-3"> Nguồn: </td>
+                        <td class="col-md-9"> <%=@user.user_activation%></td>
+                      </tr> 
+                      <tr class="row">
+                        <td class="col-md-3">  </td>
+                        <td class="col-md-9"> <button class="btn btn-xs btn-success btn-update-user-info">Cập nhật</button></td>
+                      </tr> 
+                    </table>
+                  </div>
+                </div> 
+              </div>
+            </div>
+            </div> 

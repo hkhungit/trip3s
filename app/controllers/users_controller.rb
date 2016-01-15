@@ -1,18 +1,14 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :plans]
-
+  before_action :user_info, only: [:index, :user_password, :user_profile, :user_friend, :user_confirm, :user_places, :user_plans, :user_collections]
   layout :resolve_layout
-  def resolve_layout
-    "trip3s"
-  end
+
+  skip_before_action :verify_authenticity_token
 
   # GET /users
   # GET /users.json
   def index
-    if @current_user.nil?
-      redirect_to login_path
-    end
-    @user = User.where(:id => @current_user).last
+    
     
   end
 
@@ -74,7 +70,137 @@ class UsersController < ApplicationController
     end
   end
 
+  #Manage user
+  #profile
+  def user_profile 
+  end
+
+  def user_password
+    
+  end
+  def user_friend
+    
+  end
+
+  def user_confirm
+    
+  end
+  def user_places
+    
+  end
+  def user_plans
+    
+  end
+
+  def user_collections
+    
+  end
+  def category_plan
+    status = false
+    if params[:cate].present?
+      if params[:cate][:action] == 'delete'
+        if params[:cate][:id].present? 
+          begin
+            cate = Category.where(:id=> params[:cate][:id].to_i)
+            if cate.present?
+              cate.destroy_all
+            end
+            type = Type.where(:category_id=> params[:cate][:id].to_i)
+            if type.present?
+              type.destroy_all 
+            end
+            post = PostCategory.joins(:type).where({:types => {:category_id=> params[:cate][:id].to_i}})
+            if post.present?
+              post.destroy_all 
+            end
+            status = true 
+          rescue Exception => e
+            status = false 
+          end
+        end
+        render json: {
+          status: status
+        }
+        return
+      elsif params[:cate][:action] == 'add'
+
+        if params[:cate][:id].present?
+          cateCurrent = Category.joins(:type).where({:cate_name => params[:cate][:cate_name], :types => {:type_name => 'type_category_plan'}}).first_or_create do |ct|
+            ct.cate_name    =  params[:cate][:cate_name]
+            ct.cate_url     =  params[:cate][:cate_url]
+            ct.cate_group   =  params[:cate][:cate_group]
+            ct.cate_thumbnail =  params[:cate][:cate_thumbnail]
+            ct.save
+          end
+
+        
+          type = Type.where({:type_name => 'type_category_plan', :category_id => cateCurrent.id}).first_or_create do |tp|
+            tp.type_name = 'type_category_plan'
+            tp.category_id = cateCurrent.id
+            tp.save
+          end
+
+          cateCurrent.update({:cate_name => params[:cate][:cate_name], :cate_url =>params[:cate][:cate_url],:cate_thumbnail =>params[:cate][:cate_thumbnail],:cate_group =>params[:cate][:cate_group]})
+          
+          status = true
+          render json: {
+            cate: cateCurrent,
+            status: status
+          }
+        end 
+
+      elsif params[:cate][:action] == 'edit'
+        cateCurrent = Category.joins(:type).where({:id => params[:cate][:id], :types => {:type_name => 'type_category_plan'}}).first_or_create do |ct|
+            ct.cate_name    =  params[:cate][:cate_name]
+            ct.cate_url     =  params[:cate][:cate_url]
+            ct.cate_group   =  params[:cate][:cate_group]
+            ct.cate_thumbnail =  params[:cate][:cate_thumbnail]
+            ct.save
+          end
+
+        
+          type = Type.where({:type_name => 'type_category_plan', :category_id => cateCurrent.id}).first_or_create do |tp|
+            tp.type_name = 'type_category_plan'
+            tp.category_id = cateCurrent.id
+            tp.save
+          end
+
+          cateCurrent.update({:cate_name => params[:cate][:cate_name], :cate_url =>params[:cate][:cate_url],:cate_thumbnail =>params[:cate][:cate_thumbnail],:cate_group =>params[:cate][:cate_group]})
+          
+          status = true
+          render json: {
+            status: status
+          }
+      end
+    end
+
+
+    @plan_cate    = Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_plan'}).order("categories.id desc")
+  end
+  def category_place
+    
+  end
+  def category_post
+    
+  end
+
+  def category_city
+    
+  end
+
+
   private
+    
+    def user_info
+
+      if @current_user.nil?
+        redirect_to login_path
+      end
+      @user = User.where(:id => @current_user).last
+    end
+    def resolve_layout
+      "trip3s_user"
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])

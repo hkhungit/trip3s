@@ -1,0 +1,32 @@
+<div class="sidebar-right col-md-9 nopadding">
+
+              <div class="panel panel-default right-panel-default fui-row-full" id="setting-confirm">
+              <div class="panel-heading">
+                <strong class="title-setting">Xác nhận kết bạn</strong>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                 <table class="table">
+                        <tr class="row">
+                              <th class="col-md-3"> Hình ảnh</th>
+                              <th class="col-md-3"> Tên hiển thị </th> 
+                              <th class="col-md-3"> Địa chỉ email </th> 
+                              <th class="col-md-3"> Hoạt động</th> 
+                            </tr>
+                          <%@user.Confirms.each do |friend|%>
+                            <tr class="row user-confirm-<%=friend.id%>">
+                              <td class="col-md-3"><img class="list-item-img" src="<%=friend.user_thumbnail%>" width="50" height="50"></td>
+                              <td class="col-md-3"><%=friend.name_display%></td>
+                              <td class="col-md-3"><%=friend.user_email%></td> 
+                              <td class="col-md-3"><button class="btn btn-xs btn-danger btn-delete-user " data-id="<%=friend.id%>">Xóa</button>
+                                <button class="btn btn-xs btn-success btn-confirm-user" data-id="<%=friend.id%>">Xác nhận</button>
+                                <%=link_to "Xem thông tin", friend, id: "go-to-user", class: "btn btn-xs btn-info"%>
+                                </td> 
+                            </tr>
+                          <%end%>
+                        </table>
+                </div>
+              </div>
+            </div>
+
+</div>

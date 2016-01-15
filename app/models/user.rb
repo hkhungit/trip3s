@@ -44,6 +44,13 @@ class User < ActiveRecord::Base
 	def friends
 		user_expand.where({:expand_name =>'user_friend', :user_id => id})
 	end
+	def user_type
+		expand = UserExpand.where({:expand_name =>'user_type', :user_id => id}).last
+		if expand.nil?
+			return 'normal'			
+		end
+		return expand.expand_value
+	end
 	def id_friends(id1 = nil)
 		if id1.nil?
 			return false

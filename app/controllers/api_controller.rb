@@ -835,6 +835,9 @@
 		if user[:user_email].present?
 			user2.update({:user_email => user[:user_email]})
 		end
+		if user[:user_thumbnail].present?
+			user2.update({:user_thumbnail => user[:user_thumbnail]})
+		end
 	
 		
 

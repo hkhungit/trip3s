@@ -17,7 +17,7 @@ class Plan < ActiveRecord::Base
      if _thumbnail.present?
        return _thumbnail.expand_value
      end
-     return 'default.png'
+     return '/images/default.png'
   end
 
   def voteLike
