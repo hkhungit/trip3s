@@ -1,0 +1,319 @@
+<!--Render header to layout-->
+<%= render :partial => "layouts/common/header"%>
+<!--/Render header to layout-->
+<link rel="stylesheet" id="plan-css" href="/assets/css/plan.css" type="text/css" media="screen">
+<style type="text/css">
+  .iti-att-next-route-detail{
+    display: none;
+    width: 100%;
+  }
+    .adp-summary,.adp-placemark{display: none;}
+  .adp-directions{
+    width: 100%;
+  }
+  .trans-detail{
+        padding: 0px 5px;
+    cursor: pointer;
+  }
+   .trans-detail:hover{
+    opacity: 0.7
+   }
+   .item-title{
+    text-align: center;
+   }
+   .friend-list,.item-list{padding: 2px}
+   .list-square{list-style-type: square}
+   .nopadding {
+     padding: 0 !important;
+     margin: 0 !important;
+  }
+  .target-button-input{display: none;} 
+  .right-panel-default:first-child{
+    display: block;
+  }
+</style>
+
+<div class="container">
+  <div class="cover-fui-row-full">
+    <div class="container text-left">
+      
+    </div>
+  </div>
+  <div id="itinerary-body">
+    <div class="container">
+      <div class="row ">
+        <div id="itinerary-detail" class="col-md-3 nopadding">
+          <div class="panel panel-default">
+           
+            <div class="panel-heading">
+              
+              <strong>Cài đặt</strong>
+            </div>
+            <div class="panel-body nopadding panel-body-nopadding">
+              <ul class="setting-menu">
+                <li> <%=link_to "Thông tin chung", user_profile_users_path%> </li>
+                <li> <%=link_to "Đổi mật khẩu", user_password_users_path%></li>
+                <li><%=link_to "Danh sách bạn bè", user_friends_users_path%></li>
+                <li><%=link_to "Xác nhân kết bạn", user_confirm_users_path%></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="panel panel-default"> 
+            <div class="panel-heading">
+              
+              <strong>Quản lý</strong>
+            </div>
+            <div class="panel-body nopadding panel-body-nopadding">
+              <ul class="setting-menu">
+                <li> <%=link_to "Địa điểm", user_places_users_path%> </li>
+                <li> <%=link_to "Tour du lịch", user_plans_users_path%></li>
+                <li><%=link_to "Bộ sưu tập", user_collections_users_path%></li>  
+                <li><%=link_to "Bài viết", user_collections_users_path%></li>  
+              </ul>
+            </div>
+          </div>
+          <%if is_admin%>
+          <div class="panel panel-default"> 
+            <div class="panel-heading">
+              
+              <strong>Quản trị</strong>
+            </div>
+            <div class="panel-body nopadding panel-body-nopadding">
+              <ul class="setting-menu"> 
+                <li> <%=link_to "Danh mục tỉnh/thành", user_places_users_path%> </li>
+                <li> <%=link_to "Danh mục bài viết", user_places_users_path%> </li>
+                <li> <%=link_to "Danh mục địa điểm", user_places_users_path%> </li>
+                <li> <%=link_to "Danh mục tour", category_plan_users_path%> </li>
+                <li> <%=link_to "Danh mục bộ sưu tập", user_places_users_path%> </li> 
+              </ul>
+            </div>
+          </div>
+          <%end%>
+
+        </div>
+
+	<%=yield%>
+   
+      </div>
+    </div>
+  </div>
+</div>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script type="text/javascript">
+  jQuery(function($){
+    $('#user_form_user_thumbnail').change(function(){
+
+     $(this).closest('form').ajaxSubmit({
+      beforeSubmit: function(a,f,o) {
+       o.dataType = 'json';
+      },
+      complete: function(data) {
+          console.log(data);
+          data = data.responseJSON;
+          if (data.status == true) { 
+            $('.user_thumbnail1212').attr('src',data.image.image_url.url)
+            $('#user_thumbnail12121').attr('value',data.image.image_url.url)
+          };  
+      },
+     });
+});
+
+    var   markers = [];
+    // Adds a marker to the map and push to the array.
+    function addMarker(latlng,map) {
+      for (var i = 0; i < markers.length; i++) {
+               markers[i].setMap(null);
+             };
+             markers = [];
+            var marker = new google.maps.Marker({
+                  position: latlng,
+                  map: map,
+                });
+               markers.push(marker);
+      markers.push(marker);
+    }
+
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+      }
+    } 
+    $(document).on('click','.btn-delete-cate',function(e){
+      var id = $(this).data('id');
+      var method_url = $(this).data('methodurl');
+      var row  = $(this).parent().parent();
+      $.post(method_url,{ cate: { 'action':'delete', 'id': id }}).done(function(data){
+        if (data.status == true) {
+          row.remove();
+        };
+      }); 
+      return false;
+    });
+    
+    $(document).on('click','.btn-submit',function(e){
+      var cate_name = $('input[name="cate[cate_name]"]').val(),
+      cate_url = $('input[name="cate[cate_url]"]').val(),
+      cate_group = $('input[name="cate[cate_group]"]').val(),
+      cate_thumbnail = $('input[name="cate[cate_thumbnail]"]').val(),
+      cate_id = $('input[name="cate[cate_id]"]').val();
+      method_url = $('input[name="method_url').val();
+      action = $('input[name="cate[action]').val();
+
+      $.post(method_url,{ cate: { 'action': action, id: cate_id, cate_name:cate_name,cate_url:cate_url,cate_group:cate_group, cate_thumbnail:cate_thumbnail}}).done(function(data){
+        if (data.status == true) {
+          row.remove();
+        };
+      }); 
+      return false;
+    });
+
+    $(document).on('click','.btn-submit',function(e){
+      return false;
+    });
+    $(document).on('click','.btn-reset',function(e){
+       form_cate = $('.form-manage-cate'); 
+      $('input[name="cate[cate_name]"]').val('');
+      $('input[name="cate[cate_url]"]').val('');
+      $('input[name="cate[cate_group]"]').val('');
+      $('input[name="cate[cate_id]"]').val(0);
+      $('input[name="cate[action]"]').val('add');
+      form_cate.find('.btn-submit').text("Thêm mới");
+      return false;
+    });
+    $(document).on('click','.btn-edit-cate',function(e){ 
+      var cate = $(this).data('cate'),
+      form_cate = $('.form-manage-cate'); 
+      $('input[name="cate[cate_name]"]').val(cate.cate_name);
+      $('input[name="cate[cate_url]"]').val(cate.cate_url);
+      $('input[name="cate[cate_group]"]').val(cate.cate_group);
+      $('input[name="cate[cate_id]"]').val(cate.id);
+      $('input[name="cate[action]"]').val('edit');
+      form_cate.find('.btn-submit').text("Cập nhật");
+    });
+    $(document).on('blur','.target-button-input',function(e){
+      $(this).parent().find('.toggle-button-input').show();
+      $(this).hide();
+    });
+
+    $(document).on('click','.btn-update-user-info',function(e){
+      //Update latlng
+      var latlng        = $('input[name="user[latlng]"]').val();
+      var user_display  = $('input[name="user[user_display]"]').val();
+      var user_address  = $('input[name="user[user_address]"]').val();
+      var user_email    = $('input[name="user[user_email]"]').val(); 
+      var user_phone    = $('input[name="user[user_phone]"]').val(); 
+      var user_thumbnail    = $('input[name="user[user_thumbnail]"]').val(); 
+
+      var user ={
+        latlng:latlng,
+        user_address: user_address,
+        user_display: user_display,
+        user_email:user_email,
+        user_phone:user_phone,
+        user_thumbnail:user_thumbnail
+      }
+      $.post('/api/update_infor',{user:user}).done(function(data){
+          if (data.status == true) {
+            alert("Cập nhật thành công");
+          }else{
+             alert("Cập nhật lỗi");
+          };
+      }).fail(function(error){
+
+      });
+    });
+
+    $(document).on('click','.btn-confirm-user',function(e){
+      var dataid = $(this).data('id');
+      var params = {
+        actions: 'confirm',
+        userID: dataid
+      }
+      $.post('/api/friends',params).done(function(data){
+
+        console.log(data);
+         $('.user-confirm-'+ dataid).remove();
+      })
+    })
+    $(document).on('click','.btn-delete-user',function(e){
+      var dataid = $(this).data('id');
+      var params = {
+        actions: 'remove',
+        userID: dataid
+      }
+      $.post('/api/friends',params).done(function(data){
+         $('.user-confirm-'+ dataid).remove();
+         $('.user-friend-'+ dataid).remove();
+      })
+    })
+    $(document).on('keypress','.target-button-input > input',function(e){
+      $(this).parent().parent().find('.toggle-button-input').text($(this).val());
+    })
+    $(document).on('dblclick','.toggle-button-input',function(e){
+      $(this).parent().find('.target-button-input').show();
+      $(this).hide();
+    });
+
+    $(document).on('click','.btn-getlocation',function(e){
+      $('#modal-getlocation').modal();
+        var obj     = window.javo_map_box_func;
+        $('#modal-map').gmap3(obj.options.map_init);  
+          var map = $('#modal-map').gmap3('get');
+           
+            google.maps.event.addListener(map, "click", function(event) {
+              var latlng = event.latLng;
+              var strLatLng = "Tọa độ: (Vĩ độ, Kinh độ): (" + latlng.lat() + ", " + latlng.lng() + ")";
+              $('.show-LatLng').html(strLatLng);
+              $('.user-latlng').html("(" + latlng.lat() + ", " + latlng.lng() + ")");
+                addMarker(latlng,map);
+            });
+    });
+    /*
+    $(document).on('click','ul.setting-menu li a',function(e){
+      var dataid = $(this).data('toggle');
+      if (!$('#'+dataid).is(":visible")) {
+        $('.right-panel-default').hide();
+        $('#'+dataid).show();
+      };
+      return false;
+    });*/
+    $(document).on('click','.btn-getcurrentgeo',function(e){
+      var obj     = window.javo_map_box_func;
+
+          obj.getmygeoloc($('#modal-map'),function(latlng){
+          $('.user-latlng').html("(" + latlng.lat + ", " + latlng.lng + ")");
+          $('.user_latlng').val(JSON.stringify(latlng));
+         var strLatLng = "Tọa độ: (Vĩ độ, Kinh độ): (" + latlng.lat + ", " + latlng.lng + ")";
+         $('.show-LatLng').html(strLatLng);
+      });
+    });
+
+  })
+</script> 
+<!--Modal Get Geo Location of User-->
+<div class="modal fade" role="dialog" id="modal-getlocation">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Cập nhật vị trí tọa độ</h4>
+      </div>
+      <div class="modal-body row">
+        <div id="modal-map" class="col-md-12" style="min-height:300px">
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+      <label class="show-LatLng"></label>
+        <button type="button" class="btn btn-default btn-getcurrentgeo" >Vị trí của tôi</button>
+      </div>
+    </div>      
+    <!-- End Modal content-->
+  </div>
+</div>
+<!--Render footer to layout-->
+<%= render :partial => "layouts/common/footer"%>
+<!--/Render footer to layout-->

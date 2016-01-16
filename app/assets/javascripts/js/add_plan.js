@@ -62,9 +62,15 @@ jQuery(function($) {
                 }
             });
         });
-    $('[name^="plan[plan_cate]"]').chosen({
+    $('select[name^="plan[plan_city"]').chosen({
         width: '100%',
-        search_contains: 1
+        search_contains: 1,
+        no_results_text: "Chọn 1 tỉnh thành đến"
+    });
+    $('select[name^="plan[plan_cate"]').chosen({
+        width: '100%',
+        search_contains: 1,
+        no_results_text: "Chọn 1 danh mục"
     });
 
     function removeDuplicate(arr) {
@@ -495,7 +501,7 @@ jQuery(function($) {
     });
 
     $(document).on('click', '.edit-item-place', function(e) {
-
+        console.log("df");
 
         var strFull = $('#load-model-edit-place').html();
         var data = $(this).parent().parent().data('place'),

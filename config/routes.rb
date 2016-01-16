@@ -160,8 +160,30 @@ Rails.application.routes.draw do
 
   resources :users do
     collection do
-      get 'setting'
-      post 'setting'
+      get   'setting'
+      post  'setting'
+      get   'user-profile',       to: 'users#user_profile' 
+      post  'user-profile',       to: 'users#user_profile' 
+      get   'user-password',      to: 'users#user_password' 
+      post  'user-password',      to: 'users#user_password' 
+      get   'user-friends',       to: 'users#user_friend' 
+      post  'user-friends',       to: 'users#user_friend' 
+      get   'user-confirm',       to: 'users#user_confirm' 
+      post  'user-confirm',       to: 'users#user_confirm' 
+      get   'user-places',        to: 'users#user_places' 
+      post  'user-places',        to: 'users#user_places' 
+      get   'user-plans',         to: 'users#user_plans' 
+      post  'user-plans',         to: 'users#user_plans' 
+      get   'user-collections',   to: 'users#user_collections' 
+      post  'user-collections',   to: 'users#user_collections' 
+      get   'category-plan',      to: 'users#category_plan' 
+      post  'category-plan',      to: 'users#category_plan' 
+      get   'category-place',     to: 'users#category_place' 
+      post  'category-place',     to: 'users#category_place' 
+      get   'category-post',      to: 'users#category_post' 
+      post  'category-post',      to: 'users#category_post' 
+      get   'city',               to: 'users#category_city' 
+      post  'city',               to: 'users#category_city' 
     end
   end
   resources :post_categories

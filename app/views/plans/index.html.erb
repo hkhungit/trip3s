@@ -59,15 +59,15 @@
   h6{ font-family:'Open Sans', sans-serif; }
 </style>
 <style type="text/css">
-  html header.main nav.navbar{ background-color:rgba( 255, 255, 255, 0); }
+  html header.main nav.navbar{background-color: rgba(0, 0, 0, 0.35);; }
   html header.main nav.navbar.affix{ background-color:rgba( 32, 32, 32, 0.3); }
-  html body header#header-one-line ul.nav > li.menu-item > a{ color:#000; }
+  html body header#header-one-line ul.nav > li.menu-item > a{ color:#fff; }
   html body header#header-one-line ul.widget_top_menu_wrap > li.widget_top_menu > a{ color:#000; }
   html body header#header-one-line ul.widget_top_menu_wrap > li.widget_top_menu button.btn{ color:#000; }
   html body header#header-one-line #javo-navibar .navbar-right>li>a>span{ color:#777; border-color:#777;}
   html body header#header-one-line #javo-navibar .navbar-right>li>a>img{border-color:#777;}
   html header#header-one-line div#javo-navibar ul.navbar-left:not(.mobile){ margin-top:6px; }
-  html header#header-one-line.main{ position:relative; }
+  html header#header-one-line.main{ position:absolute; }
   html body header#header-one-line .affix #javo-navibar ul.nav > li.menu-item > a{ color:#fff; }
   html body header#header-one-line .affix ul.widget_top_menu_wrap > li.widget_top_menu > a{ color:#fff; }
   html body header#header-one-line .affix ul.widget_top_menu_wrap > li.widget_top_menu button.btn{ color:#fff; }
@@ -88,6 +88,9 @@
 .navbar-form .form-group{display: block;}
 .item-author-info .col-md-4 .item-author-info-circle-border{
       background: rgba(0, 0, 0, 0.75);
+}
+#javo-slide-search .slider-search-box .inner_wrap form{
+      top: 120px;
 }
 </style>
 <style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1433407634411{margin-bottom: 0px !important;padding-top: 0px !important;padding-bottom: 0px !important;background-color: #ffffff !important;}.vc_custom_1421145263677{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421145271530{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421199064113{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421145294024{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 100px !important;}.vc_custom_1421150391084{margin-bottom: 0px !important;padding-top: 100px !important;padding-bottom: 50px !important;}.vc_custom_1421199081615{margin-bottom: 0px !important;padding-top: 50px !important;padding-bottom: 50px !important;}.vc_custom_1421199362654{padding-top: 50px !important;padding-bottom: 50px !important;}</style><noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>
@@ -118,7 +121,7 @@
                           <div class="slider-search-part-wrap">
 
                           <div class="form-group">
-                            <input type="text" class="form-control input-large" placeholder="Keyword" name="k">
+                            <input type="text" class="form-control input-large" placeholder="Từ khóa" name="k">
                           </div>
                           
                           <div class="form-group">
@@ -129,7 +132,19 @@
                           </div><!-- form-Group -->
                         
                           <div class="form-group">
-                            <select  multiple="multiple"  name="city" style="display: none;"  placeholder="Thành phố/ tỉnh">
+                            <input type="number" min="1"  class="form-control input-large" placeholder="Số ngày" name="n">
+                          </div><!-- form-Group -->
+                        
+                          <div class="form-group">
+                            <select  multiple="multiple"  name="l[]"   placeholder="Thành phố/ tỉnh">
+                               <option value="0" disabled>Nhãn</option>
+                              <%@plan_cate.each do |cate|%>
+                              <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
+                              <%end%>
+                            </select>
+                          </div><!-- form-Group -->
+                          <div class="form-group">
+                            <select  multiple="multiple"  name="city[]"  placeholder="Thành phố/ tỉnh">
                                <option value="0" disabled>Tỉnh Thành</option>
                               <%@places_city.each do |cate|%>
                               <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
@@ -137,7 +152,7 @@
                             </select>
                           </div><!-- form-Group -->
                         
-                        <button type="submit" class="btn btn-primary admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i> Xem lịch trình</button>
+                        <button type="submit" class="btn btn-primary admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i> Tìm tour</button>
                         </div><!-- slider-search-part-wrap -->
                     </form>
             </div> <!-- inner_wrap -->
@@ -152,15 +167,15 @@
         @planLastest.each do |item| %>
         <%count = count + 1%>
           <% if count < 1%>
-          <div class="item active " style="height:450px;">
+          <div class="item active " style="height:550px;">
           <% else %>
 
-          <div class="item " style="height:450px;">
+          <div class="item " style="height:550px;">
           <% end %>
-            <div class="slide-bg-images" style="background-image:url('<%=item.thumbnail%>'); 
+            <div class="slide-bg-images" style="background-image:url('<%=item.plans.last.thumbnail%>'); 
                   background-repeat:no-repeat; background-size:cover; -webkit-background-size:cover; -moz-background-size:cover; -ms-background-size:cover; -o-background-size:cover; background-attachment:fixed; background-position-x:left; background-position-y:center; height:100%; ">
 
-              <a href="../item/javo-hotel-in-downtown/index.html">
+              <a href="/plans/<%=item.plans.last.id%>">
                 <div class="carousel-caption">
                   <h4 class="javo-slider-search-meta hidden-sm hidden-xs" style="font-size:20px;">
                    <%=item.post_title%>                </h4>
@@ -185,15 +200,25 @@
                 <%if item.user.present?%>
                 <div class="col-md-4">
                   <a href="/users/<%=item.user.id%>" title="<%=item.user.name_display%>">
-                    <img src="<%=item.user.user_thumbnail%>"> 
+                   <div class="item-author-info-circle-border">
+                      <div class="javo-offer-area-content">
+                        <img src="<%=item.user.user_thumbnail%>" title="<%=item.user.name_display%>" alt="<%=item.user.name_display%>"  style="width:100%; height:100%; padding:7px"> 
+                     </div>
+                    </div>
                   </a>
                 </div>
                 <%end%>
+                
                 <div class="col-md-4">
-                  <a href="../item/javo-hotel-in-downtown/.html#item-ratings">
-                    <div class="rating_score text-center"><%=item.voteLike%> <i class="fa fa-thumbs-o-up"></i> </div>
-                    <div class="item-author-info-circle-border"></div>
-                  </a> 
+                  <a href="#" title="<%=item.plans[0].plan_spend%> Người">
+                    <div class="event_info">
+                      <div class="item-author-info-circle-border">
+                        <div class="javo-offer-area-content">
+                          <div><%=item.plans[0].plan_spend.to_i%> <br> Người</div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
                 </div>
               </div><!-- item-author-info -->
             </div> <!-- slide-bg-images -->
@@ -219,7 +244,8 @@
 
           $('.background-search-box, .slider-search-box').find('.form-group > select').each(function()
           {
-            $(this).chosen({ width:'100%', search_contains:1 });
+            $(this).chosen({ width:'100%', search_contains:1, no_results_text: "Chọn 1 mục" })
+
           });
         }, events:function(){
           var $object = this;
@@ -248,7 +274,8 @@
     
     </div> 
   </div> 
-</div><div class="vc_row-full-width"></div><!-- Row Backgrounds --> 
+</div>
+<div class="vc_row-full-width"></div><!-- Row Backgrounds --> 
 
 <div class="vc_row wpb_row vc_row-fluid vc_custom_1421145263677" row-effect-mobile-disable="true" style="position: relative;">
   <div class="vc_col-sm-12 wpb_column vc_column_container ">
@@ -256,11 +283,12 @@
       <div id="ultimate-heading55acf238cda7a" class="uvc-heading ultimate-heading55acf238cda7a uvc-7889 " data-hspacer="line_only" data-halign="center" style="text-align:center"><div class="uvc-main-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238cda7a h2" data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:24px;&quot;,&quot;line-height&quot;:&quot;desktop:30px;&quot;}"><h2 style="font-weight:bold;color:#454545;">KẾ hoach được xem nhiều</h2></div><div class="uvc-heading-spacer line_only" style="margin-top:20px;margin-bottom:20px;height:2px;"><span class="uvc-headings-line" style="border-style: solid; border-bottom-width: 2px; border-color: rgb(69, 69, 69); width: 22px; margin: 0px auto;"></span></div><div class="uvc-sub-heading ult-responsive" data-ultimate-target=".uvc-heading.ultimate-heading55acf238cda7a .uvc-sub-heading " data-responsive-json-new="{&quot;font-size&quot;:&quot;desktop:15px;&quot;,&quot;line-height&quot;:&quot;desktop:20px;&quot;}" style="font-weight:normal;color:#818181;margin-bottom:50px;">Những kế hoạch, lịch trình được nhiều quan tâm nhất từ hệ thống.</div></div>       
 
       <div id="javo-featured-items-wrap" class="row">
+      <%if @planViewest.first.present?%>
         <div class="col-md-6 left-big-img">
           <div class="item-container">
             <a href="/plans/<%=@planViewest.first.plans.first.id%>">
               <div class="feature-item-bottom-title"><%=@planViewest.first.post_title%></div>
-              <img width="500" height="400" src="<%=@planViewest.first.thumbnail%>" class="attachment-javo-large" alt="<%=@planViewest.first.post_title%>" title="<%=@planViewest.first.post_title%>">              <div class="item-cover">
+              <img width="500" height="400" src="<%=@planViewest.first.plans.first.thumbnail%>" class="attachment-javo-large" alt="<%=@planViewest.first.post_title%>" title="<%=@planViewest.first.post_title%>">              <div class="item-cover">
                 <div class="item-cover-inner">
                   <div class="item-captions">
                     <div class="item-title"><%=@planViewest.first.post_title%></div>
@@ -271,6 +299,7 @@
             </a>
           </div><!-- /.item-container -->
         </div><!-- /.col-md-6 -->
+      <%end%>
       <div class="col-md-6 right-small-img">
         <div class="row">
         <%@planViewest.offset(2).limit(4).each do |item| %>
@@ -278,11 +307,11 @@
             <div class="item-container">
             <a href="/plans/<%=item.plans.first.id%>">
                   <div class="feature-item-bottom-title"><%=item.post_title%></div>
-                  <img width="500" height="400" src="<%=@planViewest.first.thumbnail%>" class="attachment-javo-large" alt="image31">                 <div class="item-cover">
+                  <img width="500" height="400" src="<%=item.plans.first.thumbnail%>" class="attachment-javo-large" alt="image31">                 <div class="item-cover">
                     <div class="item-cover-inner">
                       <div class="item-captions">
                         <div class="item-title"><%=item.post_title%></div>
-                        <div class="item-description">Brooklyn / cafe </div>
+                        <div class="item-description"> cate</div>
                       </div><!-- /.item-captions -->
                     </div><!-- /.item-cover-inner -->
                   </div><!-- /.item-cover -->
@@ -541,7 +570,7 @@
     </div> 
   </div> 
 </div><!-- Row Backgrounds -->  
- 
+<%if @planRandom.present?%>
 <div class="vc_row wpb_row vc_row-fluid vc_custom_1421145294024 ult-vc-hide-row" data-rtl="false" data-row-effect-mobile-disable="true" style="position: relative;">
 
 <div class="upb_row_bg" data-bg-override="full" style="min-width: 1349px; left: -89.5px; width: 1349px; background: rgb(244, 244, 244);"></div>
@@ -551,7 +580,7 @@
   <div class="wpb_single_image wpb_content_element javo-animation x3 javo-left-to-right-100 vc_align_center loaded">
     <div class="wpb_wrapper">
       
-      <div class="vc_single_image-wrapper   vc_box_border_grey"><img width="500" height="427" src="<%=@planRandom.thumbnail%>" class="vc_single_image-img attachment-full" title="<%=@planRandom.post_title%>" alt="<%=@planRandom.post_title%>" style="max-height:500px"></div>
+      <div class="vc_single_image-wrapper   vc_box_border_grey"><img width="500" height="427" src="<%=@planRandom.plans.last.thumbnail%>" class="vc_single_image-img attachment-full" title="<%=@planRandom.post_title%>" alt="<%=@planRandom.post_title%>" style="max-height:500px"></div>
     </div> 
   </div> 
     </div> 
@@ -575,7 +604,7 @@
     </div> 
   </div> 
 </div><!-- Row Backgrounds -->  
- 
+<%end%>
 </div><!-- .entry-content -->
   <footer class="entry-meta">
       </footer><!-- .entry-meta -->

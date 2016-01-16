@@ -1,0 +1,69 @@
+<div class="sidebar-right col-md-9 nopadding"> 
+    <div class="panel panel-default right-panel-default fui-row-full" id="setting-friends">
+        <div class="panel-heading">
+            <strong class="title-setting"> Danh mục tour du lịch</strong>
+        </div>
+        <div class="panel-body">
+        	<div class="row"> 
+        	<div class="col-md-4"></div>
+ 				<form action="#" method="post" class="col-md-4 form-manage-cate">
+ 					<div class="form-group">
+ 						<label>Tên danh mục</label>
+ 						<input type="text" class="form-control" name="cate[cate_name]" />
+ 					</div>
+ 					<div class="form-group">
+ 						<label>Đường dẫn</label>
+ 						<input type="text" class="form-control"name="cate[cate_url]"  />
+ 					</div>
+ 					<div class="form-group">
+ 						<label>Nhóm</label>
+ 						<input type="text" class="form-control" name="cate[cate_group]" />
+ 					</div>
+ 					<div class="form-group">
+
+ 						<input type="hidden" class="form-control" value="0" name="cate[cate_id]" />
+ 						<input type="hidden" class="form-control" value="add" name="cate[action]" />
+ 						<input type="hidden" class="form-control" value="/users/category-plan" name="method_url" />
+ 						<input type="hidden" class="form-control" value="/images/default.png" name="cate[cate_thumbnail]" />
+ 						<button class="btn btn-xs btn-success btn-submit">Thêm mới</button>
+ 						<button class="btn btn-xs btn-danger btn-reset">Hủy bỏ</button>
+ 					</div>
+ 				</form> 
+            </div>
+            <hr style="border-top: 1px dotted #000000 !important; " />
+        	<div class="row"> 
+ 				<div class="col-md-12">
+ 					<strong>Danh sách danh mục</strong>
+ 				</div>
+ 				<div class="col-md-12">
+ 					<table class="table">
+ 						<thead>
+ 							<tr>
+ 								<th>Hình Ảnh</th>
+ 								<th>Tên Danh Mục</th>
+ 								<th>Đường Dẫn</th>
+ 								<th>Nhóm</th>
+ 								<th>Hoạt động</th>
+ 							</tr>
+ 						</thead>
+ 						<tbody>
+ 						<%@plan_cate.each do |cate|%>
+ 							<tr>
+ 								<td><img src="<%=cate.cate_thumbnail%>" width="40" height="40" /></td>
+ 								<td><%=cate.cate_name%></td>
+ 								<td><%=cate.cate_url%></td>
+ 								<td><%=cate.cate_group%></td>
+ 								<td>
+ 									<button class="btn btn-xs btn-info btn-edit-cate" data-cate="<%=cate.to_json%>"><i class="fa fa-pencil-square-o"></i></button>
+ 									<button class="btn btn-xs btn-danger btn-delete-cate" data-id="<%=cate.id%>" data-methodurl="/users/category-plan"><i class="fa fa-trash-o"></i></button>
+ 								</td>
+ 							</tr>
+ 						<%end%>
+ 						</tbody>
+ 					</table>
+ 				</div>
+                     
+            </div>
+        </div>
+    </div>
+</div>

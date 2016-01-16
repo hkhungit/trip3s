@@ -7,11 +7,11 @@ class Post < ActiveRecord::Base
 	mount_uploader :post_thumbnail, ImageUploader
 
 
-	def thumbnail 
+	def thumbnail  
 		if post_thumbnail.url.nil?
 			return '/images/default.png'
-		end
-	    if post_thumbnail.url.include? "http"
+
+		elsif post_thumbnail.url.include? "http"
 	       return post_thumbnail_identifier 
 	    end
 	    return post_thumbnail.url

@@ -37,6 +37,10 @@ class PlansController < ApplicationController
   end
 
   def search
+
+    @places_city      = Category.select("*").joins(:type).where(:types => {:type_name => 'type_city'}) 
+    @plan_cate    = Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_plan'}) 
+
     #All place none filter
     @results    = Post.select("posts.id,
                   posts.post_title,
@@ -57,16 +61,50 @@ class PlansController < ApplicationController
             .where(" posts.post_title LIKE '%#{_like}%' ").pluck(:id)
       @results = @results.where("posts.id IN (?)",_temp )
     end
+
     #Check city in filter
-    if params[:city].present?
-      #places = places.where(:types => {:category_id=> params[:cityIds]})
-    #  _temp   = @plans
-    #        .joins(:plan,:post_category =>{:type=>:category})
-    #        .where(:types => {:category_id=> params[:city]}).pluck(:id)
-    #  @plans = @plans.where("posts.id in (?)",_temp )
+    if params[:city].present? and @results.present?
+      _temp   = @results
+            .joins(:plans,:post_category =>{:type=>:category})
+            .where(:types => {:category_id=> params[:city]}).pluck(:id)
+      @results = @results.where("posts.id in (?)",_temp )
+    end 
+    #Check city in filter
+    if params[:l].present? and @results.present?
+      _temp   = @results 
+            .joins(:plans,:post_category =>{:type=>:category})
+            .where(:types => {:category_id=> params[:l]}).pluck(:id)
+      @results = @results.where("posts.id in (?)",_temp )
     end 
 
+    #Check money in filter
+    if params[:m].present? and @results.present?
+      
+      _temp   = @results 
+            .joins(:plans)
+            .where(" plans.plan_money <= #{params[:m].to_i} ").pluck(:id)
+      @results = @results.where("posts.id in (?)",_temp )
+    end 
+
+    #Check money in filter
+    if params[:u].present? and @results.present?
+      _temp   = @results 
+            .joins(:plans)
+            .where(" plans.plan_spend <= #{params[:u].to_i} ").pluck(:id)
+      @results = @results.where("posts.id in (?)",_temp )
+    end 
+
+    #Check money in filter
+    if params[:n].present? and @results.present?
+      _temp   = @results 
+            .joins(:plans)
+            .where(" plans.plan_day <= #{params[:n].to_i} ").pluck(:id)
+      @results = @results.where("posts.id in (?)",_temp )
+    end 
+
+
     @results = @results.limit(12)
+
   end
   def k_mean
     
@@ -125,7 +163,7 @@ class PlansController < ApplicationController
           :plan_start => session[:plan]["planStart"],
           :plan_end   => session[:plan]["planEnd"],
           :plan_money => session[:plan]["money"].to_i,
-          :plan_spend => 0
+          :plan_spend => session[:plan]["userNumber"].to_i
         }
 
 
@@ -340,6 +378,19 @@ class PlansController < ApplicationController
           type = Type.where(:category_id => cate).last
           if type.id.present?
              planCate = PostCategory.new
+            planCate.post_id = post_id
+            planCate.type_id = type.id
+            planCate.save
+          end
+        end
+      end
+
+      plan_cities = params[:plan][:plan_city]
+      if plan_cities.present?
+        plan_cities.each do |cate|
+          type = Type.where(:category_id => cate).last
+          if type.id.present?
+            planCate = PostCategory.new
             planCate.post_id = post_id
             planCate.type_id = type.id
             planCate.save

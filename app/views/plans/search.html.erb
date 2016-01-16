@@ -1,12 +1,73 @@
+<style type="text/css">
+  .navbar-form .form-group {display: block;}
+   .search-box form .slider-search-part-wrap {
+    display: inline-block;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.7);
+}
+html header.main nav.navbar {
+    background-color: rgba(76, 76, 75, 0.58);
+}
+.result-search{
+    background: url(/assets/images/background-sapa.jpg) no-repeat;
+    background-position: 0px -80px;
+} 
+</style>
+<script type="text/javascript">
+    jQuery(function($){
+      $('.search-box').find('.form-group > select').each(function()
+          {
+            $(this).chosen({ width:'100%', search_contains:1, no_results_text: "Chọn 1 mục" })
 
-<div class="search-tk">
+          });
+    });
+    </script>
+<div class="result-search">
 <div class="ult-spacer spacer-55acf20a3edbf" data-id="55acf20a3edbf" data-height="100" data-height-mobile="50" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
     <div class="container javo-single-search-form" id="javo-single-search-form">
      <!--  <form role="form" data-javo-search-form class="search-form-type"> -->
 
-        <div class="search-type-a-inner">
+        <div class="search-type-inner">
+ 
+          <div class="search-box">
+            <form class="navbar-form" role="search" method="get" action="/plans/search">
+                          <div class="slider-search-part-wrap">
 
-          <div class="search-box-inline search-box-inline-position">
+                          <div class="form-group">
+                            <input type="text" class="form-control input-large" placeholder="Từ khóa" name="k">
+                          </div>
+                          
+                          <div class="form-group">
+                            <input type="number" min="1"   class="form-control input-large" placeholder="Số người" name="u">
+                          </div><!-- form-Group --> 
+                          <div class="form-group">
+                            <input type="number" min="1"  class="form-control input-large" placeholder="Số tiền" name="m">
+                          </div><!-- form-Group -->
+                        
+                          <div class="form-group">
+                            <input type="number" min="1"  class="form-control input-large" placeholder="Số ngày" name="n">
+                          </div><!-- form-Group -->
+                        
+                          <div class="form-group">
+                            <select  multiple="multiple"  name="l[]"   placeholder="Thành phố/ tỉnh"  class="form-control input-large">
+                               <option value="0" disabled>Nhãn</option>
+                              <%@plan_cate.each do |cate|%>
+                              <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
+                              <%end%>
+                            </select>
+                          </div><!-- form-Group -->
+                          <div class="form-group">
+                            <select  multiple="multiple"  name="city[]"  placeholder="Thành phố/ tỉnh"  class="form-control input-large">
+                               <option value="0" disabled>Tỉnh Thành</option>
+                              <%@places_city.each do |cate|%>
+                              <option data-url="<%=cate.cate_url%>" value="<%=cate.id%>" <%="selected" if cate.id==123 %>> <%=cate.cate_name%></option>   
+                              <%end%>
+                            </select>
+                          </div><!-- form-Group -->
+                        
+                        <button type="submit" class="btn btn-primary admin-color-setting"><i class="glyphicon glyphicon-map-marker"></i> Tìm tour</button>
+                        </div><!-- slider-search-part-wrap -->
+                    </form>
  
           </div>
         </div>
@@ -14,21 +75,25 @@
 
     <div class="ult-spacer spacer-55acf20a3f31b" data-id="55acf20a3f31b" data-height="100" data-height-mobile="20" data-height-tab="20" data-height-tab-portrait="" data-height-mobile-landscape="" style="clear:both;display:block;"></div>
     </div>
+
+ 
 <div class="container">
 <div class="search-content">
 	<div class="row"> 
-    <div class="widgettitle_wrap col-md-12"><h2 class="widgettitle"><span><br>Kết quả tìm kiếm</span></h2></div>
+    <div class="widgettitle_wrap col-md-12"><h2 class="widgettitle"><span><br>Kết quả tìm kiếm: <%=@results.count%> kết quả</span></h2></div>
 		<div class="col-md-12 widgets-wraps">
   				<div class="categories-imgs">
     <div class="text-center">
       <%@results.each do |rs|%>
-            <a style="color:#000000;" data-javo-category="4" href="/plans/<%=rs.plans.first.id%>">
-              <img src="<%=rs.thumbnail%>" style="width:325px; height:178px;">
+            <a style="color:#000000;" data-javo-category="4" href="/plans/<%=rs.plans.last.id%>">
+              <img src="<%=rs.plans.last.thumbnail%>" style="width:325px; height:178px;">
               <span style="font-size:18px;"><%=rs.post_title%></span>
               <div class="categories-wrap-shadow"></div>
               <div class="inner-meta ">
                 <div><%=rs.post_title%></div>
-                <small>1 Ngày</small>
+                <small><%=rs.plans.last.plan_day%> Ngày</small> <br/>
+                <small><%=rs.plans.last.plan_spend.to_i%> Người</small><br/>
+                <small><%=rs.plans.last.plan_money%> VNĐ</small> 
               </div>
             </a>
       <%end%>
