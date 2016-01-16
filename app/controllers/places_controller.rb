@@ -5,7 +5,9 @@ class PlacesController < ApplicationController
   # GET /places.json
   def index
     @places = Place.all
+    @pl=Place.all.limit(8)
     @posts  = Post.select("*").joins(:place).order('post_view desc').limit(4)
+    @places_cate = Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_place'}).limit(6)
     @places_category = Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_place'})
     @places_cate_all=Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_place',:type_name => 'type_city',:type_name => 'type_district',:type_name => 'type_area',:type_name => 'type_diding_place',:type_name => 'type_property_place',:type_name => 'type_cuisine_place',:type_name => 'type_purpose_place'}).limit(10)
     @places_two_limit_one=Post.find_by_sql ["select A.post_title, A.post_review,B.place_choice,A.post_url,A.post_thumbnail from posts A,places B WHERE A.post_title like ? and A.id=B.post_id and A.id in (select id FROM posts ORDER by post_review DESC) ORDER by B.place_choice DESC limit 2", "%#{params[:search]}%"]

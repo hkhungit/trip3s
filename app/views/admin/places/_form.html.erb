@@ -1,4 +1,7 @@
 <section id="main-content">
+
+<div class="container">
+<div class="new_places">
 <%= form_for(@place) do |f| %>
   <% if @place.errors.any? %>
     <div id="error_explanation">
@@ -11,29 +14,49 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :post %><br>
-    <%= f.text_field :post %>
+<div class="row">
+  <div class="col-md-6">
+    <label>Tên địa điểm</label><br>
+    <input type="text" name="post[post_title]" class="form-control left" id="post-post_title"  required="required" style ="width:100%"><br>
+    <label>Địa chỉ</label><br>
+    <input type="text" name="place[place_address]" class="form-control left" id="post-post_content"  required="required" style ="width:100%"><br>
+    <label>Mô tả địa điểm</label>
+    <textarea name="post[post_content]" class="form-control left" id="post-post_content"  required="required" style ="width:100%;height:170px;"></textarea><br>
   </div>
-  <div class="field">
-    <%= f.label :place_lat %><br>
+  <div class="col-md-6">
+    <label>Loai dia diem</label>
+    <select name="post[category_id]">
+    <%@places_category.each do |cate|%>
+    <option value="  <%=cate.id%>   ">  <%=cate.cate_name%>   </option>
+    <%end%>
+    </select><br>
+     <label>Lat</label><br>
+    <!-- <input type="text" name="post[post_title]" class="form-control left" id="post-post_title"  required="required" style ="width:100%"> -->
     <%= f.text_field :place_lat %>
-  </div>
-  <div class="field">
-    <%= f.label :place_lng %><br>
+    <br>
+    <label>Long</label><br>
+    <!-- <input type="text" name="post[post_content]" class="form-control left" id="post-post_content"  required="required" style ="width:100%"> -->
+
     <%= f.text_field :place_lng %>
+    <br>
+     <div class="field">
+    <%= f.label :place_open %><br>
+    <%= f.text_field :place_open %>
   </div>
   <div class="field">
-    <%= f.label :place_ticket %><br>
-    <%= f.text_field :place_ticket %>
+    <%= f.label :place_close %><br>
+    <%= f.text_field :place_close %>
   </div>
   <div class="field">
-    <%= f.label :place_choice %><br>
-    <%= f.text_field :place_choice %>
+    <%= f.label :place_late %><br>
+    <%= f.text_field :place_late %>
   </div>
+  </div>
+</div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+</div>
+</div>
 </section>

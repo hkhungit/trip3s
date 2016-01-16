@@ -57,9 +57,9 @@ jQuery(function ($) {
       $.get('places/search.json', data , function(result) {
         if (result) {
           $("#products").html(
-            '<table class="table" id="pretty"><tr><td></td><td><a href="http://google">View All</a></td></tr>' 
+            '<table class="table" id="pretty"><tr><td></td><td><a href="">View All</a></td></tr>' 
             + result.map(function(row) {
-              return '<tr><td><img src="'+row.thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+row.place_choice + '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
+              return '<tr>'+'<td>' + row.post_title+row.post_review+row.place_choice + '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
             }).join(''))
             + '</table>'
         }
@@ -69,7 +69,7 @@ jQuery(function ($) {
           $("#places").html(
             '<table class="table" id="pretty" style="margin-top:-20px">' 
             + result.map(function(row) {
-              return '<tr><td><img src="'+row.thumbnail+'"></td>'+'<td>' + row.post_title+row.post_review+ '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
+              return '<tr>'+'<td>' + row.post_title+row.post_review+ '</td><td><a href="'+row.post_url+'">Chi tiết</a></td></tr>'
             }).join(''))
             + '</table>'
         }
@@ -144,14 +144,15 @@ jQuery(function ($) {
     <div id="javo-inline-category-slider-wrap">
       <div id="javo-inline-category-slider-inner">
         <div id="javo-inline-category-slider" class="owl-carousel owl-theme" style="display:block;">
-        <%@places_category.each do |cate|%>
+        <%@places_cate.each do |cate|%>
           <div class="item javo-inline-category">
-            <a href="#">
+            <div class="col-md-2"><a href="#">
               <img src="assets/sites/2/2014/08/backyard-with-swimming-pool-house-250x250.jpg"style="width:111px; height:111px; border-radius:50%;">
               <div class="javo-inline-cat-title" style="  color:#818181;">
                 <%=cate.cate_name%>                 
               </div>
-            </a>  
+            </a>  </div>
+            
           </div>
         <%end%>
                   </div>
@@ -163,28 +164,7 @@ jQuery(function ($) {
       </div><!--javo-inline-category-slider-inner-->
     </div><!--javo-inline-category-slider-wrap-->
 
-    <script type="text/javascript">
-
-      jQuery( function( $ ) {
-        var el      = $( "#javo-inline-category-slider-wrap" );
-        var el_slider = el.find( "#javo-inline-category-slider" );
-
-        el_slider.owlCarousel({
-          items       : parseInt(8), //10 items above 1000px browser width
-          itemsDesktop    : [1000,5], //5 items between 1000px and 901px
-          itemsDesktopSmall : [900,3], // 3 items betweem 900px and 601px
-          itemsTablet     : [600,2], //2 items between 600 and 0;
-          itemsMobile     : false // itemsMobile disabled - inherit from itemsTablet option
-        });
-
-        $( el )
-          .on( 'click', '.next', function(){ el_slider.trigger( 'owl.next' ); } )
-          .on( 'click', '.prev', function(){ el_slider.trigger( 'owl.prev' ); } )
-          .on( 'click', '.play', function(){ el_slider.trigger( 'owl.play', 1000 ); } )
-          .on( 'click', '.stop', function(){ el_slider.trigger( 'owl.stop' ); } )
-      } );
-    </script>
-
+ 
 
     
     </div> 
@@ -199,14 +179,13 @@ jQuery(function ($) {
         <button class="javo-gall-filter" data-filter="all">ALL</button>
         <%@places_category.each do |cate|%>
 
-        <button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-<%=cate.id%>"><%=cate.cate_name%>
+        <button class="javo-gall-filter gallery-terms-btn" data-filter=".javo-gallery-term-19"><%=cate.cate_name%>
         </button>
         <%end%>
       </div>
       <div class="javo-gallery">
-      <%@places_category.each do |cate|%>
-        <%@places.select("*").joins(:post => :post_category).where(post_categories: {type_id: cate.type[0].id } ).limit(8).each do |place|%>
-        <div class="javo-gall-mix javo-gallery-term-<%=cate.id%>">
+        <%@pl.each do |place|%>
+        <div class="javo-gall-mix javo-gallery-term-19">
           <div class="javo-gallery-wrap">
             <a href="<%=post_path(place.post)%>">
               <div class="javo-gallery-shadow"></div>
@@ -215,8 +194,7 @@ jQuery(function ($) {
                 <%=place.post.post_title%><!-- <span class="glyphicon glyphicon-th-list"></span> -->
               </div>
               <div class="javo-gallery-term-content-inform">
-                <div class="javo-gallery-term-content-category">
-                  <%=cate.cate_name%>                 
+                <div class="javo-gallery-term-content-category">               
                 </div><!-- javo-gallery-term-content-category -->
                 <div class="javo-gallery-term-content-rating">
                   <div class="javo-gallery-on-hover-rating" data-score="5.0"></div>              
@@ -233,39 +211,8 @@ jQuery(function ($) {
           </div>
         </div> <!-- javo-gallery-term -->
         <%end%>
-      <%end%>
       </div>
     </div>
-    <script type="text/javascript">
-    jQuery(document).ready(function($){
-      "use strict";
-      $('.javo-gallery').mixItUp({
-        selectors:{
-          filter    : '.javo-gall-filter'
-          , target  : '.javo-gall-mix'
-        }
-      });
-      jQuery(function($){
-        $('.javo-gallery-on-hover-rating').each(function(){
-          $(this).raty({
-            starOff: 'assets/star-off-s.png'
-            , starOn: 'assets/star-on-s.png'
-            , starHalf: 'assets/star-half-s.png'
-            , half: true
-            , readOnly: true
-            , score: $(this).data('score')
-          }).css('width', '');
-
-        });
-        $(document).on('click', 'button.filter', function(){
-          $(window).trigger('resize');
-
-
-        });
-
-      });
-    });
-    </script>
   
     </div> 
   </div> 
@@ -334,23 +281,7 @@ jQuery(function ($) {
         </a>
       </div> <!-- carousel-inner -->
     </div> <!-- #javo-featured-items-slider -->
-    <script type="text/javascript">
-
-    // Setup Rating Image
-    jQuery( function($){
-      $('.javo-rating-registered-score').each(function(k,v){
-        $(this).raty({
-          starOff: 'assets/star-off-s.png'
-          , starOn: 'assets/star-on-s.png'
-          , starHalf: 'assets/star-half-s.png'
-          , half: true
-          , readOnly: true
-          , score: $(this).data('score')
-        }).css('width', '');
-      });
-    } );
-    </script>
-
+    
     
     </div> 
   </div> 
