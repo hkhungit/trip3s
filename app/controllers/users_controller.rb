@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :user_info, only: [:index, :user_password, :user_profile, :user_friend, :user_confirm, :user_places, :user_plans, :user_collections]
   layout :resolve_layout
 
+
   skip_before_action :verify_authenticity_token
 
   # GET /users
@@ -199,7 +200,12 @@ class UsersController < ApplicationController
       @user = User.where(:id => @current_user).last
     end
     def resolve_layout
-      "trip3s_user"
+      case action_name
+      when "show","plans"
+        "trip3s"
+      else
+        "trip3s_user"
+      end
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_user

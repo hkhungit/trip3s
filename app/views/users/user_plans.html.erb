@@ -1,4 +1,33 @@
 <div class="sidebar-right col-md-9 nopadding">
-
+    <div class="panel panel-default right-panel-default fui-row-full" id="setting-friends">
+        <div class="panel-heading">
+            <strong class="title-setting"> Danh sách bạn bè</strong>
+        </div>
+       	<div class="panel-body">
+       		<div class="row"> 
+       			<table class="table">
+       				<tr class="row ">
+       					<th class="col-md-3"> Hình ảnh</th>
+       					<th class="col-md-3"> Tên hiển thị </th> 
+       					<th class="col-md-3"> Địa chỉ email </th> 
+       					<th class="col-md-3"> Hoạt động</th> 
+       				</tr>
+       				<%@user.plans.each do |plan|%>
+                            <tr class="row plan-<%=plan.plans.first.id%>">
+                              <td class="col-md-3"><img class="list-item-img" src="<%=plan.plans.first.thumbnail%>" width="50" height="50"></td>
+                              <td class="col-md-3"><%=plan.post_title%></td>
+                              <td class="col-md-3"><%=plan.post_title%></td> 
+                              <td class="col-md-3">
+                               <button class="btn btn-xs btn-danger btn-delete-plan" data-id="<%=plan.plans.first.id%>">Xóa</button>
+                              <%=link_to "Xem", plan.plans.first, id: "go-to-plan", class: "btn btn-xs btn-info"%>
+                              <%=link_to "Sửa", edit_plan_path(plan.plans.first), id: "edit-to-plan", class: "btn btn-xs btn-warning"%>
+                              </td>
+                            </tr>
+                    <%end%>
+                </table>
+                     
+                  </div>
+                </div>
+    </div>
 
 </div>

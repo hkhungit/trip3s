@@ -418,32 +418,37 @@
                   <div class="carousel-inner">
                     <div class="item active">
                       <div class="row">
-                                                      <div class="col-sm-3 pull-left javo-second-event-wrap">
+                      <%@planBest.each do |best|%>
+                        <div class="col-sm-3 pull-left javo-second-event-wrap">
 
                                 <div class="row">
                                   <div class="col-md-12 text-center">
                                     <div class="javo-second-event-listing ">
                                       <!-- <div class="javo-shortcode-event-listing"> -->
                                       <div class="event-inner-overlay-bg">
-                                        <a href="../item/javo-hotel-in-downtown/index.html#item-events">
+                                        <a href="/plans/<%=best.plan_id%>">
                                           <div class="event-image-inner-top">
                                             <div class="offer">
-                                              Hotel                                           </div><!-- offer -->
+                                              <%=best.plan_spend.to_i%>  Người   -  <%=best.plan_money%>  VNĐ                                          
+                                            </div><!-- offer -->
                                           </div><!-- event-image-inner-top -->
                                           <div class="col-md-7 events-content">
-                                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusan...                                         </div><!-- events-content-->
+                                            <%=best.post_title%>
+                                          </div><!-- events-content-->
                                         </a>
                                       </div><!-- event-inner-overlay-bg -->
-                                      <img width="288" height="266" src="assets/sites/2/2014/08/backyard-with-swimming-pool-house-288x266.jpg" class="img-responsive wp-post-image" alt="backyard-with-swimming-pool-house">
+                                      <img width="288" height="266" src="<%=best.thumbnails%>" class="img-responsive wp-post-image" alt="backyard-with-swimming-pool-house">
                                       <div class="item-name">
                                         <span class="top-small-post-title">
-                                          JAVO HOTEL IN DOWNTOWN                                        </span>
+                                           <%=best.post_title%>                                     
+                                        </span>
                                       </div> <!-- item-name -->
                                     </div><!-- javo-shortcode-event-listing -->
 
                                     <div class="javo-left-overlay bg-black">
                                                                             <div class="javo-txt-meta-area admin-color-setting">
-                                        20%OFF                                      </div> <!-- javo-txt-meta-area -->
+                                        <%=best.plan_day%>  Ngày
+                                                                              </div> <!-- javo-txt-meta-area -->
                                       <div class="corner-wrap ">
                                         <div class="corner admin-color-setting"></div>
                                         <div class="corner-background admin-color-setting"></div>
@@ -452,118 +457,15 @@
                                   </div><!-- /.col-md-12 -->
                                 </div><!-- /.row -->
 
-                              </div><!-- /.javo-second-event-wrap -->
-                                                            <div class="col-sm-3 pull-left javo-second-event-wrap">
-
-                                <div class="row">
-                                  <div class="col-md-12 text-center">
-                                    <div class="javo-second-event-listing ">
-                                      <!-- <div class="javo-shortcode-event-listing"> -->
-                                      <div class="event-inner-overlay-bg">
-                                        <a href="../item/super-car-rental/index.html#item-events">
-                                          <div class="event-image-inner-top">
-                                            <div class="offer">
-                                              Temporibus autem                                            </div><!-- offer -->
-                                          </div><!-- event-image-inner-top -->
-                                          <div class="col-md-7 events-content">
-                                            Temporibus autem quibusdam et aut officiis debitis aut rerum necessita...                                         </div><!-- events-content-->
-                                        </a>
-                                      </div><!-- event-inner-overlay-bg -->
-                                      <img width="288" height="266" src="assets/sites/2/2014/08/bus1-288x266.jpg" class="img-responsive wp-post-image" alt="bus">
-                                      <div class="item-name">
-                                        <span class="top-small-post-title">
-                                          SUPER CAR RENTAL                                        </span>
-                                      </div> <!-- item-name -->
-                                    </div><!-- javo-shortcode-event-listing -->
-
-                                    <div class="javo-left-overlay bg-black">
-                                                                            <div class="javo-txt-meta-area admin-color-setting">
-                                        10%OFF                                      </div> <!-- javo-txt-meta-area -->
-                                      <div class="corner-wrap ">
-                                        <div class="corner admin-color-setting"></div>
-                                        <div class="corner-background admin-color-setting"></div>
-                                      </div> <!-- corner-wrap -->
-                                                                          </div><!-- /.javo-left-overlay -->
-                                  </div><!-- /.col-md-12 -->
-                                </div><!-- /.row -->
-
-                              </div><!-- /.javo-second-event-wrap -->
-                                                            <div class="col-sm-3 pull-left javo-second-event-wrap">
-
-                                <div class="row">
-                                  <div class="col-md-12 text-center">
-                                    <div class="javo-second-event-listing ">
-                                      <!-- <div class="javo-shortcode-event-listing"> -->
-                                      <div class="event-inner-overlay-bg">
-                                        <a href="../item/espresso-cafe/index.html#item-events">
-                                          <div class="event-image-inner-top">
-                                            <div class="offer">
-                                              Duis autem                                            </div><!-- offer -->
-                                          </div><!-- event-image-inner-top -->
-                                          <div class="col-md-7 events-content">
-                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam non...                                         </div><!-- events-content-->
-                                        </a>
-                                      </div><!-- event-inner-overlay-bg -->
-                                      <img width="288" height="266" src="assets/sites/2/2014/08/JAVO_1704-288x266.jpg" class="img-responsive wp-post-image" alt="JAVO_1704">
-                                      <div class="item-name">
-                                        <span class="top-small-post-title">
-                                          Espresso Cafe                                       </span>
-                                      </div> <!-- item-name -->
-                                    </div><!-- javo-shortcode-event-listing -->
-
-                                    <div class="javo-left-overlay bg-black">
-                                                                            <div class="javo-txt-meta-area admin-color-setting">
-                                        30%OFF                                      </div> <!-- javo-txt-meta-area -->
-                                      <div class="corner-wrap ">
-                                        <div class="corner admin-color-setting"></div>
-                                        <div class="corner-background admin-color-setting"></div>
-                                      </div> <!-- corner-wrap -->
-                                                                          </div><!-- /.javo-left-overlay -->
-                                  </div><!-- /.col-md-12 -->
-                                </div><!-- /.row -->
-
-                              </div><!-- /.javo-second-event-wrap -->
-                                                            <div class="col-sm-3 pull-left javo-second-event-wrap">
-
-                                <div class="row">
-                                  <div class="col-md-12 text-center">
-                                    <div class="javo-second-event-listing ">
-                                      <!-- <div class="javo-shortcode-event-listing"> -->
-                                      <div class="event-inner-overlay-bg">
-                                        <a href="../item/queens-airport-2/index.html#item-events">
-                                          <div class="event-image-inner-top">
-                                            <div class="offer">
-                                              Ullamcorper volutpat                                            </div><!-- offer -->
-                                          </div><!-- event-image-inner-top -->
-                                          <div class="col-md-7 events-content">
-                                            Quisque ligulas ipsum, euismod atras vulputate iltricies etri elit. Cl...                                         </div><!-- events-content-->
-                                        </a>
-                                      </div><!-- event-inner-overlay-bg -->
-                                      <img width="288" height="266" src="assets/sites/2/2014/07/JAVO_2999-288x266.jpg" class="img-responsive wp-post-image" alt="JAVO_2999">
-                                      <div class="item-name">
-                                        <span class="top-small-post-title">
-                                          high food                                       </span>
-                                      </div> <!-- item-name -->
-                                    </div><!-- javo-shortcode-event-listing -->
-
-                                    <div class="javo-left-overlay bg-black">
-                                                                            <div class="javo-txt-meta-area admin-color-setting">
-                                        20%OFF                                      </div> <!-- javo-txt-meta-area -->
-                                      <div class="corner-wrap ">
-                                        <div class="corner admin-color-setting"></div>
-                                        <div class="corner-background admin-color-setting"></div>
-                                      </div> <!-- corner-wrap -->
-                                                                          </div><!-- /.javo-left-overlay -->
-                                  </div><!-- /.col-md-12 -->
-                                </div><!-- /.row -->
-
-                              </div><!-- /.javo-second-event-wrap -->
-                                                    </div><!-- /.row -->
+                        </div>
+                        <!-- /.javo-second-event-wrap -->
+                        <%end%>
+                      </div><!-- /.row -->
                     </div><!-- /.item.active -->
                   </div><!-- Carousel Inner -->
                 </div><!-- Slider Container -->
               </div>
-                  </div><!-- row -->
+            </div><!-- row -->
       </div><!-- /.sc-item-long-line-box -->
     </div><!-- /#javo-sc-events-listing -->
     

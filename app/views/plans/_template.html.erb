@@ -792,12 +792,7 @@
 					<li><div class="prp-meta">{phone}</div></li>
 					<li><div class="prp-meta">{mobile}</div></li>
 					<li><div class="prp-meta">{website}</div></li>
-										<li>
-						<div class="prp-meta">{address}
-							<a href="{permalink}#item-location" class="btn btn-primary btn-get-direction btn-sm">Get directions</a>
-						</div>
-					</li>
-									</ul>
+				</ul>
 			</div> <!-- des -->
 
 			<div class="pics">
@@ -817,20 +812,22 @@
 					</div> <!-- corner-wrap -->
 				</div> <!-- javo-left-overlay -->
 			</div> <!-- pic -->
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="btn-group btn-group-justified pull-right">
-						<a class="btn btn-primary btn-sm" onclick="window.javo_map_box_func.brief_run(this);" data-id="{post_id}">
-							<i class="fa fa-user"></i> Brief						</a>
-						<a href="{permalink}" class="btn btn-primary btn-sm">
-							<i class="fa fa-group"></i> Detail						</a>
-						<a href="javascript:" class="btn btn-primary btn-sm" onclick="window.javo_map_box_func.contact_run(this)" data-to="{email}" data-username="{author_name}" data-itemname="{post_title}">
-							<i class="fa fa-envelope"></i> Contact						</a>
-					 </div><!-- btn-group -->
-				</div> <!-- col-md-12 -->
-			</div> <!-- row -->
 		</div> <!-- javo_somw_info -->
+	</script>
+	<script type="text/template" id="load-plans-match-places">
+		<li class="plan-item">
+          <a href="/plans/{{plan_id}}"  target="_blank">
+          	<img src="{{plan_thumbnail}}" class="image-item">
+	          <span class="title"><strong>{{plan_title}}</strong></span>
+	          <span class="caption">
+	            <b>{{plan_user}} Người</b>  <br>
+
+	            <b>{{plan_day}} Ngày</b>  <br>
+
+	            <b>{{plan_money}} vnđ</b>    
+	          </span>
+          </a>
+        </li>
 	</script>
 	<script type="text/template" id="javo-map-box-infobx-content-2">
 

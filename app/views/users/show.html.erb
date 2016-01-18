@@ -38,20 +38,20 @@
           
           <strong>Kế hoạch nổi bật của <%=@user.name_display%></strong>
         </div>
-        <div class="panel-body row panel-body-nopadding">
+        <div class="panel-body panel-body-nopadding">
           
         <ul class="list-unstyled">
           <%@user.plans.each do |plan|%>
             <li class="item-list">
                <a href="/plans/<%=plan.plans[0].id%>">
-                <img src="<%=plan.post_thumbnail%>" width="50" height="50" class="list-item-img">
+                <img src="<%=plan.plans.first.thumbnail%>" width="50" height="50" class="list-item-img">
                 <strong class="list-item-title"><%=plan.post_title%></strong>
               </a>
             </li>
             <%end%>
           </ul>
         </div>
-    </div>
+      </div>
     <div class="panel panel-default">
        
         <div class="panel-heading">

@@ -146,7 +146,14 @@
 				:name 	=> 'type_area'}
 		end
 
-
+		if params[:keyword].present?
+			_like  = params[:keyword]
+			_like  = _like.gsub(/[ \'']/, '%') 
+			_temp  =  places
+						.joins(:place,:post_category =>{:type=>:category})
+						.where(" post_title LIKE '%#{_like}%' ").pluck(:id)
+			places = places.where("posts.id IN (?)",_temp	)
+		end
 		#Get all place of location
 		if location_arr.present?
 			check_filter =true
@@ -174,7 +181,7 @@
 						.where(:types => {:category_id=> params[:proIds],:type_name=> 'type_property_place'}).pluck(:id)
 			places = places.where("posts.id in (?)",_temp	)
 		end
-
+		
 		#Check city
 		if params[:cuiIds].present?
 
@@ -206,14 +213,7 @@
 		if check_filter ==false
 			places = places.where(:types => {:type_name=> 'type_category_place'})
 		end
-		if params[:keyword].present?
-			_like  = params[:keyword]
-			_like  = _like.gsub(/[ \'']/, '%') 
-			_temp  =  places
-						.joins(:place,:post_category =>{:type=>:category})
-						.where(" post_title LIKE '%#{_like}%' ").pluck(:id)
-			places = places.where("posts.id IN (?)",_temp	)
-		end
+		
 		if session[:plan].present?
 			if session[:plan]["placeIds"].present?
 				places = places.where("places.id NOT IN (?)",session[:plan]["placeIds"]	)
@@ -581,7 +581,7 @@
 				'post_id' 		=>	place.id	,
 				'post_title' 	=> 	place.post_title	,
 				'post_content' 	=> 	place.post_content	,
-				'post_thumbnail'=> 	place.post_thumbnail	,
+				'post_thumbnail'=> 	place.post_thumbnail_identifier	,
 				'permalink' 	=> 	'#'	,
 				'avatar' 		=> 	''	,
 				'rating' 		=> 	place.post_view	,
@@ -686,7 +686,7 @@
 				'post_id' 	 => place.id,
 				'post_title' => "#{place.post_title}",
 				'permalink'  => "#",
-				'thumbnail'  => "#{place.post_thumbnail}",
+				'thumbnail'  => "#{place.post_thumbnail_identifier}",
 				'category'   => arrCate,
 				'location'   => "#{place.place[0].place_address}",
 				'phone' 	 => "#{place.place[0].place_phone}",
@@ -723,6 +723,79 @@
 			status: status,
 			users: users
 		}
+	end
+	def get_plan
+		if session[:plan].present?
+			placeIds = Array.new
+			if session[:plan][:placeIds].present?
+				placeIds  = session[:plan][:placeIds]
+			elsif session[:plan]['placeIds'].present?
+				placeIds  = session[:plan]['placeIds']
+			end	
+			plans = Plan.distinct.joins(:schedule => :schedule_detail).where("schedule_details.place_id in (?)",placeIds) 
+			
+			if placeIds.count > 0
+				placeIds.each do |id|
+					_temp 	=  plans
+						.joins(:schedule => :schedule_detail)
+						.where("schedule_details.place_id in (?)",id) .pluck(:id)
+					plans = plans.where("plans.id in (?)",_temp	)
+				end
+			end
+			arrPlans = Array.new 
+			plans.limit(5).each do |plan|
+				temp = {
+					:id => plan.id,
+					:plan_money => plan.plan_money.to_i,
+					:plan_day => plan.plan_day.to_i,
+					:plan_title => plan.post.post_title,
+					:plan_spend => plan.plan_spend.to_i,
+					:post_id => plan.post_id,
+					:plan_thumbnail => plan.thumbnail,
+				}
+				arrPlans << temp
+			end
+
+			render json:{
+				plans: arrPlans
+			}
+			return
+		end
+		render json: {
+			plans: []
+		}
+	end
+	def plans
+		status = false
+		planid = params[:planid]
+		userid = session[:user_id]
+		case params[:act]
+	    	when "delete"
+	    		Plan.where({:id => planid}).each do  |plan|  
+		    		Schedule.where({:plan_id => plan.id}).each  do |schedule|
+		    			details = ScheduleDetail.where({:schedule_id => schedule.id})
+		    			details.destroy_all 
+		    			schedule.destroy
+		    		end 
+
+		    		plan.destroy
+		    		Post.where({:id => plan.post_id}).each  do  |post|
+		    			PostExpand.where({:post_id => post.id}) do |expand|
+		    				expand.destroy
+		    			end
+		    			PostCategory.where({:post_id => post.id}).each  do |cate|
+		    				cate.destroy
+		    			end
+		    			post.destroy
+		    		end 
+		    		status = true
+	    		end
+
+	    end
+
+	    render json:{
+	    	status: status
+	    }
 	end
 	#Update infor for user
 	def friends

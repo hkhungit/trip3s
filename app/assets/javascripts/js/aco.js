@@ -79,7 +79,6 @@
 
 
 	        optionsSource.antBestDistance = [];
-	        console.log(optionsSource);
 	        while (_currentLoop < 5) {
 
 	            //Loop with all ant
