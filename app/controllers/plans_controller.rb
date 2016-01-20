@@ -22,6 +22,7 @@ class PlansController < ApplicationController
     @planLastest  = Post.joins(:plans).order("id desc").limit(10)
     @planRandom   = Post.joins(:plans).offset(rand()).first
     @planViewest  = Post.joins(:plans).order("post_view desc").limit(5)
+    @planBest     = Plan.best 
     @places_city      = Category.select("*").joins(:type).where(:types => {:type_name => 'type_city'}) 
   end
 
@@ -396,12 +397,8 @@ class PlansController < ApplicationController
             planCate.save
           end
         end
-      end
-     
-     
-     
-
-      session[:plan] = nil
+      end 
+    session[:plan] = nil
     end
     redirect_to @plan
     #redirect_to new_plan_path

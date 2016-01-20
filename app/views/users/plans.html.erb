@@ -44,7 +44,7 @@
           <%@user.plans.each do |plan|%>
             <li class="item-list">
               <a href="/plans/<%=plan.plans[0].id%>">
-                <img src="<%=plan.thumbnail%>" width="50" height="50" class="list-item-img">
+                <img src="<%=plan.plans.first.thumbnail%>" width="50" height="50" class="list-item-img">
                 <strong class="list-item-title"><%=plan.post_title%></strong>
               </a>
             </li>

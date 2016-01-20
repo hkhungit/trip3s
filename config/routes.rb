@@ -79,6 +79,9 @@ Rails.application.routes.draw do
       get 'return_day'
     end
     collection do
+      get 'get_plan'
+      get 'plans'
+      post 'plans'
       get 'getComment'
       post 'comment'
       get 'trip3s_user_by_id'

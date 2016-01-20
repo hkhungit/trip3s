@@ -11,6 +11,22 @@ class Plan < ActiveRecord::Base
   	joins(:schedule).where(id: id).last
   end
 
+  def self.best
+    find_by_sql("select DISTINCT p.id, pl.id as plan_id, p.post_title, pl.plan_day, pl.plan_spend, pl.plan_money , (select count(id)
+                            from post_expands
+                             WHERE post_id  = p.id and 
+                              expand_name like '%_vote' and  expand_value = '1'
+                             
+                            ) as liked,
+                            (select expand_value from post_expands where post_id = p.id and expand_name = 'post_thumbnail2' )
+                             as thumbnails
+                             from posts p, post_expands e, plans pl
+                      WHERE
+                      pl.post_id = p.id and
+                      p.post_type = 'type_plan' and
+                      p.id = e.post_id
+                      ORDER by  liked DESC limit 8")
+  end
 
   def thumbnail
      _thumbnail = PostExpand.where("post_id = ? and expand_name = 'post_thumbnail2'", post_id).last
@@ -22,9 +38,10 @@ class Plan < ActiveRecord::Base
 
   def voteLike
     liked = PostExpand.where("post_id = '?' and expand_name like '%_vote' and expand_value = '1'", post_id).count
-
     return liked
   end
+
+
   def voteDislike
     liked = PostExpand.where("post_id = '?' and expand_name like '%_vote' and expand_value = '0'", post_id).count
 

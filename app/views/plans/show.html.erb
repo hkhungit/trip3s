@@ -226,7 +226,7 @@
         </div>
         <div class="panel-body">
           <div class="pull-left">
-          <a href="/u/<%=@user.id%>/plans" title="<%=@user.user_display%>">
+          <a href="/users/<%=@user.id%>" title="<%=@user.user_display%>" target="_blank">
           <img width="120" height="120" alt="<%=@user.user_display%>"  title="<%=@user.user_display%>" class="fleft img-circle" src="<%=@user.user_thumbnail%>">
           </a>
           </div>
@@ -234,7 +234,7 @@
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-sm-6">
-                  <h3 class="font18"><a href="/u/<%=@user.user_display%>/plans" title="<%=@user.user_display%>"><%=@user.user_display%></a></h3>
+                  <h3 class="font18"><a href="/users/<%=@user.id%>" title="<%=@user.user_display%>"><%=@user.user_display%></a></h3>
                 </div>
                 <div class="col-sm-6 user-social-menu">
                 <%if @current_user.present?%> 
