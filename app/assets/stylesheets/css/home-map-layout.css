@@ -33,6 +33,19 @@ div.edit-item-place{
 	display: none;
 	z-index: 9999
 }
+.javo-hmap-marker-trigger.move-item-place{
+	width: auto;height: auto;
+}
+.move-item-place{
+	padding: 2px 5px;
+	position: absolute;
+	top: 100px;
+	left: 40%;
+	background: transparent;
+	color: #fff; 
+	z-index: 9999;
+	border: 1px #ccc solid;
+}
 button.btn-save-detail-advance-plan{
 	display: none;
 }

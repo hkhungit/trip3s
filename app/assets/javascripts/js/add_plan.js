@@ -1288,6 +1288,7 @@ jQuery(function($) {
         };
         str = str.replace(/{{post_thumbnail}}/g, place.post_thumbnail || nstr);
         str = str.replace(/{{place_id}}/g, place.place_id || nstr);
+        str = str.replace(/{{post_id}}/g, place.post_id || nstr);
         str = str.replace(/{{current_place}}/g, JSON.stringify(place) || nstr);
         str = str.replace(/{{post_title}}/g, place.post_title || nstr);
         str = str.replace(/{{place_come}}/g, place.place_come || "00:00");
