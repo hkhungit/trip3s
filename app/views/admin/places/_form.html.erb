@@ -23,7 +23,7 @@
     <textarea name="post[post_content]" class="form-control left" id="post-post_content"  required="required" style ="width:100%;height:170px;"></textarea><br>
   </div>
   <div class="col-md-6">
-    <label>Loai dia diem</label>
+    <label>Loai dia diem</label><br>
     <select name="post[category_id]">
     <%@places_category.each do |cate|%>
     <option value="  <%=cate.id%>   ">  <%=cate.cate_name%>   </option>
@@ -39,15 +39,19 @@
     <%= f.text_field :place_lng %>
     <br>
      <div class="field">
-    <%= f.label :place_open %><br>
+      <div class="field">
+    <label>Điểm ưu tiên</label><br>
+    <%= f.text_field :place_choice %>
+  </div>
+   <label>Thời gian mở cửa</label><br>
     <%= f.text_field :place_open %>
   </div>
   <div class="field">
-    <%= f.label :place_close %><br>
+   <label>Thời gian đóng cửa</label><br>
     <%= f.text_field :place_close %>
   </div>
   <div class="field">
-    <%= f.label :place_late %><br>
+    <label>Thời gian nhận khách cuối cùng</label><br>
     <%= f.text_field :place_late %>
   </div>
   </div>
