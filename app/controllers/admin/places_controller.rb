@@ -7,7 +7,12 @@ class Admin::PlacesController < ApplicationController
     @places = Place.all
     @places_all=Place.all.paginate(page: params[:page])
   end
-
+   def resuft
+     @places = Place.all
+    @posts  = Post.select("*").joins(:place).order('post_view desc').limit(4)
+    @places_category = Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_place'})
+    @places_cate_all=Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_place',:type_name => 'type_city',:type_name => 'type_district',:type_name => 'type_area',:type_name => 'type_diding_place',:type_name => 'type_property_place',:type_name => 'type_cuisine_place',:type_name => 'type_purpose_place'}).limit(10)
+  end
   # GET /admin/places/1
   # GET /admin/places/1.json
   def show
@@ -24,11 +29,12 @@ class Admin::PlacesController < ApplicationController
 
   # GET /admin/places/1/edit
   def edit
+     @places_category  = Category.select("*").joins(:type).where(:types => {:type_name => 'type_category_place'}) 
   end
 
   # POST /admin/places
   # POST /admin/places.json
-  def create
+def create
      status = true
     post_id = ''
       _post = {
@@ -60,7 +66,7 @@ class Admin::PlacesController < ApplicationController
     }
     savePostCategories(_postcate);
      if @place.save
-       render action: 'index'
+       redirect_to @place
       else
         render action: 'new'
       end
@@ -79,8 +85,7 @@ class Admin::PlacesController < ApplicationController
       end
     end
   end
-
-  # DELETE /places/1
+# DELETE /places/1
   # DELETE /places/1.json
   def destroy
     @place.destroy

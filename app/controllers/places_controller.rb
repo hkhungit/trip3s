@@ -57,17 +57,41 @@ class PlacesController < ApplicationController
   # POST /places
   # POST /places.json
   def create
-    @place = Place.new(place_params)
-
-    respond_to do |format|
-      if @place.save
-        format.html { redirect_to @place, notice: 'Place was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @place }
+     status = true
+    post_id = ''
+      _post = {
+        :post_title     => params[:post][:plan_title],
+        :post_content   => params[:post][:plan_content], 
+        :post_type =>  'type_place'
+      }
+      post_id = savePost(_post)
+      _place={
+          :post_id    => post_id,
+          :place_lat   => params[:place]["place_lat"],
+          :place_lng => params[:place]["place_lng"],
+          :place_ticket   => 0,
+          :place_open => params[:place]["place_open"],
+          :place_close => params[:place]["place_close"],
+          :place_late=> params[:place]["place_late"],
+          :place_address=> params[:place]["place_address"]
+      }
+    @place = Place.new(_place)
+    #session[:user_id]
+    _userpost={
+        :user_id => 1,
+        :post_id => post_id
+    }
+    saveUserPost(_userpost);
+    _postcate={
+      :post_id => post_id,
+      :type_id => params[:post]["category_id"]
+    }
+    savePostCategories(_postcate);
+     if @place.save
+       redirect_to @place
       else
-        format.html { render action: 'new' }
-        format.json { render json: @place.errors, status: :unprocessable_entity }
+        render action: 'new'
       end
-    end
   end
 
   # PATCH/PUT /places/1
@@ -83,8 +107,7 @@ class PlacesController < ApplicationController
       end
     end
   end
-
-  # DELETE /places/1
+# DELETE /places/1
   # DELETE /places/1.json
   def destroy
     @place.destroy
@@ -209,3 +232,49 @@ class PlacesController < ApplicationController
     return postCategories
   end
 end
+def savePost post
+    if post.nil?
+      return false
+    end
+
+    tmpPost = Post.new
+     tmpPost.post_title    =   post[:post_title]
+     tmpPost.post_content  =   post[:post_content]
+     tmpPost.post_type     =   'type_place'
+     tmpPost.post_view     =   0
+     tmpPost.post_review   =   0
+     tmpPost.post_point    =   0
+    if tmpPost.save
+      return tmpPost.id
+    end
+      puts "error save post"
+    return false
+  end
+def saveUserPost usepost
+    if usepost.nil?
+      return false
+    end
+
+    tmpUserPost = UserPost.new
+     tmpUserPost.post_id    =   usepost[:post_id]
+     tmpUserPost.user_id    =   usepost[:user_id]
+    if tmpUserPost.save
+      return tmpUserPost.id
+    end
+      puts "error save UserPost"
+    return false
+  end
+  def savePostCategories postcate
+    if postcate.nil?
+      return false
+    end
+
+    tmpPostCategory = PostCategory.new
+     tmpPostCategory.post_id    =   postcate[:post_id]
+     tmpPostCategory.type_id    =   postcate[:type_id]
+    if tmpPostCategory.save
+      return tmpPostCategory.id
+    end
+      puts "error save PostCategory"
+    return false
+  end
