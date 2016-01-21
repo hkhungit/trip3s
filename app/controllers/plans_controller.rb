@@ -377,11 +377,13 @@ class PlansController < ApplicationController
       if plan_cates.present?
         plan_cates.each do |cate|
           type = Type.where(:category_id => cate).last
-          if type.id.present?
-             planCate = PostCategory.new
-            planCate.post_id = post_id
-            planCate.type_id = type.id
-            planCate.save
+          if type.present?
+            if type.id.present?
+               planCate = PostCategory.new
+              planCate.post_id = post_id
+              planCate.type_id = type.id
+              planCate.save
+            end
           end
         end
       end
@@ -390,11 +392,13 @@ class PlansController < ApplicationController
       if plan_cities.present?
         plan_cities.each do |cate|
           type = Type.where(:category_id => cate).last
-          if type.id.present?
-            planCate = PostCategory.new
-            planCate.post_id = post_id
-            planCate.type_id = type.id
-            planCate.save
+          if type.present?
+            if type.id.present?
+              planCate = PostCategory.new
+              planCate.post_id = post_id
+              planCate.type_id = type.id
+              planCate.save
+            end
           end
         end
       end 
