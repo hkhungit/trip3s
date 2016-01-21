@@ -32,7 +32,8 @@ class Post < ActiveRecord::Base
 
     return liked
   end 
-	def user
+
+	def users
 		user = User.joins(:user_post).where({:user_posts=>{:post_id => id}})
 		return user
 	end

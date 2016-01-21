@@ -353,7 +353,7 @@
       </ul>
       <div>
         <ul class="nav-pills list-unstyled user-in-plan"> 
-        <%@post.user.each do |user|%>
+        <%@post.users.each do |user|%>
           <li data-user="<%=user.dataJson.to_s%>">
             <a href="/users/<%=user.id%>" title="<%=user.name_display%>" target="_blank" data-location="<%=user.location%>">
               <img src="<%=user.user_thumbnail%>" width="50" height="50"  title="<%=user.name_display%>"  alt="<%=user.name_display%>">
