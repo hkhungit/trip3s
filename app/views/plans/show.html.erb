@@ -136,6 +136,7 @@
         <div id="results-day-<%=schedule.schedule_day%>" class="day-one results-day panel panel-default">
           <div id="nav-day-<%=schedule.schedule_day%>" class="panel-heading"><i class="day-icon fa fa-calendar"></i>
             <strong>Thông tin ngày <%=schedule.schedule_day%></strong>
+            <button class="btn btn-xs btn-success btn-reload-schedule" data-scheduleid="<%=schedule.id%>" data-scheduleday="<%=schedule.schedule_day%>">Lộ trình</button>
             <span class="badge fright fui-bg-orange hidden-xs"><%=@details.where(:schedule_id => schedule.id).select(:place_id).distinct.count%>  địa điểm</span>
           </div>
           <div class="list-item panel-body">
@@ -270,7 +271,7 @@
             <div id="itinerary-discussion" class="fui-row-full">
               <div class="fleft fui-listcomments fui-row-full">
               <ul class="list-comments media-list list-unstyled">
-              <%if @comments.count > 1%>
+              <%if @comments.count > 0%>
                <%@comments.each do |cmt|%>
                   <li>
                     <div class="item-comment row">
@@ -324,21 +325,43 @@
 <div class="sidebar-right col-md-3 hidden-xs hidden-sm">
   <div class="iti-day-nav fui-row-full pos-fixed">
     <div class="iti-day-nav-list fui-box">
-    <ul class="nav nav-pills nav-stacked list-unstyled">
-      <li class="bottom-border active">
-        <a href="#page-itinerary">
-        <i class="icomoon-icon-map-2"></i>Chi tiết kế hoạch
-        </a>
-      </li>
-      <%@schedules.each do |schedule|%>
-      <li class="">
-        <a data-day="<%=schedule.schedule_day%>" href="#nav-day-<%=schedule.schedule_day%>">
-        <i class="icomoon-icon-calendar-2"></i>Ngày <%=schedule.schedule_day%>
-        <span class="badge fright"><%=@details.where(:schedule_id => schedule.id).select(:place_id).distinct.count%>  địa điểm</span>
-        </a>
-      </li>
-      <%end%>
-    </ul>
+      <ul class="nav nav-pills nav-stacked list-unstyled">
+        <li class="bottom-border active">
+          <a href="#page-itinerary">
+          <i class="icomoon-icon-map-2"></i>Chi tiết kế hoạch
+          </a>
+        </li>
+        <%@schedules.each do |schedule|%>
+        <li class="">
+          <a data-day="<%=schedule.schedule_day%>" href="#nav-day-<%=schedule.schedule_day%>">
+          <i class="icomoon-icon-calendar-2"></i>Ngày <%=schedule.schedule_day%>
+          <span class="badge fright"><%=@details.where(:schedule_id => schedule.id).select(:place_id).distinct.count%>  địa điểm</span>
+          </a>
+        </li>
+        <%end%>
+      </ul>
+    </div>
+    <div class="iti-day-nav-list fui-box">
+      <ul class="nav nav-pills nav-stacked list-unstyled">
+        <li class="bottom-border active">
+          <a href="#">
+            <i class="icomoon-icon-map-2"></i>Người tham gia
+
+            <!--<button class="btn-xs btn-warning btn-view-location">Xem vị trí</button>-->
+          </a>
+        </li> 
+      </ul>
+      <div>
+        <ul class="nav-pills list-unstyled user-in-plan"> 
+        <%@post.user.each do |user|%>
+          <li data-user="<%=user.dataJson.to_s%>">
+            <a href="/users/<%=user.id%>" title="<%=user.name_display%>" target="_blank" data-location="<%=user.location%>">
+              <img src="<%=user.user_thumbnail%>" width="50" height="50"  title="<%=user.name_display%>"  alt="<%=user.name_display%>">
+            </a>
+          </li>
+        <%end%>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -365,7 +388,17 @@
        // var contents = window.opener.document.getElementById("itinerary-detail  ");
        // document.write(contents.innerHTML);
        // window.print();       
-
+    jQuery(function($){
+        $(document).on('scroll',$('body'), revealOnScroll);
+        function revealOnScroll() {
+          var scrolled = $('body').scrollTop();
+          if (scrolled >  150) {
+            $('.iti-day-nav.pos-fixed').css('top','70px');
+          }else{
+            $('.iti-day-nav.pos-fixed').css('top','160px');
+          };
+        }
+    });
   </script>  
 
 

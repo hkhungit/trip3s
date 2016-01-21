@@ -1,5 +1,39 @@
 jQuery(function($) {
     "use strict";
+    $(document).on('click', '.btn-reload-schedule', function() {
+        var idday = $(this).data('scheduleday');
+        var schedule_id = $(this).data('scheduleid');
+        setTimeout(function() {
+
+            $.post('/api/detail_by_schedule_id', {
+                schedule_id: schedule_id
+            }).done(function(data) {
+
+                var obj = window.javo_map_box_func;
+                $('#map-schedule-' + idday).gmap3(obj.options.map_init);
+                var map = $('#map-schedule-' + idday).gmap3('get');
+
+                obj.drawRoutePreview(data, map, idday);
+
+            });
+
+        }, 500);
+    });
+
+    $(document).on('click', '.btn-view-location', function(e) {
+        var arrUsers = [];
+        $('ul.user-in-plan li').each(function(e) {
+            var _user = JSON.parse($(this).data('user'));
+            if (_user.location != "") {
+                console.log(_user);
+                arrUsers.push(_user);
+            };
+        });
+        console.log(arrUsers);
+        var obj = window.javo_map_box_func;
+        obj.setMarkerUsers(arrUsers);
+
+    });
     $(document).on('click', '.btn-comment', function() {
         if (user.id < 1) {
             $('#login_panel').modal();

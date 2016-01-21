@@ -16,6 +16,21 @@ class User < ActiveRecord::Base
 	      user.save!
 	    end   
 	end 
+	def dataJson
+		users = User.find_by_sql("
+				select u.id,
+					u.id,
+					u.user_name,
+					u.user_thumbnail,
+					u.user_display,
+					(select user_expands.expand_value
+						from user_expands
+						where user_expands.expand_name = 'location' and user_expands.user_id = u.id) as location
+					 from  users as u where  id=#{id}
+				").first
+		return "{'id':#{users.id},'user_name':#{users.user_name},'user_thumbnail':#{users.user_thumbnail}
+		,'user_display':#{users.user_display},'location':#{users.location} }" 
+	end
 	def user_phone
 		expand = UserExpand.where(" user_expands.expand_name = 'user_phone' and user_expands.user_id='?'  ",id).last
 		if expand.blank?

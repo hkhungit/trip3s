@@ -476,8 +476,8 @@ jQuery(function($) {
 
 
         console.log(schedule_id);
-        if (schedule_id == '{{schedule_id}}' || schedule_id == undefined) {
-
+        if (schedule_id == '{{schedule_id}}' || schedule_id == undefined || schedule_id == 'undefined') {
+            console.log("sdsdsd");
             for (var i = 0; i < tripPlan.placeLists.length; i++) {
                 if (tripPlan.placeLists[i].place_id == place_id) {
                     tripPlan.placeLists[i].place_time = place_time;
