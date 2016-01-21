@@ -408,8 +408,20 @@
 
 	<script type="text/template" id="trip3s-attribute-schedule-1">
 		<div class="title-information" ><b>Thông tin ngày thứ {{data-index}}</b>
-		
-		<button class="btn-xs btn-success pull-right " id="showMap-plan" data-day="{{data-index}}"><i class="glyphicon glyphicon-globe"></i> Lộ trình</button>
+			<div class="dropdown  pull-right"> 
+                <a href="#" title="" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" data-original-title="Sắp lịch hoặc xem lộ trình"> 
+                Lộ trình
+                </a>
+                <ul class="dropdown-menu" role="menu"> 
+                  <li>
+                  <a id="showMap-plan"  data-day="{{data-index}}" href="#"><i class="glyphicon glyphicon-globe"></i>  Xem lộ trình</a>
+                  </li>
+                  <li class="li-optimize">
+
+                  <a id="btn-optimize"   data-day="{{data-index}}" class="btn-optimize" href="#"><span class="glyphicon glyphicon-download"></span>  Sắp lộ trình</a>
+                  </li>
+                </ul>
+              </div>  
 		</div>
 
 

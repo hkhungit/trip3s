@@ -294,6 +294,8 @@ jQuery(function($) {
 
         $('.javo_mhome_sidebar').toggleClass('all_day');
         update_list_day();
+
+
     });
 
     function enable_sortable(_class, class2) {
@@ -1093,6 +1095,7 @@ jQuery(function($) {
         }, function(data) {
             console.log("Created the trip successfully");
             $('#register_waiting_create').removeClass('active_wait');
+            $('.preview-to-plan').trigger('click');
         });
         var obj = window.javo_map_box_func;
         obj.resize();

@@ -153,7 +153,8 @@
       width: 100% !important;
       overflow: scroll;
     }
-    .all_day .schedule-day-boby-detail ul{display: block; margin: 0px 0px}
+    .all_day .schedule-day-boby-detail ul:not(.dropdown-menu){display: block; margin: 0px 0px}
+    .all_day .schedule-day-boby-detail ul.dropdown-menu .li-optimize{display: none;}
     .all_day .schedule-day-boby-detail{margin-right: 20px; display: block;}
     .place-router{background: #232; color: #fff}
     .icon-item-place-number{
