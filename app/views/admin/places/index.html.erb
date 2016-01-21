@@ -6,7 +6,12 @@
                               <h2>Danh Sách Địa Điểm</h2>
                                <button type="button" class="btn btn-success pull-right"><%= link_to '+ Thêm mới địa điểm', new_admin_place_path %></button>
                           </header>
-                          
+                          <h1>Tìm kiếm</h1>
+                            <%= form_tag admin_places_search_path,:action=>'admin/places/search', :method => 'get', :id => 'search_form' do %>
+                            <%= text_field_tag :search, params[:search] %>
+                      <%= submit_tag "Search", :name => nil,:id=>"btn-search",:class=>"btn btn-success",:placeholder =>"Enter places" %></br>
+                      
+<% end %>
                           <table class="table table-striped table-advance table-hover">
                            <tbody>
                               <tr>

@@ -94,7 +94,11 @@ def create
       format.json { head :no_content }
     end
   end
-
+   def search
+      sql5 = " select B.post_title,A.place_address,A.post_id,B.id from Places A, Posts B where B.id=A.post_id and B.post_title like '%#{params[:search]}%' "
+      @places_search=Place.paginate_by_sql(sql5, :page => params[:page], :per_page => 5)
+      @places=Post.all.paginate(page: params[:page])
+    end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_place
@@ -106,9 +110,8 @@ def create
       params.require(:place).permit(:post_id, :place_lat, :place_lng, :place_ticket, :place_open, :place_close, :place_late, :place_choice)
     end
     #action load places filter by city, district,area, cate,cuisine, property,dide, purpose
-    def method_name
-      
-    end
+ 
+ 
   def load_place_filter
     #All place none filter
     places    = Post.select("posts.id,
