@@ -1,0 +1,29 @@
+<section id="main-content">
+<div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              <h2>Danh Sách Người Dùng Mới</h2>
+                            
+                          </header>
+                        
+                          <table class="table table-striped table-advance table-hover">
+                           <tbody>
+                              <tr>
+                                 <th><i class="icon_profile"></i> Tên Người Dùng</th>
+                                 <th><i class="icon_calendar"></i> Địa Chỉ</th>
+                                 <th><i class="icon_cogs"></i> Hành Động</th>
+                              </tr>
+                            <% for user in @user_between %>
+                              <tr>
+                                  <td><%= user.user_name %></td>
+                                   
+                                </tr>
+                              <% end %>
+                           </tbody>
+                        </table>
+                        <%= will_paginate @user_between %>
+                      </section>
+ 
+<br>
+</section>

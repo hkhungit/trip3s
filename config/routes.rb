@@ -8,15 +8,27 @@ Rails.application.routes.draw do
   namespace :admin do
   get 'baocao/kehoach'
   end
-
+    namespace :admin do
+  get 'baocao/kehoachmoi'
+  end
+     namespace :admin do
+  get 'baocao/nguoidung'
+  end
   namespace :admin do
   get 'homeadmin/index'
   end
-
+  namespace :admin do
+  get 'baocao/index'
+  end
+  namespace :admin do
+  get 'places/search'
+  end
   namespace :admin do
     resources :comments
   end
-
+ namespace :admin do
+ 
+  end
   namespace :admin do
     resources :categories
   end
@@ -38,7 +50,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :places
+    resources :places 
   end
 
   get 'list/index'

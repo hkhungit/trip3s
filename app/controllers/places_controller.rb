@@ -278,3 +278,8 @@ def saveUserPost usepost
       puts "error save PostCategory"
     return false
   end
+   def search
+      sql5 = " select * from Posts where post_title like '%#{params[:search]}%' "
+      @places_search=Post.paginate_by_sql(sql5, :page => params[:page], :per_page => 5)
+      @places=Post.all.paginate(page: params[:page])
+    end
