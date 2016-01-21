@@ -126,7 +126,7 @@ class UsersController < ApplicationController
       elsif params[:cate][:action] == 'add'
 
         if params[:cate][:id].present?
-          cateCurrent = Category.joins(:type).where({:cate_name => params[:cate][:cate_name], :types => {:type_name => 'type_category_plan'}}).first_or_create do |ct|
+          cateCurrent = Category.joins(:type).where({:categories =>{:cate_name => params[:cate][:cate_name]}, :types => {:type_name => 'type_category_plan'}}).first_or_create do |ct|
             ct.cate_name    =  params[:cate][:cate_name]
             ct.cate_url     =  params[:cate][:cate_url]
             ct.cate_group   =  params[:cate][:cate_group]
@@ -141,8 +141,6 @@ class UsersController < ApplicationController
             tp.save
           end
 
-          cateCurrent.update({:cate_name => params[:cate][:cate_name], :cate_url =>params[:cate][:cate_url],:cate_thumbnail =>params[:cate][:cate_thumbnail],:cate_group =>params[:cate][:cate_group]})
-          
           status = true
           render json: {
             cate: cateCurrent,

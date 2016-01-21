@@ -376,7 +376,8 @@ class PlansController < ApplicationController
       plan_cates = params[:plan][:plan_cate]
       if plan_cates.present?
         plan_cates.each do |cate|
-          type = Type.where(:category_id => cate).last
+
+          type = Type.where(:category_id =>   cate.to_i).last
           if type.present?
             if type.id.present?
                planCate = PostCategory.new
@@ -391,7 +392,7 @@ class PlansController < ApplicationController
       plan_cities = params[:plan][:plan_city]
       if plan_cities.present?
         plan_cities.each do |cate|
-          type = Type.where(:category_id => cate).last
+          type = Type.where(:category_id => cate.to_i).last
           if type.present?
             if type.id.present?
               planCate = PostCategory.new
