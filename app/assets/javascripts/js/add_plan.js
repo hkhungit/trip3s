@@ -476,8 +476,8 @@ jQuery(function($) {
 
 
         console.log(schedule_id);
-        if (schedule_id == '{{schedule_id}}' || schedule_id == undefined) {
-
+        if (schedule_id == '{{schedule_id}}' || schedule_id == undefined || schedule_id == 'undefined') {
+            console.log("sdsdsd");
             for (var i = 0; i < tripPlan.placeLists.length; i++) {
                 if (tripPlan.placeLists[i].place_id == place_id) {
                     tripPlan.placeLists[i].place_time = place_time;
@@ -1138,8 +1138,6 @@ jQuery(function($) {
             });
             var obj = window.javo_map_box_func;
             obj.resize();
-
-            $('#register_waiting_create').removeClass('active_wait');
         };
 
     });
@@ -1859,8 +1857,9 @@ jQuery(function($) {
                 _placeEnd = $('select[name="tripPlan_placeEnd_' + i + '"]').val();
 
             if (typeof _placeBegin == 'undefined') {
-                _placeBegin = _placeEnd
+                _placeBegin = $('select[name="tripPlan_placeEnd_' + (i - 1) + '"]').val()
             };
+
             moneyNumbers += parseFloat(moneyNumber);
             $('input[name="tripPlan_placeMoney_' + i + '"]').val(parseFloat(moneyNumber));
             if (timeStart == 0) timeStart = 7.5;

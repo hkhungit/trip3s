@@ -30,9 +30,9 @@ class PlansController < ApplicationController
   # GET /plans/1.json
   def show
     @post = Post.where(:id=>@plan.post_id).first
-    @comments     = Comment.where(:post_id => @plan.post_id).order("id desc").limit(5);
+    @comments     = Comment.where(:post_id => @post.id).order("id desc").limit(5);
     @new_comment = @post.comments.new
-
+    
     #viewCount = @post.post_view + 1
     #@post.update({:post_view => (@post.post_view + 1)})
   end
