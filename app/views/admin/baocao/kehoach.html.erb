@@ -1,2 +1,28 @@
-<h1>Admin::Baocao#kehoach</h1>
-<p>Find me in app/views/admin/baocao/kehoach.html.erb</p>
+<section id="main-content">
+<div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              <h2>Danh Sách Top Kế Hoạch</h2>
+                             
+                          </header>
+                          
+                          <table class="table table-striped table-advance table-hover">
+                           <tbody>
+                              <tr>
+                                 <th><i class="icon_profile"></i> Tên Kế Hoạch</th>
+                                 <th><i class="icon_profile"></i> Người tạo</th>
+                              </tr>
+                              <% @plans.each do |plan| %>
+                              <tr>
+                                  <td><%= place.post.post_title %></td>
+                                  <td><%= place.place_address %></td>
+                                </tr>
+                              <% end %>
+                           </tbody>
+                        </table>
+                        <%= will_paginate @places_top %>
+                      </section>
+ 
+<br>
+</section>

@@ -16,8 +16,11 @@ class Admin::BaocaoController < ApplicationController
   def kehoachmoi
   end
   def index
-     sql3 = "select * from Users where created_at between CAST('[:thang1]' AS DATE) AND CAST('[:thang2]' AS DATE) "
-     @user_between=User.paginate_by_sql(sql3, :page => params[:page], :per_page => 10)
+    # sql3 = "select * from Users where created_at between CAS('params[:thang1]' AS DATE) AND CAST('params[:thang2]' AS DATE) "
+    @user_between=Plan.find(:all, :conditions =>["date(created_at) BETWEEN ? AND ? ", "#{params[:thang1]}","#{params[:thang2]}"])
+   end
+  def kehoachmoi
+     @user_between=Plan.find(:all, :conditions =>["date(created_at) BETWEEN ? AND ? ", "#{params[:thang1]}","#{params[:thang2]}"])
   end
  
 end

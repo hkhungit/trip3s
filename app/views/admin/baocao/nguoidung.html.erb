@@ -6,13 +6,12 @@
                               <h1>Thống kê người dùng </h1>
                              
                           </header>
-                            <%= form_tag admin_baocao_index_path,:action=>'admin/baocao/index', :method => 'get', :id => 'search_form' do %>
-  <p>
-    <%= date_field(:thang1,:thang1) %>
-    <%= date_field(:thang2, :thang1) %>
-    <%= submit_tag "Xem kết quả", :name => nil,:id=>"btn-search",:class=>"btn btn-success",:placeholder =>"Enter places" %></br>
-  </p>
+                          <% form_tag(:action => "index") do %>
+                           <%= date_field(:thang1,:thang1) %>
+                            <%= date_field(:thang2, :thang1) %>
+                            <%= submit_tag("Kết quả") %>
 <% end %>
+                            
                             
                       
                       </section>
