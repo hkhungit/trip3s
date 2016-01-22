@@ -95,8 +95,8 @@ def create
     end
   end
    def search
-      sql5 = " select B.post_title,A.place_address,A.post_id,B.id from Places A, Posts B where B.id=A.post_id and B.post_title like '%#{params[:search]}%' "
-      @places_search=Place.paginate_by_sql(sql5, :page => params[:page], :per_page => 5)
+      sql5 = " select B.post_title,A.place_address,A.post_id,B.id from places A, posts B where B.id=A.post_id and B.post_title like '%#{params[:search]}%' "
+      @places_search=Place.paginate_by_sql(sql5, :page => params[:page], :per_page => 10)
       @places=Post.all.paginate(page: params[:page])
     end
   private
