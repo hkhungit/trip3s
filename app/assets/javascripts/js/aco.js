@@ -627,8 +627,13 @@
 	                    if (_duration < encryptTime(_schPlaces[i].place_open)) {
 	                        _duration = encryptTime(_schPlaces[i].place_open);
 	                    };
+	                    _schPlaces[i].place_time = _schPlaces[i].place_time1;
 	                    if ((_duration + parseFloat(_schPlaces[i].place_time1)) > encryptTime(_schPlaces[i].place_close)) {
-	                        _schPlaces[i].place_time = parseFloat((encryptTime(_schPlaces[i].place_close) - _duration).toFixed(2));
+	                        if (encryptTime(_schPlaces[i].place_close) - _duration > 0) {
+
+	                            _schPlaces[i].place_time = parseFloat((encryptTime(_schPlaces[i].place_close) - _duration).toFixed(2));
+
+	                        };
 	                    };
 	                    _duration += parseFloat(_schPlaces[i].place_time);
 	                    _distance += _schPlaces[i].next_distance;
@@ -676,12 +681,13 @@
 	                timeCurrent = encryptTime(schedule.placeLists[i].place_open);
 	            };
 	            schedule.placeLists[i].place_come = decryptTime(timeCurrent);
+
 	            timeCurrent += parseFloat(schedule.placeLists[i].place_time) + parseFloat(schedule.placeLists[i].next_time);
+
 	        };
 
 	        schedule.placeEnd.place_come = decryptTime(timeCurrent);
 
-	        //console.log(schedule);
 	        return schedule;
 	    },
 	    antLotteryWheel = function(options, k) {

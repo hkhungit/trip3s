@@ -355,15 +355,12 @@
 
       $.post(method_url,{ cate: { 'action': action, id: cate_id, cate_name:cate_name,cate_url:cate_url,cate_group:cate_group, cate_thumbnail:cate_thumbnail}}).done(function(data){
         if (data.status == true) {
-          row.remove();
+          location.reload();
         };
       }); 
       return false;
     });
-
-    $(document).on('click','.btn-submit',function(e){
-      return false;
-    });
+ 
     $(document).on('click','.btn-reset',function(e){
        form_cate = $('.form-manage-cate'); 
       $('input[name="cate[cate_name]"]').val('');
