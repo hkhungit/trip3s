@@ -2231,7 +2231,7 @@ jQuery(function($) {
             directionsService.route(request, function(result, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(result);
-                    directionsDisplay.setPanel(document.getElementById("router-panel-" + place1.place_id));
+                    directionsDisplay.setPanel($("router-panel-" + place1.place_id));
                 }
             });
         },
